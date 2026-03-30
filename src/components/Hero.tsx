@@ -26,7 +26,7 @@ export default function Hero({
           src={imageSrc}
           alt={imageAlt}
           fill
-          className="object-cover object-center"
+          className="object-cover object-center -rotate-90 scale-[1.6]"
           priority
         />
       ) : (
