@@ -36,30 +36,27 @@ interface HowDifferentProps {
 
 export default function HowDifferent({ images = [] }: HowDifferentProps) {
   return (
-    <section className="bg-cream py-24 px-[60px]">
-      <h2 className="font-serif font-light text-ink text-[clamp(48px,4.9vw,70px)] leading-[1.1] tracking-[-0.02em] mb-16 max-w-[582px]">
+    <section className="bg-cream py-16 lg:py-24 px-4 lg:px-[60px]">
+      <h2 className="font-serif font-light text-ink text-[clamp(48px,4.9vw,70px)] leading-[1.1] tracking-[-0.02em] mb-10 lg:mb-16 max-w-[582px]">
         How is PCG different?
       </h2>
 
-      <div className="flex flex-col gap-16">
+      <div className="flex flex-col gap-10 lg:gap-16">
         {features.map((feature, i) => {
           const imageOnLeft = i % 2 === 0;
           const imgSrc = images[i];
 
           return (
-            <div
-              key={feature.title}
-              className={`grid grid-cols-2 gap-x-16 items-center ${imageOnLeft ? '' : 'direction-rtl'}`}
-            >
-              {/* Image */}
-              <div className={`relative aspect-[662/367] rounded-[20px] overflow-hidden bg-cream-warm ${imageOnLeft ? 'order-1' : 'order-2'}`}>
+            <div key={feature.title} className="flex flex-col lg:grid lg:grid-cols-2 lg:gap-x-16 lg:items-center gap-6">
+              {/* Image — always on top on mobile */}
+              <div className={`relative aspect-[662/367] rounded-[20px] overflow-hidden bg-cream-warm ${imageOnLeft ? 'lg:order-1' : 'lg:order-2'}`}>
                 {imgSrc && (
                   <Image src={imgSrc} alt={feature.imageAlt ?? feature.title} fill className="object-cover" />
                 )}
               </div>
 
               {/* Text */}
-              <div className={imageOnLeft ? 'order-2' : 'order-1'}>
+              <div className={imageOnLeft ? 'lg:order-2' : 'lg:order-1'}>
                 <h3 className="font-sans text-ink text-[clamp(24px,2.3vw,33px)] leading-[1.3] mb-4">
                   {feature.title}
                 </h3>

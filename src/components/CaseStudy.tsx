@@ -17,12 +17,12 @@ export default function CaseStudy({
         {label}
       </p>
 
-      <blockquote className="font-sans text-gold text-[clamp(28px,3.5vw,50px)] leading-[1.15] tracking-[-0.02em] text-center max-w-[800px] mb-14">
+      <blockquote className="font-sans text-gold text-[30px] lg:text-[clamp(28px,3.5vw,50px)] leading-[1.15] tracking-[-0.02em] text-center max-w-[800px] mb-14">
         {quote}
       </blockquote>
 
       {/* Image card */}
-      <div className="relative w-full max-w-[774px] aspect-[774/374] rounded-[23px] overflow-hidden bg-cream-warm">
+      <div className="relative w-full max-w-[774px] aspect-[774/374] rounded-[20px] lg:rounded-[23px] overflow-hidden bg-cream-warm">
         {imageSrc && (
           <Image src={imageSrc} alt="Case study" fill className="object-cover" />
         )}

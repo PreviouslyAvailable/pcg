@@ -31,7 +31,7 @@ export default function InsightsSection({ posts = placeholderPosts }: InsightsSe
         </div>
       </div>
 
-      <div className="grid grid-cols-4 gap-6">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
         {posts.map((post) => (
           <div key={post.href} className="flex flex-col">
             {/* Image */}

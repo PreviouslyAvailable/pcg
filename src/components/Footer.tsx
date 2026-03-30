@@ -9,7 +9,7 @@ const navLinks = [
 
 export default function Footer() {
   return (
-    <footer className="bg-cream px-[45px] pt-20 pb-12">
+    <footer className="bg-cream px-4 lg:px-[45px] pt-12 lg:pt-20 pb-8 lg:pb-12">
       {/* Logo row */}
       <div className="flex items-center gap-2 mb-8">
         <svg width="152" height="39" viewBox="0 0 152 39" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -21,7 +21,7 @@ export default function Footer() {
       <div className="border-t border-black/15 pt-10 mb-10">
         {/* Newsletter */}
         <p className="font-mono text-[10px] uppercase tracking-[0.33px] text-ink/50 mb-4">Newsletter</p>
-        <h3 className="font-serif font-light text-ink text-[38px] leading-[1.15] tracking-[-0.48px] mb-8 max-w-[437px]">
+        <h3 className="font-serif font-light text-ink text-[32px] lg:text-[38px] leading-[1.15] tracking-[-0.48px] mb-6 lg:mb-8 max-w-[437px]">
           Subscribe to our mailing list to receive the latest updates.
         </h3>
         <form className="flex gap-3 max-w-[437px]">
@@ -39,9 +39,9 @@ export default function Footer() {
         </form>
       </div>
 
-      <div className="border-t border-black/15 pt-8 flex items-center justify-between">
+      <div className="border-t border-black/15 pt-6 lg:pt-8 flex flex-wrap items-center gap-4 lg:justify-between">
         {/* Nav links */}
-        <div className="flex items-center gap-8">
+        <div className="flex flex-wrap items-center gap-4 lg:gap-8">
           {navLinks.map((link) => (
             <Link key={link.href} href={link.href} className="font-nav text-[14px] text-ink hover:opacity-60 transition-opacity">
               {link.label}

@@ -63,23 +63,13 @@ export default function Navbar({ variant = 'dark' }: NavbarProps) {
           </Link>
         </div>
 
-        {/* Mobile hamburger */}
+        {/* Mobile menu toggle */}
         <button
-          className={`lg:hidden ${textColor}`}
+          className={`lg:hidden font-nav text-[16px] leading-none ${textColor}`}
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Toggle menu"
         >
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-            {menuOpen ? (
-              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-            ) : (
-              <>
-                <line x1="3" y1="6" x2="21" y2="6" />
-                <line x1="3" y1="12" x2="21" y2="12" />
-                <line x1="3" y1="18" x2="21" y2="18" />
-              </>
-            )}
-          </svg>
+          {menuOpen ? 'Close' : 'Menu'}
         </button>
       </nav>
 
