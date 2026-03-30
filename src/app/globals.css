@@ -2,17 +2,18 @@
 
 @theme inline {
   /* Fonts */
-  --font-serif:  var(--font-season-serif), Georgia, serif;
-  --font-sans:   var(--font-special-gothic), "Helvetica Neue", Arial, sans-serif;
-  --font-mono:   var(--font-azeret-mono), monospace;
+  --font-serif:    var(--font-season-serif), Georgia, serif;
+  --font-sans:     var(--font-special-gothic), "Helvetica Neue", Arial, sans-serif;
+  --font-nav:      var(--font-atkinson), "Helvetica Neue", Arial, sans-serif;
+  --font-mono:     var(--font-mono), monospace;
 
-  /* Brand Colors — extracted from Figma */
-  --color-cream:        #f9f9f0;   /* primary light bg */
-  --color-cream-warm:   #d7d1c3;   /* section bg (taupe) */
-  --color-dark:         #201914;   /* hero / dark sections */
-  --color-teal:         #408483;   /* investor section accent */
-  --color-ink:          #0f0e0b;   /* warm near-black body text */
-  --color-gold:         #ffebc4;   /* cream text on dark bg */
+  /* Brand Colors — from Figma */
+  --color-cream:        #f9f9f0;
+  --color-cream-warm:   #d7d1c3;
+  --color-dark:         #201914;
+  --color-teal:         #408483;
+  --color-ink:          #0f0e0b;
+  --color-gold:         #ffebc4;
   --color-white:        #ffffff;
   --color-black:        #000000;
 
@@ -21,7 +22,6 @@
   --color-foreground:   var(--color-ink);
 }
 
-/* Base */
 html {
   background-color: var(--color-cream);
   color: var(--color-ink);

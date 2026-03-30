@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Special_Gothic, Azeret_Mono } from "next/font/google";
+import { Special_Gothic, Atkinson_Hyperlegible, IBM_Plex_Mono } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 
@@ -9,8 +9,14 @@ const specialGothic = Special_Gothic({
   weight: "400",
 });
 
-const azeretMono = Azeret_Mono({
-  variable: "--font-azeret-mono",
+const atkinsonHyperlegible = Atkinson_Hyperlegible({
+  variable: "--font-atkinson",
+  subsets: ["latin"],
+  weight: ["400", "700"],
+});
+
+const ibmPlexMono = IBM_Plex_Mono({
+  variable: "--font-mono",
   subsets: ["latin"],
   weight: ["300", "400"],
 });
@@ -44,9 +50,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${specialGothic.variable} ${seasonSerif.variable} ${azeretMono.variable} h-full antialiased`}
+      className={`${specialGothic.variable} ${seasonSerif.variable} ${atkinsonHyperlegible.variable} ${ibmPlexMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col bg-cream text-ink">{children}</body>
     </html>
   );
 }
