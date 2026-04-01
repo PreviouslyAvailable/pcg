@@ -1,0 +1,37 @@
+@import "tailwindcss";
+
+@theme inline {
+  /* Fonts */
+  --font-serif:    var(--font-season-serif), Georgia, serif;
+  --font-sans:     var(--font-special-gothic), "Helvetica Neue", Arial, sans-serif;
+  --font-nav:      var(--font-atkinson), "Helvetica Neue", Arial, sans-serif;
+  --font-mono:     var(--font-mono), monospace;
+
+  /* Brand Colors — from Figma */
+  --color-cream:        #f9f9f0;
+  --color-cream-warm:   #d7d1c3;
+  --color-dark:         #201914;
+  --color-teal:         #408483;
+  --color-ink:          #0f0e0b;
+  --color-gold:         #ffebc4;
+  --color-white:        #ffffff;
+  --color-black:        #000000;
+
+  /* Semantic */
+  --color-background:   var(--color-cream);
+  --color-foreground:   var(--color-ink);
+}
+
+html {
+  background-color: var(--color-cream);
+  color: var(--color-ink);
+}
+
+body {
+  font-family: var(--font-sans);
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-serif);
+  font-weight: 300;
+}
