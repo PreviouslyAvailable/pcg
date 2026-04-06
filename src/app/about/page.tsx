@@ -64,12 +64,13 @@ export default function AboutPage() {
       />
 
       {/* Our Story */}
-      <section className="px-4 lg:px-[60px] py-16 lg:py-24 grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
+      <section className="py-16 lg:py-24">
+        <div className="pcg-inner grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
         <div className="relative aspect-[4/5] rounded-[16px] overflow-hidden bg-cream-warm">
           <Image src="/images/how-4.jpg" alt="Our story" fill className="object-cover object-top" />
         </div>
         <div>
-          <h2 className="font-serif font-light text-ink text-[clamp(36px,3.5vw,54px)] leading-[1.0] tracking-[-0.02em] mb-6">
+          <h2 className="font-serif font-light text-ink text-[clamp(40px,4.2vw,64px)] leading-[1.03] tracking-[-0.012em] mb-6">
             Our Story
           </h2>
           <div className="space-y-4 font-nav text-ink text-[18px] leading-[1.4] mb-8">
@@ -90,10 +91,12 @@ export default function AboutPage() {
             Meet the Team
           </Link>
         </div>
+        </div>
       </section>
 
       {/* Three feature cards */}
-      <section className="px-4 lg:px-[60px] pb-16 lg:pb-24 grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <section className="pb-16 lg:pb-24">
+        <div className="pcg-inner grid grid-cols-1 lg:grid-cols-3 gap-6">
         {[
           {
             title: 'Stability through every cycle',
@@ -115,8 +118,8 @@ export default function AboutPage() {
           },
         ].map((card) => (
           <div key={card.title} className="bg-cream-warm rounded-[18px] p-8 flex flex-col gap-4">
-            <h3 className="font-sans text-ink text-[22px] leading-[1.15]">{card.title}</h3>
-            <p className="font-nav text-ink text-[16px] leading-[1.4] flex-1">{card.body}</p>
+            <h3 className="font-sans text-ink text-[26px] leading-[1.2]">{card.title}</h3>
+            <p className="font-nav text-ink text-[18px] leading-[1.3] flex-1">{card.body}</p>
             <Link
               href={card.href}
               className="self-start font-sans text-[14px] uppercase tracking-wide text-ink border border-ink rounded-[8px] px-5 py-2.5 hover:bg-ink/5 transition-colors"
@@ -125,6 +128,7 @@ export default function AboutPage() {
             </Link>
           </div>
         ))}
+        </div>
       </section>
 
       {/* Quote banner */}
@@ -137,18 +141,22 @@ export default function AboutPage() {
       />
 
       {/* Executive Team */}
-      <section id="team" className="px-4 lg:px-[60px] py-16 lg:py-24">
-        <h2 className="font-sans text-ink text-[28px] lg:text-[32px] mb-10">Executive Team</h2>
+      <section id="team" className="py-16 lg:py-24">
+        <div className="pcg-inner">
+        <h2 className="font-sans text-ink text-[clamp(40px,4.2vw,64px)] leading-[1.03] tracking-[-0.012em] mb-10">Executive Team</h2>
         <div className="grid grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
           {executiveTeam.map((m) => <TeamCard key={m.name + m.role} {...m} />)}
+        </div>
         </div>
       </section>
 
       {/* Board of Directors */}
-      <section className="px-4 lg:px-[60px] pb-16 lg:pb-24">
-        <h2 className="font-sans text-ink text-[28px] lg:text-[32px] mb-10">Board of Directors</h2>
+      <section className="pb-16 lg:pb-24">
+        <div className="pcg-inner">
+        <h2 className="font-sans text-ink text-[clamp(40px,4.2vw,64px)] leading-[1.03] tracking-[-0.012em] mb-10">Board of Directors</h2>
         <div className="grid grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
           {boardMembers.map((m) => <TeamCard key={m.name + m.role + 'board'} {...m} />)}
+        </div>
         </div>
       </section>
 

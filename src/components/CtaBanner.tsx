@@ -4,7 +4,7 @@ interface CtaBannerProps {
   heading?: string;
   ctaLabel?: string;
   ctaHref?: string;
-  background?: 'cream' | 'dark' | 'image';
+  background?: 'cream' | 'dark' | 'teal' | 'image';
   imageSrc?: string;
 }
 
@@ -16,9 +16,17 @@ export default function CtaBanner({
   imageSrc,
 }: CtaBannerProps) {
   const isImageBg = background === 'image' && imageSrc;
+  const isTeal = background === 'teal';
+  const isDark = background === 'dark';
+  const isLight = !isImageBg && !isTeal && !isDark;
 
   return (
-    <section className={`relative py-24 px-10 flex flex-col items-center ${background === 'dark' ? 'bg-dark' : 'bg-cream'}`}>
+    <section
+      className={`relative py-20 ${
+        isDark ? 'bg-dark' : isTeal ? 'bg-teal' : 'bg-cream'
+      }`}
+    >
+      <div className="pcg-inner flex flex-col items-center">
       {isImageBg && (
         <>
           <div
@@ -30,15 +38,24 @@ export default function CtaBanner({
       )}
 
       <div className="relative z-10 flex flex-col items-center gap-8 max-w-[746px]">
-        <h2 className={`font-serif font-light text-[clamp(36px,3.75vw,54px)] leading-[1.05] tracking-[-0.02em] text-center ${isImageBg || background === 'dark' ? 'text-gold' : 'text-ink'}`}>
+        <h2
+          className={`font-serif font-light text-[clamp(36px,3.75vw,54px)] leading-[1.05] tracking-[-0.012em] text-center ${
+            isLight ? 'text-ink' : 'text-cream'
+          }`}
+        >
           {heading}
         </h2>
         <Link
           href={ctaHref}
-          className={`font-sans text-[16px] uppercase tracking-wide px-8 py-3 rounded-[10px] border transition-colors ${isImageBg || background === 'dark' ? 'border-gold text-gold hover:bg-gold/10' : 'border-ink text-ink hover:bg-ink/5'}`}
+          className={`font-sans text-[16px] uppercase tracking-wide px-8 py-3 rounded-[10px] border transition-colors ${
+            isLight
+              ? 'border-ink text-ink hover:bg-ink/5'
+              : 'border-cream text-cream hover:bg-cream/10'
+          }`}
         >
           {ctaLabel}
         </Link>
+      </div>
       </div>
     </section>
   );

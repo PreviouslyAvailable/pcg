@@ -12,7 +12,8 @@ export default function CaseStudy({
   label = 'Case Study',
 }: CaseStudyProps) {
   return (
-    <section className="bg-dark py-24 px-10 flex flex-col items-center">
+    <section className="bg-dark py-24">
+      <div className="pcg-inner flex flex-col items-center">
       <p className="font-sans text-[16px] uppercase tracking-widest text-gold/60 mb-10">
         {label}
       </p>
@@ -36,6 +37,7 @@ export default function CaseStudy({
             className={`block size-[9px] rounded-full ${i === 0 ? 'bg-gold' : 'bg-gold/30'}`}
           />
         ))}
+      </div>
       </div>
     </section>
   );

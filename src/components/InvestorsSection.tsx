@@ -20,7 +20,7 @@ export default function InvestorsSection({ imageSrc }: InvestorsSectionProps) {
       <div className="bg-teal px-4 lg:px-[60px] py-16 lg:py-20 flex flex-col justify-between">
         <div>
           {/* Mobile heading differs from desktop */}
-          <h2 className="font-serif font-light text-white text-[50px] lg:text-[clamp(48px,4.3vw,62px)] leading-[0.9] tracking-[-0.02em] mb-10 lg:mb-12">
+          <h2 className="font-serif font-light text-white text-[clamp(40px,4.2vw,64px)] leading-[1.03] tracking-[-0.012em] mb-10 lg:mb-12">
             <span className="lg:hidden">What about investment?</span>
             <span className="hidden lg:block">For Investors</span>
           </h2>

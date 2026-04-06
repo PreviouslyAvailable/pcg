@@ -36,8 +36,9 @@ interface HowDifferentProps {
 
 export default function HowDifferent({ images = [] }: HowDifferentProps) {
   return (
-    <section className="bg-cream py-16 lg:py-24 px-4 lg:px-[60px]">
-      <h2 className="font-serif font-light text-ink text-[clamp(48px,4.9vw,70px)] leading-[1.1] tracking-[-0.02em] mb-10 lg:mb-16 max-w-[582px]">
+    <section className="bg-cream py-16 lg:py-24">
+      <div className="pcg-inner">
+      <h2 className="font-serif font-light text-ink text-[clamp(40px,4.2vw,64px)] leading-[1.03] tracking-[-0.012em] mb-10 lg:mb-16 max-w-[582px]">
         How is PCG different?
       </h2>
 
@@ -57,16 +58,17 @@ export default function HowDifferent({ images = [] }: HowDifferentProps) {
 
               {/* Text */}
               <div className={imageOnLeft ? 'lg:order-2' : 'lg:order-1'}>
-                <h3 className="font-sans text-ink text-[clamp(24px,2.3vw,33px)] leading-[1.3] mb-4">
+                <h3 className="font-sans text-ink text-[26px] leading-[1.2] mb-4">
                   {feature.title}
                 </h3>
-                <p className="font-nav text-ink text-[18px] leading-[1.4] max-w-[514px]">
+                <p className="font-nav text-ink text-[18px] leading-[1.3] max-w-[514px]">
                   {feature.body}
                 </p>
               </div>
             </div>
           );
         })}
+      </div>
       </div>
     </section>
   );

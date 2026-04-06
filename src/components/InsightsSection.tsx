@@ -21,11 +21,12 @@ const placeholderPosts: InsightCard[] = [
 
 export default function InsightsSection({ posts = placeholderPosts }: InsightsSectionProps) {
   return (
-    <section className="bg-cream-warm py-24 px-[60px]">
+    <section className="bg-cream-warm py-24">
+      <div className="pcg-inner">
       <div className="flex items-end justify-between mb-12">
         <div>
           <p className="font-sans text-[16px] uppercase tracking-widest text-ink mb-4">Insights</p>
-          <h2 className="font-sans text-ink text-[clamp(36px,3.3vw,48px)] leading-[1.15] tracking-[-0.02em] max-w-[797px]">
+          <h2 className="font-sans text-ink text-[clamp(40px,4.2vw,64px)] leading-[1.03] tracking-[-0.012em] max-w-[797px]">
             Gain valuable insights and follow the latest from PCG.
           </h2>
         </div>
@@ -40,7 +41,7 @@ export default function InsightsSection({ posts = placeholderPosts }: InsightsSe
                 <Image src={post.imageSrc} alt={post.title} fill className="object-cover" />
               )}
             </div>
-            <p className="font-sans text-ink text-[20px] leading-[1.3] mb-5 flex-1">
+            <p className="font-sans text-ink text-[26px] leading-[1.2] mb-5 flex-1">
               {post.title}
             </p>
             <Link
@@ -54,6 +55,7 @@ export default function InsightsSection({ posts = placeholderPosts }: InsightsSe
             </Link>
           </div>
         ))}
+      </div>
       </div>
     </section>
   );

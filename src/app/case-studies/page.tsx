@@ -48,17 +48,20 @@ export default function CaseStudiesPage() {
       <Navbar variant="light" />
 
       {/* Header */}
-      <section className="px-4 lg:px-[60px] pt-36 pb-10 lg:pt-40 lg:pb-12 grid grid-cols-1 lg:grid-cols-2 gap-8 items-end">
-        <h1 className="font-serif font-light text-ink text-[clamp(42px,5vw,72px)] leading-[1.0] tracking-[-0.02em]">
+      <section className="pt-36 pb-10 lg:pt-40 lg:pb-12">
+        <div className="pcg-inner grid grid-cols-1 lg:grid-cols-2 gap-8 items-end">
+        <h1 className="font-serif font-light text-ink text-[clamp(60px,6.4vw,92px)] leading-[1.0] tracking-[-0.015em]">
           Real Businesses, Real Results
         </h1>
         <p className="font-nav text-ink text-[18px] leading-[1.4] max-w-[380px]">
           See how we've partnered with New Zealand companies to unlock growth through tailored capital solutions
         </p>
+        </div>
       </section>
 
       {/* Featured video case study */}
-      <section className="px-4 lg:px-[60px] pb-16 lg:pb-20">
+      <section className="pb-16 lg:pb-20">
+        <div className="pcg-inner">
         <div className="relative w-full aspect-[16/9] rounded-[16px] overflow-hidden bg-dark group cursor-pointer">
           <Image src="/images/how-3.jpg" alt="United Machinist case study" fill className="object-cover opacity-80 group-hover:opacity-70 transition-opacity" />
           <div className="absolute inset-0 flex items-center justify-center">
@@ -81,10 +84,12 @@ export default function CaseStudiesPage() {
             With 20+ deals across our portfolio we provide genuine diversification and risk management that only comes with scale and experience.
           </p>
         </div>
+        </div>
       </section>
 
       {/* Case study grid */}
-      <section className="px-4 lg:px-[60px] pb-20 lg:pb-24 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10">
+      <section className="pb-20 lg:pb-24">
+        <div className="pcg-inner grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10">
         {caseStudies.map((cs) => (
           <Link key={cs.company} href={cs.href} className="group block">
             <div className="relative w-full aspect-[558/380] rounded-[16px] overflow-hidden bg-cream-warm mb-4">
@@ -98,6 +103,7 @@ export default function CaseStudiesPage() {
             <p className="font-nav text-ink text-[16px] leading-[1.4]">{cs.body}</p>
           </Link>
         ))}
+        </div>
       </section>
 
       <Footer />

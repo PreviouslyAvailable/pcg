@@ -24,7 +24,8 @@ export default function Navbar({ variant = 'dark' }: NavbarProps) {
 
   return (
     <header className="absolute top-0 left-0 right-0 z-50">
-      <nav className="flex items-center justify-between px-10 py-7">
+      <nav className="py-7">
+        <div className="pcg-inner flex items-center justify-between">
         {/* Logo */}
         <Link href="/" aria-label="Private Capital Group">
           <svg
@@ -71,11 +72,13 @@ export default function Navbar({ variant = 'dark' }: NavbarProps) {
         >
           {menuOpen ? 'Close' : 'Menu'}
         </button>
+        </div>
       </nav>
 
       {/* Mobile menu */}
       {menuOpen && (
-        <div className="lg:hidden bg-dark/95 backdrop-blur-sm px-10 py-8 flex flex-col gap-6">
+        <div className="lg:hidden bg-dark/95 backdrop-blur-sm py-8">
+          <div className="pcg-inner flex flex-col gap-6">
           {navLinks.map((link) => (
             <Link
               key={link.href}
@@ -93,6 +96,7 @@ export default function Navbar({ variant = 'dark' }: NavbarProps) {
           >
             Contact
           </Link>
+          </div>
         </div>
       )}
     </header>

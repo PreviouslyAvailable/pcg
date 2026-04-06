@@ -18,15 +18,16 @@ export default function PageHero({
   background = 'cream',
 }: PageHeroProps) {
   return (
-    <section className={`${background === 'cream' ? 'bg-cream' : 'bg-cream-warm'} pt-36 pb-16 lg:pt-40 lg:pb-20 px-4 lg:px-[60px]`}>
+    <section className={`${background === 'cream' ? 'bg-cream' : 'bg-cream-warm'} pt-36 pb-16 lg:pt-40 lg:pb-20`}>
+      <div className="pcg-inner">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
         {/* Left — text */}
         <div>
-          <h1 className="font-serif font-light text-ink text-[clamp(42px,5vw,72px)] leading-[1.0] tracking-[-0.02em] mb-6">
+          <h1 className="font-serif font-light text-ink text-[clamp(60px,6.4vw,92px)] leading-[1.0] tracking-[-0.015em] mb-6">
             {heading}
           </h1>
           {subtext && (
-            <p className="font-nav text-ink text-[18px] leading-[1.4] max-w-[480px]">
+            <p className="font-nav text-ink text-[18px] leading-[1.3] max-w-[480px]">
               {subtext}
             </p>
           )}
@@ -45,6 +46,7 @@ export default function PageHero({
             )}
           </div>
         )}
+      </div>
       </div>
     </section>
   );

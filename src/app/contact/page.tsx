@@ -21,17 +21,20 @@ export default function ContactPage() {
       <Navbar variant="light" />
 
       {/* Header */}
-      <section className="px-4 lg:px-[60px] pt-36 pb-12 lg:pt-40 lg:pb-16">
-        <h1 className="font-serif font-light text-ink text-[clamp(36px,4.5vw,64px)] leading-[1.0] tracking-[-0.02em] mb-6">
+      <section className="pt-36 pb-12 lg:pt-40 lg:pb-16">
+        <div className="pcg-inner">
+        <h1 className="font-serif font-light text-ink text-[clamp(60px,6.4vw,92px)] leading-[1.0] tracking-[-0.015em] mb-6">
           Ready to Explore Private Capital Solutions?
         </h1>
-        <p className="font-nav text-ink text-[18px] leading-[1.4] max-w-[440px]">
+        <p className="font-nav text-ink text-[18px] leading-[1.3] max-w-[440px]">
           Whether you're seeking financing for your business or considering private credit investment, we're here to help
         </p>
+        </div>
       </section>
 
       {/* Form + offices */}
-      <section className="px-4 lg:px-[60px] pb-16 lg:pb-24 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+      <section className="pb-16 lg:pb-24">
+        <div className="pcg-inner grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
         {/* Contact form */}
         <div>
           <h2 className="font-sans text-ink text-[22px] mb-6">Contact Form</h2>
@@ -80,10 +83,11 @@ export default function ContactPage() {
             </div>
           ))}
         </div>
+        </div>
       </section>
 
       {/* Quote banner with vineyard */}
-      <section className="relative min-h-[380px] flex items-center justify-center px-10 overflow-hidden">
+      <section className="relative min-h-[380px] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
           <Image src="/images/quote-bg.jpg" alt="" fill className="object-cover" />
           <div className="absolute inset-0 bg-dark/40" />

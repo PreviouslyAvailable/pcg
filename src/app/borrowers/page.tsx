@@ -75,39 +75,41 @@ export default function BorrowersPage() {
       <Navbar variant="light" />
 
       <PageHero
-        heading="Capital Solutions for the Entire Business Lifecycle"
-        subtext="We provide the structural creativity and scale to meet your most complex financing needs, from senior secured debt to non-dilutive hybrid capital."
+        heading="Capital Built for Speed and Flexibility"
+        subtext="We provide financing solutions designed to help you scale, acquire, or refinance. Partner with a local team that has the authority and expertise to say yes."
         imageSrc="/images/borrowers.jpg"
         imageAlt="Capital solutions in action"
       />
 
-      {/* Core Strategy */}
-      <section className="px-4 lg:px-[60px] py-16 lg:py-24">
-        <p className="font-mono text-[11px] uppercase tracking-[0.33px] text-ink/50 mb-6">CORE STRATEGY</p>
-        <h2 className="font-serif font-light text-ink text-[clamp(32px,3.5vw,52px)] leading-[1.0] tracking-[-0.02em] mb-12">
-          Diversified Private Credit
+      {/* Why choose PCG */}
+      <section className="py-16 lg:py-24">
+        <div className="pcg-inner">
+        <h2 className="font-serif font-light text-ink text-[clamp(40px,4.2vw,64px)] leading-[1.03] tracking-[-0.012em] mb-12">
+          Why choose PCG?
         </h2>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-16 gap-y-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-16 gap-y-10">
           {lendingTypes.map((item) => (
-            <div key={item.title} className="border-t border-black/10 pt-6">
-              <h3 className="font-sans text-ink text-[20px] leading-[1.2] mb-2">{item.title}</h3>
-              <p className="font-nav text-ink/70 text-[16px] leading-[1.5]">{item.body}</p>
+            <div key={item.title}>
+              <h3 className="font-sans text-ink text-[26px] leading-[1.2] mb-3">{item.title}</h3>
+              <p className="font-nav text-ink text-[18px] leading-[1.3]">{item.body}</p>
             </div>
           ))}
         </div>
+        </div>
       </section>
 
-      {/* Sector Focus */}
-      <section className="px-4 lg:px-[60px] pb-16 lg:pb-24 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+      {/* Our lending focus */}
+      <section className="pb-16 lg:pb-24">
+        <div className="pcg-inner grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
         <div>
-          <h2 className="font-serif font-light text-ink text-[clamp(32px,3.5vw,52px)] leading-[1.0] tracking-[-0.02em] mb-10">
-            Sector Focus
+          <h2 className="font-serif font-light text-ink text-[clamp(40px,4.2vw,64px)] leading-[1.03] tracking-[-0.012em] mb-10">
+            Our lending focus
           </h2>
-          <div className="space-y-6">
+          <div className="space-y-8">
             {sectors.map((sector) => (
-              <div key={sector.title} className="border-t border-black/10 pt-5">
-                <h3 className="font-sans text-ink text-[18px] leading-[1.2] mb-1">{sector.title}</h3>
-                <p className="font-nav text-ink/60 text-[15px] leading-[1.5]">{sector.body}</p>
+              <div key={sector.title}>
+                <h3 className="font-sans text-ink text-[26px] leading-[1.2] mb-2">{sector.title}</h3>
+                <p className="font-nav text-ink text-[18px] leading-[1.3]">{sector.body}</p>
               </div>
             ))}
           </div>
@@ -115,80 +117,98 @@ export default function BorrowersPage() {
         <div className="relative aspect-[4/5] rounded-[16px] overflow-hidden bg-cream-warm">
           <Image src="/images/how-3.jpg" alt="Sector focus" fill className="object-cover" />
         </div>
+        </div>
       </section>
 
       {/* Lending Focus & Core Lending Areas */}
-      <section className="px-4 lg:px-[60px] pb-16 lg:pb-24 grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <section className="pb-16 lg:pb-24">
+        <div className="pcg-inner grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Lending Focus card */}
-        <div className="bg-teal rounded-[18px] p-8">
-          <h3 className="font-sans text-white text-[22px] leading-[1.2] mb-2">Lending Focus &amp; Investment Criteria</h3>
-          <p className="font-nav text-white/70 text-[14px] leading-[1.4] mb-8">
+        <div className="bg-teal rounded-[18px] p-8 flex flex-col">
+          <h3 className="font-sans text-white text-[26px] leading-[1.2] mb-2">Lending Focus &amp; Investment Criteria</h3>
+          <p className="font-nav text-white/70 text-[18px] leading-[1.3] mb-8">
             Flexible Capital for New Zealand's Middle Market. We provide bespoke financing solutions for established businesses with strong management teams and clear growth trajectories.
           </p>
-          <div className="divide-y divide-white/20 mb-8">
-            {lendingCriteriaRows.map((row) => (
-              <div key={row.feature} className="flex gap-4 py-3">
-                <p className="font-mono text-[11px] uppercase tracking-[0.2px] text-white/50 w-[120px] shrink-0 pt-0.5">{row.feature}</p>
-                <p className="font-nav text-white text-[14px] leading-[1.4]">{row.criteria}</p>
-              </div>
-            ))}
+          {/* Table with headers */}
+          <div className="mb-8 flex-1">
+            <div className="flex gap-4 pb-2 mb-1">
+              <p className="font-sans text-white/60 text-[13px] uppercase tracking-wide w-[140px] shrink-0">Feature</p>
+              <p className="font-sans text-white/60 text-[13px] uppercase tracking-wide">Target Criteria</p>
+            </div>
+            <div className="divide-y divide-white/20">
+              {lendingCriteriaRows.map((row) => (
+                <div key={row.feature} className="flex gap-4 py-3">
+                  <p className="font-nav text-white/70 text-[16px] leading-[1.4] w-[140px] shrink-0">{row.feature}:</p>
+                  <p className="font-nav text-white text-[16px] leading-[1.4]">{row.criteria}</p>
+                </div>
+              ))}
+            </div>
           </div>
           <Link
             href="/contact"
-            className="inline-block font-sans text-[14px] uppercase tracking-wide text-white border border-white/40 rounded-[10px] px-6 py-3 hover:bg-white/10 transition-colors"
+            className="self-start font-sans text-[16px] uppercase tracking-wide text-white border border-white/40 rounded-[10px] px-6 py-3 hover:bg-white/10 transition-colors"
           >
             Get in Touch
           </Link>
         </div>
 
         {/* Core Lending Areas card */}
-        <div className="bg-cream-warm rounded-[18px] p-8">
-          <h3 className="font-sans text-ink text-[22px] leading-[1.2] mb-6">Core Lending Areas</h3>
-          <ul className="space-y-4 mb-8">
-            <li>
-              <p className="font-nav text-ink text-[15px] leading-[1.5]">
-                <span className="font-sans text-[14px]">Acquisition Finance &amp; MBOs:</span> Funding for strategic acquisitions, management buyouts, or private equity-backed transactions where speed and certainty are paramount.
+        <div className="bg-cream-warm rounded-[18px] p-8 flex flex-col">
+          <h3 className="font-sans text-ink text-[26px] leading-[1.2] mb-6">Core Lending Areas</h3>
+          <ul className="space-y-4 mb-6 flex-1">
+            <li className="flex gap-3">
+              <span className="text-ink mt-1.5 shrink-0">•</span>
+              <p className="font-nav text-ink text-[18px] leading-[1.3]">
+                <span className="font-sans font-semibold">Acquisition Finance &amp; MBOs:</span> Funding for strategic acquisitions, management buyouts, or private equity-backed transactions where speed and certainty are paramount.
               </p>
             </li>
-            <li>
-              <p className="font-nav text-ink text-[15px] leading-[1.5]">
-                <span className="font-sans text-[14px]">Expansion &amp; Growth Capital:</span> Providing the non-dilutive debt needed to fund new facilities, market entry or product development without giving up equity.
+            <li className="flex gap-3">
+              <span className="text-ink mt-1.5 shrink-0">•</span>
+              <p className="font-nav text-ink text-[18px] leading-[1.3]">
+                <span className="font-sans font-semibold">Expansion &amp; Growth Capital:</span> Providing the non-dilutive debt needed to fund new facilities, market entry or product development without giving up equity.
               </p>
             </li>
-            <li>
-              <p className="font-nav text-ink text-[15px] leading-[1.5]">
-                <span className="font-sans text-[14px]">Shareholder Transactions:</span> Facilitating partner buyouts, family successions, or special dividends to unlock shareholder value.
-              </p>
-            </li>
-            <li>
-              <p className="font-nav text-ink text-[15px] leading-[1.5]">
-                <span className="font-sans text-[14px]">Refinancing &amp; Recapitalisation:</span> Replacing restrictive bank facilities with flexible terms that match your operational cash flow and seasonal cycles.
+            <li className="flex gap-3">
+              <span className="text-ink mt-1.5 shrink-0">•</span>
+              <p className="font-nav text-ink text-[18px] leading-[1.3]">
+                <span className="font-sans font-semibold">Shareholder Transactions:</span> Facilitating partner buyouts, family successions, or special dividends to unlock shareholder value.
               </p>
             </li>
           </ul>
+          <p className="font-nav text-ink text-[18px] leading-[1.3] mb-8">
+            Refinancing &amp; Recapitalisation: Replacing restrictive bank facilities with flexible terms that match your operational cash flow and seasonal cycles.
+          </p>
           <Link
             href="/contact"
-            className="inline-block font-sans text-[14px] uppercase tracking-wide text-ink border border-ink rounded-[10px] px-6 py-3 hover:bg-ink/5 transition-colors"
+            className="self-start font-sans text-[16px] uppercase tracking-wide text-ink border border-ink rounded-[10px] px-6 py-3 hover:bg-ink/5 transition-colors"
           >
             Get in Touch
           </Link>
         </div>
+        </div>
       </section>
 
       {/* Risk Management Framework */}
-      <section className="px-4 lg:px-[60px] pb-16 lg:pb-24">
+      <section className="pb-16 lg:pb-24">
+        <div className="pcg-inner">
         <div className="bg-dark rounded-[18px] p-8 lg:p-12">
-          <h2 className="font-sans text-white text-[clamp(22px,2.5vw,36px)] leading-[1.2] mb-10">
+          <h2 className="font-serif font-light text-white text-[clamp(40px,4.2vw,64px)] leading-[1.03] tracking-[-0.012em] mb-12">
             Risk Management Framework
           </h2>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {riskFramework.map((item) => (
-              <div key={item.title} className="border-t border-white/15 pt-6">
-                <h3 className="font-sans text-white text-[18px] leading-[1.2] mb-2">{item.title}</h3>
-                <p className="font-nav text-white/60 text-[15px] leading-[1.5]">{item.body}</p>
-              </div>
-            ))}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-start">
+            <div className="space-y-8">
+              {riskFramework.map((item) => (
+                <div key={item.title}>
+                  <h3 className="font-serif font-light text-white text-[26px] leading-[1.2] mb-2">{item.title}</h3>
+                  <p className="font-nav text-white/60 text-[18px] leading-[1.3]">{item.body}</p>
+                </div>
+              ))}
+            </div>
+            <div className="relative aspect-[4/5] rounded-[12px] overflow-hidden bg-ink/40">
+              <Image src="/images/how-2.jpg" alt="Risk management" fill className="object-cover" />
+            </div>
           </div>
+        </div>
         </div>
       </section>
 
@@ -196,18 +216,17 @@ export default function BorrowersPage() {
         heading="Ready to access flexible funding that grows with your business?"
         ctaLabel="Get started"
         ctaHref="/contact"
-        background="image"
-        imageSrc="/images/hero-bg.jpg"
+        background="teal"
       />
 
       {/* Quote banner */}
-      <section className="relative min-h-[380px] flex items-center justify-center px-10 overflow-hidden">
+      <section className="relative min-h-[420px] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
           <Image src="/images/how-4.jpg" alt="" fill className="object-cover" />
           <div className="absolute inset-0 bg-dark/60" />
         </div>
-        <blockquote className="relative z-10 font-sans text-gold text-[clamp(22px,2.8vw,40px)] leading-[1.2] text-center max-w-[720px]">
-          Growth isn't found in cookie-cutter solutions. It's crafted through partnerships that understand your business reality.
+        <blockquote className="relative z-10 font-sans text-cream text-[clamp(28px,3.5vw,50px)] leading-[1.13] text-center max-w-[794px]">
+          Success demands more than traditional lending. It requires partners who see beyond the balance sheet to your business potential.
         </blockquote>
       </section>
 

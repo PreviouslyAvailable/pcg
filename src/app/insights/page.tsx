@@ -97,14 +97,17 @@ export default function InsightsPage() {
       <Navbar variant="light" />
 
       {/* Header */}
-      <section className="px-4 lg:px-[60px] pt-36 pb-10 lg:pt-40 lg:pb-12">
-        <h1 className="font-serif font-light text-ink text-[clamp(36px,4.5vw,64px)] leading-[1.0] tracking-[-0.02em]">
+      <section className="pt-36 pb-10 lg:pt-40 lg:pb-12">
+        <div className="pcg-inner">
+        <h1 className="font-serif font-light text-ink text-[clamp(60px,6.4vw,92px)] leading-[1.0] tracking-[-0.015em]">
           Private Credit Market Intelligence
         </h1>
+        </div>
       </section>
 
       {/* Recent Insights */}
-      <section className="px-4 lg:px-[60px] pb-16">
+      <section className="pb-16">
+        <div className="pcg-inner">
         <h2 className="font-sans text-ink text-[22px] mb-6">Recent Insights</h2>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {recentInsights.map((insight) => (
@@ -122,15 +125,19 @@ export default function InsightsPage() {
             </Link>
           ))}
         </div>
+        </div>
       </section>
 
       {/* Newsletter banner */}
-      <section className="px-4 lg:px-[60px] pb-16">
+      <section className="pb-16">
+        <div className="pcg-inner">
         <NewsletterBanner />
+        </div>
       </section>
 
       {/* Educational Resources */}
-      <section className="px-4 lg:px-[60px] pb-16">
+      <section className="pb-16">
+        <div className="pcg-inner">
         <h2 className="font-sans text-ink text-[22px] mb-6">Educational Resources</h2>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 lg:gap-6">
           {educationalResources.map((resource) => (
@@ -146,10 +153,12 @@ export default function InsightsPage() {
             </div>
           ))}
         </div>
+        </div>
       </section>
 
       {/* All Insights */}
-      <section className="px-4 lg:px-[60px] pb-20 lg:pb-24">
+      <section className="pb-20 lg:pb-24">
+        <div className="pcg-inner">
         <h2 className="font-sans text-ink text-[22px] mb-6">All Insights</h2>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 lg:gap-6">
           {allInsights.map((insight) => (
@@ -166,6 +175,7 @@ export default function InsightsPage() {
               <p className="font-sans text-ink text-[16px] leading-[1.2]">{insight.title}</p>
             </Link>
           ))}
+        </div>
         </div>
       </section>
 

@@ -22,6 +22,22 @@
   --color-foreground:   var(--color-ink);
 }
 
+/* Content container — max-width 1800px, centred, with standard padding */
+.pcg-inner {
+  max-width: 1800px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 1024px) {
+  .pcg-inner {
+    padding-left: 60px;
+    padding-right: 60px;
+  }
+}
+
 html {
   background-color: var(--color-cream);
   color: var(--color-ink);
@@ -31,7 +47,3 @@ body {
   font-family: var(--font-sans);
 }
 
-h1, h2, h3, h4 {
-  font-family: var(--font-serif);
-  font-weight: 300;
-}

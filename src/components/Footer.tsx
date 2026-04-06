@@ -9,7 +9,8 @@ const navLinks = [
 
 export default function Footer() {
   return (
-    <footer className="bg-cream px-4 lg:px-[45px] pt-12 lg:pt-20 pb-8 lg:pb-12">
+    <footer className="bg-cream">
+      <div className="pcg-inner pt-12 lg:pt-20 pb-8 lg:pb-12">
       {/* Logo row */}
       <div className="flex items-center gap-2 mb-8">
         <svg width="152" height="39" viewBox="0 0 152 39" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -21,7 +22,7 @@ export default function Footer() {
       <div className="border-t border-black/15 pt-10 mb-10">
         {/* Newsletter */}
         <p className="font-mono text-[10px] uppercase tracking-[0.33px] text-ink/50 mb-4">Newsletter</p>
-        <h3 className="font-serif font-light text-ink text-[32px] lg:text-[38px] leading-[1.15] tracking-[-0.48px] mb-6 lg:mb-8 max-w-[437px]">
+        <h3 className="font-serif font-light text-ink text-[38px] leading-[1.15] tracking-[-0.48px] mb-6 lg:mb-8 max-w-[437px]">
           Subscribe to our mailing list to receive the latest updates.
         </h3>
         <form className="flex gap-3 max-w-[437px]">
@@ -39,7 +40,7 @@ export default function Footer() {
         </form>
       </div>
 
-      <div className="border-t border-black/15 pt-6 lg:pt-8 flex flex-wrap items-center gap-4 lg:justify-between">
+      <div className="border-b border-black/15 pb-6 lg:pb-8 flex flex-wrap items-center gap-4 lg:justify-between">
         {/* Nav links */}
         <div className="flex flex-wrap items-center gap-4 lg:gap-8">
           {navLinks.map((link) => (
@@ -57,12 +58,20 @@ export default function Footer() {
           href="https://linkedin.com"
           target="_blank"
           rel="noopener noreferrer"
-          className="size-10 rounded-full bg-ink flex items-center justify-center hover:bg-ink/80 transition-colors"
+          className="rounded-full bg-ink flex items-center justify-center hover:bg-ink/80 transition-colors"
           aria-label="Follow us on LinkedIn"
         >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
-            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z" />
-            <circle cx="4" cy="4" r="2" />
+          <svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g clipPath="url(#clip0_66_24)">
+              <path d="M28.2073 26.7297H28.2111V21.2148C28.2111 18.5173 27.6303 16.4395 24.4767 16.4395C22.9609 16.4395 21.9434 17.2714 21.5282 18.0601H21.4841V16.6911H18.4941V26.7297H21.6069V21.7587C21.6069 20.4499 21.8547 19.1845 23.4754 19.1845C25.0723 19.1845 25.0961 20.6781 25.0961 21.8427V26.7297H28.2073Z" fill="white"/>
+              <path d="M13.6128 16.6914H16.7299V26.7291H13.6128V16.6914Z" fill="white"/>
+              <path d="M15.1701 11.6943C14.6914 11.6945 14.2322 11.8848 13.8937 12.2233C13.5552 12.5618 13.3649 13.0209 13.3647 13.4997C13.3647 14.4964 14.1735 15.3221 15.1701 15.3221C16.1668 15.3221 16.9767 14.4964 16.9767 13.4997C16.9762 13.0208 16.7857 12.5617 16.447 12.2232C16.1082 11.8847 15.649 11.6945 15.1701 11.6943V11.6943Z" fill="white"/>
+            </g>
+            <defs>
+              <clipPath id="clip0_66_24">
+                <rect width="15.0351" height="15.0351" fill="white" transform="translate(13.3647 11.6943)"/>
+              </clipPath>
+            </defs>
           </svg>
         </a>
       </div>
@@ -72,6 +81,7 @@ export default function Footer() {
         <span className="font-mono text-[10px] uppercase tracking-[0.33px] text-ink/50">© 2025 Private Capital Group</span>
         <Link href="/privacy" className="font-mono text-[10px] uppercase tracking-[0.33px] text-ink hover:opacity-60 transition-opacity">Privacy Policy</Link>
         <Link href="/terms" className="font-mono text-[10px] uppercase tracking-[0.33px] text-ink hover:opacity-60 transition-opacity">Terms of Service</Link>
+      </div>
       </div>
     </footer>
   );

@@ -56,20 +56,23 @@ export default async function InsightPost({ params }: { params: Promise<{ slug: 
       <Navbar variant="light" />
 
       {/* Article header */}
-      <section className="px-4 lg:px-[60px] pt-36 pb-10 lg:pt-40 lg:pb-12">
+      <section className="pt-36 pb-10 lg:pt-40 lg:pb-12">
+        <div className="pcg-inner">
         <p className="font-mono text-[11px] uppercase tracking-[0.33px] text-ink/40 mb-8">PCG INSIGHTS</p>
         <div className="max-w-[720px]">
-          <h1 className="font-serif font-light text-ink text-[clamp(36px,4vw,60px)] leading-[1.0] tracking-[-0.02em] mb-4">
+          <h1 className="font-serif font-light text-ink text-[clamp(60px,6.4vw,92px)] leading-[1.0] tracking-[-0.015em] mb-4">
             Relative Value in Private Debt
           </h1>
-          <p className="font-nav text-ink/70 text-[17px] leading-[1.5]">
+          <p className="font-nav text-ink/70 text-[18px] leading-[1.3]">
             Expert analysis and insights on private credit markets, regulatory developments, and investment opportunities
           </p>
+        </div>
         </div>
       </section>
 
       {/* Article body */}
-      <section className="px-4 lg:px-[60px] pb-16">
+      <section className="pb-16">
+        <div className="pcg-inner">
         <div className="max-w-[720px]">
           <p className="font-mono text-[11px] uppercase tracking-[0.33px] text-ink/40 mb-10">08.11.2025</p>
 
@@ -78,16 +81,16 @@ export default async function InsightPost({ params }: { params: Promise<{ slug: 
             Expert analysis and insights on private credit markets, regulatory developments, and investment opportunities
           </p>
 
-          <p className="font-nav text-ink text-[17px] leading-[1.7] mb-5">
+          <p className="font-nav text-ink text-[18px] leading-[1.3] mb-5">
             Market performance data can help demystify the wider asset class and shine a light on where relative value might best be found both in the context of the domestic versus offshore market and more specifically within the domestic market.
           </p>
-          <p className="font-nav text-ink text-[17px] leading-[1.7] mb-5">
+          <p className="font-nav text-ink text-[18px] leading-[1.3] mb-5">
             The New Zealand Private Debt market has emerged over the past 18 months as a viable capital market funding source for NZ businesses. Whilst the domestic ecosystem remains small, new and unfamiliar to many domestic investors, there is a wealth of information and context available from offshore jurisdictions which can help borrowers and investors to navigate the path ahead in NZ.
           </p>
-          <p className="font-nav text-ink text-[17px] leading-[1.7] mb-5">
+          <p className="font-nav text-ink text-[18px] leading-[1.3] mb-5">
             Private debt is still considered to be a somewhat homogeneous asset class in the eyes of most NZ investors.
           </p>
-          <p className="font-nav text-ink text-[17px] leading-[1.7] mb-10">
+          <p className="font-nav text-ink text-[18px] leading-[1.3] mb-10">
             Global, regional or domestic private debt markets, and the differences in risk and reward between each, are only now beginning to come into some degree of focus for domestic NZ investors, many of whom are looking to access the asset class for the first time.
           </p>
 
@@ -122,18 +125,22 @@ export default async function InsightPost({ params }: { params: Promise<{ slug: 
             <p className="font-mono text-[10px] text-ink/30 mt-3">Source: Bloomberg, Cliffwater, Morningstar LCD, Prequin, Goldman Sachs Global Investment Research.</p>
           </div>
         </div>
+        </div>
       </section>
 
       {/* Newsletter banner */}
-      <section className="px-4 lg:px-[60px] pb-16">
+      <section className="pb-16">
+        <div className="pcg-inner">
         <NewsletterBanner />
+        </div>
       </section>
 
       {/* Continued article */}
-      <section className="px-4 lg:px-[60px] pb-16">
+      <section className="pb-16">
+        <div className="pcg-inner">
         <div className="max-w-[720px]">
           <h2 className="font-sans text-ink text-[22px] mb-6">Domestic v offshore markets</h2>
-          <div className="space-y-5 font-nav text-ink text-[17px] leading-[1.7]">
+          <div className="space-y-5 font-nav text-ink text-[18px] leading-[1.3]">
             <p>
               Commentators and fund managers seem to be fixated on defining private debt's positive relative returns or perhaps more appropriately the benchmark risk adjusted returns it generates. Globally, and as referenced by the scale of today's private credit market (which totals some US$3.5t), private debt's place as a yield oriented complement to fixed income and cash is now universally accepted.
             </p>
@@ -145,10 +152,12 @@ export default async function InsightPost({ params }: { params: Promise<{ slug: 
             </p>
           </div>
         </div>
+        </div>
       </section>
 
       {/* Related Insights */}
-      <section className="px-4 lg:px-[60px] pb-20 lg:pb-24">
+      <section className="pb-20 lg:pb-24">
+        <div className="pcg-inner">
         <h2 className="font-sans text-ink text-[28px] mb-8">Related Insights</h2>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
           {relatedInsights.map((insight) => (
@@ -167,6 +176,7 @@ export default async function InsightPost({ params }: { params: Promise<{ slug: 
               <p className="font-nav text-ink/70 text-[14px] leading-[1.4]">{insight.body}</p>
             </Link>
           ))}
+        </div>
         </div>
       </section>
 
