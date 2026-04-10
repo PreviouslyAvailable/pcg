@@ -10,7 +10,7 @@ import Footer from '@/components/Footer';
 import { client } from '@/sanity/client';
 import { urlFor } from '@/sanity/image';
 import { homePageQuery, postsQuery, caseStudiesQuery } from '@/sanity/queries';
-import type { HomePage, PostSummary, CaseStudy } from '@/sanity/types';
+import type { HomePage, PostSummary, CaseStudy as CaseStudyType } from '@/sanity/types';
 
 export const revalidate = 60;
 
@@ -25,7 +25,7 @@ export default async function Home() {
   const [data, posts, caseStudies] = await Promise.all([
     client.fetch<HomePage>(homePageQuery).catch(() => null),
     client.fetch<PostSummary[]>(postsQuery).catch(() => null),
-    client.fetch<CaseStudy[]>(caseStudiesQuery).catch(() => []),
+    client.fetch<CaseStudyType[]>(caseStudiesQuery).catch(() => []),
   ]);
 
   const heroImageSrc = data?.hero?.backgroundImage?.asset?.url
