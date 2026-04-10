@@ -1,55 +1,131 @@
+import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
+import { notFound } from 'next/navigation';
+import { PortableText } from '@portabletext/react';
+import type { PortableTextComponents } from '@portabletext/react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import NewsletterBanner from '@/components/NewsletterBanner';
+import { client } from '@/sanity/client';
+import { postBySlugQuery, relatedPostsQuery, postSlugsQuery } from '@/sanity/queries';
+import { urlFor } from '@/sanity/image';
+import type { PostFull, PostSummary } from '@/sanity/types';
 
-const relatedInsights = [
-  {
-    title: 'Q4 2025 New Zealand Private Credit',
-    category: 'MARKET UPDATE',
-    date: 'DECEMBER 2025',
-    body: 'Analysis of current market conditions, deal flow trends, and outlook for 2026. Rising interest rates environment creating opportunities for floating rate lenders.',
-    image: '/images/how-1.jpg',
-    href: '/insights/q4-2025-nz-private-credit',
-  },
-  {
-    title: 'RBNZ Banking Reforms Impact',
-    category: 'REGULATORY REVIEW',
-    date: 'OCTOBER 2025',
-    body: 'How increasing regulatory requirements for banks are creating expanded opportunities for private credit providers in the New Zealand market.',
-    image: '/images/insight-2.jpg',
-    href: '/insights/rbnz-banking-reforms',
-  },
-  {
-    title: 'Navigating Economic Uncertainty',
-    category: 'CASE STUDY',
-    date: 'NOVEMBER 2025',
-    body: 'How increasing regulatory requirements for banks are creating expanded opportunities for private credit providers in the New Zealand market.',
-    image: '/images/insight-3.jpg',
-    href: '/insights/navigating-economic-uncertainty',
-  },
-];
+export const revalidate = 60;
 
-const tableRows = [
-  { year: '2010', hy: '15%', ll: '10%', bdc: '—', dl: '—', pd: '—', pdOff: '—' },
-  { year: '2011', hy: '-5%', ll: '-1%', bdc: '—', dl: '—', pd: '—', pdOff: '—' },
-  { year: '2012', hy: '15%', ll: '12%', bdc: '—', dl: '—', pd: '—', pdOff: '—' },
-  { year: '2013', hy: '7%', ll: '5%', bdc: '—', dl: '—', pd: '—', pdOff: '—' },
-  { year: '2014', hy: '2%', ll: '1%', bdc: '—', dl: '—', pd: '—', pdOff: '—' },
-  { year: '2015', hy: '-5%', ll: '-1%', bdc: '—', dl: '—', pd: '—', pdOff: '—' },
-  { year: '2016', hy: '17%', ll: '10%', bdc: '—', dl: '—', pd: '—', pdOff: '—' },
-  { year: '2017', hy: '7%', ll: '4%', bdc: '—', dl: '—', pd: '—', pdOff: '—' },
-  { year: '2018', hy: '-2%', ll: '-1%', bdc: '—', dl: '—', pd: '—', pdOff: '—' },
-  { year: '2019', hy: '14%', ll: '8%', bdc: '—', dl: '—', pd: '—', pdOff: '—' },
-  { year: '2020', hy: '7%', ll: '3%', bdc: '—', dl: '—', pd: '—', pdOff: '—' },
-  { year: '2021', hy: '5%', ll: '5%', bdc: '—', dl: '—', pd: '—', pdOff: '—' },
-  { year: '2022', hy: '-11%', ll: '-3%', bdc: '—', dl: '—', pd: '—', pdOff: '—' },
-  { year: '2023', hy: '13%', ll: '13%', bdc: '—', dl: '—', pd: '—', pdOff: '—' },
-];
+type Props = { params: Promise<{ slug: string }> };
 
-export default async function InsightPost({ params }: { params: Promise<{ slug: string }> }) {
-  await params;
+export async function generateStaticParams() {
+  const slugs: { slug: string }[] = await client.fetch(postSlugsQuery);
+  return slugs.map(({ slug }) => ({ slug }));
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const post: PostFull | null = await client.fetch(postBySlugQuery, { slug });
+  return { title: post?.title ?? 'Insights' };
+}
+
+function formatDate(dateStr: string) {
+  return new Date(dateStr).toLocaleDateString('en-NZ', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+  });
+}
+
+function formatDateLong(dateStr: string) {
+  return new Date(dateStr).toLocaleDateString('en-NZ', {
+    month: 'long',
+    year: 'numeric',
+  }).toUpperCase();
+}
+
+// PortableText component overrides — applies site typography
+const components: PortableTextComponents = {
+  block: {
+    normal: ({ children }) => (
+      <p className="font-nav text-ink text-[16px] leading-[1.6] mb-5">{children}</p>
+    ),
+    h2: ({ children }) => (
+      <h2 className="font-sans text-ink text-[22px] leading-[1.3] mt-10 mb-4">{children}</h2>
+    ),
+    h3: ({ children }) => (
+      <h3 className="font-sans text-ink text-[18px] leading-[1.3] mt-8 mb-3">{children}</h3>
+    ),
+    h4: ({ children }) => (
+      <h4 className="font-sans text-ink text-[16px] leading-[1.3] mt-6 mb-2">{children}</h4>
+    ),
+    blockquote: ({ children }) => (
+      <blockquote className="border-l-2 border-ink/20 pl-6 my-8 font-serif text-ink/70 text-[20px] leading-[1.4] italic">
+        {children}
+      </blockquote>
+    ),
+  },
+  list: {
+    bullet: ({ children }) => (
+      <ul className="list-disc list-outside pl-5 mb-5 space-y-2 font-nav text-ink text-[16px] leading-[1.6]">
+        {children}
+      </ul>
+    ),
+    number: ({ children }) => (
+      <ol className="list-decimal list-outside pl-5 mb-5 space-y-2 font-nav text-ink text-[16px] leading-[1.6]">
+        {children}
+      </ol>
+    ),
+  },
+  listItem: {
+    bullet: ({ children }) => <li>{children}</li>,
+    number: ({ children }) => <li>{children}</li>,
+  },
+  marks: {
+    strong: ({ children }) => <strong className="font-semibold">{children}</strong>,
+    em: ({ children }) => <em>{children}</em>,
+    link: ({ value, children }) => (
+      <a
+        href={value?.href}
+        target={value?.href?.startsWith('http') ? '_blank' : undefined}
+        rel={value?.href?.startsWith('http') ? 'noopener noreferrer' : undefined}
+        className="underline underline-offset-2 hover:text-ink/60 transition-colors"
+      >
+        {children}
+      </a>
+    ),
+  },
+  types: {
+    image: ({ value }) => {
+      if (!value?.asset) return null;
+      return (
+        <figure className="my-10">
+          <div className="relative w-full aspect-[16/9] rounded-[12px] overflow-hidden bg-cream-warm">
+            <Image
+              src={urlFor(value).width(1200).height(675).url()}
+              alt={value.alt ?? ''}
+              fill
+              className="object-cover"
+            />
+          </div>
+          {value.caption && (
+            <figcaption className="font-sans text-[13px] text-ink/50 mt-3 text-center">
+              {value.caption}
+            </figcaption>
+          )}
+        </figure>
+      );
+    },
+  },
+};
+
+export default async function InsightPost({ params }: Props) {
+  const { slug } = await params;
+
+  const [post, related]: [PostFull | null, PostSummary[]] = await Promise.all([
+    client.fetch(postBySlugQuery, { slug }),
+    client.fetch(relatedPostsQuery, { slug }),
+  ]);
+
+  if (!post) notFound();
 
   return (
     <main className="bg-cream">
@@ -57,128 +133,113 @@ export default async function InsightPost({ params }: { params: Promise<{ slug: 
 
       {/* Article header */}
       <section className="pt-36 pb-10 lg:pt-40 lg:pb-12">
-        <div className="pcg-inner">
-        <p className="font-mono text-[11px] uppercase tracking-[0.33px] text-ink/40 mb-8">PCG INSIGHTS</p>
-        <div className="max-w-[720px]">
-          <h1 className="font-serif font-light text-ink text-[clamp(60px,6.4vw,92px)] leading-[1.0] tracking-[-0.015em] mb-4">
-            Relative Value in Private Debt
-          </h1>
-          <p className="font-nav text-ink/70 text-[18px] leading-[1.3]">
-            Expert analysis and insights on private credit markets, regulatory developments, and investment opportunities
-          </p>
-        </div>
+        <div className="pcg-inner flex flex-col items-center text-center">
+          {post.category && (
+            <p className="font-sans text-[14px] uppercase tracking-[1px] text-ink/80 mb-4">
+              {post.category.replace(/-/g, ' ')}
+            </p>
+          )}
+          <div className="max-w-[720px] flex flex-col items-center text-center">
+            <h1 className="font-serif font-light text-ink text-[clamp(60px,6.4vw,80px)] leading-[1.0] tracking-[-0.015em] mb-4">
+              {post.title}
+            </h1>
+            {post.excerpt && (
+              <p className="font-nav text-ink/70 text-[16px] leading-[1.3]">{post.excerpt}</p>
+            )}
+          </div>
         </div>
       </section>
 
+      {/* Hero image */}
+      {post.mainImage && (
+        <section className="pb-10">
+          <div className="pcg-inner">
+            <div className="relative w-full aspect-[16/7] rounded-[16px] overflow-hidden bg-cream-warm">
+              <Image
+                src={urlFor(post.mainImage).width(1680).height(735).url()}
+                alt={post.mainImage.alt ?? post.title}
+                fill
+                className="object-cover"
+                priority
+                sizes="100vw"
+              />
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Article body */}
       <section className="pb-16">
-        <div className="pcg-inner">
-        <div className="max-w-[720px]">
-          <p className="font-mono text-[11px] uppercase tracking-[0.33px] text-ink/40 mb-10">08.11.2025</p>
+        <div className="pcg-inner flex flex-col items-center">
+          <div className="w-full max-w-[760px] no-measure">
+            {/* Meta row */}
+            <div className="flex gap-6 mb-10">
+              {post.publishedAt && (
+                <p className="font-sans text-[14px] uppercase tracking-[1px] text-ink/80">
+                  {formatDate(post.publishedAt)}
+                </p>
+              )}
+              {post.author && (
+                <p className="font-sans text-[14px] uppercase tracking-[1px] text-ink/80">
+                  {post.author.name}{post.author.role ? ` — ${post.author.role}` : ''}
+                </p>
+              )}
+            </div>
 
-          <h2 className="font-sans text-ink text-[22px] mb-4">Heading One</h2>
-          <p className="font-nav text-ink/70 text-[16px] leading-[1.6] mb-6">
-            Expert analysis and insights on private credit markets, regulatory developments, and investment opportunities
-          </p>
-
-          <p className="font-nav text-ink text-[18px] leading-[1.3] mb-5">
-            Market performance data can help demystify the wider asset class and shine a light on where relative value might best be found both in the context of the domestic versus offshore market and more specifically within the domestic market.
-          </p>
-          <p className="font-nav text-ink text-[18px] leading-[1.3] mb-5">
-            The New Zealand Private Debt market has emerged over the past 18 months as a viable capital market funding source for NZ businesses. Whilst the domestic ecosystem remains small, new and unfamiliar to many domestic investors, there is a wealth of information and context available from offshore jurisdictions which can help borrowers and investors to navigate the path ahead in NZ.
-          </p>
-          <p className="font-nav text-ink text-[18px] leading-[1.3] mb-5">
-            Private debt is still considered to be a somewhat homogeneous asset class in the eyes of most NZ investors.
-          </p>
-          <p className="font-nav text-ink text-[18px] leading-[1.3] mb-10">
-            Global, regional or domestic private debt markets, and the differences in risk and reward between each, are only now beginning to come into some degree of focus for domestic NZ investors, many of whom are looking to access the asset class for the first time.
-          </p>
-
-          {/* Data table */}
-          <div className="bg-cream-warm rounded-[12px] p-4 lg:p-6 mb-10 overflow-x-auto">
-            <table className="w-full font-mono text-[11px] text-ink/70 min-w-[560px]">
-              <thead>
-                <tr className="border-b border-black/10">
-                  <th className="text-left py-2 pr-4 font-normal text-ink/50">Year</th>
-                  <th className="text-left py-2 pr-4 font-normal text-ink/50">HY Bonds</th>
-                  <th className="text-left py-2 pr-4 font-normal text-ink/50">Leveraged Loans</th>
-                  <th className="text-left py-2 pr-4 font-normal text-ink/50">Public BDC</th>
-                  <th className="text-left py-2 pr-4 font-normal text-ink/50">Direct Lending</th>
-                  <th className="text-left py-2 pr-4 font-normal text-ink/50">Private Debt</th>
-                  <th className="text-left py-2 font-normal text-ink/50">PD Offshore</th>
-                </tr>
-              </thead>
-              <tbody>
-                {tableRows.map((row) => (
-                  <tr key={row.year} className="border-b border-black/5">
-                    <td className="py-1.5 pr-4">{row.year}</td>
-                    <td className="py-1.5 pr-4">{row.hy}</td>
-                    <td className="py-1.5 pr-4">{row.ll}</td>
-                    <td className="py-1.5 pr-4">{row.bdc}</td>
-                    <td className="py-1.5 pr-4">{row.dl}</td>
-                    <td className="py-1.5 pr-4">{row.pd}</td>
-                    <td className="py-1.5">{row.pdOff}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-            <p className="font-mono text-[10px] text-ink/30 mt-3">Source: Bloomberg, Cliffwater, Morningstar LCD, Prequin, Goldman Sachs Global Investment Research.</p>
+            {/* Body */}
+            {post.body && <PortableText value={post.body} components={components} />}
           </div>
-        </div>
         </div>
       </section>
 
       {/* Newsletter banner */}
       <section className="pb-16">
         <div className="pcg-inner">
-        <NewsletterBanner />
-        </div>
-      </section>
-
-      {/* Continued article */}
-      <section className="pb-16">
-        <div className="pcg-inner">
-        <div className="max-w-[720px]">
-          <h2 className="font-sans text-ink text-[22px] mb-6">Domestic v offshore markets</h2>
-          <div className="space-y-5 font-nav text-ink text-[18px] leading-[1.3]">
-            <p>
-              Commentators and fund managers seem to be fixated on defining private debt's positive relative returns or perhaps more appropriately the benchmark risk adjusted returns it generates. Globally, and as referenced by the scale of today's private credit market (which totals some US$3.5t), private debt's place as a yield oriented complement to fixed income and cash is now universally accepted.
-            </p>
-            <p>
-              What is therefore more interesting for investors to understand is how the risk reward of investing in private debt might best be measured between various jurisdictions.
-            </p>
-            <p>
-              A recent report by Frontier Advisors (an investment consultant) suggests that regardless of the size of a given investment or underlying business, the level of credit spread generated is broadly comparable (Chart 1, below). Moreover, the measure of risk reward, that is the credit spread per unit of leverage, is also broadly uniform and tends to move within a relatively narrow range over the cycle, even though this is not always at an upward trend at present (Chart 2, below).
-            </p>
-          </div>
-        </div>
+          <NewsletterBanner />
         </div>
       </section>
 
       {/* Related Insights */}
-      <section className="pb-20 lg:pb-24">
-        <div className="pcg-inner">
-        <h2 className="font-sans text-ink text-[28px] mb-8">Related Insights</h2>
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
-          {relatedInsights.map((insight) => (
-            <Link key={insight.href} href={insight.href} className="group block">
-              <div className="relative w-full aspect-[4/3] rounded-[12px] overflow-hidden bg-cream-warm mb-4">
-                <Image
-                  src={insight.image}
-                  alt={insight.title}
-                  fill
-                  className="object-cover group-hover:scale-[1.02] transition-transform duration-500"
-                />
-              </div>
-              <p className="font-mono text-[10px] uppercase tracking-[0.33px] text-ink/50 mb-1">{insight.category}</p>
-              <p className="font-sans text-ink text-[18px] leading-[1.2] mb-1">{insight.title}</p>
-              <p className="font-mono text-[10px] uppercase tracking-[0.33px] text-ink/40 mb-2">{insight.date}</p>
-              <p className="font-nav text-ink/70 text-[14px] leading-[1.4]">{insight.body}</p>
-            </Link>
-          ))}
-        </div>
-        </div>
-      </section>
+      {related.length > 0 && (
+        <section className="pb-20 lg:pb-24">
+          <div className="pcg-inner">
+            <h2 className="font-sans text-ink text-[28px] mb-8">Related Insights</h2>
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
+              {related.map((item) => (
+                <Link key={item._id} href={`/insights/${item.slug}`} className="group block">
+                  <div className="relative w-full aspect-[4/3] rounded-[12px] overflow-hidden bg-cream-warm mb-4">
+                    {item.mainImage ? (
+                      <Image
+                        src={urlFor(item.mainImage).width(600).height(450).url()}
+                        alt={item.mainImage.alt ?? item.title}
+                        fill
+                        className="object-cover group-hover:scale-[1.02] transition-transform duration-500"
+                        sizes="(max-width: 1024px) 100vw, 33vw"
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-cream-warm" />
+                    )}
+                  </div>
+                  {item.category && (
+                    <p className="font-sans text-[14px] uppercase tracking-[1px] text-ink/80 mb-1">
+                      {item.category.replace(/-/g, ' ')}
+                    </p>
+                  )}
+                  <p className="font-sans text-ink text-[16px] leading-[1.2] mb-1">{item.title}</p>
+                  {item.publishedAt && (
+                    <p className="font-sans text-[14px] uppercase tracking-[1px] text-ink/80 mb-2">
+                      {formatDateLong(item.publishedAt)}
+                    </p>
+                  )}
+                  {item.excerpt && (
+                    <p className="font-nav text-ink/70 text-[14px] leading-[1.4]">{item.excerpt}</p>
+                  )}
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       <Footer />
     </main>

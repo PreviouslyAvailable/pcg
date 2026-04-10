@@ -50,10 +50,10 @@ export default function CaseStudiesPage() {
       {/* Header */}
       <section className="pt-36 pb-10 lg:pt-40 lg:pb-12">
         <div className="pcg-inner grid grid-cols-1 lg:grid-cols-2 gap-8 items-end">
-        <h1 className="font-serif font-light text-ink text-[clamp(60px,6.4vw,92px)] leading-[1.0] tracking-[-0.015em]">
+        <h1 className="font-serif font-light text-ink text-[clamp(60px,6.4vw,80px)] leading-[1.0] tracking-[-0.015em]">
           Real Businesses, Real Results
         </h1>
-        <p className="font-nav text-ink text-[18px] leading-[1.4] max-w-[380px]">
+        <p className="font-nav text-ink text-[16px] leading-[1.4] max-w-[380px]">
           See how we've partnered with New Zealand companies to unlock growth through tailored capital solutions
         </p>
         </div>
@@ -99,7 +99,7 @@ export default function CaseStudiesPage() {
               <p className="font-sans text-ink text-[22px]">{cs.company}</p>
               <ArrowIcon />
             </div>
-            <p className="font-mono text-[10px] uppercase tracking-[0.33px] text-ink/50 mb-3">{cs.person}</p>
+            <p className="font-sans text-[14px] uppercase tracking-[1px] text-ink/80 mb-3">{cs.person}</p>
             <p className="font-nav text-ink text-[16px] leading-[1.4]">{cs.body}</p>
           </Link>
         ))}

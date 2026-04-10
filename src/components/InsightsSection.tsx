@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import FadeUp from './FadeUp';
 
 interface InsightCard {
   title: string;
@@ -23,25 +24,25 @@ export default function InsightsSection({ posts = placeholderPosts }: InsightsSe
   return (
     <section className="bg-cream-warm py-24">
       <div className="pcg-inner">
-      <div className="flex items-end justify-between mb-12">
+      <FadeUp className="flex items-end justify-between mb-12">
         <div>
-          <p className="font-sans text-[16px] uppercase tracking-widest text-ink mb-4">Insights</p>
-          <h2 className="font-sans text-ink text-[clamp(40px,4.2vw,64px)] leading-[1.03] tracking-[-0.012em] max-w-[797px]">
+          <p className="font-sans text-[14px] uppercase tracking-[1px] text-ink/80 mb-4">Insights</p>
+          <h2 className="font-sans text-ink text-[clamp(36px,3.5vw,50px)] leading-[1.05] tracking-[-0.02em] max-w-[797px]">
             Gain valuable insights and follow the latest from PCG.
           </h2>
         </div>
-      </div>
+      </FadeUp>
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
-        {posts.map((post) => (
-          <div key={post.href} className="flex flex-col">
+        {posts.map((post, i) => (
+          <FadeUp key={post.href} delay={i * 80} className="flex flex-col">
             {/* Image */}
-            <div className="relative aspect-[308/389] rounded-[20px] overflow-hidden bg-cream mb-5">
+            <div className="relative aspect-[308/389] rounded-[20px] overflow-hidden bg-cream mb-5 hover-zoom">
               {post.imageSrc && (
-                <Image src={post.imageSrc} alt={post.title} fill className="object-cover" />
+                <Image src={post.imageSrc} alt={post.title} fill className="object-cover img-zoom" />
               )}
             </div>
-            <p className="font-sans text-ink text-[26px] leading-[1.2] mb-5 flex-1">
+            <p className="font-sans text-ink text-[20px] leading-[1.15] mb-5 flex-1">
               {post.title}
             </p>
             <Link
@@ -53,7 +54,7 @@ export default function InsightsSection({ posts = placeholderPosts }: InsightsSe
                 <path d="M1 6h10M6 1l5 5-5 5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </Link>
-          </div>
+          </FadeUp>
         ))}
       </div>
       </div>

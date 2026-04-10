@@ -7,6 +7,7 @@ const navLinks = [
   { label: 'About', href: '/about' },
   { label: 'Borrowers', href: '/borrowers' },
   { label: 'Investors', href: '/investors' },
+  { label: 'Strategies', href: '/strategies' },
   { label: 'Case Studies', href: '/case-studies' },
   { label: 'Insights', href: '/insights' },
 ];
@@ -25,8 +26,9 @@ export default function Navbar({ variant = 'dark' }: NavbarProps) {
   return (
     <header className="absolute top-0 left-0 right-0 z-50">
       <nav className="py-7">
-        <div className="pcg-inner flex items-center justify-between">
-        {/* Logo */}
+        <div className="flex items-center justify-between px-4 lg:px-[40px] max-w-[1680px] mx-auto">
+        {/* Left: Logo + Nav links */}
+        <div className="flex items-center gap-8 lg:gap-20">
         <Link href="/" aria-label="Private Capital Group">
           <svg
             width="152"
@@ -41,8 +43,8 @@ export default function Navbar({ variant = 'dark' }: NavbarProps) {
           </svg>
         </Link>
 
-        {/* Desktop nav */}
-        <div className="hidden lg:flex items-center gap-8">
+        {/* Desktop nav links — grouped with logo on the left */}
+        <div className="hidden lg:flex items-center gap-6 xl:gap-8">
           {navLinks.map((link) => (
             <Link
               key={link.href}
@@ -53,12 +55,17 @@ export default function Navbar({ variant = 'dark' }: NavbarProps) {
             </Link>
           ))}
         </div>
+        </div>{/* end left group */}
 
-        {/* Contact CTA */}
+        {/* Contact CTA — right side */}
         <div className="hidden lg:flex items-center gap-4">
           <Link
             href="/contact"
-            className={`font-nav text-[16px] px-6 py-2 rounded-[10px] border ${borderColor} ${textColor} bg-black/30 hover:bg-black/50 transition-colors`}
+            className={`font-nav text-[15px] px-6 py-1.5 rounded-[10px] border transition-colors ${
+              variant === 'dark'
+                ? `${borderColor} ${textColor} bg-black/30 hover:bg-black/50`
+                : `${borderColor} ${textColor} hover:bg-ink/5`
+            }`}
           >
             Contact
           </Link>
@@ -78,13 +85,13 @@ export default function Navbar({ variant = 'dark' }: NavbarProps) {
       {/* Mobile menu */}
       {menuOpen && (
         <div className="lg:hidden bg-dark/95 backdrop-blur-sm py-8">
-          <div className="pcg-inner flex flex-col gap-6">
+          <div className="flex flex-col gap-6 px-4 lg:px-[60px]">
           {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
               onClick={() => setMenuOpen(false)}
-              className="font-nav text-[18px] text-gold"
+              className="font-nav text-[16px] text-gold"
             >
               {link.label}
             </Link>
@@ -92,7 +99,7 @@ export default function Navbar({ variant = 'dark' }: NavbarProps) {
           <Link
             href="/contact"
             onClick={() => setMenuOpen(false)}
-            className="font-nav text-[18px] text-gold border border-gold rounded-[10px] px-6 py-3 w-fit"
+            className="font-nav text-[16px] text-gold border border-gold rounded-[10px] px-6 py-3 w-fit"
           >
             Contact
           </Link>

@@ -10,7 +10,7 @@ const navLinks = [
 export default function Footer() {
   return (
     <footer className="bg-cream">
-      <div className="pcg-inner pt-12 lg:pt-20 pb-8 lg:pb-12">
+      <div className="pt-12 lg:pt-20 pb-8 lg:pb-12 px-4 lg:px-[45px] max-w-[1680px] mx-auto">
       {/* Logo row */}
       <div className="flex items-center gap-2 mb-8">
         <svg width="152" height="39" viewBox="0 0 152 39" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -21,15 +21,15 @@ export default function Footer() {
 
       <div className="border-t border-black/15 pt-10 mb-10">
         {/* Newsletter */}
-        <p className="font-mono text-[10px] uppercase tracking-[0.33px] text-ink/50 mb-4">Newsletter</p>
+        <p className="font-sans text-[12px] uppercase tracking-[1px] text-ink/80 mb-4">Newsletter</p>
         <h3 className="font-serif font-light text-ink text-[38px] leading-[1.15] tracking-[-0.48px] mb-6 lg:mb-8 max-w-[437px]">
           Subscribe to our mailing list to receive the latest updates.
         </h3>
-        <form className="flex gap-3 max-w-[437px]">
+        <form className="flex gap-3 max-w-[437px] mb-[20px]">
           <input
             type="email"
             placeholder="Email Address"
-            className="flex-1 bg-white rounded-[6px] px-4 py-3 font-nav text-[14px] text-ink placeholder:text-ink/40 outline-none border border-black/10 focus:border-black/30 transition-colors"
+            className="flex-1 bg-white rounded-[6px] px-4 py-3 font-nav text-[16px] text-ink placeholder:text-ink/40 outline-none border border-black/10 focus:border-black/30 transition-colors"
           />
           <button
             type="submit"
@@ -44,11 +44,11 @@ export default function Footer() {
         {/* Nav links */}
         <div className="flex flex-wrap items-center gap-4 lg:gap-8">
           {navLinks.map((link) => (
-            <Link key={link.href} href={link.href} className="font-nav text-[14px] text-ink hover:opacity-60 transition-opacity">
+            <Link key={link.href} href={link.href} className="font-nav text-[15px] cursor-pointer text-ink hover:opacity-60 transition-opacity">
               {link.label}
             </Link>
           ))}
-          <Link href="/contact" className="font-nav text-[14px] text-ink border border-ink rounded-[8px] px-5 py-1.5 hover:bg-ink/5 transition-colors">
+          <Link href="/contact" className="font-nav text-[16px] text-ink border border-ink rounded-[8px] px-5 py-1.5 hover:bg-ink/5 transition-colors">
             Contact
           </Link>
         </div>

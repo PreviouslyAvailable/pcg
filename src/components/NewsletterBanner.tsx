@@ -1,6 +1,6 @@
 export default function NewsletterBanner() {
   return (
-    <div className="bg-teal rounded-[18px] px-8 py-12 lg:px-16 lg:py-14 text-center">
+    <div className="bg-teal rounded-[16px] px-8 py-12 lg:px-16 lg:py-14 text-center">
       <h2 className="font-sans text-white text-[clamp(22px,2.5vw,36px)] leading-[1.2] mb-3">
         Stay Informed About Private Credit Markets
       </h2>

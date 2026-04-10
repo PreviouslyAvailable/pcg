@@ -22,7 +22,7 @@ export default function CtaBanner({
 
   return (
     <section
-      className={`relative py-20 ${
+      className={`relative py-[calc(var(--spacing)*18)] ${
         isDark ? 'bg-dark' : isTeal ? 'bg-teal' : 'bg-cream'
       }`}
     >

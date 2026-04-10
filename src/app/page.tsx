@@ -7,39 +7,96 @@ import InvestorsSection from '@/components/InvestorsSection';
 import HowDifferent from '@/components/HowDifferent';
 import InsightsSection from '@/components/InsightsSection';
 import Footer from '@/components/Footer';
+import { client } from '@/sanity/client';
+import { urlFor } from '@/sanity/image';
+import { homePageQuery, postsQuery, caseStudiesQuery } from '@/sanity/queries';
+import type { HomePage, PostSummary, CaseStudy } from '@/sanity/types';
 
-const insightPosts = [
+export const revalidate = 60;
+
+const insightPostsFallback = [
   { title: 'PCG News: Welcome to new investor – Aurora KiwiSaver', href: '/insights/aurora-kiwisaver', imageSrc: '/images/insight-1.jpg' },
   { title: 'PCG Insights: Relative Value in Private Debt', href: '/insights/relative-value-private-debt', imageSrc: '/images/insight-2.jpg' },
   { title: 'PCG News: KangaNews NZ Private Debt Feature', href: '/insights/kanganews-feature', imageSrc: '/images/insight-3.jpg' },
   { title: 'PCG Insights: Private Debt – What Do We Mean?', href: '/insights/private-debt-what-do-we-mean', imageSrc: '/images/insight-4.jpg' },
 ];
 
-export default function Home() {
+export default async function Home() {
+  const [data, posts, caseStudies] = await Promise.all([
+    client.fetch<HomePage>(homePageQuery).catch(() => null),
+    client.fetch<PostSummary[]>(postsQuery).catch(() => null),
+    client.fetch<CaseStudy[]>(caseStudiesQuery).catch(() => []),
+  ]);
+
+  const heroImageSrc = data?.hero?.backgroundImage?.asset?.url
+    ? urlFor(data.hero.backgroundImage).width(1920).height(1080).url()
+    : '/images/hero-bg.jpg';
+
+  const caseStudyImageSrc = data?.caseStudy?.image?.asset?.url
+    ? urlFor(data.caseStudy.image).width(774).height(374).url()
+    : '/images/case-study.jpg';
+
+  const quoteBannerImageSrc = data?.quoteBanner?.image?.asset?.url
+    ? urlFor(data.quoteBanner.image).width(1920).height(800).url()
+    : '/images/quote-bg.jpg';
+
+  const howDifferentImages = data?.howDifferentSection?.items?.map((item) =>
+    item.image?.asset?.url
+      ? urlFor(item.image).width(662).height(367).url()
+      : undefined
+  ) ?? ['/images/how-1.jpg', '/images/how-2.jpg', '/images/how-3.jpg', '/images/how-4.jpg'];
+
+  // Map Sanity posts to InsightsSection format, fall back to hardcoded
+  const insightPosts =
+    posts && posts.length > 0
+      ? posts.slice(0, 4).map((p) => ({
+          title: p.title,
+          href: `/insights/${p.slug}`,
+          imageSrc: p.mainImage?.asset
+            ? urlFor(p.mainImage).width(480).height(320).url()
+            : '/images/insight-1.jpg',
+        }))
+      : insightPostsFallback;
+
   return (
     <main>
       <Navbar variant="dark" />
-      <Hero imageSrc="/images/hero-bg.jpg" />
+      <Hero
+        imageSrc={heroImageSrc}
+        headline={data?.hero?.heading ?? undefined}
+        subtext={data?.hero?.subtext ?? undefined}
+      />
       <HomeIntro
         borrowersImageSrc="/images/borrowers.jpg"
         investorsImageSrc="/images/investors-right.jpg"
       />
-      <CaseStudy imageSrc="/images/case-study.jpg" />
+      <CaseStudy
+        slides={caseStudies ?? []}
+        imageSrc={caseStudyImageSrc}
+        label={data?.caseStudy?.label ?? undefined}
+        quote={data?.caseStudy?.heading ?? undefined}
+      />
       <CtaBanner />
       <InvestorsSection imageSrc="/images/investors-right.jpg" />
       <CtaBanner
-        heading="Growth isn't found in cookie-cutter solutions. It's crafted through partnerships that understand your business reality."
+        heading={
+          data?.quoteBanner?.quote ??
+          "Growth isn't found in cookie-cutter solutions. It's crafted through partnerships that understand your business reality."
+        }
         ctaLabel="Get started"
         ctaHref="/contact"
         background="image"
-        imageSrc="/images/quote-bg.jpg"
+        imageSrc={quoteBannerImageSrc}
       />
-      <HowDifferent images={['/images/how-1.jpg', '/images/how-2.jpg', '/images/how-3.jpg', '/images/how-4.jpg']} />
+      <HowDifferent images={howDifferentImages.filter(Boolean) as string[]} />
       <InsightsSection posts={insightPosts} />
       <CtaBanner
-        heading="Ready to access flexible funding that grows with your business?"
-        ctaLabel="Get started"
-        ctaHref="/contact"
+        heading={
+          data?.ctaBannerBottom?.heading ??
+          'Ready to access flexible funding that grows with your business?'
+        }
+        ctaLabel={data?.ctaBannerBottom?.ctaLabel ?? 'Get started'}
+        ctaHref={data?.ctaBannerBottom?.ctaHref ?? '/contact'}
         background="cream"
       />
       <Footer />

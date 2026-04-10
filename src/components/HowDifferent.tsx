@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import FadeUp from './FadeUp';
 
 interface Feature {
   title: string;
@@ -36,36 +37,31 @@ interface HowDifferentProps {
 
 export default function HowDifferent({ images = [] }: HowDifferentProps) {
   return (
-    <section className="bg-cream py-16 lg:py-24">
+    <section className="bg-cream py-[calc(var(--spacing)*18)]">
       <div className="pcg-inner">
-      <h2 className="font-serif font-light text-ink text-[clamp(40px,4.2vw,64px)] leading-[1.03] tracking-[-0.012em] mb-10 lg:mb-16 max-w-[582px]">
-        How is PCG different?
-      </h2>
+      <FadeUp>
+        <h2 className="font-serif font-light text-ink text-[clamp(48px,4.9vw,70px)] leading-[1.03] tracking-[-0.012em] mb-10 lg:mb-16 max-w-[582px]">
+          How is PCG different?
+        </h2>
+      </FadeUp>
 
-      <div className="flex flex-col gap-10 lg:gap-16">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-12 lg:gap-x-8 lg:gap-y-16">
         {features.map((feature, i) => {
-          const imageOnLeft = i % 2 === 0;
           const imgSrc = images[i];
-
           return (
-            <div key={feature.title} className="flex flex-col lg:grid lg:grid-cols-2 lg:gap-x-16 lg:items-center gap-6">
-              {/* Image — always on top on mobile */}
-              <div className={`relative aspect-[662/367] rounded-[20px] overflow-hidden bg-cream-warm ${imageOnLeft ? 'lg:order-1' : 'lg:order-2'}`}>
+            <FadeUp key={feature.title} delay={i * 100} className="flex flex-col">
+              <div className="relative aspect-[662/367] rounded-[20px] overflow-hidden bg-cream-warm mb-6 hover-zoom">
                 {imgSrc && (
-                  <Image src={imgSrc} alt={feature.imageAlt ?? feature.title} fill className="object-cover" />
+                  <Image src={imgSrc} alt={feature.imageAlt ?? feature.title} fill className="object-cover img-zoom" />
                 )}
               </div>
-
-              {/* Text */}
-              <div className={imageOnLeft ? 'lg:order-2' : 'lg:order-1'}>
-                <h3 className="font-sans text-ink text-[26px] leading-[1.2] mb-4">
-                  {feature.title}
-                </h3>
-                <p className="font-nav text-ink text-[18px] leading-[1.3] max-w-[514px]">
-                  {feature.body}
-                </p>
-              </div>
-            </div>
+              <h3 className="font-sans text-ink text-[33px] leading-[1.2] mb-3">
+                {feature.title}
+              </h3>
+              <p className="font-nav text-ink text-[16px] leading-[1.3] pr-10">
+                {feature.body}
+              </p>
+            </FadeUp>
           );
         })}
       </div>

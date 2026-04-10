@@ -4,10 +4,10 @@
   /* Fonts */
   --font-serif:    var(--font-season-serif), Georgia, serif;
   --font-sans:     var(--font-special-gothic), "Helvetica Neue", Arial, sans-serif;
-  --font-nav:      var(--font-atkinson), "Helvetica Neue", Arial, sans-serif;
-  --font-mono:     var(--font-mono), monospace;
+  --font-nav:      var(--font-special-gothic), "Helvetica Neue", Arial, sans-serif;
+  --font-mono:     var(--font-ibm-plex-mono), monospace;
 
-  /* Brand Colors — from Figma */
+  /* Brand Colors */
   --color-cream:        #f9f9f0;
   --color-cream-warm:   #d7d1c3;
   --color-dark:         #201914;
@@ -22,14 +22,122 @@
   --color-foreground:   var(--color-ink);
 }
 
-/* Content container — max-width 1800px, centred, with standard padding */
+html {
+  background-color: var(--color-cream);
+  color: var(--color-ink);
+}
+
+body {
+  font-family: var(--font-nav);
+}
+
+/* Readability measure — 65 characters max on all body copy */
+p, li {
+  max-width: 55ch;
+}
+
+/* Override measure for long-form article pages */
+.no-measure p,
+.no-measure li {
+  max-width: none;
+}
+
+/* =============================================================================
+   VIEW TRANSITIONS — page-to-page animation
+   ============================================================================= */
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-out {
+  from { opacity: 1; transform: translateY(0); }
+  to   { opacity: 0; transform: translateY(-8px); }
+}
+
+::view-transition-old(root) {
+  animation: 320ms cubic-bezier(0.22,1,0.36,1) both fade-out;
+}
+
+::view-transition-new(root) {
+  animation: 480ms cubic-bezier(0.22,1,0.36,1) both fade-in;
+}
+
+/* =============================================================================
+   MOTION — Hover & interaction animations
+   ============================================================================= */
+
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Card lift */
+.hover-lift {
+  transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), box-shadow 0.35s cubic-bezier(0.22,1,0.36,1);
+}
+.hover-lift:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 24px 48px rgba(0,0,0,0.10);
+}
+
+/* Image zoom wrapper — apply to the outer container */
+.hover-zoom .img-zoom {
+  transition: transform 0.6s cubic-bezier(0.22,1,0.36,1);
+}
+.hover-zoom:hover .img-zoom {
+  transform: scale(1.04);
+}
+
+/* Button scale */
+.btn-interactive {
+  transition: transform 0.2s cubic-bezier(0.22,1,0.36,1), background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+.btn-interactive:hover {
+  transform: scale(1.025);
+}
+
+/* Link underline slide */
+.link-underline {
+  position: relative;
+}
+.link-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: currentColor;
+  transition: width 0.3s cubic-bezier(0.22,1,0.36,1);
+}
+.link-underline:hover::after {
+  width: 100%;
+}
+
+
+/* =============================================================================
+   LAYOUT — Content container & page wrapper
+   ============================================================================= */
+
+/**
+ * .pcg-inner
+ * Max-width container, centred, with responsive horizontal padding.
+ * Use inside every section to constrain and align content.
+ */
 .pcg-inner {
-  max-width: 1800px;
+  max-width: 1680px;
   margin-left: auto;
   margin-right: auto;
   padding-left: 1rem;
   padding-right: 1rem;
 }
+
+.pcg-inner-vertical {
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
 
 @media (min-width: 1024px) {
   .pcg-inner {
@@ -38,12 +146,656 @@
   }
 }
 
-html {
+@media (min-width: 1024px) {
+  .pcg-inner-vertical {
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+}
+
+
+/* =============================================================================
+   SECTIONS — Structural building blocks
+   =============================================================================
+   Usage:
+     <section class="section section--white">
+       <div class="pcg-inner"> … </div>
+     </section>
+   ============================================================================= */
+
+/**
+ * .section
+ * Standard 72px vertical padding. Combine with a background modifier.
+ */
+.section {
+  padding-top: 72px;
+  padding-bottom: 72px;
+}
+
+/* Background variants */
+.section--cream      { background-color: var(--color-cream); }
+.section--white      { background-color: var(--color-white); }
+.section--warm       { background-color: var(--color-cream-warm); }
+.section--dark       { background-color: var(--color-dark); }
+.section--teal       { background-color: var(--color-teal); }
+
+/* Padding overrides */
+.section--flush      { padding-top: 0; padding-bottom: 0; }
+.section--top-only   { padding-top: 72px;  padding-bottom: 0; }
+.section--bottom-only{ padding-top: 0;     padding-bottom: 72px; }
+
+/**
+ * .section-hero
+ * Homepage full-viewport hero. Sits behind the transparent nav.
+ * Contains a background image + gradient overlay + bottom-aligned content.
+ */
+.section-hero {
+  position: relative;
+  height: 100svh;
+  min-height: 600px;
+  max-height: 780px;
+  overflow: hidden;
+  background-color: var(--color-dark);
+}
+
+/**
+ * .section-page-hero
+ * Interior page hero used on Borrowers, Investors, Strategies, About.
+ * Top padding clears the fixed nav; no bottom padding so the next section
+ * butts up cleanly.
+ */
+.section-page-hero {
+  padding-top: 144px;
+  padding-bottom: 0;
+}
+@media (min-width: 1024px) {
+  .section-page-hero {
+    padding-top: 160px;
+  }
+}
+
+/**
+ * .section-quote
+ * Full-bleed image with centred pull-quote overlay.
+ * Place an .section-overlay div and a <blockquote> inside.
+ */
+.section-quote {
+  position: relative;
+  min-height: 420px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/**
+ * .section-overlay
+ * Dark scrim for image-backed sections (.section-quote, .section-hero).
+ */
+.section-overlay {
+  position: absolute;
+  inset: 0;
+  background-color: color-mix(in srgb, var(--color-dark) 60%, transparent);
+}
+
+
+/* =============================================================================
+   GRIDS — Responsive column layouts
+   =============================================================================
+   All grids are single-column on mobile, expanding at 1024px (lg).
+   Use .col-span-full within a 2-col grid for the 2+1 card pattern.
+   ============================================================================= */
+
+/**
+ * .grid-content
+ * Two-column layout with wide gap: image/media on one side, text on the other.
+ * Items align to the start (top) by default.
+ * Example: Our Story (about), Sector Focus (strategies), How We Work (borrowers).
+ */
+.grid-content {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+  align-items: start;
+}
+@media (min-width: 1024px) {
+  .grid-content {
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+}
+
+/**
+ * .grid-content-top
+ * Same as .grid-content but always aligns items to the top.
+ * Example: PageHero two-column.
+ */
+.grid-content-top {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+  align-items: start;
+}
+@media (min-width: 1024px) {
+  .grid-content-top {
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+}
+
+/**
+ * .grid-2
+ * Two equal columns, tight card gap (1.5rem).
+ * Example: Strategies lending criteria cards, Investors fund cards.
+ */
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+@media (min-width: 1024px) {
+  .grid-2 {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+}
+
+/**
+ * .grid-2-wide
+ * Two equal columns, wide content gap (4rem horizontal).
+ * Example: Investment opportunity (investors), Core Strategy (strategies).
+ */
+.grid-2-wide {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+}
+@media (min-width: 1024px) {
+  .grid-2-wide {
+    grid-template-columns: 1fr 1fr;
+    column-gap: 4rem;
+    row-gap: 2.5rem;
+  }
+}
+
+/**
+ * .grid-3
+ * Three equal columns.
+ * Example: About feature cards, HomeIntro feature cards.
+ */
+.grid-3 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+@media (min-width: 1024px) {
+  .grid-3 {
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1.5rem;
+  }
+}
+
+/**
+ * .grid-4
+ * Four columns (2 on mobile). Used for Insights card grid.
+ */
+.grid-4 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+@media (min-width: 1024px) {
+  .grid-4 {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+/**
+ * .grid-feature
+ * 2×2 grid for image+text feature blocks (HowDifferent).
+ */
+.grid-feature {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem 1.5rem;
+}
+@media (min-width: 640px) {
+  .grid-feature {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (min-width: 1024px) {
+  .grid-feature {
+    gap: 4rem 2rem;
+  }
+}
+
+/**
+ * .col-full
+ * Spans all columns in a .grid-2 parent.
+ * Use for the bottom full-width card in the 2+1 pattern.
+ * Example: Risk Management Framework (strategies), Active Investor Plus (investors).
+ */
+.col-full {
+  grid-column: 1 / -1;
+}
+
+
+/* =============================================================================
+   CARDS — Coloured content blocks
+   =============================================================================
+   Usage:
+     <div class="card card--teal"> … </div>
+     <div class="card card--dark col-full"> … </div>  ← 2+1 pattern
+   ============================================================================= */
+
+/**
+ * .card
+ * Base card: rounded, padded, flex column.
+ * Always combine with a colour modifier.
+ */
+.card {
+  border-radius: 16px;
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+}
+@media (min-width: 1024px) {
+  .card {
+    padding: 4.5rem;
+  }
+}
+
+.card--cream { background-color: var(--color-cream); }
+.card--warm  { background-color: var(--color-cream-warm); }
+.card--white { background-color: var(--color-white); }
+.card--teal  { background-color: var(--color-teal); }
+.card--dark  { background-color: var(--color-dark); }
+
+
+/* =============================================================================
+   IMAGE WRAPPERS — Aspect-ratio containers
+   =============================================================================
+   Place a Next.js <Image fill /> or <img> inside.
+   Usage: <div class="img-content"><Image src="…" alt="…" fill /></div>
+   ============================================================================= */
+
+/** Page hero image — wide landscape */
+.img-page-hero {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 558 / 380;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+/** Content/story image — 4:3 landscape */
+.img-content {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+/** Feature card image — cinematic (662:367 ≈ 16:8.5) */
+.img-feature {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 662 / 367;
+  border-radius: 20px;
+  overflow: hidden;
+  background-color: var(--color-cream-warm);
+}
+
+/** How We Work — side-by-side full-bleed row image */
+.img-how {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background-color: var(--color-cream-warm);
+}
+@media (min-width: 1024px) {
+  .img-how {
+    aspect-ratio: auto;
+    min-height: 480px;
+  }
+}
+
+/** Team portrait — tall portrait */
+.img-team {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  border-radius: 16px;
+  overflow: hidden;
+  background-color: var(--color-cream-warm);
+}
+
+/** Insight/post card — upright portrait */
+.img-post {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 308 / 389;
+  border-radius: 20px;
+  overflow: hidden;
   background-color: var(--color-cream);
+}
+
+/** Sector focus / risk management — landscape panel */
+.img-panel {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: 16px;
+  overflow: hidden;
+  background-color: var(--color-cream-warm);
+}
+
+
+/* =============================================================================
+   BUTTONS
+   =============================================================================
+   Usage:
+     <a class="btn btn--dark">Get started</a>
+     <a class="btn btn--light">Contact us</a>
+   ============================================================================= */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-sans);
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-radius: 10px;
+  padding: 0.75rem 1.5rem;
+  border: 1px solid;
+  transition: background-color 0.15s ease;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+/** Dark outline — use on cream / white backgrounds */
+.btn--dark {
+  color: var(--color-ink);
+  border-color: var(--color-ink);
+}
+.btn--dark:hover {
+  background-color: color-mix(in srgb, var(--color-ink) 5%, transparent);
+}
+
+/** Light outline — use on dark / teal backgrounds */
+.btn--light {
+  color: var(--color-white);
+  border-color: color-mix(in srgb, white 40%, transparent);
+}
+.btn--light:hover {
+  background-color: color-mix(in srgb, white 10%, transparent);
+}
+
+/** Gold outline — use on the homepage hero (dark background) */
+.btn--gold {
+  color: var(--color-gold);
+  border-color: var(--color-gold);
+}
+.btn--gold:hover {
+  background-color: color-mix(in srgb, var(--color-gold) 10%, transparent);
+}
+
+
+/* =============================================================================
+   TYPOGRAPHY
+   =============================================================================
+   Naming:
+     .h1-*     H1 variants (one per page maximum)
+     .h2-*     H2 variants (section headings)
+     .h3-*     H3 variants (sub-sections, card headings)
+     .body-*   Body copy
+     .text-*   Special / utility text roles
+
+   Colour modifiers (add alongside any class):
+     .on-dark   → switches ink → cream/white
+     .on-teal   → switches to white
+   ============================================================================= */
+
+/* --- H1 --- */
+
+/**
+ * .h1-hero
+ * Homepage full-bleed hero only.
+ * Season Serif, 70–120px, gold, ultra-tight leading.
+ */
+.h1-hero {
+  font-family: var(--font-serif);
+  font-weight: 300;
+  font-size: clamp(70px, 8.3vw, 120px);
+  line-height: 0.92;
+  letter-spacing: -0.015em;
+  color: var(--color-gold);
+}
+
+/**
+ * .h1-page
+ * Interior page hero (PageHero component).
+ * Season Serif, 60–80px, ink.
+ */
+.h1-page {
+  font-family: var(--font-serif);
+  font-weight: 300;
+  font-size: clamp(60px, 6.4vw, 80px);
+  line-height: 1.0;
+  letter-spacing: -0.015em;
   color: var(--color-ink);
 }
 
-body {
-  font-family: var(--font-sans);
+/* --- H2 --- */
+
+/**
+ * .h2
+ * Standard section heading. Season Serif, 40–64px.
+ * Most common H2 across all pages.
+ */
+.h2 {
+  font-family: var(--font-serif);
+  font-weight: 300;
+  font-size: clamp(30px, 4.2vw, 30px);
+  line-height: 1.03;
+  letter-spacing: -0.012em;
+  color: var(--color-ink);
 }
 
+/**
+ * .h2-lg
+ * Larger serif heading. Season Serif, 48–70px.
+ * Use for feature sections that need more visual weight (HowDifferent).
+ */
+.h2-lg {
+  font-family: var(--font-serif);
+  font-weight: 300;
+  font-size: clamp(48px, 4.9vw, 70px);
+  line-height: 1.03;
+  letter-spacing: -0.012em;
+  color: var(--color-ink);
+}
+
+/**
+ * .h2-cta
+ * CTA / banner heading. Season Serif, 36–54px.
+ * Used in CtaBanner component on cream, dark, teal, and image backgrounds.
+ * Colour is set per context via .on-dark etc.
+ */
+.h2-cta {
+  font-family: var(--font-serif);
+  font-weight: 300;
+  font-size: clamp(36px, 3.75vw, 54px);
+  line-height: 1.05;
+  letter-spacing: -0.012em;
+  color: var(--color-ink);
+}
+
+/**
+ * .h2-sans
+ * Sans-serif section heading. Special Gothic, 36–50px.
+ * Used in Insights section and anywhere a modern, less editorial feel is needed.
+ */
+.h2-sans {
+  font-family: var(--font-sans);
+  font-size: clamp(36px, 3.5vw, 50px);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--color-ink);
+}
+
+/**
+ * .h2-card
+ * Large sans heading inside a coloured card. Special Gothic, 28–40px.
+ * Used in the full-width Active Investor Plus teal card.
+ */
+.h2-card {
+  font-family: var(--font-sans);
+  font-size: clamp(28px, 3vw, 40px);
+  line-height: 1.1;
+  color: var(--color-white);
+}
+
+/* --- H3 --- */
+
+/**
+ * .h3
+ * Standard sub-section heading. Special Gothic, 26px.
+ * Use for content lists, feature items, card titles.
+ */
+.h3 {
+  font-family: var(--font-sans);
+  font-size: 26px;
+  line-height: 1.2;
+  color: var(--color-ink);
+}
+
+/**
+ * .h3-lg
+ * Larger feature card heading. Special Gothic, 33px.
+ * Use in 2×2 feature grids with an image above (HowDifferent).
+ */
+.h3-lg {
+  font-family: var(--font-sans);
+  font-size: 33px;
+  line-height: 1.2;
+  color: var(--color-ink);
+}
+
+/**
+ * .h3-sm
+ * Small card sub-heading. Special Gothic, 22px.
+ * Use inside multi-section cards (AIP sub-sections, Risk Management items).
+ */
+.h3-sm {
+  font-family: var(--font-sans);
+  font-size: 22px;
+  line-height: 1.2;
+  color: var(--color-ink);
+}
+
+/* --- BODY COPY --- */
+
+/**
+ * .body-lg
+ * Large body. Atkinson Hyperlegible, 16px.
+ * Primary reading text for intro paragraphs and key descriptions.
+ */
+.body-lg {
+  font-family: var(--font-nav);
+  font-size: 16px;
+  line-height: 1.3;
+  color: var(--color-ink);
+  max-width: 55ch;
+}
+
+/**
+ * .body
+ * Standard body. Atkinson Hyperlegible, 16px.
+ * Use in cards, table rows, secondary descriptions.
+ */
+.body {
+  font-family: var(--font-nav);
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--color-ink);
+  max-width: 55ch;
+}
+
+/* --- SPECIAL TEXT ROLES --- */
+
+/**
+ * .text-quote
+ * Full-bleed pull quote. Special Gothic, 28–50px, centred, cream.
+ * Use inside .section-quote on a dark/image background.
+ */
+.text-quote {
+  font-family: var(--font-sans);
+  font-size: clamp(28px, 3.5vw, 40px);
+  line-height: 1.1;
+  text-align: center;
+  color: var(--color-cream);
+}
+
+/**
+ * .text-eyebrow
+ * Section label / category tag. Special Gothic, 14px, uppercase.
+ * Sits above an H2 to give context (e.g. "CORE STRATEGY", "FUND OPTIONS").
+ */
+.text-eyebrow {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: color-mix(in srgb, var(--color-ink) 80%, transparent);
+}
+
+/**
+ * .text-caption
+ * Image captions and attributions. Special Gothic, 14px, uppercase.
+ */
+.text-caption {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: color-mix(in srgb, var(--color-ink) 80%, transparent);
+}
+
+/**
+ * .text-post-title
+ * Insight / news card headline. Special Gothic, 20px.
+ */
+.text-post-title {
+  font-family: var(--font-sans);
+  font-size: 20px;
+  line-height: 1.15;
+  color: var(--color-ink);
+}
+
+/**
+ * .text-nav
+ * Navigation links and form labels. Atkinson Hyperlegible, 16px.
+ */
+.text-nav {
+  font-family: var(--font-nav);
+  font-size: 15px;
+  line-height: 1;
+}
+
+/* --- COLOUR MODIFIERS --- */
+/* Add these alongside any typography class to flip colour for dark/teal backgrounds */
+
+.on-dark  { color: var(--color-cream); }
+.on-teal  { color: var(--color-white); }
+.on-gold  { color: var(--color-gold); }
+.muted    { opacity: 0.7; }
+.muted-sm { opacity: 0.5; }

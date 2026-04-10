@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import FadeUp from './FadeUp';
 
 interface HomeIntroProps {
   borrowersImageSrc?: string;
@@ -8,24 +9,21 @@ interface HomeIntroProps {
 
 export default function HomeIntro({ borrowersImageSrc, investorsImageSrc }: HomeIntroProps) {
   return (
-    <section className="bg-cream-warm">
-      {/* Label */}
-      <div className="pcg-inner pt-12 lg:pt-[72px]">
-        <p className="font-sans text-[16px] uppercase tracking-wide text-ink mb-6">What we do</p>
-      </div>
+    <section className="bg-cream-warm pt-10">
 
       {/* Mobile: single column stacked. Desktop: two-column */}
-      <div className="pcg-inner grid grid-cols-1 lg:grid-cols-2 gap-x-16 pb-10 lg:pb-0">
+      <div className="pcg-inner pcg-inner-vertical grid grid-cols-1 lg:grid-cols-2 gap-x-16 pb-10 lg:pb-0">
         {/* Left — Borrowers */}
-        <div>
+        <FadeUp>
+          <p className="font-sans text-[16px] uppercase tracking-wide text-ink mb-6">What we do</p>
           <h2 className="font-serif font-light text-[clamp(40px,4.2vw,64px)] leading-[1.03] tracking-[-0.012em] text-ink mb-5 lg:mb-6">
             Supporting New Zealand Business Growth
           </h2>
-          <p className="font-nav text-[18px] leading-[1.3] text-ink mb-6 lg:mb-8">
+          <p className="font-nav text-[16px] leading-[1.3] text-ink mb-6 lg:mb-8">
             We deliver what traditional lenders can't: flexible capital with the speed and certainty of execution that allows you grow with confidence. With $500M in committed capital and lending that ranges from $5–50M, we use our decades of experience to work with ambitious businesses, providing tailored solutions that enable growth.
           </p>
           <OutlineButton href="/borrowers">How it works</OutlineButton>
-        </div>
+        </FadeUp>
 
         {/* Right column desktop: investors image only */}
         <div className="hidden lg:block">
@@ -40,7 +38,7 @@ export default function HomeIntro({ borrowersImageSrc, investorsImageSrc }: Home
       </div>
 
       {/* Mobile: image after left text */}
-      <div className="lg:hidden pcg-inner pt-8 pb-0">
+      <div className="lg:hidden pcg-inner pcg-inner-vertical pt-8 pb-0">
         <div className="relative w-full aspect-[360/272] rounded-[11px] overflow-hidden">
           {borrowersImageSrc ? (
             <Image src={borrowersImageSrc} alt="Supporting NZ businesses" fill className="object-cover" />
@@ -51,18 +49,18 @@ export default function HomeIntro({ borrowersImageSrc, investorsImageSrc }: Home
       </div>
 
       {/* Mobile: second content block */}
-      <div className="lg:hidden pcg-inner pt-10 pb-10">
+      <div className="lg:hidden pcg-inner pcg-inner-vertical pt-10 pb-10">
         <h2 className="font-serif font-light text-[clamp(40px,4.2vw,64px)] leading-[1.03] tracking-[-0.012em] text-ink mb-5">
           Creating Investment Opportunities
         </h2>
-        <p className="font-nav text-[18px] leading-[1.3] text-ink mb-6">
+        <p className="font-nav text-[16px] leading-[1.3] text-ink mb-6">
           For investors seeking consistent returns and portfolio diversification, we provide access to institutional-quality private debt investments in New Zealand dollars, managed by experienced professionals with a proven track record.
         </p>
         <OutlineButton href="/investors">Explore investments</OutlineButton>
       </div>
 
       {/* Desktop: borrowers image left, investors text right */}
-      <div className="hidden lg:grid pcg-inner pb-[80px] grid-cols-2 gap-x-16 items-start">
+      <div className="hidden lg:grid pcg-inner pcg-inner-vertical pb-[80px] grid-cols-2 gap-x-16 items-start">
         <div className="relative w-full aspect-[558/363] rounded-[17px] overflow-hidden">
           {borrowersImageSrc ? (
             <Image src={borrowersImageSrc} alt="Supporting NZ businesses" fill className="object-cover" />
@@ -70,11 +68,11 @@ export default function HomeIntro({ borrowersImageSrc, investorsImageSrc }: Home
             <div className="absolute inset-0 bg-cream border border-black/10" />
           )}
         </div>
-        <div className="pt-4">
+        <div className="pt-[40px]">
           <h2 className="font-serif font-light text-[clamp(40px,4.2vw,64px)] leading-[1.03] tracking-[-0.012em] text-ink mb-6">
             Creating Investment Opportunities
           </h2>
-          <p className="font-nav text-[18px] leading-[1.3] text-ink mb-8">
+          <p className="font-nav text-[16px] leading-[1.3] text-ink mb-8">
             For investors seeking consistent returns and portfolio diversification, we provide access to institutional-quality private debt investments in New Zealand dollars, managed by experienced professionals with a proven track record.
           </p>
           <OutlineButton href="/investors">Explore investments</OutlineButton>
@@ -82,7 +80,7 @@ export default function HomeIntro({ borrowersImageSrc, investorsImageSrc }: Home
       </div>
 
       {/* Three feature cards — desktop only */}
-      <div className="hidden lg:grid pcg-inner pb-[80px] grid-cols-3 gap-6">
+      <div className="hidden lg:grid pcg-inner pcg-inner-vertical !pb-20 grid-cols-3 gap-6">
         {[
           {
             title: 'Stability through every cycle',
@@ -99,12 +97,12 @@ export default function HomeIntro({ borrowersImageSrc, investorsImageSrc }: Home
             body: "Extensive expertise spanning multiple sectors and deal structures across New Zealand. We understand the nuances of local business, from seasonal cash flows to regulatory requirements, and use our real-world experience with real businesses to anticipate challenges and structure solutions that actually work for your specific situation.",
             cta: { label: 'Meet the team', href: '/about' },
           },
-        ].map((card) => (
-          <div key={card.title} className="bg-white rounded-[18px] p-9 flex flex-col justify-start items-start">
+        ].map((card, i) => (
+          <FadeUp key={card.title} delay={i * 120} className="bg-white rounded-[16px] p-9 flex flex-col justify-start items-start hover-lift">
             <h3 className="font-sans text-[26px] leading-[1.2] text-ink mb-6">{card.title}</h3>
-            <p className="font-nav text-[18px] leading-[1.3] text-ink mb-8 flex-1">{card.body}</p>
+            <p className="font-nav text-[16px] leading-[1.3] text-ink mb-8 flex-1">{card.body}</p>
             <OutlineButton href={card.cta.href}>{card.cta.label}</OutlineButton>
-          </div>
+          </FadeUp>
         ))}
       </div>
     </section>
@@ -115,7 +113,7 @@ function OutlineButton({ href, children }: { href: string; children: React.React
   return (
     <Link
       href={href}
-      className="inline-flex items-center font-sans text-[16px] uppercase tracking-wide text-ink border border-ink rounded-[10px] px-6 py-3 hover:bg-ink/5 transition-colors"
+      className="inline-flex items-center font-sans text-[14px] uppercase tracking-wide text-ink border border-ink rounded-[10px] px-6 py-3 hover:bg-ink/5 transition-colors"
     >
       {children}
     </Link>

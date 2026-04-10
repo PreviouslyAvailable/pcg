@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import FadeUp from './FadeUp';
 
 interface HeroProps {
   imageSrc?: string;
@@ -19,7 +20,7 @@ export default function Hero({
   secondaryCta = { label: 'For Investors', href: '/investors' },
 }: HeroProps) {
   return (
-    <section className="relative h-screen min-h-[680px] max-h-[900px] overflow-hidden bg-dark">
+    <section className="relative h-screen min-h-[600px] max-h-[780px] overflow-hidden bg-dark">
       {/* Background image */}
       {imageSrc ? (
         <Image
@@ -38,32 +39,37 @@ export default function Hero({
       <div className="absolute inset-0 bg-gradient-to-r from-dark/90 via-dark/50 to-transparent" />
 
       {/* Content */}
-      <div className="relative h-full flex flex-col justify-end pb-16 lg:pb-24">
-        <div className="pcg-inner">
+      <div className="relative h-full flex flex-col justify-end pb-16 lg:pb-20">
+        <div className="max-w-[1680px] mx-auto w-full px-4 lg:px-[60px]">
         <div className="max-w-[760px]">
-          <h1 className="font-serif font-light text-gold text-[clamp(60px,6.4vw,92px)] leading-[1.0] tracking-[-0.015em] mb-6 lg:mb-8">
-            {headline}
-          </h1>
+          <FadeUp threshold={0} delay={200} duration={1000}>
+            <h1 className="font-serif font-light text-gold text-[clamp(70px,8.3vw,120px)] leading-[0.92] tracking-[-0.015em] mb-6 lg:mb-8">
+              {headline}
+            </h1>
+          </FadeUp>
 
-          <p className="font-nav text-gold/90 text-[18px] leading-[1.3] mb-8 lg:mb-10 max-w-[448px]">
-            {subtext}
-          </p>
+          <FadeUp threshold={0} delay={450} duration={1000}>
+            <p className="font-nav text-gold/90 text-[16px] leading-[1.3] mb-8 lg:mb-10 max-w-[448px]">
+              {subtext}
+            </p>
+          </FadeUp>
 
-          <div className="flex flex-wrap gap-4">
-            <Link
-              href={primaryCta.href}
-              className="font-sans text-gold text-[16px] uppercase tracking-wide border border-gold rounded-[10px] px-6 py-3 hover:bg-gold/10 transition-colors"
-            >
-              {primaryCta.label}
-            </Link>
-            {/* Hidden on mobile — Figma shows single CTA */}
-            <Link
-              href={secondaryCta.href}
-              className="hidden lg:inline-flex font-sans text-gold text-[16px] uppercase tracking-wide border border-gold rounded-[10px] px-6 py-3 hover:bg-gold/10 transition-colors"
-            >
-              {secondaryCta.label}
-            </Link>
-          </div>
+          <FadeUp threshold={0} delay={650} duration={1000}>
+            <div className="flex flex-wrap gap-4">
+              <Link
+                href={primaryCta.href}
+                className="font-sans text-gold text-[16px] uppercase tracking-wide border border-gold rounded-[10px] px-6 py-3 hover:bg-gold/10 transition-colors"
+              >
+                {primaryCta.label}
+              </Link>
+              <Link
+                href={secondaryCta.href}
+                className="hidden lg:inline-flex font-sans text-gold text-[16px] uppercase tracking-wide border border-gold rounded-[10px] px-6 py-3 hover:bg-gold/10 transition-colors"
+              >
+                {secondaryCta.label}
+              </Link>
+            </div>
+          </FadeUp>
         </div>
         </div>
       </div>

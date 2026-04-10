@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Special_Gothic, Atkinson_Hyperlegible, IBM_Plex_Mono } from "next/font/google";
+import { Special_Gothic, IBM_Plex_Mono } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 
@@ -9,14 +9,8 @@ const specialGothic = Special_Gothic({
   weight: "400",
 });
 
-const atkinsonHyperlegible = Atkinson_Hyperlegible({
-  variable: "--font-atkinson",
-  subsets: ["latin"],
-  weight: ["400", "700"],
-});
-
 const ibmPlexMono = IBM_Plex_Mono({
-  variable: "--font-mono",
+  variable: "--font-ibm-plex-mono",
   subsets: ["latin"],
   weight: ["300", "400"],
 });
@@ -38,7 +32,10 @@ const seasonSerif = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Private Capital Group",
+  title: {
+    template: '%s | PCG | Private Capital Group',
+    default: 'PCG | Private Capital Group',
+  },
   description: "New Zealand's most experienced private capital lender.",
 };
 
@@ -50,7 +47,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${specialGothic.variable} ${seasonSerif.variable} ${atkinsonHyperlegible.variable} ${ibmPlexMono.variable} h-full antialiased`}
+      className={`${specialGothic.variable} ${seasonSerif.variable} ${ibmPlexMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-cream text-ink">{children}</body>
     </html>
