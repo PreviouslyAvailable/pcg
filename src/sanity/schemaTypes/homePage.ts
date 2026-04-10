@@ -63,6 +63,26 @@ export const homePage = defineType({
       ],
     }),
     defineField({
+      name: 'investorsSection',
+      title: 'Investors Section',
+      type: 'object',
+      fields: [
+        defineField({ name: 'heading', title: 'Heading (Desktop)', type: 'string' }),
+        defineField({ name: 'headingMobile', title: 'Heading (Mobile)', type: 'string' }),
+        defineField({ name: 'body', title: 'Body Text', type: 'text' }),
+        defineField({
+          name: 'bulletPoints',
+          title: 'Bullet Points',
+          type: 'array',
+          of: [defineArrayMember({ type: 'string' })],
+        }),
+        defineField({ name: 'ctaLabel', title: 'Button Label (Desktop)', type: 'string' }),
+        defineField({ name: 'ctaLabelMobile', title: 'Button Label (Mobile)', type: 'string' }),
+        defineField({ name: 'ctaHref', title: 'Button Link', type: 'string' }),
+        imageField('image', 'Image'),
+      ],
+    }),
+    defineField({
       name: 'quoteBanner',
       title: 'Quote Banner',
       type: 'object',

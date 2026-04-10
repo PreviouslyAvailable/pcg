@@ -79,6 +79,16 @@ export const homePageQuery = groq`
       subheading,
       featureCards[] { title, body }
     },
+    investorsSection {
+      heading,
+      headingMobile,
+      body,
+      bulletPoints,
+      ctaLabel,
+      ctaLabelMobile,
+      ctaHref,
+      image ${imageProjection}
+    },
     caseStudy {
       label,
       heading,

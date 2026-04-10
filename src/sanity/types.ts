@@ -81,6 +81,16 @@ export interface HomePage {
     subheading?: string
     featureCards?: Array<{ title?: string; body?: string }>
   }
+  investorsSection?: {
+    heading?: string
+    headingMobile?: string
+    body?: string
+    bulletPoints?: string[]
+    ctaLabel?: string
+    ctaLabelMobile?: string
+    ctaHref?: string
+    image?: SanityImage
+  }
   caseStudy?: {
     label?: string
     heading?: string

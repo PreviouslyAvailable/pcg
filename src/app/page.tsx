@@ -77,7 +77,20 @@ export default async function Home() {
         quote={data?.caseStudy?.heading ?? undefined}
       />
       <CtaBanner />
-      <InvestorsSection imageSrc="/images/investors-right.jpg" />
+      <InvestorsSection
+        imageSrc={
+          data?.investorsSection?.image?.asset?.url
+            ? data.investorsSection.image.asset.url
+            : '/images/investors-right.jpg'
+        }
+        heading={data?.investorsSection?.heading}
+        headingMobile={data?.investorsSection?.headingMobile}
+        body={data?.investorsSection?.body}
+        bulletPoints={data?.investorsSection?.bulletPoints}
+        ctaLabel={data?.investorsSection?.ctaLabel}
+        ctaLabelMobile={data?.investorsSection?.ctaLabelMobile}
+        ctaHref={data?.investorsSection?.ctaHref}
+      />
       <CtaBanner
         heading={
           data?.quoteBanner?.quote ??

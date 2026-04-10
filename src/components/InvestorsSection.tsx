@@ -4,9 +4,16 @@ import FadeUp from './FadeUp';
 
 interface InvestorsSectionProps {
   imageSrc?: string;
+  heading?: string;
+  headingMobile?: string;
+  body?: string;
+  bulletPoints?: string[];
+  ctaLabel?: string;
+  ctaLabelMobile?: string;
+  ctaHref?: string;
 }
 
-const features = [
+const defaultBullets = [
   'Target OCR + 4% net returns',
   'Monthly income distributions',
   '100% floating rate provides inflation protection',
@@ -14,23 +21,33 @@ const features = [
   'PIE structure for tax efficiency',
 ];
 
-export default function InvestorsSection({ imageSrc }: InvestorsSectionProps) {
+export default function InvestorsSection({
+  imageSrc,
+  heading,
+  headingMobile,
+  body,
+  bulletPoints,
+  ctaLabel,
+  ctaLabelMobile,
+  ctaHref,
+}: InvestorsSectionProps) {
+  const bullets = bulletPoints && bulletPoints.length > 0 ? bulletPoints : defaultBullets;
+
   return (
     <section className="flex flex-col lg:grid lg:grid-cols-2 min-h-[784px]">
       {/* Teal panel — top on mobile, left on desktop */}
       <div className="bg-teal py-16 lg:py-20 flex flex-col justify-between">
         <div className="max-w-[1680px] mx-auto w-full px-4 lg:px-[60px] flex flex-col justify-between h-full">
         <FadeUp>
-          {/* Mobile heading differs from desktop */}
           <h2 className="font-serif font-light text-white text-[clamp(40px,4.2vw,64px)] leading-[1.03] tracking-[-0.012em] mb-10 lg:mb-12">
-            <span className="lg:hidden">What about investment?</span>
-            <span className="hidden lg:block">For Investors</span>
+            <span className="lg:hidden">{headingMobile ?? 'What about investment?'}</span>
+            <span className="hidden lg:block">{heading ?? 'For Investors'}</span>
           </h2>
           <p className="font-nav text-white text-[16px] leading-[1.3] mb-4 max-w-[348px]">
-            We combine a 20-year global track record with a primary focus on capital preservation and consistent monthly income
+            {body ?? 'We combine a 20-year global track record with a primary focus on capital preservation and consistent monthly income'}
           </p>
           <ul className="space-y-1 mb-10 lg:mb-12">
-            {features.map((f) => (
+            {bullets.map((f) => (
               <li key={f} className="font-nav text-white text-[16px] leading-[1.3] flex gap-2">
                 <span className="mt-[6px] shrink-0 size-[5px] rounded-full bg-white/70" />
                 {f}
@@ -40,11 +57,11 @@ export default function InvestorsSection({ imageSrc }: InvestorsSectionProps) {
         </FadeUp>
         <FadeUp delay={200}>
         <Link
-          href="/investors"
+          href={ctaHref ?? '/investors'}
           className="self-start font-sans text-[16px] uppercase tracking-wide text-white border border-white rounded-[10px] px-6 py-3 hover:bg-white/10 transition-colors"
         >
-          <span className="lg:hidden">Investments</span>
-          <span className="hidden lg:block">See Investment Options</span>
+          <span className="lg:hidden">{ctaLabelMobile ?? 'Investments'}</span>
+          <span className="hidden lg:block">{ctaLabel ?? 'See Investment Options'}</span>
         </Link>
         </FadeUp>
         </div>
