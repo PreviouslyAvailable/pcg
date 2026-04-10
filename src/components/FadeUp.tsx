@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 interface FadeUpProps {
   children: React.ReactNode;
@@ -9,7 +9,7 @@ interface FadeUpProps {
   duration?: number;    // ms
   distance?: number;    // px
   threshold?: number;   // 0–1
-  as?: keyof JSX.IntrinsicElements;
+  as?: React.ElementType;
 }
 
 export default function FadeUp({
@@ -43,7 +43,6 @@ export default function FadeUp({
   }, [threshold]);
 
   return (
-    // @ts-expect-error — dynamic tag
     <Tag
       ref={ref}
       className={className}
