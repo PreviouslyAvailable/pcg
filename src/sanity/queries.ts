@@ -69,6 +69,7 @@ const imageProjection = `{ ..., asset->{ _id, url, metadata { dimensions } } }`
 
 export const homePageQuery = groq`
   *[_type == "homePage"][0] {
+    pageTitle,
     hero {
       heading,
       subtext,
@@ -132,6 +133,7 @@ export const homePageQuery = groq`
 
 export const aboutPageQuery = groq`
   *[_type == "aboutPage"][0] {
+    pageTitle,
     hero {
       heading,
       subtext,
@@ -171,6 +173,7 @@ export const aboutPageQuery = groq`
 
 export const borrowersPageQuery = groq`
   *[_type == "borrowersPage"][0] {
+    pageTitle,
     hero {
       heading,
       subtext,
@@ -200,6 +203,7 @@ export const borrowersPageQuery = groq`
 
 export const investorsPageQuery = groq`
   *[_type == "investorsPage"][0] {
+    pageTitle,
     hero {
       heading,
       subtext,
@@ -225,6 +229,7 @@ export const investorsPageQuery = groq`
 
 export const strategiesPageQuery = groq`
   *[_type == "strategiesPage"][0] {
+    pageTitle,
     hero {
       heading,
       subtext,
@@ -259,6 +264,7 @@ export const strategiesPageQuery = groq`
 
 export const contactPageQuery = groq`
   *[_type == "contactPage"][0] {
+    pageTitle,
     hero { heading, subtext },
     offices[] {
       name,
@@ -274,6 +280,7 @@ export const contactPageQuery = groq`
 
 export const insightsPageQuery = groq`
   *[_type == "insightsPage"][0] {
+    pageTitle,
     slug,
     heading,
     recentInsightsHeading,

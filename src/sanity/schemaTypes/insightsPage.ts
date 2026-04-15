@@ -6,6 +6,12 @@ export const insightsPage = defineType({
   type: 'document',
   fields: [
     defineField({
+      name: 'pageTitle',
+      title: 'Page Name (Browser Tab)',
+      type: 'string',
+      description: 'Appears in the browser tab and search results',
+    }),
+    defineField({
       name: 'slug',
       title: 'Page URL',
       type: 'string',

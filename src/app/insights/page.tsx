@@ -9,9 +9,10 @@ import { postsQuery, insightsPageQuery } from '@/sanity/queries';
 import { urlFor } from '@/sanity/image';
 import type { PostSummary, InsightsPage } from '@/sanity/types';
 
-export const metadata: Metadata = {
-  title: 'Insights',
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const data = await client.fetch<InsightsPage>(insightsPageQuery).catch(() => null);
+  return { title: data?.pageTitle ?? 'Insights' };
+}
 
 // Revalidate every 60 seconds
 export const revalidate = 60;

@@ -14,9 +14,10 @@ import FadeUp from '@/components/FadeUp';
 
 export const revalidate = 60;
 
-export const metadata: Metadata = {
-  title: 'Investors',
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const data = await client.fetch<InvestorsPage>(investorsPageQuery).catch(() => null);
+  return { title: data?.pageTitle ?? 'Investors' };
+}
 
 const fallbackFundDetails = [
   { label: 'Fund Structure', value: 'PIE (Portfolio Investment Entity) - tax-efficient for New Zealand investors' },

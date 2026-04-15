@@ -72,6 +72,7 @@ export interface SiteSettings {
 // ─── Page Types ──────────────────────────────────────────────────────────────
 
 export interface HomePage {
+  pageTitle?: string
   hero?: {
     heading?: string
     subtext?: string
@@ -144,6 +145,7 @@ export interface HomePage {
 }
 
 export interface AboutPage {
+  pageTitle?: string
   hero?: {
     heading?: string
     subtext?: string
@@ -174,6 +176,7 @@ export interface AboutPage {
 }
 
 export interface BorrowersPage {
+  pageTitle?: string
   hero?: {
     heading?: string
     subtext?: string
@@ -214,6 +217,7 @@ export interface BorrowersPage {
 }
 
 export interface InvestorsPage {
+  pageTitle?: string
   hero?: {
     heading?: string
     subtext?: string
@@ -249,6 +253,7 @@ export interface InvestorsPage {
 }
 
 export interface StrategiesPage {
+  pageTitle?: string
   hero?: {
     heading?: string
     subtext?: string
@@ -301,6 +306,7 @@ export interface StrategiesPage {
 }
 
 export interface InsightsPage {
+  pageTitle?: string
   slug?: string
   heading?: string
   recentInsightsHeading?: string
@@ -309,6 +315,7 @@ export interface InsightsPage {
 }
 
 export interface ContactPage {
+  pageTitle?: string
   hero?: {
     heading?: string
     subtext?: string

@@ -9,9 +9,10 @@ import type { ContactPage } from '@/sanity/types';
 
 export const revalidate = 60;
 
-export const metadata: Metadata = {
-  title: 'Contact',
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const data = await client.fetch<ContactPage>(contactPageQuery).catch(() => null);
+  return { title: data?.pageTitle ?? 'Contact' };
+}
 
 const fallbackOffices = [
   { name: 'Auckland Office', addressLines: ['Level 2', 'The Mountaineer Building', '32 Rees Street, Queenstown'], image: '/images/insight-3.jpg' },

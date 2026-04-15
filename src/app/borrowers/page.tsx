@@ -13,9 +13,10 @@ import type { BorrowersPage } from '@/sanity/types';
 
 export const revalidate = 60;
 
-export const metadata: Metadata = {
-  title: 'Borrowers',
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const data = await client.fetch<BorrowersPage>(borrowersPageQuery).catch(() => null);
+  return { title: data?.pageTitle ?? 'Borrowers' };
+}
 
 const fallbackWhyPCG = [
   { title: 'Bespoke Capital Structures', body: "We tailor loans around your business, not a rigid credit policy. Whether it's interest-only periods to preserve cash flow or seasonal repayment schedules that match your revenue, we have the flexibility to design financing that actually fits your operational reality." },

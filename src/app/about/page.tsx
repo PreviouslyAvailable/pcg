@@ -15,9 +15,10 @@ import FadeUp from '@/components/FadeUp';
 
 export const revalidate = 60;
 
-export const metadata: Metadata = {
-  title: 'About',
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const data = await client.fetch<AboutPage>(aboutPageQuery).catch(() => null);
+  return { title: data?.pageTitle ?? 'About' };
+}
 
 const fallbackExecutiveTeam = [
   { _id: '1', name: 'Andrew Golding', role: 'Chair', image: undefined },

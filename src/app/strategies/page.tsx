@@ -14,9 +14,10 @@ import FadeUp from '@/components/FadeUp';
 
 export const revalidate = 60;
 
-export const metadata: Metadata = {
-  title: 'Strategies',
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const data = await client.fetch<StrategiesPage>(strategiesPageQuery).catch(() => null);
+  return { title: data?.pageTitle ?? 'Strategies' };
+}
 
 const fallbackStrategies = [
   { title: 'Senior Secured Lending', body: 'Provide your business with the lowest cost of private capital through first-lien positions and conservative security packages. Designed for established, cash generative businesses seeking stable, long-term funding for defensive operations.' },
