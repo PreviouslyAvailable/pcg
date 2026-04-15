@@ -2,12 +2,65 @@ import Image from 'next/image';
 import Link from 'next/link';
 import FadeUp from './FadeUp';
 
+interface FeatureCard {
+  title?: string;
+  body?: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+}
+
 interface HomeIntroProps {
   borrowersImageSrc?: string;
   investorsImageSrc?: string;
+  eyebrow?: string;
+  borrowersHeading?: string;
+  borrowersBody?: string;
+  borrowersCtaLabel?: string;
+  borrowersCtaHref?: string;
+  investorsHeading?: string;
+  investorsBody?: string;
+  investorsCtaLabel?: string;
+  investorsCtaHref?: string;
+  featureCards?: FeatureCard[];
 }
 
-export default function HomeIntro({ borrowersImageSrc, investorsImageSrc }: HomeIntroProps) {
+const defaultCards: FeatureCard[] = [
+  {
+    title: 'Stability through every cycle',
+    body: "There's no substitute for having operated private debt funds through economic recessions, financial crises, and high growth periods. Each creates unique challenges, especially for the uninitiated. Our experience across multiple market cycles in global markets gives us the competence to navigate any environment.",
+    ctaLabel: 'Learn more',
+    ctaHref: '/about',
+  },
+  {
+    title: 'Cash-on-hand, ready to invest.',
+    body: "PCG has grown to $500M Assets Under Management. From $5M at inception to one of New Zealand's largest private credit funds today. This growth reflects the trust our investors and borrowers place in our expertise and execution.",
+    ctaLabel: 'About our Funds',
+    ctaHref: '/investors',
+  },
+  {
+    title: 'Deep Sector Expertise',
+    body: "Extensive expertise spanning multiple sectors and deal structures across New Zealand. We understand the nuances of local business, from seasonal cash flows to regulatory requirements, and use our real-world experience with real businesses to anticipate challenges and structure solutions that actually work for your specific situation.",
+    ctaLabel: 'Meet the team',
+    ctaHref: '/about',
+  },
+];
+
+export default function HomeIntro({
+  borrowersImageSrc,
+  investorsImageSrc,
+  eyebrow,
+  borrowersHeading,
+  borrowersBody,
+  borrowersCtaLabel,
+  borrowersCtaHref,
+  investorsHeading,
+  investorsBody,
+  investorsCtaLabel,
+  investorsCtaHref,
+  featureCards,
+}: HomeIntroProps) {
+  const cards = featureCards && featureCards.length > 0 ? featureCards : defaultCards;
+
   return (
     <section className="bg-cream-warm pt-10">
 
@@ -15,14 +68,18 @@ export default function HomeIntro({ borrowersImageSrc, investorsImageSrc }: Home
       <div className="pcg-inner pcg-inner-vertical grid grid-cols-1 lg:grid-cols-2 gap-x-16 pb-10 lg:pb-0">
         {/* Left — Borrowers */}
         <FadeUp>
-          <p className="font-sans text-[16px] uppercase tracking-wide text-ink mb-6">What we do</p>
+          <p className="font-sans text-[16px] uppercase tracking-wide text-ink mb-6">
+            {eyebrow ?? 'What we do'}
+          </p>
           <h2 className="font-serif font-light text-[clamp(40px,4.2vw,64px)] leading-[1.03] tracking-[-0.012em] text-ink mb-5 lg:mb-6">
-            Supporting New Zealand Business Growth
+            {borrowersHeading ?? 'Supporting New Zealand Business Growth'}
           </h2>
           <p className="font-nav text-[16px] leading-[1.3] text-ink mb-6 lg:mb-8">
-            We deliver what traditional lenders can't: flexible capital with the speed and certainty of execution that allows you grow with confidence. With $500M in committed capital and lending that ranges from $5–50M, we use our decades of experience to work with ambitious businesses, providing tailored solutions that enable growth.
+            {borrowersBody ?? "We deliver what traditional lenders can't: flexible capital with the speed and certainty of execution that allows you grow with confidence. With $500M in committed capital and lending that ranges from $5–50M, we use our decades of experience to work with ambitious businesses, providing tailored solutions that enable growth."}
           </p>
-          <OutlineButton href="/borrowers">How it works</OutlineButton>
+          <OutlineButton href={borrowersCtaHref ?? '/borrowers'}>
+            {borrowersCtaLabel ?? 'How it works'}
+          </OutlineButton>
         </FadeUp>
 
         {/* Right column desktop: investors image only */}
@@ -51,12 +108,14 @@ export default function HomeIntro({ borrowersImageSrc, investorsImageSrc }: Home
       {/* Mobile: second content block */}
       <div className="lg:hidden pcg-inner pcg-inner-vertical pt-10 pb-10">
         <h2 className="font-serif font-light text-[clamp(40px,4.2vw,64px)] leading-[1.03] tracking-[-0.012em] text-ink mb-5">
-          Creating Investment Opportunities
+          {investorsHeading ?? 'Creating Investment Opportunities'}
         </h2>
         <p className="font-nav text-[16px] leading-[1.3] text-ink mb-6">
-          For investors seeking consistent returns and portfolio diversification, we provide access to institutional-quality private capital investments in New Zealand dollars, managed by experienced professionals with a proven track record.
+          {investorsBody ?? 'For investors seeking consistent returns and portfolio diversification, we provide access to institutional-quality private debt investments in New Zealand dollars, managed by experienced professionals with a proven track record.'}
         </p>
-        <OutlineButton href="/investors">Explore investments</OutlineButton>
+        <OutlineButton href={investorsCtaHref ?? '/investors'}>
+          {investorsCtaLabel ?? 'Explore investments'}
+        </OutlineButton>
       </div>
 
       {/* Desktop: borrowers image left, investors text right */}
@@ -70,38 +129,24 @@ export default function HomeIntro({ borrowersImageSrc, investorsImageSrc }: Home
         </div>
         <div className="pt-[40px]">
           <h2 className="font-serif font-light text-[clamp(40px,4.2vw,64px)] leading-[1.03] tracking-[-0.012em] text-ink mb-6">
-            Creating Investment Opportunities
+            {investorsHeading ?? 'Creating Investment Opportunities'}
           </h2>
           <p className="font-nav text-[16px] leading-[1.3] text-ink mb-8">
-            For investors seeking consistent returns and portfolio diversification, we provide access to institutional-quality private capital investments in New Zealand dollars, managed by experienced professionals with a proven track record.
+            {investorsBody ?? 'For investors seeking consistent returns and portfolio diversification, we provide access to institutional-quality private debt investments in New Zealand dollars, managed by experienced professionals with a proven track record.'}
           </p>
-          <OutlineButton href="/investors">Explore investments</OutlineButton>
+          <OutlineButton href={investorsCtaHref ?? '/investors'}>
+            {investorsCtaLabel ?? 'Explore investments'}
+          </OutlineButton>
         </div>
       </div>
 
       {/* Three feature cards — desktop only */}
       <div className="hidden lg:grid pcg-inner pcg-inner-vertical !pb-20 grid-cols-3 gap-6">
-        {[
-          {
-            title: 'Stability through every cycle',
-            body: "There's no substitute for having operated private capital funds through economic recessions, financial crises, and high growth periods. Each creates unique challenges, especially for the uninitiated. Our experience across multiple market cycles in global markets gives us the competence to navigate any environment.",
-            cta: { label: 'Learn more', href: '/about' },
-          },
-          {
-            title: 'Cash-on-hand, ready to invest.',
-            body: "PCG has grown to $500M Assets Under Management. From $5M at inception to one of New Zealand's largest private credit funds today. This growth reflects the trust our investors and borrowers place in our expertise and execution.",
-            cta: { label: 'About our Funds', href: '/investors' },
-          },
-          {
-            title: 'Deep Sector Expertise',
-            body: "Extensive expertise spanning multiple sectors and deal structures across New Zealand. We understand the nuances of local business, from seasonal cash flows to regulatory requirements, and use our real-world experience with real businesses to anticipate challenges and structure solutions that actually work for your specific situation.",
-            cta: { label: 'Meet the team', href: '/about' },
-          },
-        ].map((card, i) => (
-          <FadeUp key={card.title} delay={i * 120} className="bg-white rounded-[16px] p-9 flex flex-col justify-start items-start hover-lift">
+        {cards.map((card, i) => (
+          <FadeUp key={card.title ?? i} delay={i * 120} className="bg-white rounded-[16px] p-9 flex flex-col justify-start items-start hover-lift">
             <h3 className="font-sans text-[26px] leading-[1.2] text-ink mb-6">{card.title}</h3>
             <p className="font-nav text-[16px] leading-[1.3] text-ink mb-8 flex-1">{card.body}</p>
-            <OutlineButton href={card.cta.href}>{card.cta.label}</OutlineButton>
+            <OutlineButton href={card.ctaHref ?? '/'}>{card.ctaLabel ?? 'Learn more'}</OutlineButton>
           </FadeUp>
         ))}
       </div>

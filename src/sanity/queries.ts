@@ -75,9 +75,31 @@ export const homePageQuery = groq`
       backgroundImage ${imageProjection}
     },
     introSection {
+      eyebrow,
+      borrowers {
+        heading,
+        body,
+        ctaLabel,
+        ctaHref,
+        image ${imageProjection}
+      },
+      investors {
+        heading,
+        body,
+        ctaLabel,
+        ctaHref,
+        image ${imageProjection}
+      },
+      featureCards[] { title, body, ctaLabel, ctaHref }
+    },
+    howDifferentSection {
       heading,
-      subheading,
-      featureCards[] { title, body }
+      items[] {
+        step,
+        title,
+        body,
+        image ${imageProjection}
+      }
     },
     investorsSection {
       heading,
@@ -100,15 +122,6 @@ export const homePageQuery = groq`
     quoteBanner {
       quote,
       image ${imageProjection}
-    },
-    howDifferentSection {
-      heading,
-      items[] {
-        step,
-        title,
-        body,
-        image ${imageProjection}
-      }
     },
     ctaBannerBottom {
       heading,

@@ -77,9 +77,22 @@ export interface HomePage {
     backgroundImage?: SanityImage
   }
   introSection?: {
-    heading?: string
-    subheading?: string
-    featureCards?: Array<{ title?: string; body?: string }>
+    eyebrow?: string
+    borrowers?: {
+      heading?: string
+      body?: string
+      ctaLabel?: string
+      ctaHref?: string
+      image?: SanityImage
+    }
+    investors?: {
+      heading?: string
+      body?: string
+      ctaLabel?: string
+      ctaHref?: string
+      image?: SanityImage
+    }
+    featureCards?: Array<{ title?: string; body?: string; ctaLabel?: string; ctaHref?: string }>
   }
   investorsSection?: {
     heading?: string

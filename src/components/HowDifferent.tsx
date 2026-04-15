@@ -1,14 +1,20 @@
 import Image from 'next/image';
 import FadeUp from './FadeUp';
 
-interface Feature {
-  title: string;
-  body: string;
+interface FeatureItem {
+  title?: string;
+  body?: string;
   imageSrc?: string;
   imageAlt?: string;
 }
 
-const features: Feature[] = [
+interface HowDifferentProps {
+  heading?: string;
+  items?: FeatureItem[];
+  images?: string[];
+}
+
+const defaultItems: FeatureItem[] = [
   {
     title: 'Conflict-Free Business Model',
     body: 'We focus exclusively on fund management. No advisory and no mixing equity within the same fund.',
@@ -31,28 +37,26 @@ const features: Feature[] = [
   },
 ];
 
-interface HowDifferentProps {
-  images?: string[];
-}
+export default function HowDifferent({ heading, items, images = [] }: HowDifferentProps) {
+  const features = items && items.length > 0 ? items : defaultItems;
 
-export default function HowDifferent({ images = [] }: HowDifferentProps) {
   return (
     <section className="bg-cream py-[calc(var(--spacing)*18)]">
       <div className="pcg-inner">
       <FadeUp>
         <h2 className="font-serif font-light text-ink text-[clamp(48px,4.9vw,70px)] leading-[1.03] tracking-[-0.012em] mb-10 lg:mb-16 max-w-[582px]">
-          How is PCG different?
+          {heading ?? 'How is PCG different?'}
         </h2>
       </FadeUp>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-12 lg:gap-x-8 lg:gap-y-16">
         {features.map((feature, i) => {
-          const imgSrc = images[i];
+          const imgSrc = images[i] ?? feature.imageSrc;
           return (
-            <FadeUp key={feature.title} delay={i * 100} className="flex flex-col">
+            <FadeUp key={feature.title ?? i} delay={i * 100} className="flex flex-col">
               <div className="relative aspect-[662/367] rounded-[20px] overflow-hidden bg-cream-warm mb-6 hover-zoom">
                 {imgSrc && (
-                  <Image src={imgSrc} alt={feature.imageAlt ?? feature.title} fill className="object-cover img-zoom" />
+                  <Image src={imgSrc} alt={feature.imageAlt ?? feature.title ?? ''} fill className="object-cover img-zoom" />
                 )}
               </div>
               <h3 className="font-sans text-ink text-[33px] leading-[1.2] mb-3">

@@ -67,8 +67,26 @@ export default async function Home() {
         subtext={data?.hero?.subtext ?? undefined}
       />
       <HomeIntro
-        borrowersImageSrc="/images/borrowers.jpg"
-        investorsImageSrc="/images/investors-right.jpg"
+        eyebrow={data?.introSection?.eyebrow}
+        borrowersHeading={data?.introSection?.borrowers?.heading}
+        borrowersBody={data?.introSection?.borrowers?.body}
+        borrowersCtaLabel={data?.introSection?.borrowers?.ctaLabel}
+        borrowersCtaHref={data?.introSection?.borrowers?.ctaHref}
+        borrowersImageSrc={
+          data?.introSection?.borrowers?.image?.asset?.url
+            ? data.introSection.borrowers.image.asset.url
+            : '/images/borrowers.jpg'
+        }
+        investorsHeading={data?.introSection?.investors?.heading}
+        investorsBody={data?.introSection?.investors?.body}
+        investorsCtaLabel={data?.introSection?.investors?.ctaLabel}
+        investorsCtaHref={data?.introSection?.investors?.ctaHref}
+        investorsImageSrc={
+          data?.introSection?.investors?.image?.asset?.url
+            ? data.introSection.investors.image.asset.url
+            : '/images/investors-right.jpg'
+        }
+        featureCards={data?.introSection?.featureCards}
       />
       <CaseStudy
         slides={caseStudies ?? []}
@@ -101,7 +119,16 @@ export default async function Home() {
         background="image"
         imageSrc={quoteBannerImageSrc}
       />
-      <HowDifferent images={howDifferentImages.filter(Boolean) as string[]} />
+      <HowDifferent
+        heading={data?.howDifferentSection?.heading}
+        items={data?.howDifferentSection?.items?.map((item, i) => ({
+          title: item.title,
+          body: item.body,
+          imageSrc: howDifferentImages[i],
+          imageAlt: item.title,
+        }))}
+        images={howDifferentImages.filter(Boolean) as string[]}
+      />
       <InsightsSection posts={insightPosts} />
       <CtaBanner
         heading={

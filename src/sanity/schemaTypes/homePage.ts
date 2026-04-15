@@ -28,11 +28,34 @@ export const homePage = defineType({
     }),
     defineField({
       name: 'introSection',
-      title: 'Intro Section',
+      title: 'What We Do Section',
       type: 'object',
       fields: [
-        defineField({ name: 'heading', title: 'Heading', type: 'string' }),
-        defineField({ name: 'subheading', title: 'Subheading', type: 'string' }),
+        defineField({ name: 'eyebrow', title: 'Eyebrow Label', type: 'string' }),
+        defineField({
+          name: 'borrowers',
+          title: 'Borrowers Column',
+          type: 'object',
+          fields: [
+            defineField({ name: 'heading', title: 'Heading', type: 'string' }),
+            defineField({ name: 'body', title: 'Body', type: 'text' }),
+            defineField({ name: 'ctaLabel', title: 'Button Label', type: 'string' }),
+            defineField({ name: 'ctaHref', title: 'Button Link', type: 'string' }),
+            imageField('image', 'Image'),
+          ],
+        }),
+        defineField({
+          name: 'investors',
+          title: 'Investors Column',
+          type: 'object',
+          fields: [
+            defineField({ name: 'heading', title: 'Heading', type: 'string' }),
+            defineField({ name: 'body', title: 'Body', type: 'text' }),
+            defineField({ name: 'ctaLabel', title: 'Button Label', type: 'string' }),
+            defineField({ name: 'ctaHref', title: 'Button Link', type: 'string' }),
+            imageField('image', 'Image'),
+          ],
+        }),
         defineField({
           name: 'featureCards',
           title: 'Feature Cards',
@@ -43,6 +66,8 @@ export const homePage = defineType({
               fields: [
                 defineField({ name: 'title', title: 'Title', type: 'string' }),
                 defineField({ name: 'body', title: 'Body', type: 'text' }),
+                defineField({ name: 'ctaLabel', title: 'Button Label', type: 'string' }),
+                defineField({ name: 'ctaHref', title: 'Button Link', type: 'string' }),
               ],
             }),
           ],
