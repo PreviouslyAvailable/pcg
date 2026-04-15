@@ -310,7 +310,30 @@ export const caseStudiesQuery = groq`
 `
 
 export const teamMembersQuery = groq`
-  *[_type == "teamMember"] | order(_createdAt asc) {
+  *[_type == "teamMember"] | order(order asc, _createdAt asc) {
+    _id,
+    name,
+    memberType,
+    role,
+    image ${imageProjection},
+    bio,
+    linkedIn
+  }
+`
+
+export const executiveTeamQuery = groq`
+  *[_type == "teamMember" && memberType == "executive"] | order(order asc, _createdAt asc) {
+    _id,
+    name,
+    role,
+    image ${imageProjection},
+    bio,
+    linkedIn
+  }
+`
+
+export const boardMembersQuery = groq`
+  *[_type == "teamMember" && memberType == "board"] | order(order asc, _createdAt asc) {
     _id,
     name,
     role,

@@ -56,7 +56,9 @@ export interface CaseStudy {
 export interface TeamMember {
   _id: string
   name: string
+  memberType?: 'executive' | 'board'
   role?: string
+  order?: number
   image?: SanityImage
   bio?: string
   linkedIn?: string

@@ -9,7 +9,7 @@ import CtaBanner from '@/components/CtaBanner';
 import Footer from '@/components/Footer';
 import { client } from '@/sanity/client';
 import { urlFor } from '@/sanity/image';
-import { aboutPageQuery } from '@/sanity/queries';
+import { aboutPageQuery, executiveTeamQuery, boardMembersQuery } from '@/sanity/queries';
 import type { AboutPage, TeamMember } from '@/sanity/types';
 import FadeUp from '@/components/FadeUp';
 
@@ -79,7 +79,11 @@ function TeamCard({ name, role, image, linkedIn }: TeamMember & { image?: TeamMe
 }
 
 export default async function AboutPage() {
-  const data = await client.fetch<AboutPage>(aboutPageQuery).catch(() => null);
+  const [data, executiveTeamData, boardMembersData] = await Promise.all([
+    client.fetch<AboutPage>(aboutPageQuery).catch(() => null),
+    client.fetch<TeamMember[]>(executiveTeamQuery).catch(() => null),
+    client.fetch<TeamMember[]>(boardMembersQuery).catch(() => null),
+  ]);
 
   const heroImageSrc = data?.hero?.image?.asset?.url
     ? urlFor(data.hero.image).width(1200).height(800).url()
@@ -93,12 +97,12 @@ export default async function AboutPage() {
     ? urlFor(data.quoteBanner.image).width(1920).height(800).url()
     : '/images/how-2.jpg';
 
-  const executiveTeam = (data?.executiveTeam && data.executiveTeam.length > 0)
-    ? data.executiveTeam
+  const executiveTeam = (executiveTeamData && executiveTeamData.length > 0)
+    ? executiveTeamData
     : fallbackExecutiveTeam;
 
-  const boardMembers = (data?.boardOfDirectors && data.boardOfDirectors.length > 0)
-    ? data.boardOfDirectors
+  const boardMembers = (boardMembersData && boardMembersData.length > 0)
+    ? boardMembersData
     : fallbackBoardMembers;
 
   const featureCards = (data?.featureCards && data.featureCards.length > 0)

@@ -12,9 +12,28 @@ export const teamMember = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: 'role',
-      title: 'Role',
+      name: 'memberType',
+      title: 'Member Type',
       type: 'string',
+      options: {
+        list: [
+          { title: 'Executive Team', value: 'executive' },
+          { title: 'Board of Directors', value: 'board' },
+        ],
+        layout: 'radio',
+      },
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'role',
+      title: 'Role / Title',
+      type: 'string',
+    }),
+    defineField({
+      name: 'order',
+      title: 'Display Order',
+      type: 'number',
+      description: 'Lower numbers appear first',
     }),
     defineField({
       name: 'image',
@@ -40,11 +59,24 @@ export const teamMember = defineType({
       type: 'url',
     }),
   ],
+  orderings: [
+    {
+      title: 'Display Order',
+      name: 'orderAsc',
+      by: [{ field: 'order', direction: 'asc' }],
+    },
+  ],
   preview: {
     select: {
       title: 'name',
-      subtitle: 'role',
+      subtitle: 'memberType',
       media: 'image',
+    },
+    prepare({ title, subtitle }: { title: string; subtitle: string }) {
+      return {
+        title,
+        subtitle: subtitle === 'executive' ? 'Executive Team' : subtitle === 'board' ? 'Board of Directors' : '',
+      }
     },
   },
 })
