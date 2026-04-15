@@ -104,8 +104,7 @@ export const homePageQuery = groq`
     investorsSection {
       heading,
       headingMobile,
-      body,
-      bulletPoints,
+      content,
       ctaLabel,
       ctaLabelMobile,
       ctaHref,

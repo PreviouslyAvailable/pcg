@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { PortableText } from '@portabletext/react';
+import BodyText from '@/components/BodyText';
 import Navbar from '@/components/Navbar';
 import PageHero from '@/components/PageHero';
 import CtaBanner from '@/components/CtaBanner';
@@ -161,7 +162,11 @@ export default async function AboutPage() {
           {featureCards.map((card, i) => (
             <FadeUp key={card.title} delay={i * 120} className="gap-4 bg-white rounded-[16px] p-9 flex flex-col justify-start items-start hover-lift">
               <h3 className="font-sans text-ink text-[26px] leading-[1.2]">{card.title}</h3>
-              <p className="font-nav text-ink text-[16px] leading-[1.3] flex-1">{card.body}</p>
+              {card.body && Array.isArray(card.body) && card.body.length > 0 ? (
+                <BodyText value={card.body} scheme="light" className="flex-1" />
+              ) : (
+                <p className="font-nav text-ink text-[16px] leading-[1.3] flex-1">{typeof card.body === 'string' ? card.body : ''}</p>
+              )}
               <Link
                 href={card.ctaHref ?? '/borrowers'}
                 className="self-start font-sans text-[14px] uppercase tracking-wide text-ink border border-ink rounded-[10px] px-6 py-3 hover:bg-ink/5 transition-colors"

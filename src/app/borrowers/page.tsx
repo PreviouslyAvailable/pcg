@@ -5,6 +5,7 @@ import Navbar from '@/components/Navbar';
 import PageHero from '@/components/PageHero';
 import CtaBanner from '@/components/CtaBanner';
 import Footer from '@/components/Footer';
+import BodyText from '@/components/BodyText';
 import { client } from '@/sanity/client';
 import { urlFor } from '@/sanity/image';
 import { borrowersPageQuery } from '@/sanity/queries';
@@ -91,7 +92,11 @@ export default async function BorrowersPage() {
             {whyPCG.map((item) => (
               <div key={item.title}>
                 <h3 className="font-sans text-ink text-[26px] leading-[1.2] mb-4">{item.title}</h3>
-                <p className="font-nav text-ink/80 text-[16px] leading-[1.5] pr-10">{item.body}</p>
+                {item.body && Array.isArray(item.body) && item.body.length > 0 ? (
+                  <BodyText value={item.body} scheme="light" className="pr-10" />
+                ) : (
+                  <p className="font-nav text-ink/80 text-[16px] leading-[1.5] pr-10">{typeof item.body === 'string' ? item.body : ''}</p>
+                )}
               </div>
             ))}
           </div>
@@ -127,7 +132,11 @@ export default async function BorrowersPage() {
               {lendingFocus.map((item) => (
                 <div key={item.title}>
                   <h3 className="font-sans text-ink text-[26px] leading-[1.3] mb-1">{item.title}</h3>
-                  <p className="font-nav text-ink/70 text-[16px] leading-[1.4]">{item.body}</p>
+                  {item.body && Array.isArray(item.body) && item.body.length > 0 ? (
+                    <BodyText value={item.body} scheme="light" />
+                  ) : (
+                    <p className="font-nav text-ink/70 text-[16px] leading-[1.4]">{typeof item.body === 'string' ? item.body : ''}</p>
+                  )}
                 </div>
               ))}
             </div>
@@ -156,7 +165,11 @@ export default async function BorrowersPage() {
                   </h2>
                 )}
                 <h3 className="font-sans text-ink text-[26px] leading-[1.2] mb-4">{item.step} {item.title}</h3>
-                <p className="font-nav text-ink/70 text-[16px] leading-[1.5] max-w-[480px]">{item.body}</p>
+                {item.body && Array.isArray(item.body) && item.body.length > 0 ? (
+                  <BodyText value={item.body} scheme="light" className="max-w-[480px]" />
+                ) : (
+                  <p className="font-nav text-ink/70 text-[16px] leading-[1.5] max-w-[480px]">{typeof item.body === 'string' ? item.body : ''}</p>
+                )}
                 {item.cta && (
                   <Link
                     href={item.cta.href}

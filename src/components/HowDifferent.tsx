@@ -1,9 +1,11 @@
 import Image from 'next/image';
 import FadeUp from './FadeUp';
+import BodyText from './BodyText';
 
 interface FeatureItem {
   title?: string;
-  body?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  body?: any[] | string;
   imageSrc?: string;
   imageAlt?: string;
 }
@@ -62,9 +64,13 @@ export default function HowDifferent({ heading, items, images = [] }: HowDiffere
               <h3 className="font-sans text-ink text-[33px] leading-[1.2] mb-3">
                 {feature.title}
               </h3>
-              <p className="font-nav text-ink text-[16px] leading-[1.3] pr-10">
-                {feature.body}
-              </p>
+              {feature.body && Array.isArray(feature.body) && feature.body.length > 0 ? (
+                <BodyText value={feature.body} scheme="light" className="pr-10" />
+              ) : (
+                <p className="font-nav text-ink text-[16px] leading-[1.3] pr-10">
+                  {typeof feature.body === 'string' ? feature.body : ''}
+                </p>
+              )}
             </FadeUp>
           );
         })}

@@ -56,7 +56,7 @@ export const aboutPage = defineType({
           type: 'object',
           fields: [
             defineField({ name: 'title', title: 'Title', type: 'string' }),
-            defineField({ name: 'body', title: 'Body', type: 'text' }),
+            defineField({ name: 'body', title: 'Body', type: 'array', of: [defineArrayMember({ type: 'block' })] }),
             defineField({ name: 'ctaLabel', title: 'CTA Label', type: 'string' }),
             defineField({ name: 'ctaHref', title: 'CTA Href', type: 'string' }),
           ],

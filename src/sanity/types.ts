@@ -80,25 +80,33 @@ export interface HomePage {
     eyebrow?: string
     borrowers?: {
       heading?: string
-      body?: string
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      body?: any[]
       ctaLabel?: string
       ctaHref?: string
       image?: SanityImage
     }
     investors?: {
       heading?: string
-      body?: string
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      body?: any[]
       ctaLabel?: string
       ctaHref?: string
       image?: SanityImage
     }
-    featureCards?: Array<{ title?: string; body?: string; ctaLabel?: string; ctaHref?: string }>
+    featureCards?: Array<{
+      title?: string
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      body?: any[]
+      ctaLabel?: string
+      ctaHref?: string
+    }>
   }
   investorsSection?: {
     heading?: string
     headingMobile?: string
-    body?: string
-    bulletPoints?: string[]
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    content?: any[]
     ctaLabel?: string
     ctaLabelMobile?: string
     ctaHref?: string
@@ -107,7 +115,8 @@ export interface HomePage {
   caseStudy?: {
     label?: string
     heading?: string
-    body?: string
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    body?: any[]
     image?: SanityImage
     ctaLabel?: string
     ctaHref?: string
@@ -121,7 +130,8 @@ export interface HomePage {
     items?: Array<{
       step?: string
       title?: string
-      body?: string
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      body?: any[]
       image?: SanityImage
     }>
   }
@@ -149,7 +159,8 @@ export interface AboutPage {
   }
   featureCards?: Array<{
     title?: string
-    body?: string
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    body?: any[]
     ctaLabel?: string
     ctaHref?: string
   }>
@@ -167,20 +178,29 @@ export interface BorrowersPage {
     subtext?: string
     image?: SanityImage
   }
-  whyPCG?: Array<{ title?: string; body?: string }>
+  whyPCG?: Array<{
+    title?: string
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    body?: any[]
+  }>
   quoteBanner?: {
     quote?: string
     image?: SanityImage
   }
   lendingFocus?: {
     heading?: string
-    items?: Array<{ title?: string; body?: string }>
+    items?: Array<{
+      title?: string
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      body?: any[]
+    }>
     image?: SanityImage
   }
   howWeWork?: Array<{
     step?: string
     title?: string
-    body?: string
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    body?: any[]
     image?: SanityImage
     imageLeft?: boolean
     cta?: { label?: string; href?: string }
@@ -200,13 +220,21 @@ export interface InvestorsPage {
   }
   investmentOpportunity?: {
     heading?: string
-    items?: Array<{ title?: string; body?: string }>
+    items?: Array<{
+      title?: string
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      body?: any[]
+    }>
   }
   fundDetails?: Array<{ label?: string; value?: string }>
   secondFundName?: string
   secondFundDetails?: Array<{ label?: string; value?: string }>
   activeInvestorPlus?: {
-    items?: Array<{ title?: string; body?: string }>
+    items?: Array<{
+      title?: string
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      body?: any[]
+    }>
   }
   quoteBanner?: {
     quote?: string
@@ -227,10 +255,18 @@ export interface StrategiesPage {
   }
   coreStrategyLabel?: string
   coreStrategyHeading?: string
-  strategies?: Array<{ title?: string; body?: string }>
+  strategies?: Array<{
+    title?: string
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    body?: any[]
+  }>
   sectorFocus?: {
     heading?: string
-    items?: Array<{ title?: string; body?: string }>
+    items?: Array<{
+      title?: string
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      body?: any[]
+    }>
     image?: SanityImage
   }
   lendingCriteria?: {
@@ -238,10 +274,18 @@ export interface StrategiesPage {
     subtext?: string
     rows?: Array<{ feature?: string; criteria?: string }>
   }
-  coreLendingAreas?: Array<{ title?: string; body?: string }>
+  coreLendingAreas?: Array<{
+    title?: string
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    body?: any[]
+  }>
   riskFramework?: {
     heading?: string
-    items?: Array<{ title?: string; body?: string }>
+    items?: Array<{
+      title?: string
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      body?: any[]
+    }>
     image?: SanityImage
   }
   quoteBanner?: {

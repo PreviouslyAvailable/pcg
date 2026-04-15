@@ -38,7 +38,7 @@ export const borrowersPage = defineType({
           type: 'object',
           fields: [
             defineField({ name: 'title', title: 'Title', type: 'string' }),
-            defineField({ name: 'body', title: 'Body', type: 'text' }),
+            defineField({ name: 'body', title: 'Body', type: 'array', of: [defineArrayMember({ type: 'block' })] }),
           ],
         }),
       ],
@@ -67,7 +67,7 @@ export const borrowersPage = defineType({
               type: 'object',
               fields: [
                 defineField({ name: 'title', title: 'Title', type: 'string' }),
-                defineField({ name: 'body', title: 'Body', type: 'text' }),
+                defineField({ name: 'body', title: 'Body', type: 'array', of: [defineArrayMember({ type: 'block' })] }),
               ],
             }),
           ],
@@ -85,7 +85,7 @@ export const borrowersPage = defineType({
           fields: [
             defineField({ name: 'step', title: 'Step', type: 'string' }),
             defineField({ name: 'title', title: 'Title', type: 'string' }),
-            defineField({ name: 'body', title: 'Body', type: 'text' }),
+            defineField({ name: 'body', title: 'Body', type: 'array', of: [defineArrayMember({ type: 'block' })] }),
             imageField('image', 'Image'),
             defineField({ name: 'imageLeft', title: 'Image on Left', type: 'boolean' }),
             defineField({

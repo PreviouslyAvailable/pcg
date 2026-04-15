@@ -1,13 +1,14 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { PortableText } from '@portabletext/react';
 import FadeUp from './FadeUp';
 
 interface InvestorsSectionProps {
   imageSrc?: string;
   heading?: string;
   headingMobile?: string;
-  body?: string;
-  bulletPoints?: string[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  content?: any[];
   ctaLabel?: string;
   ctaLabelMobile?: string;
   ctaHref?: string;
@@ -21,18 +22,36 @@ const defaultBullets = [
   'PIE structure for tax efficiency',
 ];
 
+const portableTextComponents = {
+  block: {
+    normal: ({ children }: { children?: React.ReactNode }) => (
+      <p className="font-nav text-white text-[16px] leading-[1.3] mb-4 max-w-[348px]">{children}</p>
+    ),
+  },
+  list: {
+    bullet: ({ children }: { children?: React.ReactNode }) => (
+      <ul className="space-y-1 mb-10 lg:mb-12">{children}</ul>
+    ),
+  },
+  listItem: {
+    bullet: ({ children }: { children?: React.ReactNode }) => (
+      <li className="font-nav text-white text-[16px] leading-[1.3] flex gap-2">
+        <span className="mt-[6px] shrink-0 size-[5px] rounded-full bg-white/70" />
+        {children}
+      </li>
+    ),
+  },
+};
+
 export default function InvestorsSection({
   imageSrc,
   heading,
   headingMobile,
-  body,
-  bulletPoints,
+  content,
   ctaLabel,
   ctaLabelMobile,
   ctaHref,
 }: InvestorsSectionProps) {
-  const bullets = bulletPoints && bulletPoints.length > 0 ? bulletPoints : defaultBullets;
-
   return (
     <section className="flex flex-col lg:grid lg:grid-cols-2 min-h-[784px]">
       {/* Teal panel — top on mobile, left on desktop */}
@@ -43,17 +62,23 @@ export default function InvestorsSection({
             <span className="lg:hidden">{headingMobile ?? 'What about investment?'}</span>
             <span className="hidden lg:block">{heading ?? 'For Investors'}</span>
           </h2>
-          <p className="font-nav text-white text-[16px] leading-[1.3] mb-4 max-w-[348px]">
-            {body ?? 'We combine a 20-year global track record with a primary focus on capital preservation and consistent monthly income'}
-          </p>
-          <ul className="space-y-1 mb-10 lg:mb-12">
-            {bullets.map((f) => (
-              <li key={f} className="font-nav text-white text-[16px] leading-[1.3] flex gap-2">
-                <span className="mt-[6px] shrink-0 size-[5px] rounded-full bg-white/70" />
-                {f}
-              </li>
-            ))}
-          </ul>
+          {content && content.length > 0 ? (
+            <PortableText value={content} components={portableTextComponents} />
+          ) : (
+            <>
+              <p className="font-nav text-white text-[16px] leading-[1.3] mb-4 max-w-[348px]">
+                We combine a 20-year global track record with a primary focus on capital preservation and consistent monthly income
+              </p>
+              <ul className="space-y-1 mb-10 lg:mb-12">
+                {defaultBullets.map((f) => (
+                  <li key={f} className="font-nav text-white text-[16px] leading-[1.3] flex gap-2">
+                    <span className="mt-[6px] shrink-0 size-[5px] rounded-full bg-white/70" />
+                    {f}
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
         </FadeUp>
         <FadeUp delay={200}>
         <Link

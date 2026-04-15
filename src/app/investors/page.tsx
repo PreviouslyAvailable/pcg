@@ -5,6 +5,7 @@ import Navbar from '@/components/Navbar';
 import PageHero from '@/components/PageHero';
 import CtaBanner from '@/components/CtaBanner';
 import Footer from '@/components/Footer';
+import BodyText from '@/components/BodyText';
 import { client } from '@/sanity/client';
 import { urlFor } from '@/sanity/image';
 import { investorsPageQuery } from '@/sanity/queries';
@@ -91,7 +92,11 @@ export default async function InvestorsPage() {
             {investmentItems.map((item) => (
               <div key={item.title}>
                 <h3 className="font-sans text-ink text-[26px] leading-[1.2] mb-5">{item.title}</h3>
-                <p className="font-nav text-ink/80 text-[16px] leading-[1.3] pr-5">{item.body}</p>
+                {item.body && Array.isArray(item.body) && item.body.length > 0 ? (
+                  <BodyText value={item.body} scheme="light" className="pr-5" />
+                ) : (
+                  <p className="font-nav text-ink/80 text-[16px] leading-[1.3] pr-5">{typeof item.body === 'string' ? item.body : ''}</p>
+                )}
               </div>
             ))}
           </div>
@@ -155,7 +160,11 @@ export default async function InvestorsPage() {
                 {activeInvestorItems.map((item) => (
                   <div key={item.title}>
                     <h3 className="font-sans text-white text-[22px] leading-[1.2] mb-3">{item.title}</h3>
-                    <p className="font-nav text-white/80 text-[16px] leading-[1.3] pr-10">{item.body}</p>
+                    {item.body && Array.isArray(item.body) && item.body.length > 0 ? (
+                      <BodyText value={item.body} scheme="dark" className="pr-10" />
+                    ) : (
+                      <p className="font-nav text-white/80 text-[16px] leading-[1.3] pr-10">{typeof item.body === 'string' ? item.body : ''}</p>
+                    )}
                   </div>
                 ))}
               </div>

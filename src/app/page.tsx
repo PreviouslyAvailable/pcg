@@ -103,8 +103,7 @@ export default async function Home() {
         }
         heading={data?.investorsSection?.heading}
         headingMobile={data?.investorsSection?.headingMobile}
-        body={data?.investorsSection?.body}
-        bulletPoints={data?.investorsSection?.bulletPoints}
+        content={data?.investorsSection?.content}
         ctaLabel={data?.investorsSection?.ctaLabel}
         ctaLabelMobile={data?.investorsSection?.ctaLabelMobile}
         ctaHref={data?.investorsSection?.ctaHref}

@@ -1,10 +1,12 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import FadeUp from './FadeUp';
+import BodyText from './BodyText';
 
 interface FeatureCard {
   title?: string;
-  body?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  body?: any[] | string;
   ctaLabel?: string;
   ctaHref?: string;
 }
@@ -14,11 +16,13 @@ interface HomeIntroProps {
   investorsImageSrc?: string;
   eyebrow?: string;
   borrowersHeading?: string;
-  borrowersBody?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  borrowersBody?: any[] | string;
   borrowersCtaLabel?: string;
   borrowersCtaHref?: string;
   investorsHeading?: string;
-  investorsBody?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  investorsBody?: any[] | string;
   investorsCtaLabel?: string;
   investorsCtaHref?: string;
   featureCards?: FeatureCard[];
@@ -74,9 +78,13 @@ export default function HomeIntro({
           <h2 className="font-serif font-light text-[clamp(40px,4.2vw,64px)] leading-[1.03] tracking-[-0.012em] text-ink mb-5 lg:mb-6">
             {borrowersHeading ?? 'Supporting New Zealand Business Growth'}
           </h2>
-          <p className="font-nav text-[16px] leading-[1.3] text-ink mb-6 lg:mb-8">
-            {borrowersBody ?? "We deliver what traditional lenders can't: flexible capital with the speed and certainty of execution that allows you grow with confidence. With $500M in committed capital and lending that ranges from $5–50M, we use our decades of experience to work with ambitious businesses, providing tailored solutions that enable growth."}
-          </p>
+          {borrowersBody && Array.isArray(borrowersBody) && borrowersBody.length > 0 ? (
+            <BodyText value={borrowersBody} scheme="light" className="mb-6 lg:mb-8" />
+          ) : (
+            <p className="font-nav text-[16px] leading-[1.3] text-ink mb-6 lg:mb-8">
+              {typeof borrowersBody === 'string' ? borrowersBody : "We deliver what traditional lenders can't: flexible capital with the speed and certainty of execution that allows you grow with confidence. With $500M in committed capital and lending that ranges from $5–50M, we use our decades of experience to work with ambitious businesses, providing tailored solutions that enable growth."}
+            </p>
+          )}
           <OutlineButton href={borrowersCtaHref ?? '/borrowers'}>
             {borrowersCtaLabel ?? 'How it works'}
           </OutlineButton>
@@ -110,9 +118,13 @@ export default function HomeIntro({
         <h2 className="font-serif font-light text-[clamp(40px,4.2vw,64px)] leading-[1.03] tracking-[-0.012em] text-ink mb-5">
           {investorsHeading ?? 'Creating Investment Opportunities'}
         </h2>
-        <p className="font-nav text-[16px] leading-[1.3] text-ink mb-6">
-          {investorsBody ?? 'For investors seeking consistent returns and portfolio diversification, we provide access to institutional-quality private debt investments in New Zealand dollars, managed by experienced professionals with a proven track record.'}
-        </p>
+          {investorsBody && Array.isArray(investorsBody) && investorsBody.length > 0 ? (
+            <BodyText value={investorsBody} scheme="light" className="mb-6" />
+          ) : (
+            <p className="font-nav text-[16px] leading-[1.3] text-ink mb-6">
+              {typeof investorsBody === 'string' ? investorsBody : 'For investors seeking consistent returns and portfolio diversification, we provide access to institutional-quality private debt investments in New Zealand dollars, managed by experienced professionals with a proven track record.'}
+            </p>
+          )}
         <OutlineButton href={investorsCtaHref ?? '/investors'}>
           {investorsCtaLabel ?? 'Explore investments'}
         </OutlineButton>
@@ -131,9 +143,13 @@ export default function HomeIntro({
           <h2 className="font-serif font-light text-[clamp(40px,4.2vw,64px)] leading-[1.03] tracking-[-0.012em] text-ink mb-6">
             {investorsHeading ?? 'Creating Investment Opportunities'}
           </h2>
-          <p className="font-nav text-[16px] leading-[1.3] text-ink mb-8">
-            {investorsBody ?? 'For investors seeking consistent returns and portfolio diversification, we provide access to institutional-quality private debt investments in New Zealand dollars, managed by experienced professionals with a proven track record.'}
-          </p>
+          {investorsBody && Array.isArray(investorsBody) && investorsBody.length > 0 ? (
+            <BodyText value={investorsBody} scheme="light" className="mb-8" />
+          ) : (
+            <p className="font-nav text-[16px] leading-[1.3] text-ink mb-8">
+              {typeof investorsBody === 'string' ? investorsBody : 'For investors seeking consistent returns and portfolio diversification, we provide access to institutional-quality private debt investments in New Zealand dollars, managed by experienced professionals with a proven track record.'}
+            </p>
+          )}
           <OutlineButton href={investorsCtaHref ?? '/investors'}>
             {investorsCtaLabel ?? 'Explore investments'}
           </OutlineButton>
@@ -145,7 +161,11 @@ export default function HomeIntro({
         {cards.map((card, i) => (
           <FadeUp key={card.title ?? i} delay={i * 120} className="bg-white rounded-[16px] p-9 flex flex-col justify-start items-start hover-lift">
             <h3 className="font-sans text-[26px] leading-[1.2] text-ink mb-6">{card.title}</h3>
-            <p className="font-nav text-[16px] leading-[1.3] text-ink mb-8 flex-1">{card.body}</p>
+            {card.body && Array.isArray(card.body) && card.body.length > 0 ? (
+              <BodyText value={card.body} scheme="light" className="mb-8 flex-1" />
+            ) : (
+              <p className="font-nav text-[16px] leading-[1.3] text-ink mb-8 flex-1">{typeof card.body === 'string' ? card.body : ''}</p>
+            )}
             <OutlineButton href={card.ctaHref ?? '/'}>{card.ctaLabel ?? 'Learn more'}</OutlineButton>
           </FadeUp>
         ))}

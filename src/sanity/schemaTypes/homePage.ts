@@ -38,7 +38,7 @@ export const homePage = defineType({
           type: 'object',
           fields: [
             defineField({ name: 'heading', title: 'Heading', type: 'string' }),
-            defineField({ name: 'body', title: 'Body', type: 'text' }),
+            defineField({ name: 'body', title: 'Body', type: 'array', of: [defineArrayMember({ type: 'block' })] }),
             defineField({ name: 'ctaLabel', title: 'Button Label', type: 'string' }),
             defineField({ name: 'ctaHref', title: 'Button Link', type: 'string' }),
             imageField('image', 'Image'),
@@ -50,7 +50,7 @@ export const homePage = defineType({
           type: 'object',
           fields: [
             defineField({ name: 'heading', title: 'Heading', type: 'string' }),
-            defineField({ name: 'body', title: 'Body', type: 'text' }),
+            defineField({ name: 'body', title: 'Body', type: 'array', of: [defineArrayMember({ type: 'block' })] }),
             defineField({ name: 'ctaLabel', title: 'Button Label', type: 'string' }),
             defineField({ name: 'ctaHref', title: 'Button Link', type: 'string' }),
             imageField('image', 'Image'),
@@ -65,7 +65,7 @@ export const homePage = defineType({
               type: 'object',
               fields: [
                 defineField({ name: 'title', title: 'Title', type: 'string' }),
-                defineField({ name: 'body', title: 'Body', type: 'text' }),
+                defineField({ name: 'body', title: 'Body', type: 'array', of: [defineArrayMember({ type: 'block' })] }),
                 defineField({ name: 'ctaLabel', title: 'Button Label', type: 'string' }),
                 defineField({ name: 'ctaHref', title: 'Button Link', type: 'string' }),
               ],
@@ -81,7 +81,7 @@ export const homePage = defineType({
       fields: [
         defineField({ name: 'label', title: 'Label', type: 'string' }),
         defineField({ name: 'heading', title: 'Heading', type: 'string' }),
-        defineField({ name: 'body', title: 'Body', type: 'text' }),
+        defineField({ name: 'body', title: 'Body', type: 'array', of: [defineArrayMember({ type: 'block' })] }),
         imageField('image', 'Image'),
         defineField({ name: 'ctaLabel', title: 'CTA Label', type: 'string' }),
         defineField({ name: 'ctaHref', title: 'CTA Href', type: 'string' }),
@@ -94,12 +94,12 @@ export const homePage = defineType({
       fields: [
         defineField({ name: 'heading', title: 'Heading (Desktop)', type: 'string' }),
         defineField({ name: 'headingMobile', title: 'Heading (Mobile)', type: 'string' }),
-        defineField({ name: 'body', title: 'Body Text', type: 'text' }),
         defineField({
-          name: 'bulletPoints',
-          title: 'Bullet Points',
+          name: 'content',
+          title: 'Content',
+          description: 'Write body text and bullet points together using the rich text editor.',
           type: 'array',
-          of: [defineArrayMember({ type: 'string' })],
+          of: [defineArrayMember({ type: 'block' })],
         }),
         defineField({ name: 'ctaLabel', title: 'Button Label (Desktop)', type: 'string' }),
         defineField({ name: 'ctaLabelMobile', title: 'Button Label (Mobile)', type: 'string' }),
@@ -132,7 +132,7 @@ export const homePage = defineType({
               fields: [
                 defineField({ name: 'step', title: 'Step', type: 'string' }),
                 defineField({ name: 'title', title: 'Title', type: 'string' }),
-                defineField({ name: 'body', title: 'Body', type: 'text' }),
+                defineField({ name: 'body', title: 'Body', type: 'array', of: [defineArrayMember({ type: 'block' })] }),
                 imageField('image', 'Image'),
               ],
             }),

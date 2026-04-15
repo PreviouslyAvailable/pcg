@@ -5,6 +5,7 @@ import Navbar from '@/components/Navbar';
 import PageHero from '@/components/PageHero';
 import CtaBanner from '@/components/CtaBanner';
 import Footer from '@/components/Footer';
+import BodyText from '@/components/BodyText';
 import { client } from '@/sanity/client';
 import { urlFor } from '@/sanity/image';
 import { strategiesPageQuery } from '@/sanity/queries';
@@ -93,7 +94,11 @@ export default async function StrategiesPage() {
             {strategies.map((item) => (
               <div key={item.title}>
                 <h3 className="font-sans text-ink text-[26px] leading-[1.2] mb-5">{item.title}</h3>
-                <p className="font-nav text-ink/80 text-[16px] leading-[1.3] pr-5">{item.body}</p>
+                {item.body && Array.isArray(item.body) && item.body.length > 0 ? (
+                  <BodyText value={item.body} scheme="light" className="pr-5" />
+                ) : (
+                  <p className="font-nav text-ink/80 text-[16px] leading-[1.3] pr-5">{typeof item.body === 'string' ? item.body : ''}</p>
+                )}
               </div>
             ))}
           </div>
@@ -111,7 +116,11 @@ export default async function StrategiesPage() {
               {sectors.map((sector) => (
                 <div key={sector.title}>
                   <h3 className="font-sans text-ink text-[26px] leading-[1.3] mb-1">{sector.title}</h3>
-                  <p className="font-nav text-ink/70 text-[16px] leading-[1.4]">{sector.body}</p>
+                  {sector.body && Array.isArray(sector.body) && sector.body.length > 0 ? (
+                    <BodyText value={sector.body} scheme="light" />
+                  ) : (
+                    <p className="font-nav text-ink/70 text-[16px] leading-[1.4]">{typeof sector.body === 'string' ? sector.body : ''}</p>
+                  )}
                 </div>
               ))}
             </div>
@@ -161,9 +170,14 @@ export default async function StrategiesPage() {
                 data.coreLendingAreas.map((area) => (
                   <li key={area.title} className="flex gap-3">
                     <span className="text-ink mt-[5px] shrink-0 text-[10px]">▪</span>
-                    <p className="font-nav text-ink text-[16px] leading-[1.3]">
-                      <span className="font-sans font-bold">{area.title}</span>{area.body ? `: ${area.body}` : ''}
-                    </p>
+                    <div className="font-nav text-ink text-[16px] leading-[1.3]">
+                      <span className="font-sans font-bold">{area.title}</span>
+                      {area.body && Array.isArray(area.body) && area.body.length > 0 ? (
+                        <BodyText value={area.body} scheme="light" />
+                      ) : (
+                        typeof area.body === 'string' && area.body ? `: ${area.body}` : ''
+                      )}
+                    </div>
                   </li>
                 ))
               ) : (
@@ -211,7 +225,11 @@ export default async function StrategiesPage() {
                 {riskFramework.map((item) => (
                   <div key={item.title}>
                     <h3 className="font-sans text-white text-[22px] leading-[1.2] mb-2">{item.title}</h3>
-                    <p className="font-nav text-white/80 text-[16px] leading-[1.3]">{item.body}</p>
+                    {item.body && Array.isArray(item.body) && item.body.length > 0 ? (
+                      <BodyText value={item.body} scheme="dark" />
+                    ) : (
+                      <p className="font-nav text-white/80 text-[16px] leading-[1.3]">{typeof item.body === 'string' ? item.body : ''}</p>
+                    )}
                   </div>
                 ))}
               </div>

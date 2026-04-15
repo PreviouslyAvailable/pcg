@@ -65,7 +65,7 @@ export const strategiesPage = defineType({
               type: 'object',
               fields: [
                 defineField({ name: 'title', title: 'Title', type: 'string' }),
-                defineField({ name: 'body', title: 'Body', type: 'text' }),
+                defineField({ name: 'body', title: 'Body', type: 'array', of: [defineArrayMember({ type: 'block' })] }),
               ],
             }),
           ],
@@ -105,7 +105,7 @@ export const strategiesPage = defineType({
           type: 'object',
           fields: [
             defineField({ name: 'title', title: 'Title', type: 'string' }),
-            defineField({ name: 'body', title: 'Body', type: 'text' }),
+            defineField({ name: 'body', title: 'Body', type: 'array', of: [defineArrayMember({ type: 'block' })] }),
           ],
         }),
       ],
@@ -125,7 +125,7 @@ export const strategiesPage = defineType({
               type: 'object',
               fields: [
                 defineField({ name: 'title', title: 'Title', type: 'string' }),
-                defineField({ name: 'body', title: 'Body', type: 'text' }),
+                defineField({ name: 'body', title: 'Body', type: 'array', of: [defineArrayMember({ type: 'block' })] }),
               ],
             }),
           ],
