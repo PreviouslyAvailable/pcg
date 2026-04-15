@@ -26,15 +26,15 @@ const fallbackWhyPCG = [
 ];
 
 const fallbackLendingFocus = [
-  { title: 'Growth & Expansion', body: 'Funding new equipment, facilities, or market entry without equity dilution.' },
-  { title: 'Strategic Acquisitions', body: 'Enabling you to move fast to complete acquisitions with debt-funded structures.' },
+  { title: 'Growth & Expansion', body: 'Funding new equipment, facilities, or new market entry without giving up equity to do it.' },
+  { title: 'Strategic Acquisitions', body: 'Structured debt solutions that give you the speed and certainty to compete for, and close, the right deals.' },
   { title: 'Shareholder Liquidity', body: 'Facilitating partner buyouts or special dividends while maintaining company control.' },
-  { title: 'Operational Flexibility', body: 'Refinancing restrictive bank debt with terms that match your actual cash flow cycles.' },
+  { title: 'Operational Flexibility', body: 'Replacing restrictive bank debt with terms structured around your actual cash flow cycles.' },
 ];
 
 const fallbackHowWeWork = [
-  { step: '1.', title: 'Deep Discovery & Rapid Feedback', body: "We start with a deep dive into your business operations, cash flows, growth plans, and challenges. Our senior team engages directly from day one to provide rapid, detailed feedback on your funding requirements.", image: '/images/how-1.jpg', imageLeft: false, cta: undefined },
-  { step: '2.', title: 'Structuring', body: "Using our experience across hundreds of deals globally, we design financing that fits your specific needs. We look beyond generic templates to create flexible terms and repayment schedules that allow you to focus on business execution.", image: '/images/how-2.jpg', imageLeft: true, cta: undefined },
+  { step: '1.', title: 'Deep Discovery & Rapid Feedback', body: "We start with a deep dive into your business operations, cash flows, strategy, and challenges. Our senior team engages directly from day one to provide rapid, detailed feedback on your funding requirements.", image: '/images/how-1.jpg', imageLeft: false, cta: undefined },
+  { step: '2.', title: 'Structuring', body: "Hundreds of deals across global markets have sharpened our ability to design financing that fits your specific situation. We build terms and repayment profiles around your business, not the other way around, so you can stay focused on running it.", image: '/images/how-2.jpg', imageLeft: true, cta: undefined },
   { step: '3.', title: 'Partnership', body: "We remain active, engaged partners throughout the life of the loan, providing the follow-on capital and strategic support needed as your business scales. As one of New Zealand's largest private credit partners, we have the resources to support you through your entire business lifecycle.", image: '/images/how-4.jpg', imageLeft: false, cta: { label: 'Meet the Team', href: '/about#team' } },
 ];
 

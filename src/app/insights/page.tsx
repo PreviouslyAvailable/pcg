@@ -47,7 +47,7 @@ export default async function InsightsPage() {
         <div className="pcg-inner">
           <div className="w-1/2">
             <h1 className="font-serif font-light text-ink text-[clamp(60px,6.4vw,80px)] leading-[1.0] tracking-[-0.015em]">
-              {pageData?.heading ?? 'PCG News'}
+              PCG News
             </h1>
           </div>
         </div>
