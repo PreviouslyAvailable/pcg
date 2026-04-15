@@ -33,8 +33,8 @@ const seasonSerif = localFont({
 
 export const metadata: Metadata = {
   title: {
-    template: '%s | PCG | Private Capital Group',
-    default: 'PCG | Private Capital Group',
+    template: '%s | PCG | Private Debt Group',
+    default: 'PCG | Private Debt Group',
   },
   description: "New Zealand's most experienced private capital lender.",
 };

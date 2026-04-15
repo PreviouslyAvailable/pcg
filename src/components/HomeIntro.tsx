@@ -54,7 +54,7 @@ export default function HomeIntro({ borrowersImageSrc, investorsImageSrc }: Home
           Creating Investment Opportunities
         </h2>
         <p className="font-nav text-[16px] leading-[1.3] text-ink mb-6">
-          For investors seeking consistent returns and portfolio diversification, we provide access to institutional-quality private debt investments in New Zealand dollars, managed by experienced professionals with a proven track record.
+          For investors seeking consistent returns and portfolio diversification, we provide access to institutional-quality private capital investments in New Zealand dollars, managed by experienced professionals with a proven track record.
         </p>
         <OutlineButton href="/investors">Explore investments</OutlineButton>
       </div>
@@ -73,7 +73,7 @@ export default function HomeIntro({ borrowersImageSrc, investorsImageSrc }: Home
             Creating Investment Opportunities
           </h2>
           <p className="font-nav text-[16px] leading-[1.3] text-ink mb-8">
-            For investors seeking consistent returns and portfolio diversification, we provide access to institutional-quality private debt investments in New Zealand dollars, managed by experienced professionals with a proven track record.
+            For investors seeking consistent returns and portfolio diversification, we provide access to institutional-quality private capital investments in New Zealand dollars, managed by experienced professionals with a proven track record.
           </p>
           <OutlineButton href="/investors">Explore investments</OutlineButton>
         </div>
@@ -84,7 +84,7 @@ export default function HomeIntro({ borrowersImageSrc, investorsImageSrc }: Home
         {[
           {
             title: 'Stability through every cycle',
-            body: "There's no substitute for having operated private debt funds through economic recessions, financial crises, and high growth periods. Each creates unique challenges, especially for the uninitiated. Our experience across multiple market cycles in global markets gives us the competence to navigate any environment.",
+            body: "There's no substitute for having operated private capital funds through economic recessions, financial crises, and high growth periods. Each creates unique challenges, especially for the uninitiated. Our experience across multiple market cycles in global markets gives us the competence to navigate any environment.",
             cta: { label: 'Learn more', href: '/about' },
           },
           {

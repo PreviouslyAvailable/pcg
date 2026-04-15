@@ -29,7 +29,7 @@ export default function Navbar({ variant = 'dark' }: NavbarProps) {
         <div className="flex items-center justify-between px-4 lg:px-[40px] max-w-[1680px] mx-auto">
         {/* Left: Logo + Nav links */}
         <div className="flex items-center gap-8 lg:gap-20">
-        <Link href="/" aria-label="Private Capital Group">
+        <Link href="/" aria-label="Private Debt Group">
           <svg
             width="152"
             height="39"

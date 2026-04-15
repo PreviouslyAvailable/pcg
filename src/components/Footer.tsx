@@ -78,7 +78,7 @@ export default function Footer() {
 
       {/* Bottom */}
       <div className="mt-6 flex gap-6">
-        <span className="font-mono text-[10px] uppercase tracking-[0.33px] text-ink/50">© 2025 Private Capital Group</span>
+        <span className="font-mono text-[10px] uppercase tracking-[0.33px] text-ink/50">© 2025 Private Debt Group</span>
         <Link href="/privacy" className="font-mono text-[10px] uppercase tracking-[0.33px] text-ink hover:opacity-60 transition-opacity">Privacy Policy</Link>
         <Link href="/terms" className="font-mono text-[10px] uppercase tracking-[0.33px] text-ink hover:opacity-60 transition-opacity">Terms of Service</Link>
       </div>

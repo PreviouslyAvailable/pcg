@@ -45,7 +45,7 @@ export default async function ContactPage() {
         <div className="pcg-inner">
           <div className='w-1/2'>
             <h1 className="font-serif font-light text-ink text-[clamp(60px,6.4vw,80px)] leading-[1.0] tracking-[-0.015em] mb-6">
-              {data?.hero?.heading ?? 'Ready to Explore Private Capital Solutions?'}
+              {data?.hero?.heading ?? 'Ready to Explore Private Debt Solutions?'}
             </h1>
             <p className="font-nav text-ink text-[16px] leading-[1.3] max-w-[440px]">
               {data?.hero?.subtext ?? "Whether you're seeking financing for your business or considering private credit investment, we're here to help"}

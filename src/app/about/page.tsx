@@ -112,7 +112,7 @@ export default async function AboutPage() {
       <Navbar variant="light" />
 
       <PageHero
-        heading={data?.hero?.heading ?? "New Zealand's Most Experienced Private Capital Lender"}
+        heading={data?.hero?.heading ?? "New Zealand's Most Experienced Private Debt Lender"}
         subtext={data?.hero?.subtext ?? 'Drawing from proven global experience to deliver tailored capital solutions & a relationship-driven approach for New Zealand businesses.'}
         imageSrc={heroImageSrc}
         imageAlt={data?.hero?.image?.alt ?? data?.hero?.imageAlt ?? 'PCG team'}

@@ -177,7 +177,7 @@ export default async function StrategiesPage() {
                   <li className="flex gap-3">
                     <span className="text-ink mt-[5px] shrink-0 text-[10px]">▪</span>
                     <p className="font-nav text-ink text-[16px] leading-[1.3]">
-                      <span className="font-sans font-bold">Expansion &amp; Growth Capital:</span> Providing the non-dilutive debt needed to fund new facilities, market entry or product development without giving up equity.
+                      <span className="font-sans font-bold">Expansion &amp; Growth Capital:</span> Providing the non-dilutive capital needed to fund new facilities, market entry or product development without giving up equity.
                     </p>
                   </li>
                   <li className="flex gap-3">
