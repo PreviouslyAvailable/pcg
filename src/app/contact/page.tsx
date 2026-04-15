@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
-import Navbar from '@/components/Navbar';
+import Navbar from '@/components/NavbarServer';
 import Footer from '@/components/Footer';
 import { client } from '@/sanity/client';
 import { urlFor } from '@/sanity/image';

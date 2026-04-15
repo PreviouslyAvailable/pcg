@@ -1,4 +1,4 @@
-import Navbar from '@/components/Navbar';
+import Navbar from '@/components/NavbarServer';
 import Hero from '@/components/Hero';
 import HomeIntro from '@/components/HomeIntro';
 import CaseStudy from '@/components/CaseStudy';
@@ -88,12 +88,12 @@ export default async function Home() {
         }
         featureCards={data?.introSection?.featureCards}
       />
-      <CaseStudy
+     {/* <CaseStudy
         slides={caseStudies ?? []}
         imageSrc={caseStudyImageSrc}
         label={data?.caseStudy?.label ?? undefined}
         quote={data?.caseStudy?.heading ?? undefined}
-      />
+      /> */}
       <CtaBanner />
       <InvestorsSection
         imageSrc={

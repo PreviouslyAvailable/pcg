@@ -66,6 +66,7 @@ export interface SiteSettings {
   newsletterHeading?: string
   newsletterBody?: string
   footerTagline?: string
+  navLinks?: Array<{ label?: string; href?: string }>
 }
 
 // ─── Page Types ──────────────────────────────────────────────────────────────

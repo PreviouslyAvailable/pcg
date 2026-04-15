@@ -276,7 +276,8 @@ export const siteSettingsQuery = groq`
   *[_type == "siteSettings"][0] {
     newsletterHeading,
     newsletterBody,
-    footerTagline
+    footerTagline,
+    navLinks[] { label, href }
   }
 `
 

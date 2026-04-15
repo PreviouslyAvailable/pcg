@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useState } from 'react';
 
-const navLinks = [
+const defaultNavLinks = [
   { label: 'About', href: '/about' },
   { label: 'Borrowers', href: '/borrowers' },
   { label: 'Investors', href: '/investors' },
@@ -14,10 +14,12 @@ const navLinks = [
 
 interface NavbarProps {
   variant?: 'light' | 'dark';
+  navLinks?: Array<{ label?: string; href?: string }>;
 }
 
-export default function Navbar({ variant = 'dark' }: NavbarProps) {
+export default function Navbar({ variant = 'dark', navLinks }: NavbarProps) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const links = navLinks && navLinks.length > 0 ? navLinks : defaultNavLinks;
 
   const textColor = variant === 'dark' ? 'text-gold' : 'text-ink';
   const borderColor = variant === 'dark' ? 'border-gold' : 'border-ink';
@@ -45,10 +47,10 @@ export default function Navbar({ variant = 'dark' }: NavbarProps) {
 
         {/* Desktop nav links — grouped with logo on the left */}
         <div className="hidden lg:flex items-center gap-6 xl:gap-8">
-          {navLinks.map((link) => (
+          {links.map((link) => (
             <Link
               key={link.href}
-              href={link.href}
+              href={link.href ?? '/'}
               className={`font-nav text-[16px] leading-none ${textColor} hover:opacity-70 transition-opacity`}
             >
               {link.label}
@@ -86,10 +88,10 @@ export default function Navbar({ variant = 'dark' }: NavbarProps) {
       {menuOpen && (
         <div className="lg:hidden bg-dark/95 backdrop-blur-sm py-8">
           <div className="flex flex-col gap-6 px-4 lg:px-[60px]">
-          {navLinks.map((link) => (
+          {links.map((link) => (
             <Link
               key={link.href}
-              href={link.href}
+              href={link.href ?? '/'}
               onClick={() => setMenuOpen(false)}
               className="font-nav text-[16px] text-gold"
             >

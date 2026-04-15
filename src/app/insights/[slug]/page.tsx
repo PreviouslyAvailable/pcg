@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { PortableText } from '@portabletext/react';
 import type { PortableTextComponents } from '@portabletext/react';
-import Navbar from '@/components/Navbar';
+import Navbar from '@/components/NavbarServer';
 import Footer from '@/components/Footer';
 import NewsletterBanner from '@/components/NewsletterBanner';
 import { client } from '@/sanity/client';
