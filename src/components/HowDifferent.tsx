@@ -19,7 +19,7 @@ interface HowDifferentProps {
 const defaultItems: FeatureItem[] = [
   {
     title: 'Conflict-Free Business Model',
-    body: 'We focus exclusively on fund management. No advisory and no mixing equity within the same fund.',
+    body: 'We are the only corporate private credit lender that focuses exclusively on funds management.',
     imageAlt: 'Conflict-free business model',
   },
   {
