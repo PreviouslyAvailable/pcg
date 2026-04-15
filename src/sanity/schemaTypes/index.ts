@@ -9,6 +9,7 @@ import { borrowersPage } from './borrowersPage'
 import { investorsPage } from './investorsPage'
 import { strategiesPage } from './strategiesPage'
 import { contactPage } from './contactPage'
+import { insightsPage } from './insightsPage'
 
 export const schemaTypes = [
   post,
@@ -22,4 +23,5 @@ export const schemaTypes = [
   investorsPage,
   strategiesPage,
   contactPage,
+  insightsPage,
 ]

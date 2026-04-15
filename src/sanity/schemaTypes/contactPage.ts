@@ -17,6 +17,13 @@ export const contactPage = defineType({
   type: 'document',
   fields: [
     defineField({
+      name: 'slug',
+      title: 'Page URL',
+      type: 'string',
+      description: 'The URL path for this page',
+      initialValue: '/contact',
+    }),
+    defineField({
       name: 'hero',
       title: 'Hero',
       type: 'object',

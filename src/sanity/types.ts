@@ -300,6 +300,14 @@ export interface StrategiesPage {
   }
 }
 
+export interface InsightsPage {
+  slug?: string
+  heading?: string
+  recentInsightsHeading?: string
+  educationalResourcesHeading?: string
+  allInsightsHeading?: string
+}
+
 export interface ContactPage {
   hero?: {
     heading?: string

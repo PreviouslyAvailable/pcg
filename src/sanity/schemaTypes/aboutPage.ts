@@ -20,6 +20,13 @@ export const aboutPage = defineType({
   type: 'document',
   fields: [
     defineField({
+      name: 'slug',
+      title: 'Page URL',
+      type: 'string',
+      description: 'The URL path for this page',
+      initialValue: '/about',
+    }),
+    defineField({
       name: 'hero',
       title: 'Hero',
       type: 'object',

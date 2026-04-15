@@ -73,6 +73,14 @@ export default defineConfig({
                           .schemaType('contactPage')
                           .documentId('contactPage')
                       ),
+                    S.listItem()
+                      .title('Insights')
+                      .id('insightsPage')
+                      .child(
+                        S.document()
+                          .schemaType('insightsPage')
+                          .documentId('insightsPage')
+                      ),
                   ])
               ),
 

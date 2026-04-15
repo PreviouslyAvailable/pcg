@@ -272,6 +272,16 @@ export const contactPageQuery = groq`
   }
 `
 
+export const insightsPageQuery = groq`
+  *[_type == "insightsPage"][0] {
+    slug,
+    heading,
+    recentInsightsHeading,
+    educationalResourcesHeading,
+    allInsightsHeading
+  }
+`
+
 export const siteSettingsQuery = groq`
   *[_type == "siteSettings"][0] {
     newsletterHeading,

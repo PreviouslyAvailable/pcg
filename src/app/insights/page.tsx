@@ -5,9 +5,9 @@ import Navbar from '@/components/NavbarServer';
 import Footer from '@/components/Footer';
 import NewsletterBanner from '@/components/NewsletterBanner';
 import { client } from '@/sanity/client';
-import { postsQuery } from '@/sanity/queries';
+import { postsQuery, insightsPageQuery } from '@/sanity/queries';
 import { urlFor } from '@/sanity/image';
-import type { PostSummary } from '@/sanity/types';
+import type { PostSummary, InsightsPage } from '@/sanity/types';
 
 export const metadata: Metadata = {
   title: 'Insights',
@@ -29,7 +29,10 @@ const eduHeading = ['text-white', 'text-ink', 'text-ink'];
 const eduTag = ['text-white/60', 'text-ink/60', 'text-ink/60'];
 
 export default async function InsightsPage() {
-  const allPosts: PostSummary[] = await client.fetch(postsQuery);
+  const [allPosts, pageData] = await Promise.all([
+    client.fetch<PostSummary[]>(postsQuery),
+    client.fetch<InsightsPage>(insightsPageQuery).catch(() => null),
+  ]);
 
   const recentInsights = allPosts.filter((p) => p.category !== 'educational').slice(0, 3);
   const educationalResources = allPosts.filter((p) => p.category === 'educational');
@@ -43,7 +46,7 @@ export default async function InsightsPage() {
         <div className="pcg-inner">
           <div className="w-1/2">
             <h1 className="font-serif font-light text-ink text-[clamp(60px,6.4vw,80px)] leading-[1.0] tracking-[-0.015em]">
-              Private Credit Market Intelligence
+              {pageData?.heading ?? 'Private Credit Market Intelligence'}
             </h1>
           </div>
         </div>
@@ -53,7 +56,7 @@ export default async function InsightsPage() {
       {recentInsights.length > 0 && (
         <section className="section">
           <div className="pcg-inner">
-            <h2 className="font-sans text-ink text-[26px] leading-[1.2] mb-8">Recent Insights</h2>
+            <h2 className="font-sans text-ink text-[26px] leading-[1.2] mb-8">{pageData?.recentInsightsHeading ?? 'Recent Insights'}</h2>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
               {recentInsights.map((post) => (
                 <Link key={post._id} href={`/insights/${post.slug}`} className="group block">
@@ -101,7 +104,7 @@ export default async function InsightsPage() {
       {educationalResources.length > 0 && (
         <section className="section">
           <div className="pcg-inner">
-            <h2 className="font-sans text-ink text-[26px] leading-[1.2] mb-8">Educational Resources</h2>
+            <h2 className="font-sans text-ink text-[26px] leading-[1.2] mb-8">{pageData?.educationalResourcesHeading ?? 'Educational Resources'}</h2>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
               {educationalResources.map((post, i) => (
                 <Link key={post._id} href={`/insights/${post.slug}`} className="group block">
@@ -128,7 +131,7 @@ export default async function InsightsPage() {
       {allPosts.length > 0 && (
         <section className="section">
           <div className="pcg-inner">
-            <h2 className="font-sans text-ink text-[26px] leading-[1.2] mb-8">All Insights</h2>
+            <h2 className="font-sans text-ink text-[26px] leading-[1.2] mb-8">{pageData?.allInsightsHeading ?? 'All Insights'}</h2>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 gap-y-12">
               {allPosts.map((post) => (
                 <Link key={post._id} href={`/insights/${post.slug}`} className="group block">
