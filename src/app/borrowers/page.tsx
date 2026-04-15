@@ -21,8 +21,8 @@ export async function generateMetadata(): Promise<Metadata> {
 const fallbackWhyPCG = [
   { title: 'Bespoke Capital Structures', body: "We tailor loans around your business, not a rigid credit policy. Whether it's interest-only periods to preserve cash flow or seasonal repayment schedules that match your revenue, we have the flexibility to design financing that actually fits your operational reality." },
   { title: 'Direct Access to Decision Makers', body: "We eliminate the bureaucracy of traditional lending. All credit decisions are made locally by the partners you meet face-to-face. This flat structure ensures rapid feedback and the certainty of execution required to close complex deals on tight timelines." },
-  { title: 'Long-Term Growth Partnership', body: "We spend time face-to-face understanding your business. We're building partnerships that support you through different phases of your business lifecycle, not transactional lending." },
-  { title: 'Proven Track Record', body: "With $500M in committed capital and over 70 successful transactions, we represent one of the largest and most diversified private credit platforms in New Zealand. Our track record provides you with the confidence that we have the scale to support your business and the experience to navigate complex deal structures." },
+  { title: 'Long-Term Growth Partnership', body: "We spend time face-to-face understanding your business, your strategy, and the challenges ahead. We build lasting partnerships that support you through every phase of your growth, not just a one-time facility." },
+  { title: 'Proven Track Record', body: "With over $500M in committed capital and over 20 70 successful transactions, we represent one of the largest and most diversified private credit platforms in New Zealand. Our track record provides you with the confidence that we have the scale to support your business and the experience to navigate complex deal structures." },
 ];
 
 const fallbackLendingFocus = [
@@ -77,7 +77,7 @@ export default async function BorrowersPage() {
 
       <PageHero
         heading={data?.hero?.heading ?? 'Capital Built for Speed and Flexibility'}
-        subtext={data?.hero?.subtext ?? 'We provide financing solutions designed to help you scale, acquire, or refinance. Partner with a local team that has the authority and expertise to say yes.'}
+        subtext={data?.hero?.subtext ?? 'We provide financing solutions designed to help you scale, acquire, or recapitalise. Partner with a local team that has the authority and expertise to say yes.'}
         imageSrc={heroImageSrc}
         imageAlt={data?.hero?.image?.alt ?? 'Capital solutions in action'}
         imageCaption={data?.hero?.image?.caption ?? 'Rainbow Quarry'}

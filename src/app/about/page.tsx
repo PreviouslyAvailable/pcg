@@ -105,7 +105,7 @@ export default async function AboutPage() {
     ? data.featureCards
     : [
         { title: 'Stability through every cycle', body: "There's no substitute for having operated private debt funds through economic recessions, financial crises, and high growth periods. Each creates unique challenges, especially for the uninitiated. Our experience across multiple market cycles in global markets gives us the competence to navigate any environment.", ctaLabel: 'Explore Growth Capital', ctaHref: '/borrowers' },
-        { title: 'Aligned Partnership', body: "Unlike competitors, we focus exclusively on fund management. No advisory, no mixed equity within the same fund. This ring-fencing ensures our interests are always aligned with yours.", ctaLabel: 'About our Funds', ctaHref: '/investors' },
+        { title: 'Aligned Partnership', body: "Conflict-Free by Design Many capital providers also run advisory businesses or mix equity alongside debt in the same fund. We don't. Our exclusive focus on funds management eliminates those conflicts, so every decision we make is driven by one thing: what's right for you.", ctaLabel: 'About our Funds', ctaHref: '/investors' },
         { title: 'Market-Leading Diversification', body: "PCG offers a level of diversification and risk management that is unique in the New Zealand market. This scale allows us to provide genuine downside protection for investors while offering borrowers the stability of an institutional-grade platform.", ctaLabel: 'About our Funds', ctaHref: '/investors' },
       ];
 
@@ -136,13 +136,13 @@ export default async function AboutPage() {
               ) : (
                 <>
                   <p>
-                    Recognising that New Zealand&apos;s ambitious businesses were underserved by traditional banks, we established PCG to bring the flexibility of global private debt to the local market.
+                    Recognising that New Zealand's ambitious businesses were underserved by traditional banks, we established PCG to bring the flexibility of global private debt to the local market.
                   </p>
                   <p>
-                    We bring over 20 years of global private credit experience to address the funding gap left by banks. Founded in 2015 by Paul Carman and John Ferrara after successfully operating private debt funds in the UK under Maples Bank, PCG has grown from $5M to $500M assets under management by solving problems traditional lenders couldn&apos;t.
+                    We bring over 20 years of global private credit experience to address the funding gap left by banks. Founded in 2015 by Paul Carman and John Ferrara after successfully operating private debt funds in the UK under Mizuho Bank, PCG has grown from $5M to $500M assets under management by solving problems traditional lenders couldn't.
                   </p>
                   <p>
-                    As New Zealand&apos;s largest and most active private credit lender, we connect opportunities across Auckland and Queenstown while maintaining the relationship-driven approach that sets us apart from both banks and institutional finance.
+                    As New Zealand’s most active private credit lender, we originate opportunities across New Zealand from our Auckland and Queenstown offices. Maintaining a relationship-driven approach with our borrower and investor bases.
                   </p>
                 </>
               )}
@@ -181,7 +181,7 @@ export default async function AboutPage() {
 
       {/* Quote banner */}
       <CtaBanner
-        heading={data?.quoteBanner?.quote ?? "Infrastructure investment isn't about ticking boxes. It's about building the foundation for sustainable competitive advantage."}
+        heading={data?.quoteBanner?.quote ?? "Infrastructure investment is about enabling businesses to build the foundations necessary to facilitate deeper New Zealand economic resilience."}
         ctaLabel="Get started"
         ctaHref="/contact"
         background="image"
@@ -200,7 +200,7 @@ export default async function AboutPage() {
         </div>
       </section>
 
-      {/* Board of Directors */}
+      {/* Board of Directors 
       <section className="py-[calc(var(--spacing)*18)]">
         <div className="pcg-inner">
           <h2 className="font-sans text-ink text-[26px] leading-[1.03] tracking-[-0.012em] mb-5">Board of Directors</h2>
@@ -210,7 +210,7 @@ export default async function AboutPage() {
             ))}
           </div>
         </div>
-      </section>
+      </section>*/}
 
       <Footer />
     </main>
