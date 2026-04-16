@@ -34,8 +34,8 @@ const fallbackFundDetails = [
 ];
 
 const fallbackInvestmentOpportunity = [
-  { title: 'Defensive Yield with Inflation Protection', body: "Our fund targets a net return of OCR + 4% through a portfolio of 100% floating-rate assets. This structure provides a natural hedge against inflation and interest rate volatility, ensuring your yield adjusts in real-time to market conditions. Our team's 20-year global track record ensures this performance remains resilient through every phase of the economic cycle." },
-  { title: 'Granular Exposure to the NZ Middle Market', body: 'Investors gain immediate access to a granular portfolio of 20+ high-quality New Zealand businesses across defensive sectors. This level of diversification—spanning multiple industries and deal structures—is unique in the New Zealand market and significantly reduces idiosyncratic risk compared to concentrated credit offerings.' },
+  { title: 'Defensive Yield with Inflation Protection', body: "Our funds targets a net return of OCR + 4% through a portfolio of 100% floating-rate assets. This structure provides a natural hedge against inflation and interest rate volatility, ensuring your yield adjusts in real-time to market conditions. Our team's 20-year global track record ensures this performance remains resilient through every phase of the economic cycle." },
+  { title: 'Granular Exposure to the NZ Middle Market', body: 'Investors gain immediate access to a granular portfolio of high-quality New Zealand businesses across defensive sectors. This level of diversification—spanning multiple industries and deal structures—is unique in the New Zealand market and significantly reduces idiosyncratic risk compared to concentrated credit offerings.' },
   { title: 'Capital Preservation via Structural Protection', body: 'We prioritize capital preservation by focusing on senior secured (first lien) positions with conservative loan-to-value (LTV) ratios. Every investment undergoes rigorous diligence with each deal specifically structured to include multiple exit paths and robust covenant protections to safeguard investor capital in all scenarios.' },
 ];
 
@@ -78,7 +78,7 @@ export default async function InvestorsPage() {
 
       <PageHero
         heading={data?.hero?.heading ?? 'Resilient Yield in New Zealand Dollars'}
-        subtext={data?.hero?.subtext ?? 'We combine a 20-year global track record with a primary focus on capital preservation and consistent monthly income'}
+        subtext={data?.hero?.subtext ?? 'We combine a 20-year global track record with a primary focus on capital preservation and delivering consistent monthly income'}
         imageSrc={heroImageSrc}
         imageAlt={data?.hero?.image?.alt ?? 'New Zealand landscape'}
       />
@@ -134,7 +134,7 @@ export default async function InvestorsPage() {
             {/* Dark fund card */}
             <FadeUp delay={120} className="bg-dark rounded-[16px] p-10 lg:p-14 flex flex-col hover-lift">
               <h3 className="font-sans text-white text-[26px] leading-[1.2] mb-8">
-                {data?.secondFundName ?? 'Another fund'}
+                {data?.secondFundName ?? 'PCG New Zealand Economic Resilience Fund (NZER)'}
               </h3>
               <div className="flex-1 divide-y divide-white/10 mb-8">
                 {secondFundDetails.map((row) => (
