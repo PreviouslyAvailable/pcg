@@ -6,4 +6,5 @@ export const client = createClient({
   dataset,
   apiVersion,
   useCdn: false,
+  fetchOptions: { cache: 'no-store' },
 })
