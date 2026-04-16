@@ -17,6 +17,12 @@ export const contactPage = defineType({
   type: 'document',
   fields: [
     defineField({
+      name: 'navLabel',
+      title: 'Navigation Label',
+      type: 'string',
+      description: 'The name shown in the site navigation menu (e.g. "News")',
+    }),
+    defineField({
       name: 'pageTitle',
       title: 'Page Name (Browser Tab)',
       type: 'string',

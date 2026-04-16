@@ -289,6 +289,17 @@ export const insightsPageQuery = groq`
   }
 `
 
+export const navLabelsQuery = groq`
+  {
+    "about":      *[_type == "aboutPage"][0].navLabel,
+    "borrowers":  *[_type == "borrowersPage"][0].navLabel,
+    "investors":  *[_type == "investorsPage"][0].navLabel,
+    "strategies": *[_type == "strategiesPage"][0].navLabel,
+    "insights":   *[_type == "insightsPage"][0].navLabel,
+    "contact":    *[_type == "contactPage"][0].navLabel,
+  }
+`
+
 export const siteSettingsQuery = groq`
   *[_type == "siteSettings"][0] {
     newsletterHeading,
