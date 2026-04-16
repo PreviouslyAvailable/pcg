@@ -7,9 +7,7 @@ const defaultNavLinks = [
   { label: 'About', href: '/about' },
   { label: 'Borrowers', href: '/borrowers' },
   { label: 'Investors', href: '/investors' },
-  { label: 'Strategies', href: '/strategies' },
-  { label: 'Case Studies', href: '/case-studies' },
-  { label: 'Insights', href: '/news' },
+  { label: 'News', href: '/news' },
 ];
 
 interface NavbarProps {
