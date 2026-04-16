@@ -62,7 +62,7 @@ export default async function InsightsPage() {
               {recentInsights.map((post) => (
                 <Link key={post._id} href={`/news/${post.slug}`} className="group block">
                   <div className="relative w-full aspect-[3/2] rounded-[12px] overflow-hidden bg-cream-warm mb-4">
-                    {post.mainImage ? (
+                    {post.mainImage?.asset ? (
                       <Image
                         src={urlFor(post.mainImage).width(800).height(533).url()}
                         alt={post.mainImage.alt ?? post.title}
@@ -137,7 +137,7 @@ export default async function InsightsPage() {
               {allPosts.map((post) => (
                 <Link key={post._id} href={`/news/${post.slug}`} className="group block">
                   <div className="relative w-full aspect-[3/2] rounded-[12px] overflow-hidden bg-cream-warm mb-4">
-                    {post.mainImage ? (
+                    {post.mainImage?.asset ? (
                       <Image
                         src={urlFor(post.mainImage).width(800).height(533).url()}
                         alt={post.mainImage.alt ?? post.title}

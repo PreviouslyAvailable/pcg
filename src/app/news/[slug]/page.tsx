@@ -157,7 +157,7 @@ export default async function InsightPost({ params }: Props) {
       </section>
 
       {/* Hero image */}
-      {post.mainImage && (
+      {post.mainImage?.asset && (
         <section className="pb-10">
           <div className="pcg-inner">
             <div className="relative w-full aspect-[16/7] rounded-[16px] overflow-hidden bg-cream-warm">
@@ -214,7 +214,7 @@ export default async function InsightPost({ params }: Props) {
               {related.map((item) => (
                 <Link key={item._id} href={`/news/${item.slug}`} className="group block">
                   <div className="relative w-full aspect-[4/3] rounded-[12px] overflow-hidden bg-cream-warm mb-4">
-                    {item.mainImage ? (
+                    {item.mainImage?.asset ? (
                       <Image
                         src={urlFor(item.mainImage).width(600).height(450).url()}
                         alt={item.mainImage.alt ?? item.title}
