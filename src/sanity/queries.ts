@@ -8,7 +8,7 @@ export const postsQuery = groq`
     "slug": slug.current,
     category,
     publishedAt,
-    mainImage { ..., "alt": alt },
+    mainImage { ..., asset->, "alt": alt },
     excerpt
   }
 `
@@ -21,7 +21,7 @@ export const postsByCategoryQuery = groq`
     "slug": slug.current,
     category,
     publishedAt,
-    mainImage { ..., "alt": alt },
+    mainImage { ..., asset->, "alt": alt },
     excerpt
   }
 `
@@ -34,7 +34,7 @@ export const postBySlugQuery = groq`
     "slug": slug.current,
     category,
     publishedAt,
-    mainImage { ..., "alt": alt },
+    mainImage { ..., asset->, "alt": alt },
     excerpt,
     body,
     author-> {
@@ -53,7 +53,7 @@ export const relatedPostsQuery = groq`
     "slug": slug.current,
     category,
     publishedAt,
-    mainImage { ..., "alt": alt },
+    mainImage { ..., asset->, "alt": alt },
     excerpt
   }
 `
