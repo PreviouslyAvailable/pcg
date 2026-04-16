@@ -82,8 +82,8 @@ export default function InvestorsSection({
         </FadeUp>
         <FadeUp delay={200}>
         <Link
-          href={ctaHref ?? '/investors'}
-          className="self-start font-sans text-[16px] uppercase tracking-wide text-white border border-white rounded-[10px] px-6 py-3 hover:bg-white/10 transition-colors"
+          href={ctaHref || '/investors'}
+          className="inline-flex font-sans text-[16px] uppercase tracking-wide text-white border border-white rounded-[10px] px-6 py-3 hover:bg-white/10 transition-colors"
         >
           <span className="lg:hidden">{ctaLabelMobile ?? 'Investments'}</span>
           <span className="hidden lg:block">{ctaLabel ?? 'See Investment Options'}</span>
