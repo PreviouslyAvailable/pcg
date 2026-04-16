@@ -6,25 +6,30 @@ interface NavbarServerProps {
   variant?: 'light' | 'dark';
 }
 
+interface NavEntry {
+  label?: string;
+  slug?: string;
+}
+
 interface NavLabels {
-  about?: string;
-  borrowers?: string;
-  investors?: string;
-  strategies?: string;
-  insights?: string;
-  contact?: string;
+  about?: NavEntry;
+  borrowers?: NavEntry;
+  investors?: NavEntry;
+  strategies?: NavEntry;
+  insights?: NavEntry;
+  contact?: NavEntry;
 }
 
 export default async function NavbarServer({ variant }: NavbarServerProps) {
   const labels = await client.fetch<NavLabels>(navLabelsQuery).catch(() => null);
 
   const navLinks = [
-    { label: labels?.about || 'About', href: '/about' },
-    { label: labels?.borrowers || 'Borrowers', href: '/borrowers' },
-    { label: labels?.investors || 'Investors', href: '/investors' },
-    { label: labels?.strategies || 'Strategies', href: '/strategies' },
-    { label: labels?.insights || 'Insights', href: '/insights' },
-    { label: labels?.contact || 'Contact', href: '/contact' },
+    { label: labels?.about?.label || 'About',       href: labels?.about?.slug || '/about' },
+    { label: labels?.borrowers?.label || 'Borrowers', href: labels?.borrowers?.slug || '/borrowers' },
+    { label: labels?.investors?.label || 'Investors', href: labels?.investors?.slug || '/investors' },
+    { label: labels?.strategies?.label || 'Strategies', href: labels?.strategies?.slug || '/strategies' },
+    { label: labels?.insights?.label || 'Insights',  href: labels?.insights?.slug || '/news' },
+    { label: labels?.contact?.label || 'Contact',   href: labels?.contact?.slug || '/contact' },
   ];
 
   return <Navbar variant={variant} navLinks={navLinks} />;

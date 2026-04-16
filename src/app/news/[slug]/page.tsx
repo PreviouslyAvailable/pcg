@@ -212,7 +212,7 @@ export default async function InsightPost({ params }: Props) {
             <h2 className="font-sans text-ink text-[28px] mb-8">Related Insights</h2>
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
               {related.map((item) => (
-                <Link key={item._id} href={`/insights/${item.slug}`} className="group block">
+                <Link key={item._id} href={`/news/${item.slug}`} className="group block">
                   <div className="relative w-full aspect-[4/3] rounded-[12px] overflow-hidden bg-cream-warm mb-4">
                     {item.mainImage ? (
                       <Image

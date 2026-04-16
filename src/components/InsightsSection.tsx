@@ -14,10 +14,10 @@ interface InsightsSectionProps {
 }
 
 const placeholderPosts: InsightCard[] = [
-  { title: 'PCG News: Welcome to new investor – Aurora KiwiSaver', href: '/insights/aurora-kiwisaver' },
-  { title: 'PCG Insights: Relative Value in Private Debt', href: '/insights/relative-value-private-debt' },
-  { title: 'PCG News: KangaNews NZ Private Debt Feature', href: '/insights/kanganews-feature' },
-  { title: 'PCG Insights: Private Debt – What Do We Mean?', href: '/insights/private-debt-what-do-we-mean' },
+  { title: 'PCG News: Welcome to new investor – Aurora KiwiSaver', href: '/news/aurora-kiwisaver' },
+  { title: 'PCG Insights: Relative Value in Private Debt', href: '/news/relative-value-private-debt' },
+  { title: 'PCG News: KangaNews NZ Private Debt Feature', href: '/news/kanganews-feature' },
+  { title: 'PCG Insights: Private Debt – What Do We Mean?', href: '/news/private-debt-what-do-we-mean' },
 ];
 
 export default function InsightsSection({ posts = placeholderPosts }: InsightsSectionProps) {

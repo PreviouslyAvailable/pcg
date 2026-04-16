@@ -291,12 +291,12 @@ export const insightsPageQuery = groq`
 
 export const navLabelsQuery = groq`
   {
-    "about":      *[_type == "aboutPage"][0].navLabel,
-    "borrowers":  *[_type == "borrowersPage"][0].navLabel,
-    "investors":  *[_type == "investorsPage"][0].navLabel,
-    "strategies": *[_type == "strategiesPage"][0].navLabel,
-    "insights":   *[_type == "insightsPage"][0].navLabel,
-    "contact":    *[_type == "contactPage"][0].navLabel,
+    "about":      { "label": *[_type == "aboutPage"][0].navLabel,      "slug": *[_type == "aboutPage"][0].slug },
+    "borrowers":  { "label": *[_type == "borrowersPage"][0].navLabel,  "slug": *[_type == "borrowersPage"][0].slug },
+    "investors":  { "label": *[_type == "investorsPage"][0].navLabel,  "slug": *[_type == "investorsPage"][0].slug },
+    "strategies": { "label": *[_type == "strategiesPage"][0].navLabel, "slug": *[_type == "strategiesPage"][0].slug },
+    "insights":   { "label": *[_type == "insightsPage"][0].navLabel,   "slug": *[_type == "insightsPage"][0].slug },
+    "contact":    { "label": *[_type == "contactPage"][0].navLabel,    "slug": *[_type == "contactPage"][0].slug },
   }
 `
 

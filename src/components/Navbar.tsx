@@ -9,7 +9,7 @@ const defaultNavLinks = [
   { label: 'Investors', href: '/investors' },
   { label: 'Strategies', href: '/strategies' },
   { label: 'Case Studies', href: '/case-studies' },
-  { label: 'Insights', href: '/insights' },
+  { label: 'Insights', href: '/news' },
 ];
 
 interface NavbarProps {

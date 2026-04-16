@@ -4,6 +4,12 @@ const nextConfig: NextConfig = {
   experimental: {
     viewTransition: true,
   },
+  async redirects() {
+    return [
+      { source: '/insights', destination: '/news', permanent: true },
+      { source: '/insights/:slug', destination: '/news/:slug', permanent: true },
+    ];
+  },
   images: {
     remotePatterns: [
       {

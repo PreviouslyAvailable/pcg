@@ -60,7 +60,7 @@ export default async function InsightsPage() {
             <h2 className="font-sans text-ink text-[26px] leading-[1.2] mb-8">{pageData?.recentInsightsHeading ?? 'Recent Insights'}</h2>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
               {recentInsights.map((post) => (
-                <Link key={post._id} href={`/insights/${post.slug}`} className="group block">
+                <Link key={post._id} href={`/news/${post.slug}`} className="group block">
                   <div className="relative w-full aspect-[3/2] rounded-[12px] overflow-hidden bg-cream-warm mb-4">
                     {post.mainImage ? (
                       <Image
@@ -108,7 +108,7 @@ export default async function InsightsPage() {
             <h2 className="font-sans text-ink text-[26px] leading-[1.2] mb-8">{pageData?.educationalResourcesHeading ?? 'Educational Resources'}</h2>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
               {educationalResources.map((post, i) => (
-                <Link key={post._id} href={`/insights/${post.slug}`} className="group block">
+                <Link key={post._id} href={`/news/${post.slug}`} className="group block">
                   <div className={`${eduBg[i % eduBg.length]} rounded-[12px] p-8 aspect-[4/3] flex flex-col justify-between mb-4`}>
                     <p className={`font-sans text-[14px] uppercase tracking-[1px] ${eduTag[i % eduTag.length]} mb-3`}>
                       {post.category?.replace(/-/g, ' ')}
@@ -135,7 +135,7 @@ export default async function InsightsPage() {
             <h2 className="font-sans text-ink text-[26px] leading-[1.2] mb-8">{pageData?.allInsightsHeading ?? 'All Insights'}</h2>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 gap-y-12">
               {allPosts.map((post) => (
-                <Link key={post._id} href={`/insights/${post.slug}`} className="group block">
+                <Link key={post._id} href={`/news/${post.slug}`} className="group block">
                   <div className="relative w-full aspect-[3/2] rounded-[12px] overflow-hidden bg-cream-warm mb-4">
                     {post.mainImage ? (
                       <Image

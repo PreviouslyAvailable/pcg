@@ -15,10 +15,10 @@ import type { HomePage, PostSummary, CaseStudy as CaseStudyType } from '@/sanity
 export const revalidate = 60;
 
 const insightPostsFallback = [
-  { title: 'PCG News: Welcome to new investor – Aurora KiwiSaver', href: '/insights/aurora-kiwisaver', imageSrc: '/images/insight-1.jpg' },
-  { title: 'PCG Insights: Relative Value in Private Debt', href: '/insights/relative-value-private-debt', imageSrc: '/images/insight-2.jpg' },
-  { title: 'PCG News: KangaNews NZ Private Debt Feature', href: '/insights/kanganews-feature', imageSrc: '/images/insight-3.jpg' },
-  { title: 'PCG Insights: Private Debt – What Do We Mean?', href: '/insights/private-debt-what-do-we-mean', imageSrc: '/images/insight-4.jpg' },
+  { title: 'PCG News: Welcome to new investor – Aurora KiwiSaver', href: '/news/aurora-kiwisaver', imageSrc: '/images/insight-1.jpg' },
+  { title: 'PCG Insights: Relative Value in Private Debt', href: '/news/relative-value-private-debt', imageSrc: '/images/insight-2.jpg' },
+  { title: 'PCG News: KangaNews NZ Private Debt Feature', href: '/news/kanganews-feature', imageSrc: '/images/insight-3.jpg' },
+  { title: 'PCG Insights: Private Debt – What Do We Mean?', href: '/news/private-debt-what-do-we-mean', imageSrc: '/images/insight-4.jpg' },
 ];
 
 export default async function Home() {
@@ -51,7 +51,7 @@ export default async function Home() {
     posts && posts.length > 0
       ? posts.slice(0, 4).map((p) => ({
           title: p.title,
-          href: `/insights/${p.slug}`,
+          href: `/news/${p.slug}`,
           imageSrc: p.mainImage?.asset
             ? urlFor(p.mainImage).width(480).height(320).url()
             : '/images/insight-1.jpg',
