@@ -15,7 +15,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 // Revalidate every 60 seconds
-export const revalidate = 60;
+export const revalidate = 0;
 
 function formatDate(dateStr: string) {
   return new Date(dateStr).toLocaleDateString('en-NZ', {

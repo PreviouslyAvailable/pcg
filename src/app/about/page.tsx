@@ -13,7 +13,7 @@ import { aboutPageQuery, executiveTeamQuery, boardMembersQuery } from '@/sanity/
 import type { AboutPage, TeamMember } from '@/sanity/types';
 import FadeUp from '@/components/FadeUp';
 
-export const revalidate = 60;
+export const revalidate = 0;
 
 export async function generateMetadata(): Promise<Metadata> {
   const data = await client.fetch<AboutPage>(aboutPageQuery).catch(() => null);

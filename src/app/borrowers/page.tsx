@@ -11,7 +11,7 @@ import { urlFor } from '@/sanity/image';
 import { borrowersPageQuery } from '@/sanity/queries';
 import type { BorrowersPage } from '@/sanity/types';
 
-export const revalidate = 60;
+export const revalidate = 0;
 
 export async function generateMetadata(): Promise<Metadata> {
   const data = await client.fetch<BorrowersPage>(borrowersPageQuery).catch(() => null);

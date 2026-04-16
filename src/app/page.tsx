@@ -12,7 +12,7 @@ import { urlFor } from '@/sanity/image';
 import { homePageQuery, postsQuery, caseStudiesQuery } from '@/sanity/queries';
 import type { HomePage, PostSummary, CaseStudy as CaseStudyType } from '@/sanity/types';
 
-export const revalidate = 60;
+export const revalidate = 0;
 
 const insightPostsFallback = [
   { title: 'PCG News: Welcome to new investor – Aurora KiwiSaver', href: '/news/aurora-kiwisaver', imageSrc: '/images/insight-1.jpg' },

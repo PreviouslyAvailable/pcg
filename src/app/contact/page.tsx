@@ -7,7 +7,7 @@ import { urlFor } from '@/sanity/image';
 import { contactPageQuery } from '@/sanity/queries';
 import type { ContactPage } from '@/sanity/types';
 
-export const revalidate = 60;
+export const revalidate = 0;
 
 export async function generateMetadata(): Promise<Metadata> {
   const data = await client.fetch<ContactPage>(contactPageQuery).catch(() => null);

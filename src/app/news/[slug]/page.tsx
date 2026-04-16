@@ -12,7 +12,7 @@ import { postBySlugQuery, relatedPostsQuery, postSlugsQuery } from '@/sanity/que
 import { urlFor } from '@/sanity/image';
 import type { PostFull, PostSummary } from '@/sanity/types';
 
-export const revalidate = 60;
+export const revalidate = 0;
 
 type Props = { params: Promise<{ slug: string }> };
 

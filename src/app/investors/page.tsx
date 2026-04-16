@@ -12,7 +12,7 @@ import { investorsPageQuery } from '@/sanity/queries';
 import type { InvestorsPage } from '@/sanity/types';
 import FadeUp from '@/components/FadeUp';
 
-export const revalidate = 60;
+export const revalidate = 0;
 
 export async function generateMetadata(): Promise<Metadata> {
   const data = await client.fetch<InvestorsPage>(investorsPageQuery).catch(() => null);
