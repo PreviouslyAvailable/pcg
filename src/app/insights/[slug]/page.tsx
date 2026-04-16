@@ -48,14 +48,20 @@ const components: PortableTextComponents = {
     normal: ({ children }) => (
       <p className="font-nav text-ink text-[16px] leading-[1.6] mb-5">{children}</p>
     ),
+    h1: ({ children }) => (
+      <h1 className="font-serif font-light text-ink text-[clamp(40px,4.2vw,56px)] leading-[1.05] tracking-[-0.012em] mt-14 mb-6">{children}</h1>
+    ),
     h2: ({ children }) => (
-      <h2 className="font-sans text-ink text-[22px] leading-[1.3] mt-10 mb-4">{children}</h2>
+      <h2 className="font-serif font-light text-ink text-[clamp(28px,3vw,38px)] leading-[1.1] tracking-[-0.01em] mt-12 mb-5">{children}</h2>
     ),
     h3: ({ children }) => (
-      <h3 className="font-sans text-ink text-[18px] leading-[1.3] mt-8 mb-3">{children}</h3>
+      <h3 className="font-sans text-ink text-[24px] leading-[1.25] mt-10 mb-4">{children}</h3>
     ),
     h4: ({ children }) => (
-      <h4 className="font-sans text-ink text-[16px] leading-[1.3] mt-6 mb-2">{children}</h4>
+      <h4 className="font-sans text-ink text-[20px] leading-[1.3] mt-8 mb-3">{children}</h4>
+    ),
+    h5: ({ children }) => (
+      <h5 className="font-sans text-ink text-[17px] leading-[1.3] tracking-wide uppercase mt-6 mb-2">{children}</h5>
     ),
     blockquote: ({ children }) => (
       <blockquote className="border-l-2 border-ink/20 pl-6 my-8 font-serif text-ink/70 text-[20px] leading-[1.4] italic">
