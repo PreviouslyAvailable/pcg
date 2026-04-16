@@ -7,6 +7,8 @@ interface InsightCard {
   href: string;
   imageSrc?: string;
   category?: string;
+  publishedAt?: string;
+  excerpt?: string;
 }
 
 interface InsightsSectionProps {
@@ -14,11 +16,18 @@ interface InsightsSectionProps {
 }
 
 const placeholderPosts: InsightCard[] = [
-  { title: 'PCG News: Welcome to new investor – Aurora KiwiSaver', href: '/news/aurora-kiwisaver' },
-  { title: 'PCG Insights: Relative Value in Private Debt', href: '/news/relative-value-private-debt' },
-  { title: 'PCG News: KangaNews NZ Private Debt Feature', href: '/news/kanganews-feature' },
-  { title: 'PCG Insights: Private Debt – What Do We Mean?', href: '/news/private-debt-what-do-we-mean' },
+  { title: 'Welcome to new investor – Aurora KiwiSaver', href: '/news/aurora-kiwisaver', category: 'news' },
+  { title: 'Relative Value in Private Debt', href: '/news/relative-value-private-debt', category: 'insights' },
+  { title: 'KangaNews NZ Private Debt Feature', href: '/news/kanganews-feature', category: 'news' },
+  { title: 'Private Debt – What Do We Mean?', href: '/news/private-debt-what-do-we-mean', category: 'insights' },
 ];
+
+function formatDate(dateStr: string) {
+  return new Date(dateStr).toLocaleDateString('en-NZ', {
+    month: 'long',
+    year: 'numeric',
+  }).toUpperCase();
+}
 
 export default function InsightsSection({ posts = placeholderPosts }: InsightsSectionProps) {
   return (
@@ -35,24 +44,35 @@ export default function InsightsSection({ posts = placeholderPosts }: InsightsSe
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
         {posts.map((post, i) => (
-          <FadeUp key={post.href} delay={i * 80} className="flex flex-col">
-            {/* Image */}
-            <div className="relative aspect-[308/389] rounded-[20px] overflow-hidden bg-cream mb-5 hover-zoom">
-              {post.imageSrc && (
-                <Image src={post.imageSrc} alt={post.title} fill className="object-cover img-zoom" />
+          <FadeUp key={post.href} delay={i * 80}>
+            <Link href={post.href} className="group block">
+              {/* Image */}
+              <div className="relative w-full aspect-[3/2] rounded-[12px] overflow-hidden bg-cream mb-4">
+                {post.imageSrc && (
+                  <Image
+                    src={post.imageSrc}
+                    alt={post.title}
+                    fill
+                    className="object-cover group-hover:scale-[1.02] transition-transform duration-500"
+                  />
+                )}
+              </div>
+              {post.category && (
+                <p className="font-sans text-[14px] uppercase tracking-[1px] text-ink/80 mb-1">
+                  {post.category.replace(/-/g, ' ')}
+                </p>
               )}
-            </div>
-            <p className="font-sans text-ink text-[20px] leading-[1.15] mb-5 flex-1">
-              {post.title}
-            </p>
-            <Link
-              href={post.href}
-              className="self-start inline-flex items-center gap-3 font-sans text-[16px] uppercase tracking-wide text-ink border border-ink rounded-[10px] px-6 py-3 hover:bg-ink/5 transition-colors"
-            >
-              Learn More
-              <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                <path d="M1 6h10M6 1l5 5-5 5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
+              <p className="font-sans text-ink text-[20px] leading-[1.2] mt-2 mb-3">
+                {post.title}
+              </p>
+              {post.publishedAt && (
+                <p className="font-sans text-[14px] uppercase tracking-[1px] text-ink/80 mb-2">
+                  {formatDate(post.publishedAt)}
+                </p>
+              )}
+              {post.excerpt && (
+                <p className="font-nav text-ink/70 text-[15px] leading-[1.5]">{post.excerpt}</p>
+              )}
             </Link>
           </FadeUp>
         ))}

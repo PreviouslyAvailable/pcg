@@ -52,9 +52,12 @@ export default async function Home() {
       ? posts.slice(0, 4).map((p) => ({
           title: p.title,
           href: `/news/${p.slug}`,
+          category: p.category,
+          publishedAt: p.publishedAt,
+          excerpt: p.excerpt,
           imageSrc: p.mainImage?.asset
             ? urlFor(p.mainImage).width(480).height(320).url()
-            : '/images/insight-1.jpg',
+            : undefined,
         }))
       : insightPostsFallback;
 
