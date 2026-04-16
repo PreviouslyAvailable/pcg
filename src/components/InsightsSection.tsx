@@ -40,6 +40,15 @@ export default function InsightsSection({ posts = placeholderPosts }: InsightsSe
             Gain valuable insights and follow the latest from PCG.
           </h2>
         </div>
+        <Link
+          href="/news"
+          className="hidden lg:inline-flex shrink-0 items-center gap-3 font-sans text-[14px] uppercase tracking-wide text-ink border border-ink rounded-[10px] px-6 py-3 hover:bg-ink/5 transition-colors ml-8"
+        >
+          See all news
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+            <path d="M1 6h10M6 1l5 5-5 5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </Link>
       </FadeUp>
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
