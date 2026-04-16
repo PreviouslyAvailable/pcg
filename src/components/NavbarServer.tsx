@@ -1,4 +1,4 @@
-import { client } from '@/sanity/client';
+import { client, fetchOptions } from '@/sanity/client';
 import { navLabelsQuery } from '@/sanity/queries';
 import Navbar from './Navbar';
 
@@ -21,7 +21,7 @@ interface NavLabels {
 }
 
 export default async function NavbarServer({ variant }: NavbarServerProps) {
-  const labels = await client.fetch<NavLabels>(navLabelsQuery).catch(() => null);
+  const labels = await client.fetch<NavLabels>(navLabelsQuery, {}, { ...fetchOptions }).catch(() => null);
 
   const navLinks = [
     { label: labels?.about?.label || 'About',       href: labels?.about?.slug || '/about' },

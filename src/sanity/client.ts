@@ -6,5 +6,7 @@ export const client = createClient({
   dataset,
   apiVersion,
   useCdn: false,
-  fetchOptions: { cache: 'no-store' },
 })
+
+// Use this for fetches that must always be fresh (nav, settings etc.)
+export const fetchOptions = { cache: 'no-store' } as const
