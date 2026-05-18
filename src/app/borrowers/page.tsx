@@ -111,17 +111,6 @@ export default async function BorrowersPage() {
         background="teal"
       />
 
-      {/* Quote banner */}
-      <section className="relative min-h-[420px] flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0">
-          <Image src={quoteBannerImageSrc} alt="" fill className="object-cover" />
-          <div className="absolute inset-0 bg-dark/60" />
-        </div>
-        <blockquote className="relative z-10 max-w-[794px] px-4 font-serif font-light text-[clamp(36px,3.75vw,54px)] leading-[1.05] tracking-[-0.012em] text-center text-cream">
-          {data?.quoteBanner?.quote ?? 'Success demands more than traditional lending. It requires partners who see beyond the balance sheet to your business potential.'}
-        </blockquote>
-      </section>
-
       {/* Our lending focus */}
       <section className="py-[calc(var(--spacing)*18)] bg-white">
         <div className="pcg-inner grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
@@ -146,6 +135,17 @@ export default async function BorrowersPage() {
             <Image src={lendingFocusImageSrc} alt="Lending focus" fill className="object-cover" />
           </div>
         </div>
+      </section>
+
+      {/* Quote banner */}
+      <section className="relative min-h-[420px] flex items-center justify-center overflow-hidden">
+        <div className="absolute inset-0">
+          <Image src={quoteBannerImageSrc} alt="" fill className="object-cover" />
+          <div className="absolute inset-0 bg-dark/60" />
+        </div>
+        <blockquote className="relative z-10 max-w-[794px] px-4 font-serif font-light text-[clamp(36px,3.75vw,54px)] leading-[1.05] tracking-[-0.012em] text-center text-cream">
+          {data?.quoteBanner?.quote ?? 'Success demands more than traditional lending. It requires partners who see beyond the balance sheet to your business potential.'}
+        </blockquote>
       </section>
 
       {/* How we work */}
