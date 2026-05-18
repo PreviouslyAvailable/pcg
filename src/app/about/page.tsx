@@ -64,9 +64,7 @@ function TeamCard({ name, role, image, linkedIn }: TeamMember & { image?: TeamMe
 
   return (
     <div className="flex flex-col gap-3">
-      <div className="relative aspect-[3/4] rounded-[16px] overflow-hidden bg-cream-warm">
-        {imgSrc && <Image src={imgSrc} alt={image?.alt ?? name} fill className="object-cover object-top" />}
-      </div>
+      {/* Team images hidden for now */}
       <div className="flex items-center justify-between">
         <div>
           <p className="font-sans text-ink text-[22px] leading-tight mb-0.5">{name}</p>
