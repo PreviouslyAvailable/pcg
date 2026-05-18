@@ -156,8 +156,8 @@ export default function HomeIntro({
         </div>
       </div>
 
-      {/* Three feature cards — desktop only */}
-      <div className="hidden lg:grid pcg-inner pcg-inner-vertical !pb-20 grid-cols-3 gap-6">
+      {/* Three feature cards */}
+      <div className="grid pcg-inner pcg-inner-vertical !pb-20 grid-cols-1 lg:grid-cols-3 gap-6">
         {cards.map((card, i) => (
           <FadeUp key={card.title ?? i} delay={i * 120} className="bg-white rounded-[16px] p-9 flex flex-col justify-start items-start hover-lift">
             <h3 className="font-sans text-[26px] leading-[1.2] text-ink mb-6">{card.title}</h3>
