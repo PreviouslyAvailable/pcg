@@ -73,7 +73,9 @@ export const homePageQuery = groq`
     hero {
       heading,
       subtext,
-      backgroundImage ${imageProjection}
+      backgroundImage ${imageProjection},
+      backgroundImage2 ${imageProjection},
+      backgroundImage3 ${imageProjection}
     },
     introSection {
       eyebrow,

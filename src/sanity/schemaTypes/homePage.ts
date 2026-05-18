@@ -43,6 +43,8 @@ export const homePage = defineType({
         defineField({ name: 'heading', title: 'Heading', type: 'string' }),
         defineField({ name: 'subtext', title: 'Subtext', type: 'text' }),
         imageField('backgroundImage', 'Background Image'),
+        imageField('backgroundImage2', 'Background Image 2 (optional)'),
+        imageField('backgroundImage3', 'Background Image 3 (optional)'),
       ],
     }),
     defineField({

@@ -79,6 +79,8 @@ export interface HomePage {
     heading?: string
     subtext?: string
     backgroundImage?: SanityImage
+    backgroundImage2?: SanityImage
+    backgroundImage3?: SanityImage
   }
   introSection?: {
     eyebrow?: string

@@ -32,6 +32,12 @@ export default async function Home() {
     ? urlFor(data.hero.backgroundImage).width(1920).height(1080).url()
     : '/images/hero-bg.jpg';
 
+  const heroImages: string[] = [heroImageSrc];
+  if (data?.hero?.backgroundImage2?.asset?.url)
+    heroImages.push(urlFor(data.hero.backgroundImage2).width(1920).height(1080).url());
+  if (data?.hero?.backgroundImage3?.asset?.url)
+    heroImages.push(urlFor(data.hero.backgroundImage3).width(1920).height(1080).url());
+
   const caseStudyImageSrc = data?.caseStudy?.image?.asset?.url
     ? urlFor(data.caseStudy.image).width(774).height(374).url()
     : '/images/case-study.jpg';
@@ -65,7 +71,7 @@ export default async function Home() {
     <main>
       <Navbar variant="dark" />
       <Hero
-        imageSrc={heroImageSrc}
+        images={heroImages}
         headline={data?.hero?.heading ?? undefined}
         subtext={data?.hero?.subtext ?? undefined}
       />
