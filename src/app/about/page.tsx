@@ -88,7 +88,7 @@ export default async function AboutPage() {
     : '/images/how-3.jpg';
 
   const storyImageSrc = data?.story?.image?.asset?.url
-    ? urlFor(data.story.image).width(800).height(600).url()
+    ? urlFor(data.story.image).width(1200).url()
     : '/images/how-4.jpg';
 
   const quoteBannerImageSrc = data?.quoteBanner?.image?.asset?.url
@@ -126,7 +126,7 @@ export default async function AboutPage() {
       <section className="py-[calc(var(--spacing)*18)]">
         <div className="pcg-inner grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
           <div>
-            <Image src={storyImageSrc} alt={data?.story?.image?.alt ?? 'Our story'} width={800} height={600} className="w-full h-auto" />
+            <Image src={storyImageSrc} alt={data?.story?.image?.alt ?? 'Our story'} width={1200} height={0} style={{ width: '100%', height: 'auto' }} />
           </div>
           <div className="pt-[40px]">
             <h2 className="font-serif font-light text-ink text-[clamp(40px,4.2vw,50px)] leading-[1.03] tracking-[-0.012em] mb-6">
