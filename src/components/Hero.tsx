@@ -34,7 +34,7 @@ export default function Hero({
     if (srcs.length < 2) return;
     const id = setInterval(() => {
       setActive((prev) => (prev + 1) % srcs.length);
-    }, 3500);
+    }, 10000);
     return () => clearInterval(id);
   }, [srcs.length]);
 
