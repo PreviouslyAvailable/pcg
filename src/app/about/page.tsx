@@ -125,7 +125,7 @@ export default async function AboutPage() {
       {/* Our Story */}
       <section className="py-[calc(var(--spacing)*18)]">
         <div className="pcg-inner grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
-          <div>
+          <div className="rounded-[16px] overflow-hidden">
             <Image src={storyImageSrc} alt={data?.story?.image?.alt ?? 'Our story'} width={1200} height={0} style={{ width: '100%', height: 'auto' }} />
           </div>
           <div className="pt-[40px]">
