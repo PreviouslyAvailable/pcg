@@ -127,8 +127,8 @@ export default async function AboutPage() {
       {/* Our Story */}
       <section className="py-[calc(var(--spacing)*18)]">
         <div className="pcg-inner grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
-          <div className="relative aspect-[4/3] rounded-[16px] overflow-hidden bg-cream-warm">
-            <Image src={storyImageSrc} alt={data?.story?.image?.alt ?? 'Our story'} fill className="object-cover object-top" />
+          <div className="rounded-[16px] overflow-hidden bg-cream-warm">
+            <Image src={storyImageSrc} alt={data?.story?.image?.alt ?? 'Our story'} width={800} height={600} className="w-full h-auto" />
           </div>
           <div className="pt-[40px]">
             <h2 className="font-serif font-light text-ink text-[clamp(40px,4.2vw,50px)] leading-[1.03] tracking-[-0.012em] mb-6">
