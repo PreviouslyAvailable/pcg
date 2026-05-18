@@ -195,7 +195,7 @@ export default async function AboutPage() {
       {/* Executive Team */}
       <section id="team" className="py-[calc(var(--spacing)*18)]">
         <div className="pcg-inner">
-          <h2 className="font-sans text-ink text-[26px] leading-[1.03] tracking-[-0.012em] mb-5">Executive Team</h2>
+          <h2 className="font-sans text-ink text-[26px] leading-[1.03] tracking-[-0.012em] mb-5">Private Capital Group Team</h2>
           <div className="grid grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             {executiveTeam.map((m) => (
               <TeamCard key={m._id} {...m} />
