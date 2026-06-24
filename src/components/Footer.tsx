@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { autocomplete } from '@/lib/formAttributes';
 
 const navLinks = [
   { label: 'About', href: '/about' },
@@ -30,7 +31,7 @@ export default function Footer() {
             id="footer-newsletter-email"
             type="email"
             name="email"
-            autoComplete="email"
+            {...autocomplete('email')}
             placeholder="Email Address"
             className="flex-1 bg-white rounded-[6px] px-4 py-3 font-nav text-[16px] text-ink placeholder:text-ink/40 outline-none border border-black/10 focus:border-black/30 transition-colors"
           />
