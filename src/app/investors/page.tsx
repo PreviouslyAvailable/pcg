@@ -11,6 +11,7 @@ import { urlFor } from '@/sanity/image';
 import { investorsPageQuery } from '@/sanity/queries';
 import type { InvestorsPage } from '@/sanity/types';
 import FadeUp from '@/components/FadeUp';
+import { IMAGE_SIZES } from '@/lib/imageSizes';
 
 export const revalidate = 0;
 
@@ -191,7 +192,7 @@ export default async function InvestorsPage() {
       {/* Quote banner */}
       <section className="relative min-h-[500px] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
-          <Image src={quoteBannerImageSrc} alt="" fill className="object-cover" />
+          <Image src={quoteBannerImageSrc} alt="" fill sizes={IMAGE_SIZES.viewport} className="object-cover" />
           <div className="absolute inset-0 bg-dark/70" />
         </div>
         <blockquote className="relative z-10 font-sans text-cream text-[clamp(34px,3.5vw,46px)] tracking-tight leading-[1.05] text-center max-w-[794px] px-8">

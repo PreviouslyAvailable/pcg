@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import Navbar from '@/components/NavbarServer';
 import Footer from '@/components/Footer';
+import { IMAGE_SIZES } from '@/lib/imageSizes';
 
 const caseStudies = [
   {
@@ -63,7 +64,7 @@ export default function CaseStudiesPage() {
       <section className="pb-16 lg:pb-20">
         <div className="pcg-inner">
         <div className="relative w-full aspect-[16/9] rounded-[16px] overflow-hidden bg-dark group cursor-pointer">
-          <Image src="/images/how-3.jpg" alt="United Machinist case study" fill className="object-cover opacity-80 group-hover:opacity-70 transition-opacity" />
+          <Image src="/images/how-3.jpg" alt="United Machinist case study" fill sizes={IMAGE_SIZES.viewport} className="object-cover opacity-80 group-hover:opacity-70 transition-opacity" />
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="size-16 rounded-full bg-white/90 flex items-center justify-center">
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
@@ -93,7 +94,7 @@ export default function CaseStudiesPage() {
         {caseStudies.map((cs) => (
           <Link key={cs.company} href={cs.href} className="group block">
             <div className="relative w-full aspect-[558/380] rounded-[16px] overflow-hidden bg-cream-warm mb-4">
-              <Image src={cs.image} alt={cs.company} fill className="object-cover group-hover:scale-[1.02] transition-transform duration-500" />
+              <Image src={cs.image} alt={cs.company} fill sizes={IMAGE_SIZES.pageHero} className="object-cover group-hover:scale-[1.02] transition-transform duration-500" />
             </div>
             <div className="flex items-center gap-2 mb-1">
               <p className="font-sans text-ink text-[22px]">{cs.company}</p>

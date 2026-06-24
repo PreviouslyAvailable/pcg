@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import FadeUp from './FadeUp';
+import { IMAGE_SIZES } from '@/lib/imageSizes';
 
 interface HeroProps {
   /** Pass an array of 1–3 image URLs. Slideshow only activates with 2+. */
@@ -48,6 +49,7 @@ export default function Hero({
             src={src}
             alt={i === 0 ? imageAlt : ''}
             fill
+            sizes={IMAGE_SIZES.viewport}
             className="object-cover object-center transition-opacity duration-1000"
             style={{ opacity: i === active ? 1 : 0 }}
             priority={i === 0}

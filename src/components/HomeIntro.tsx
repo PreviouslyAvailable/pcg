@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import FadeUp from './FadeUp';
 import BodyText from './BodyText';
+import { IMAGE_SIZES } from '@/lib/imageSizes';
 
 interface FeatureCard {
   title?: string;
@@ -94,7 +95,7 @@ export default function HomeIntro({
         <div className="hidden lg:block">
           <div className="relative w-full aspect-[558/407] rounded-[17px] overflow-hidden">
             {investorsImageSrc ? (
-              <Image src={investorsImageSrc} alt="Investors" fill className="object-cover" />
+              <Image src={investorsImageSrc} alt="Investors" fill sizes={IMAGE_SIZES.halfViewport} className="object-cover" />
             ) : (
               <div className="absolute inset-0 bg-cream border border-black/10" />
             )}
@@ -106,7 +107,7 @@ export default function HomeIntro({
       <div className="lg:hidden pcg-inner pcg-inner-vertical pt-8 pb-0">
         <div className="relative w-full aspect-[360/272] rounded-[11px] overflow-hidden">
           {borrowersImageSrc ? (
-            <Image src={borrowersImageSrc} alt="Supporting NZ businesses" fill className="object-cover" />
+            <Image src={borrowersImageSrc} alt="Supporting NZ businesses" fill sizes={IMAGE_SIZES.halfViewport} className="object-cover" />
           ) : (
             <div className="absolute inset-0 bg-cream border border-black/10" />
           )}
@@ -134,7 +135,7 @@ export default function HomeIntro({
       <div className="hidden lg:grid pcg-inner pcg-inner-vertical pb-[80px] grid-cols-2 gap-x-16 items-start">
         <div className="relative w-full aspect-[558/363] rounded-[17px] overflow-hidden">
           {borrowersImageSrc ? (
-            <Image src={borrowersImageSrc} alt="Supporting NZ businesses" fill className="object-cover" />
+            <Image src={borrowersImageSrc} alt="Supporting NZ businesses" fill sizes={IMAGE_SIZES.halfViewport} className="object-cover" />
           ) : (
             <div className="absolute inset-0 bg-cream border border-black/10" />
           )}

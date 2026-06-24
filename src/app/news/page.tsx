@@ -8,6 +8,7 @@ import { client } from '@/sanity/client';
 import { postsQuery, insightsPageQuery } from '@/sanity/queries';
 import { urlFor } from '@/sanity/image';
 import type { PostSummary, InsightsPage } from '@/sanity/types';
+import { IMAGE_SIZES } from '@/lib/imageSizes';
 
 export async function generateMetadata(): Promise<Metadata> {
   const data = await client.fetch<InsightsPage>(insightsPageQuery).catch(() => null);
@@ -67,6 +68,7 @@ export default async function InsightsPage() {
                         src={urlFor(post.mainImage).width(800).height(533).url()}
                         alt={post.mainImage.alt ?? post.title}
                         fill
+                        sizes={IMAGE_SIZES.postCard}
                         className="object-cover group-hover:scale-[1.02] transition-transform duration-500"
                       />
                     ) : (
@@ -142,8 +144,8 @@ export default async function InsightsPage() {
                         src={urlFor(post.mainImage).width(800).height(533).url()}
                         alt={post.mainImage.alt ?? post.title}
                         fill
+                        sizes={IMAGE_SIZES.postCard}
                         className="object-cover group-hover:scale-[1.02] transition-transform duration-500"
-                        sizes="(max-width: 640px) 100vw, 33vw"
                       />
                     ) : (
                       <div className="w-full h-full bg-cream-warm" />

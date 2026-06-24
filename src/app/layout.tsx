@@ -7,6 +7,7 @@ const specialGothic = Special_Gothic({
   variable: "--font-special-gothic",
   subsets: ["latin"],
   weight: "400",
+  adjustFontFallback: false,
 });
 
 const ibmPlexMono = IBM_Plex_Mono({
@@ -47,6 +48,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      data-scroll-behavior="smooth"
       className={`${specialGothic.variable} ${seasonSerif.variable} ${ibmPlexMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-cream text-ink">{children}</body>

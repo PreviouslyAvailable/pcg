@@ -4,6 +4,7 @@ import { useEffect, useState, useCallback } from 'react';
 import Image from 'next/image';
 import type { CaseStudy } from '@/sanity/types';
 import FadeUp from './FadeUp';
+import { IMAGE_SIZES } from '@/lib/imageSizes';
 
 interface CaseStudyProps {
   slides: CaseStudy[];
@@ -91,7 +92,7 @@ export default function CaseStudy({ slides, imageSrc, quote, label }: CaseStudyP
           style={{ opacity: transitioning ? 0 : 1 }}
         >
           {imageUrl && (
-            <Image src={imageUrl} alt={slide.company} fill className="object-cover" />
+            <Image src={imageUrl} alt={slide.company} fill sizes={IMAGE_SIZES.caseStudy} className="object-cover" />
           )}
         </div>
 

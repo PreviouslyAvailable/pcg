@@ -12,6 +12,7 @@ import { urlFor } from '@/sanity/image';
 import { aboutPageQuery, executiveTeamQuery, boardMembersQuery } from '@/sanity/queries';
 import type { AboutPage, TeamMember } from '@/sanity/types';
 import FadeUp from '@/components/FadeUp';
+import { IMAGE_SIZES } from '@/lib/imageSizes';
 
 export const revalidate = 0;
 
@@ -71,7 +72,7 @@ function TeamCard({ name, role, image, linkedIn }: TeamMember & { image?: TeamMe
             alt={image?.alt ?? name}
             fill
             className="object-cover object-top"
-            sizes="(max-width: 1024px) 50vw, 33vw"
+            sizes={IMAGE_SIZES.team}
           />
         ) : null}
       </div>

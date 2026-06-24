@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import FadeUp from './FadeUp';
+import { IMAGE_SIZES } from '@/lib/imageSizes';
 
 interface PageHeroProps {
   heading: string;
@@ -38,7 +39,7 @@ export default function PageHero({
         {imageSrc && (
           <FadeUp delay={150}>
             <div className="relative w-full aspect-[558/380] rounded-[16px] overflow-hidden bg-cream-warm hover-zoom">
-              <Image src={imageSrc} alt={imageAlt} fill className="object-cover img-zoom" priority />
+              <Image src={imageSrc} alt={imageAlt} fill sizes={IMAGE_SIZES.pageHero} className="object-cover img-zoom" priority />
             </div>
             {imageCaption && (
               <p className="font-sans text-[14px] uppercase tracking-[1px] text-ink/80 mt-4">

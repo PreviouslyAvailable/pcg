@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import FadeUp from './FadeUp';
 import BodyText from './BodyText';
+import { IMAGE_SIZES } from '@/lib/imageSizes';
 
 interface FeatureItem {
   title?: string;
@@ -58,7 +59,7 @@ export default function HowDifferent({ heading, items, images = [] }: HowDiffere
             <FadeUp key={feature.title ?? i} delay={i * 100} className="flex flex-col">
               <div className="relative aspect-[662/367] rounded-[20px] overflow-hidden bg-cream-warm mb-6 hover-zoom">
                 {imgSrc && (
-                  <Image src={imgSrc} alt={feature.imageAlt ?? feature.title ?? ''} fill className="object-cover img-zoom" />
+                  <Image src={imgSrc} alt={feature.imageAlt ?? feature.title ?? ''} fill sizes={IMAGE_SIZES.featureCard} className="object-cover img-zoom" />
                 )}
               </div>
               <h3 className="font-sans text-ink text-[33px] leading-[1.2] mb-3">

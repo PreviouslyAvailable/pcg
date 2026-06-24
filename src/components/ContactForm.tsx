@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { autocomplete } from '@/lib/formAttributes';
 
 const fieldClass =
   'bg-white border border-black/15 rounded-[8px] px-4 py-3 font-nav text-[15px] text-ink placeholder:text-ink/40 outline-none focus:border-black/40 transition-colors';
@@ -38,7 +37,7 @@ export default function ContactForm() {
           id="contact-first-name"
           type="text"
           name="firstName"
-          {...autocomplete('given-name')}
+          autoComplete="given-name"
           placeholder="First Name"
           className={fieldClass}
         />
@@ -46,7 +45,7 @@ export default function ContactForm() {
           id="contact-last-name"
           type="text"
           name="lastName"
-          {...autocomplete('family-name')}
+          autoComplete="family-name"
           placeholder="Last Name"
           className={fieldClass}
         />
@@ -55,7 +54,7 @@ export default function ContactForm() {
         id="contact-email"
         type="email"
         name="email"
-        {...autocomplete('email')}
+        autoComplete="email"
         placeholder="Email Address"
         className={fieldClass}
       />
@@ -64,14 +63,14 @@ export default function ContactForm() {
           id="contact-phone"
           type="tel"
           name="phone"
-          {...autocomplete('tel')}
+          autoComplete="tel"
           placeholder="Phone"
           className={fieldClass}
         />
         <select
           id="contact-role-type"
           name="roleType"
-          {...autocomplete('off')}
+          autoComplete="off"
           value={roleType}
           onChange={(event) => handleRoleChange(event.target.value)}
           className={`${fieldClass} ${roleType ? 'text-ink' : 'text-ink/60'}`}
@@ -86,7 +85,7 @@ export default function ContactForm() {
         <select
           id="contact-lending-amount"
           name="lendingAmount"
-          {...autocomplete('off')}
+          autoComplete="off"
           value={lendingAmount}
           onChange={(event) => setLendingAmount(event.target.value)}
           required
@@ -103,7 +102,7 @@ export default function ContactForm() {
       <textarea
         id="contact-comments"
         name="comments"
-        {...autocomplete('off')}
+        autoComplete="off"
         placeholder="Comments / Requirements"
         rows={5}
         className={`${fieldClass} resize-none`}

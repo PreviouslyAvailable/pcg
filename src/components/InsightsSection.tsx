@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import FadeUp from './FadeUp';
+import { IMAGE_SIZES } from '@/lib/imageSizes';
 
 interface InsightCard {
   title: string;
@@ -62,6 +63,7 @@ export default function InsightsSection({ posts = placeholderPosts }: InsightsSe
                     src={post.imageSrc}
                     alt={post.title}
                     fill
+                    sizes={IMAGE_SIZES.postCard}
                     className="object-cover group-hover:scale-[1.02] transition-transform duration-500"
                   />
                 )}

@@ -7,6 +7,7 @@ import { client } from '@/sanity/client';
 import { urlFor } from '@/sanity/image';
 import { contactPageQuery } from '@/sanity/queries';
 import type { ContactPage } from '@/sanity/types';
+import { IMAGE_SIZES } from '@/lib/imageSizes';
 
 export const revalidate = 0;
 
@@ -70,7 +71,7 @@ export default async function ContactPage() {
             {offices.map((office) => (
               <div key={office.name}>
                 <div className="relative w-full aspect-[3/2] rounded-[12px] overflow-hidden bg-cream-warm mb-4">
-                  <Image src={office.imageSrc} alt={office.imageAlt} fill className="object-cover" />
+                  <Image src={office.imageSrc} alt={office.imageAlt} fill sizes={IMAGE_SIZES.office} className="object-cover" />
                 </div>
                 <p className="font-sans text-ink text-[16px] mb-1">{office.name}</p>
                 {office.addressLines.map((line) => (
@@ -85,7 +86,7 @@ export default async function ContactPage() {
       {/* Quote banner */}
       <section className="relative min-h-[380px] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
-          <Image src={quoteBannerImageSrc} alt="" fill className="object-cover" />
+          <Image src={quoteBannerImageSrc} alt="" fill sizes={IMAGE_SIZES.viewport} priority className="object-cover" />
           <div className="absolute inset-0 bg-dark/40" />
         </div>
         <blockquote className="relative z-10 font-sans text-white text-[clamp(22px,2.8vw,40px)] leading-[1.2] text-center max-w-[720px]">

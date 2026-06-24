@@ -10,6 +10,7 @@ import { client } from '@/sanity/client';
 import { urlFor } from '@/sanity/image';
 import { borrowersPageQuery } from '@/sanity/queries';
 import type { BorrowersPage } from '@/sanity/types';
+import { IMAGE_SIZES } from '@/lib/imageSizes';
 
 export const revalidate = 0;
 
@@ -22,7 +23,7 @@ const fallbackWhyPCG = [
   { title: 'Bespoke Capital Structures', body: "We tailor loans around your business, not a rigid credit policy. Whether it's interest-only periods to preserve cash flow or seasonal repayment schedules that match your revenue, we have the flexibility to design financing that actually fits your operational reality." },
   { title: 'Direct Access to Decision Makers', body: "We eliminate the bureaucracy of traditional lending. All credit decisions are made locally by the partners you meet face-to-face. This flat structure ensures rapid feedback and the certainty of execution required to close complex deals on tight timelines." },
   { title: 'Long-Term Growth Partnership', body: "We spend time face-to-face understanding your business, your strategy, and the challenges ahead. We build lasting partnerships that support you through every phase of your growth, not just a one-time facility." },
-  { title: 'Proven Track Record', body: "With over $500M in committed capital and over 20 70 successful transactions, we represent one of the largest and most diversified private credit platforms in New Zealand. Our track record provides you with the confidence that we have the scale to support your business and the experience to navigate complex deal structures." },
+  { title: 'Proven Track Record', body: "With over $500M in committed capital and over 20+ successful transactions, we represent one of the largest and most diversified private credit platforms in New Zealand. Our track record provides you with the confidence that we have the scale to support your business and the experience to navigate complex deal structures." },
 ];
 
 const fallbackLendingFocus = [
@@ -132,7 +133,7 @@ export default async function BorrowersPage() {
             </div>
           </div>
           <div className="relative aspect-[4/3] rounded-[16px] overflow-hidden bg-cream-warm">
-            <Image src={lendingFocusImageSrc} alt="Lending focus" fill className="object-cover" />
+            <Image src={lendingFocusImageSrc} alt="Lending focus" fill sizes={IMAGE_SIZES.halfViewport} className="object-cover" />
           </div>
         </div>
       </section>
@@ -140,7 +141,7 @@ export default async function BorrowersPage() {
       {/* Quote banner */}
       <section className="relative min-h-[420px] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
-          <Image src={quoteBannerImageSrc} alt="" fill className="object-cover" />
+          <Image src={quoteBannerImageSrc} alt="" fill sizes={IMAGE_SIZES.viewport} className="object-cover" />
           <div className="absolute inset-0 bg-dark/60" />
         </div>
         <blockquote className="relative z-10 max-w-[794px] px-4 font-serif font-light text-[clamp(36px,3.75vw,54px)] leading-[1.05] tracking-[-0.012em] text-center text-cream">
@@ -155,7 +156,7 @@ export default async function BorrowersPage() {
             <div key={item.step} className="grid grid-cols-1 lg:grid-cols-2">
               {/* Image */}
               <div className={`relative aspect-[4/3] lg:aspect-auto lg:min-h-[480px] overflow-hidden bg-cream-warm ${item.imageLeft ? 'lg:order-1' : 'lg:order-2'}`}>
-                <Image src={item.image} alt={item.title} fill className="object-cover" />
+                <Image src={item.image} alt={item.title} fill sizes={IMAGE_SIZES.halfViewport} className="object-cover" />
               </div>
 
               {/* Text */}

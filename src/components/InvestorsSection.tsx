@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { PortableText } from '@portabletext/react';
 import FadeUp from './FadeUp';
+import { IMAGE_SIZES } from '@/lib/imageSizes';
 
 interface InvestorsSectionProps {
   imageSrc?: string;
@@ -95,7 +96,7 @@ export default function InvestorsSection({
       {/* Image — below on mobile, right on desktop */}
       <div className="relative min-h-[420px] lg:min-h-0 bg-cream-warm overflow-hidden">
         {imageSrc ? (
-          <Image src={imageSrc} alt="For Investors" fill className="object-cover object-center" />
+          <Image src={imageSrc} alt="For Investors" fill sizes={IMAGE_SIZES.halfViewport} className="object-cover object-center" />
         ) : (
           <div className="absolute inset-0 bg-gradient-to-br from-cream-warm to-cream-warm/60" />
         )}

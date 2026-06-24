@@ -11,6 +11,7 @@ import { client } from '@/sanity/client';
 import { postBySlugQuery, relatedPostsQuery, postSlugsQuery } from '@/sanity/queries';
 import { urlFor } from '@/sanity/image';
 import type { PostFull, PostSummary } from '@/sanity/types';
+import { IMAGE_SIZES } from '@/lib/imageSizes';
 
 export const revalidate = 0;
 
@@ -165,9 +166,9 @@ export default async function InsightPost({ params }: Props) {
                 src={urlFor(post.mainImage).width(1680).height(735).url()}
                 alt={post.mainImage.alt ?? post.title}
                 fill
+                sizes={IMAGE_SIZES.postHero}
                 className="object-cover"
                 priority
-                sizes="100vw"
               />
             </div>
           </div>
@@ -219,8 +220,8 @@ export default async function InsightPost({ params }: Props) {
                         src={urlFor(item.mainImage).width(600).height(450).url()}
                         alt={item.mainImage.alt ?? item.title}
                         fill
+                        sizes={IMAGE_SIZES.gridThird}
                         className="object-cover group-hover:scale-[1.02] transition-transform duration-500"
-                        sizes="(max-width: 1024px) 100vw, 33vw"
                       />
                     ) : (
                       <div className="w-full h-full bg-cream-warm" />
