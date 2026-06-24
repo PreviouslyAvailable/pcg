@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import FadeUp from './FadeUp';
 import { IMAGE_SIZES } from '@/lib/imageSizes';
 
 interface PageHeroProps {
@@ -23,8 +22,8 @@ export default function PageHero({
     <section className={`${background === 'cream' ? 'bg-cream' : 'bg-cream-warm'} pt-36 pb-0 lg:pt-40`}>
       <div className="pcg-inner">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
-        {/* Left — text */}
-        <FadeUp className="pt-[30px]">
+        {/* Left — text (no entrance animation; this block is above the fold) */}
+        <div className="pt-[30px]">
           <h1 className="font-serif font-light text-ink text-[clamp(60px,6.4vw,70px)] leading-[1.0] tracking-[-0.015em] mb-6">
             {heading}
           </h1>
@@ -33,20 +32,29 @@ export default function PageHero({
               {subtext}
             </p>
           )}
-        </FadeUp>
+        </div>
 
         {/* Right — image */}
         {imageSrc && (
-          <FadeUp delay={150}>
+          <div>
             <div className="relative w-full aspect-[558/380] rounded-[16px] overflow-hidden bg-cream-warm hover-zoom">
-              <Image src={imageSrc} alt={imageAlt} fill sizes={IMAGE_SIZES.pageHero} className="object-cover img-zoom" priority />
+              <Image
+                src={imageSrc}
+                alt={imageAlt}
+                fill
+                sizes={IMAGE_SIZES.pageHero}
+                className="object-cover img-zoom"
+                priority
+                loading="eager"
+                fetchPriority="high"
+              />
             </div>
             {imageCaption && (
               <p className="font-sans text-[14px] uppercase tracking-[1px] text-ink/80 mt-4">
                 {imageCaption}
               </p>
             )}
-          </FadeUp>
+          </div>
         )}
       </div>
       </div>

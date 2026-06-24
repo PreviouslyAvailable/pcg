@@ -7,7 +7,6 @@ const staticRoutes = [
   '/about',
   '/borrowers',
   '/investors',
-  '/strategies',
   '/contact',
   '/news',
   '/case-studies',

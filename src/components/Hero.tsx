@@ -55,7 +55,8 @@ export default function Hero({
             className="object-cover object-center transition-opacity duration-1000"
             style={{ opacity: i === active ? 1 : 0 }}
             priority={i === 0}
-            loading={i === 0 ? undefined : 'lazy'}
+            loading={i === 0 ? 'eager' : 'lazy'}
+            fetchPriority={i === 0 ? 'high' : 'low'}
           />
         ))
       ) : (

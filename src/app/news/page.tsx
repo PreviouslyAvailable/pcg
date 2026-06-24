@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import Navbar from '@/components/NavbarServer';
-import Footer from '@/components/Footer';
+import Footer from '@/components/FooterServer';
 import NewsletterBanner from '@/components/NewsletterBanner';
 import { getPosts, getInsightsPage } from '@/sanity/loaders';
 import { urlFor } from '@/sanity/image';

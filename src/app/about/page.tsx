@@ -6,12 +6,11 @@ import BodyText from '@/components/BodyText';
 import Navbar from '@/components/NavbarServer';
 import PageHero from '@/components/PageHero';
 import CtaBanner from '@/components/CtaBanner';
-import Footer from '@/components/Footer';
+import Footer from '@/components/FooterServer';
+import TeamCard from '@/components/TeamCard';
 import { getAboutPage, getExecutiveTeam } from '@/sanity/loaders';
 import { urlFor } from '@/sanity/image';
-import type { TeamMember } from '@/sanity/types';
 import FadeUp from '@/components/FadeUp';
-import { IMAGE_SIZES } from '@/lib/imageSizes';
 
 export const revalidate = 60;
 
@@ -26,81 +25,30 @@ const fallbackExecutiveTeam = [
   { _id: '3', name: 'John Ferrara', role: 'Co-Founder & Partner', image: undefined },
 ];
 
-function LinkedInIcon({ href, name }: { href: string; name: string }) {
-  return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="rounded-full bg-ink flex items-center justify-center hover:bg-ink/80 transition-colors shrink-0"
-      aria-label={`View ${name} on LinkedIn`}
-    >
-      <svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <g clipPath="url(#clip0_66_24)">
-          <path d="M28.2073 26.7297H28.2111V21.2148C28.2111 18.5173 27.6303 16.4395 24.4767 16.4395C22.9609 16.4395 21.9434 17.2714 21.5282 18.0601H21.4841V16.6911H18.4941V26.7297H21.6069V21.7587C21.6069 20.4499 21.8547 19.1845 23.4754 19.1845C25.0723 19.1845 25.0961 20.6781 25.0961 21.8427V26.7297H28.2073Z" fill="white" />
-          <path d="M13.6128 16.6914H16.7299V26.7291H13.6128V16.6914Z" fill="white" />
-          <path d="M15.1701 11.6943C14.6914 11.6945 14.2322 11.8848 13.8937 12.2233C13.5552 12.5618 13.3649 13.0209 13.3647 13.4997C13.3647 14.4964 14.1735 15.3221 15.1701 15.3221C16.1668 15.3221 16.9767 14.4964 16.9767 13.4997C16.9762 13.0208 16.7857 12.5617 16.447 12.2232C16.1082 11.8847 15.649 11.6945 15.1701 11.6943Z" fill="white" />
-        </g>
-        <defs>
-          <clipPath id="clip0_66_24">
-            <rect width="15.0351" height="15.0351" fill="white" transform="translate(13.3647 11.6943)" />
-          </clipPath>
-        </defs>
-      </svg>
-    </a>
-  );
-}
-
-function TeamCard({ name, role, image, linkedIn }: TeamMember & { image?: TeamMember['image'] | null }) {
-  const imgSrc = image?.asset?.url
-    ? urlFor(image).width(480).height(640).url()
-    : null;
-
-  return (
-    <div className="flex flex-col gap-3">
-      <div className="img-team">
-        {imgSrc ? (
-          <Image
-            src={imgSrc}
-            alt={image?.alt ?? name}
-            fill
-            className="object-cover object-top"
-            sizes={IMAGE_SIZES.team}
-          />
-        ) : null}
-      </div>
-      <div className="flex items-center justify-between gap-3">
-        <div>
-          <p className="font-sans text-ink text-[22px] leading-tight mb-0.5">{name}</p>
-          <p className="font-sans text-[14px] uppercase tracking-[0.33px] text-ink/80 mt-0.5">{role}</p>
-        </div>
-        {linkedIn ? <LinkedInIcon href={linkedIn} name={name} /> : null}
-      </div>
-    </div>
-  );
-}
-
 export default async function AboutPage() {
-  const [data, executiveTeamData] = await Promise.all([
+  const [data, allExecutives] = await Promise.all([
     getAboutPage(),
     getExecutiveTeam(),
   ]);
 
   const heroImageSrc = data?.hero?.image?.asset?.url
-    ? urlFor(data.hero.image).width(1200).height(800).url()
+    ? urlFor(data.hero.image).width(1200).height(820).fit('crop').auto('format').url()
     : '/images/how-3.jpg';
 
   const storyImageSrc = data?.story?.image?.asset?.url
-    ? urlFor(data.story.image).width(1200).url()
+    ? urlFor(data.story.image).width(960).fit('max').auto('format').url()
     : '/images/how-4.jpg';
 
   const quoteBannerImageSrc = data?.quoteBanner?.image?.asset?.url
     ? urlFor(data.quoteBanner.image).width(1920).height(800).url()
     : '/images/how-2.jpg';
 
-  const executiveTeam = (executiveTeamData && executiveTeamData.length > 0)
-    ? executiveTeamData
-    : fallbackExecutiveTeam;
+  const executiveTeam =
+    data?.executiveTeam && data.executiveTeam.length > 0
+      ? data.executiveTeam
+      : allExecutives && allExecutives.length > 0
+        ? allExecutives
+        : fallbackExecutiveTeam;
 
   const featureCards = (data?.featureCards && data.featureCards.length > 0)
     ? data.featureCards
@@ -125,7 +73,15 @@ export default async function AboutPage() {
       <section className="py-[calc(var(--spacing)*18)]">
         <div className="pcg-inner grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
           <div className="rounded-[16px] overflow-hidden">
-            <Image src={storyImageSrc} alt={data?.story?.image?.alt ?? 'Our story'} width={1200} height={0} style={{ width: '100%', height: 'auto' }} />
+            <Image
+              src={storyImageSrc}
+              alt={data?.story?.image?.alt ?? 'Our story'}
+              width={960}
+              height={640}
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              className="h-auto w-full"
+              loading="lazy"
+            />
           </div>
           <div className="pt-[40px]">
             <h2 className="font-serif font-light text-ink text-[clamp(40px,4.2vw,50px)] leading-[1.03] tracking-[-0.012em] mb-6">
@@ -194,9 +150,23 @@ export default async function AboutPage() {
         <div className="pcg-inner">
           <h2 className="font-sans text-ink text-[26px] leading-[1.03] tracking-[-0.012em] mb-5">Private Capital Group Team</h2>
           <div className="grid grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            {executiveTeam.map((m) => (
-              <TeamCard key={m._id} {...m} />
-            ))}
+            {executiveTeam.map((m) => {
+              const cardImgSrc = m.image?.asset?.url
+                ? urlFor(m.image).width(480).height(640).url()
+                : null;
+              const modalImgSrc = m.image?.asset?.url
+                ? urlFor(m.image).width(800).height(1067).url()
+                : null;
+
+              return (
+                <TeamCard
+                  key={m._id}
+                  {...m}
+                  cardImgSrc={cardImgSrc}
+                  modalImgSrc={modalImgSrc}
+                />
+              );
+            })}
           </div>
         </div>
       </section>

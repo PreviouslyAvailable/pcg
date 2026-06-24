@@ -1,37 +1,39 @@
 import Link from 'next/link';
+import Logo from '@/components/Logo';
+import LinkedInIcon from '@/components/LinkedInIcon';
 import NewsletterForm from '@/components/NewsletterForm';
+import type { NavLink } from '@/lib/nav';
 
-const navLinks = [
-  { label: 'About', href: '/about' },
-  { label: 'Borrowers', href: '/borrowers' },
-  { label: 'Investors', href: '/investors' },
-  { label: 'Strategies', href: '/strategies' },
-  { label: 'News', href: '/news' },
-];
+interface FooterProps {
+  navLinks: NavLink[];
+  newsletterHeading?: string;
+  footerTagline?: string;
+}
 
-export default function Footer() {
+export default function Footer({
+  navLinks,
+  newsletterHeading = 'Subscribe to our mailing list to receive the latest updates.',
+  footerTagline,
+}: FooterProps) {
   return (
     <footer className="bg-cream">
       <div className="pt-12 lg:pt-20 pb-8 lg:pb-12 px-4 lg:px-[45px] max-w-[1680px] mx-auto">
-      {/* Logo row */}
-      <div className="flex items-center gap-2 mb-8">
-        <svg width="152" height="39" viewBox="0 0 152 39" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M50.17 37.3564V1.11194H65.3314C68.054 1.11194 70.3002 1.57138 72.0698 2.49026C73.8395 3.40913 75.1668 4.68535 76.0516 6.3189C76.9365 7.95246 77.3789 9.85827 77.3789 12.0363C77.3789 14.2825 76.9195 16.2393 76.0006 17.9069C75.1157 19.5745 73.7715 20.8848 71.9677 21.8377C70.1981 22.7565 68.003 23.216 65.3825 23.216H53.9986V19.3363H65.0762C67.7307 19.3363 69.6365 18.6897 70.7936 17.3964C71.9848 16.0692 72.5803 14.4356 72.5803 12.4958V11.8832C72.5803 9.80722 71.9677 8.13963 70.7426 6.88044C69.5514 5.62124 67.6627 4.99164 65.0762 4.99164H53.0287L55.0196 3.35808V37.3564H50.17ZM96.8651 37.969C94.2786 37.969 91.9304 37.5096 89.8204 36.5907C87.7444 35.6718 85.9747 34.3786 84.5113 32.711C83.048 31.0434 81.9249 29.0696 81.1421 26.7894C80.3594 24.5092 79.968 22.0078 79.968 19.2852C79.968 15.6097 80.6487 12.3597 82.01 9.53496C83.4053 6.71027 85.3622 4.49817 87.8806 2.89865C90.399 1.29912 93.3768 0.499359 96.8141 0.499359C99.5707 0.499359 102.004 1.00985 104.114 2.03082C106.224 3.05179 107.943 4.51518 109.27 6.421C110.597 8.29278 111.465 10.5219 111.873 13.1084L107.381 13.4657C106.939 11.3557 106.207 9.63706 105.186 8.3098C104.199 6.9485 103.008 5.96156 101.613 5.34898C100.217 4.70236 98.6178 4.37905 96.8141 4.37905C94.4318 4.37905 92.3558 4.97462 90.5861 6.16576C88.8164 7.32286 87.4381 8.95641 86.4512 11.0664C85.4983 13.1424 85.0218 15.5587 85.0218 18.3153V20.1531C85.0218 22.8757 85.4983 25.292 86.4512 27.402C87.4381 29.512 88.8335 31.1625 90.6372 32.3537C92.4409 33.5108 94.5339 34.0893 96.9162 34.0893C98.6858 34.0893 100.285 33.783 101.715 33.1705C103.144 32.5238 104.352 31.5539 105.339 30.2607C106.326 28.9334 107.024 27.2658 107.432 25.2579L111.924 25.6153C111.448 28.1677 110.546 30.3628 109.219 32.2005C107.926 34.0383 106.224 35.4676 104.114 36.4886C102.038 37.4756 99.6217 37.969 96.8651 37.969ZM131.58 37.969C128.211 37.969 125.284 37.1863 122.799 35.6208C120.315 34.0213 118.392 31.8262 117.031 29.0355C115.704 26.2108 115.04 22.9607 115.04 19.2852C115.04 15.6097 115.721 12.3597 117.082 9.53496C118.477 6.71027 120.434 4.49817 122.953 2.89865C125.505 1.29912 128.483 0.499359 131.886 0.499359C134.677 0.499359 137.11 1.02686 139.186 2.08187C141.296 3.10284 143.015 4.56623 144.342 6.47205C145.669 8.34383 146.537 10.59 146.945 13.2105L142.453 13.5678C142.011 11.3897 141.296 9.63706 140.309 8.3098C139.322 6.9485 138.114 5.96156 136.685 5.34898C135.289 4.70236 133.707 4.37905 131.937 4.37905C129.555 4.37905 127.462 4.97462 125.658 6.16576C123.888 7.32286 122.51 8.95641 121.523 11.0664C120.57 13.1424 120.094 15.5587 120.094 18.3153V20.1531C120.094 22.8757 120.587 25.292 121.574 27.402C122.561 29.512 123.956 31.1625 125.76 32.3537C127.564 33.5108 129.674 34.0893 132.09 34.0893C133.69 34.0893 135.119 33.8681 136.378 33.4257C137.672 32.9833 138.795 32.3367 139.748 31.4859C140.7 30.601 141.415 29.529 141.892 28.2698C142.402 27.0106 142.657 25.5812 142.657 23.9817V23.0118H131.835V19.1831H147.201V37.3564H143.168L142.606 29.7502H143.934C143.457 31.3838 142.64 32.8301 141.483 34.0893C140.326 35.3145 138.914 36.2674 137.246 36.9481C135.579 37.6287 133.69 37.969 131.58 37.969Z" fill="#0f0e0b"/>
-          <path d="M17.583 38.7715H0V21.1885H17.583V38.7715ZM38.7734 38.7715H21.1904V21.1885H38.7734V38.7715ZM13.9766 27.833C12.6033 30.7348 10.5442 33.2481 8.00879 35.165H13.9766V27.833ZM24.7969 35.165H30.7617C28.2277 33.2489 26.17 30.7369 24.7969 27.8369V35.165ZM27.5176 24.7949C28.8764 28.606 31.6317 31.7518 35.167 33.6211V24.7949H27.5176ZM3.60645 33.6191C7.14044 31.7498 9.89423 28.6048 11.2529 24.7949H3.60645V33.6191ZM17.583 17.583H0V0H17.583V17.583ZM38.7734 17.583H21.1904V0H38.7734V17.583ZM3.60645 13.9766H11.2529C9.89428 10.1661 7.1409 7.01984 3.60645 5.15039V13.9766ZM35.167 5.15527C31.6368 7.0253 28.8868 10.1693 27.5293 13.9766H35.167V5.15527ZM24.7969 10.9551C26.17 8.04624 28.2324 5.52724 30.7725 3.60645H24.7969V10.9551ZM8.00977 3.60645C10.5444 5.52315 12.6035 8.03553 13.9766 10.9365V3.60645H8.00977Z" fill="#0f0e0b"/>
-        </svg>
+      <div className="mb-8">
+        <Logo variant="full" color="black" className="h-14 w-auto" />
+        {footerTagline ? (
+          <p className="font-nav text-ink/70 text-[15px] mt-4 max-w-[480px]">{footerTagline}</p>
+        ) : null}
       </div>
 
       <div className="border-t border-black/15 pt-10 mb-10">
-        {/* Newsletter */}
         <p className="font-sans text-[12px] uppercase tracking-[1px] text-ink/80 mb-4">Newsletter</p>
         <h3 className="font-serif font-light text-ink text-[38px] leading-[1.15] tracking-[-0.48px] mb-6 lg:mb-8 max-w-[437px]">
-          Subscribe to our mailing list to receive the latest updates.
+          {newsletterHeading}
         </h3>
-        <NewsletterForm inputId="footer-newsletter-email" />
+        <NewsletterForm inputId="footer-newsletter-email" autoCompleteSection="footer-newsletter" />
       </div>
 
       <div className="border-b border-black/15 pb-6 lg:pb-8 flex flex-wrap items-center gap-4 lg:justify-between">
-        {/* Nav links */}
         <div className="flex flex-wrap items-center gap-4 lg:gap-8">
           {navLinks.map((link) => (
             <Link key={link.href} href={link.href} className="font-nav text-[15px] cursor-pointer text-ink hover:opacity-60 transition-opacity">
@@ -43,32 +45,11 @@ export default function Footer() {
           </Link>
         </div>
 
-        {/* LinkedIn */}
-        <a
-          href="https://www.linkedin.com/company/private-capital-group-nz/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="rounded-full bg-ink flex items-center justify-center hover:bg-ink/80 transition-colors"
-          aria-label="Private Capital Group on LinkedIn"
-        >
-          <svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <g clipPath="url(#clip0_66_24)">
-              <path d="M28.2073 26.7297H28.2111V21.2148C28.2111 18.5173 27.6303 16.4395 24.4767 16.4395C22.9609 16.4395 21.9434 17.2714 21.5282 18.0601H21.4841V16.6911H18.4941V26.7297H21.6069V21.7587C21.6069 20.4499 21.8547 19.1845 23.4754 19.1845C25.0723 19.1845 25.0961 20.6781 25.0961 21.8427V26.7297H28.2073Z" fill="white"/>
-              <path d="M13.6128 16.6914H16.7299V26.7291H13.6128V16.6914Z" fill="white"/>
-              <path d="M15.1701 11.6943C14.6914 11.6945 14.2322 11.8848 13.8937 12.2233C13.5552 12.5618 13.3649 13.0209 13.3647 13.4997C13.3647 14.4964 14.1735 15.3221 15.1701 15.3221C16.1668 15.3221 16.9767 14.4964 16.9767 13.4997C16.9762 13.0208 16.7857 12.5617 16.447 12.2232C16.1082 11.8847 15.649 11.6945 15.1701 11.6943V11.6943Z" fill="white"/>
-            </g>
-            <defs>
-              <clipPath id="clip0_66_24">
-                <rect width="15.0351" height="15.0351" fill="white" transform="translate(13.3647 11.6943)"/>
-              </clipPath>
-            </defs>
-          </svg>
-        </a>
+        <LinkedInIcon href="https://www.linkedin.com/company/private-capital-group-nz/" label="Private Capital Group on LinkedIn" />
       </div>
 
-      {/* Bottom */}
       <div className="mt-6">
-        <span className="font-mono text-[10px] uppercase tracking-[0.33px] text-ink/50">© 2025 Private Capital Group</span>
+        <span className="font-mono text-[10px] uppercase tracking-[0.33px] text-ink/50">© 2026 Private Capital Group</span>
       </div>
       </div>
     </footer>

@@ -8,6 +8,7 @@ const nextConfig: NextConfig = {
     return [
       { source: '/insights', destination: '/news', permanent: true },
       { source: '/insights/:slug', destination: '/news/:slug', permanent: true },
+      { source: '/strategies', destination: '/investors', permanent: true },
     ];
   },
   images: {

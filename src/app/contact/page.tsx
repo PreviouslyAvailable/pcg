@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import Navbar from '@/components/NavbarServer';
-import Footer from '@/components/Footer';
+import Footer from '@/components/FooterServer';
 import ContactForm from '@/components/ContactForm';
 import { getContactPage } from '@/sanity/loaders';
 import { urlFor } from '@/sanity/image';

@@ -5,10 +5,11 @@ import { notFound } from 'next/navigation';
 import { PortableText } from '@portabletext/react';
 import type { PortableTextComponents } from '@portabletext/react';
 import Navbar from '@/components/NavbarServer';
-import Footer from '@/components/Footer';
+import Footer from '@/components/FooterServer';
 import NewsletterBanner from '@/components/NewsletterBanner';
 import { getPostBySlug, getRelatedPosts, getPostSlugs } from '@/sanity/loaders';
 import { urlFor } from '@/sanity/image';
+import { PortableTextLink } from '@/lib/portableText';
 import type { PostSummary } from '@/sanity/types';
 import { IMAGE_SIZES } from '@/lib/imageSizes';
 
@@ -18,7 +19,9 @@ type Props = { params: Promise<{ slug: string }> };
 
 export async function generateStaticParams() {
   const slugs = await getPostSlugs();
-  return slugs.map(({ slug }) => ({ slug }));
+  return slugs
+    .filter(({ slug }) => typeof slug === 'string' && slug.length > 0)
+    .map(({ slug }) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -88,16 +91,7 @@ const components: PortableTextComponents = {
   marks: {
     strong: ({ children }) => <strong className="font-semibold">{children}</strong>,
     em: ({ children }) => <em>{children}</em>,
-    link: ({ value, children }) => (
-      <a
-        href={value?.href}
-        target={value?.href?.startsWith('http') ? '_blank' : undefined}
-        rel={value?.href?.startsWith('http') ? 'noopener noreferrer' : undefined}
-        className="underline underline-offset-2 hover:text-ink/60 transition-colors"
-      >
-        {children}
-      </a>
-    ),
+    link: PortableTextLink,
   },
   types: {
     image: ({ value }) => {

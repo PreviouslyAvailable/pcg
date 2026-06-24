@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Navbar from '@/components/NavbarServer';
-import Footer from '@/components/Footer';
+import Footer from '@/components/FooterServer';
 
 export const metadata: Metadata = {
   title: 'Terms of Service',

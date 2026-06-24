@@ -3,6 +3,8 @@ import Link from 'next/link';
 import FadeUp from './FadeUp';
 import { IMAGE_SIZES } from '@/lib/imageSizes';
 
+import { INSIGHT_POST_FALLBACKS } from '@/lib/nav';
+
 interface InsightCard {
   title: string;
   href: string;
@@ -16,12 +18,12 @@ interface InsightsSectionProps {
   posts?: InsightCard[];
 }
 
-const placeholderPosts: InsightCard[] = [
-  { title: 'Welcome to new investor – Aurora KiwiSaver', href: '/news/aurora-kiwisaver', category: 'news' },
-  { title: 'Relative Value in Private Debt', href: '/news/relative-value-private-debt', category: 'insights' },
-  { title: 'KangaNews NZ Private Debt Feature', href: '/news/kanganews-feature', category: 'news' },
-  { title: 'Private Debt – What Do We Mean?', href: '/news/private-debt-what-do-we-mean', category: 'insights' },
-];
+const placeholderPosts: InsightCard[] = INSIGHT_POST_FALLBACKS.map((post) => ({
+  title: post.title,
+  href: post.href,
+  category: post.category,
+  imageSrc: post.imageSrc,
+}));
 
 function formatDate(dateStr: string) {
   return new Date(dateStr).toLocaleDateString('en-NZ', {

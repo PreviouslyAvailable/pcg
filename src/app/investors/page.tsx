@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Navbar from '@/components/NavbarServer';
 import PageHero from '@/components/PageHero';
 import CtaBanner from '@/components/CtaBanner';
-import Footer from '@/components/Footer';
+import Footer from '@/components/FooterServer';
 import BodyText from '@/components/BodyText';
 import { getInvestorsPage } from '@/sanity/loaders';
 import { urlFor } from '@/sanity/image';
@@ -44,6 +44,13 @@ const fallbackActiveInvestorPlus = [
   { title: 'Global Tax Readiness', body: 'We recognise the complexities of cross-border investment for investors with US tax obligations. PCG provides the specific PFIC Annual Information Statements required to optimize your US tax position. We work alongside your global tax and legal advisors to ensure your investment remains compliant across multiple jurisdictions.' },
 ];
 
+const fallbackSecondFundDetails = [
+  { label: 'Fund Structure', value: 'PIE (Portfolio Investment Entity)' },
+  { label: 'Focus', value: 'New Zealand economic resilience and infrastructure-aligned private debt' },
+  { label: 'Currency', value: 'New Zealand Dollars' },
+  { label: 'Minimum Investment', value: 'Contact us for details' },
+];
+
 export default async function InvestorsPage() {
   const data = await getInvestorsPage();
 
@@ -65,7 +72,7 @@ export default async function InvestorsPage() {
 
   const secondFundDetails = (data?.secondFundDetails && data.secondFundDetails.length > 0)
     ? data.secondFundDetails
-    : fallbackFundDetails;
+    : fallbackSecondFundDetails;
 
   const activeInvestorItems = (data?.activeInvestorPlus?.items && data.activeInvestorPlus.items.length > 0)
     ? data.activeInvestorPlus.items

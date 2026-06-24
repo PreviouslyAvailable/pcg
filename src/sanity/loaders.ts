@@ -15,6 +15,8 @@ import {
   relatedPostsQuery,
   postSlugsQuery,
   navLabelsQuery,
+  siteSettingsQuery,
+  caseStudiesQuery,
 } from './queries'
 import type {
   HomePage,
@@ -27,6 +29,8 @@ import type {
   ContactPage,
   InsightsPage,
   PostFull,
+  SiteSettings,
+  CaseStudy,
 } from './types'
 
 export const getHomePage = cache(() =>
@@ -92,4 +96,12 @@ export interface NavLabels {
 
 export const getNavLabels = cache(() =>
   client.fetch<NavLabels>(navLabelsQuery).catch(() => null),
+)
+
+export const getSiteSettings = cache(() =>
+  client.fetch<SiteSettings>(siteSettingsQuery).catch(() => null),
+)
+
+export const getCaseStudies = cache(() =>
+  client.fetch<CaseStudy[]>(caseStudiesQuery).catch(() => [] as CaseStudy[]),
 )

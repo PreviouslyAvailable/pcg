@@ -14,6 +14,7 @@ export default function NewsletterBanner() {
         inputClassName="flex-1 bg-white/20 border border-white/30 rounded-[8px] px-4 py-3 font-nav text-[15px] text-white placeholder:text-white/50 outline-none focus:border-white/60 transition-colors disabled:opacity-60"
         buttonClassName="bg-white text-teal font-sans text-[14px] uppercase px-6 py-3 rounded-[8px] hover:bg-white/90 transition-colors whitespace-nowrap disabled:opacity-60"
         inputId="newsletter-email"
+        autoCompleteSection="insights-newsletter"
       />
     </div>
   );

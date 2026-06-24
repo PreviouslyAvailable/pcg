@@ -5,31 +5,32 @@ import CtaBanner from '@/components/CtaBanner';
 import InvestorsSection from '@/components/InvestorsSection';
 import HowDifferent from '@/components/HowDifferent';
 import InsightsSection from '@/components/InsightsSection';
-import Footer from '@/components/Footer';
+import Footer from '@/components/FooterServer';
 import { getHomePage, getPosts } from '@/sanity/loaders';
 import { urlFor } from '@/sanity/image';
 
+import { INSIGHT_POST_FALLBACKS } from '@/lib/nav';
+
 export const revalidate = 60;
 
-const insightPostsFallback = [
-  { title: 'PCG News: Welcome to new investor – Aurora KiwiSaver', href: '/news/aurora-kiwisaver', imageSrc: '/images/insight-1.jpg' },
-  { title: 'PCG Insights: Relative Value in Private Debt', href: '/news/relative-value-private-debt', imageSrc: '/images/insight-2.jpg' },
-  { title: 'PCG News: KangaNews NZ Private Debt Feature', href: '/news/kanganews-feature', imageSrc: '/images/insight-3.jpg' },
-  { title: 'PCG Insights: Private Debt – What Do We Mean?', href: '/news/private-debt-what-do-we-mean', imageSrc: '/images/insight-4.jpg' },
-];
+const insightPostsFallback = INSIGHT_POST_FALLBACKS.map((post) => ({
+  title: post.title,
+  href: post.href,
+  imageSrc: post.imageSrc,
+}));
 
 export default async function Home() {
   const [data, posts] = await Promise.all([getHomePage(), getPosts()]);
 
   const heroImageSrc = data?.hero?.backgroundImage?.asset?.url
-    ? urlFor(data.hero.backgroundImage).width(1920).height(1080).url()
+    ? urlFor(data.hero.backgroundImage).width(1920).height(1080).fit('crop').auto('format').url()
     : '/images/hero-bg.jpg';
 
   const heroImages: string[] = [heroImageSrc];
   if (data?.hero?.backgroundImage2?.asset?.url)
-    heroImages.push(urlFor(data.hero.backgroundImage2).width(1920).height(1080).url());
+    heroImages.push(urlFor(data.hero.backgroundImage2).width(1920).height(1080).fit('crop').auto('format').url());
   if (data?.hero?.backgroundImage3?.asset?.url)
-    heroImages.push(urlFor(data.hero.backgroundImage3).width(1920).height(1080).url());
+    heroImages.push(urlFor(data.hero.backgroundImage3).width(1920).height(1080).fit('crop').auto('format').url());
 
   const quoteBannerImageSrc = data?.quoteBanner?.image?.asset?.url
     ? urlFor(data.quoteBanner.image).width(1920).height(800).url()

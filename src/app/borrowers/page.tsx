@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Navbar from '@/components/NavbarServer';
 import PageHero from '@/components/PageHero';
 import CtaBanner from '@/components/CtaBanner';
-import Footer from '@/components/Footer';
+import Footer from '@/components/FooterServer';
 import BodyText from '@/components/BodyText';
 import { getBorrowersPage } from '@/sanity/loaders';
 import { urlFor } from '@/sanity/image';
@@ -172,7 +172,7 @@ export default async function BorrowersPage() {
                 )}
                 {item.cta && (
                   <Link
-                    href={item.cta.href}
+                    href={item.cta.href ?? '/contact'}
                     className="self-start mt-8 font-sans font-bold text-[16px] uppercase tracking-wide text-ink border border-ink rounded-[10px] px-6 py-3 hover:bg-ink/5 transition-colors"
                   >
                     {item.cta.label}

@@ -1,4 +1,5 @@
 import { PortableText, PortableTextComponents } from '@portabletext/react'
+import { PortableTextLink } from '@/lib/portableText'
 
 type ColorScheme = 'dark' | 'light'
 
@@ -24,6 +25,7 @@ function makeComponents(scheme: ColorScheme): PortableTextComponents {
     marks: {
       strong: ({ children }) => <strong className="font-semibold">{children}</strong>,
       em: ({ children }) => <em className="italic">{children}</em>,
+      link: PortableTextLink,
     },
   }
 }
