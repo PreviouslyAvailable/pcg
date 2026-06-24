@@ -4,7 +4,7 @@ const navLinks = [
   { label: 'About', href: '/about' },
   { label: 'Borrowers', href: '/borrowers' },
   { label: 'Investors', href: '/investors' },
-  { label: 'Insights', href: '/news' },
+  { label: 'News', href: '/news' },
 ];
 
 export default function Footer() {
@@ -55,11 +55,11 @@ export default function Footer() {
 
         {/* LinkedIn */}
         <a
-          href="https://linkedin.com"
+          href="https://www.linkedin.com/company/private-capital-group-nz/"
           target="_blank"
           rel="noopener noreferrer"
           className="rounded-full bg-ink flex items-center justify-center hover:bg-ink/80 transition-colors"
-          aria-label="Follow us on LinkedIn"
+          aria-label="Private Capital Group on LinkedIn"
         >
           <svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g clipPath="url(#clip0_66_24)">

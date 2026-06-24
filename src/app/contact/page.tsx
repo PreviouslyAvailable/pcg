@@ -16,7 +16,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 const fallbackOffices = [
-  { name: 'Auckland Office', addressLines: ['Level 2', 'The Mountaineer Building', '32 Rees Street, Queenstown'], image: '/images/insight-3.jpg' },
+  { name: 'Auckland Office', addressLines: ['131 Queen Street', 'Auckland CBD', 'Auckland, 1010'], image: '/images/insight-3.jpg' },
   { name: 'Queenstown Office', addressLines: ['Level 2', 'The Mountaineer Building', '32 Rees Street, Queenstown'], image: '/images/insight-4.jpg' },
 ];
 

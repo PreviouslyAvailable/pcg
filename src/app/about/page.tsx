@@ -32,14 +32,14 @@ const fallbackBoardMembers = [
   { _id: '6', name: 'John Ferrara', role: 'Co-Founder & Partner', image: undefined },
 ];
 
-function LinkedInIcon({ href }: { href?: string }) {
+function LinkedInIcon({ href }: { href: string }) {
   return (
     <a
-      href={href ?? 'https://linkedin.com'}
+      href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="rounded-full bg-ink flex items-center justify-center hover:bg-ink/80 transition-colors"
-      aria-label="Follow us on LinkedIn"
+      className="rounded-full bg-ink flex items-center justify-center hover:bg-ink/80 transition-colors shrink-0"
+      aria-label="View LinkedIn profile"
     >
       <svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g clipPath="url(#clip0_66_24)">
@@ -64,13 +64,23 @@ function TeamCard({ name, role, image, linkedIn }: TeamMember & { image?: TeamMe
 
   return (
     <div className="flex flex-col gap-3">
-      {/* Team images hidden for now */}
-      <div className="flex items-center justify-between">
+      <div className="img-team">
+        {imgSrc ? (
+          <Image
+            src={imgSrc}
+            alt={image?.alt ?? name}
+            fill
+            className="object-cover object-top"
+            sizes="(max-width: 1024px) 50vw, 33vw"
+          />
+        ) : null}
+      </div>
+      <div className="flex items-center justify-between gap-3">
         <div>
           <p className="font-sans text-ink text-[22px] leading-tight mb-0.5">{name}</p>
           <p className="font-sans text-[14px] uppercase tracking-[0.33px] text-ink/80 mt-0.5">{role}</p>
         </div>
-        <LinkedInIcon href={linkedIn} />
+        {linkedIn ? <LinkedInIcon href={linkedIn} /> : null}
       </div>
     </div>
   );
