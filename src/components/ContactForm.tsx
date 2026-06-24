@@ -33,14 +33,44 @@ export default function ContactForm() {
   return (
     <form className="flex flex-col gap-3" onSubmit={handleSubmit}>
       <div className="grid grid-cols-2 gap-3">
-        <input type="text" name="firstName" placeholder="First Name" className={fieldClass} />
-        <input type="text" name="lastName" placeholder="Last Name" className={fieldClass} />
+        <input
+          id="contact-first-name"
+          type="text"
+          name="firstName"
+          autoComplete="given-name"
+          placeholder="First Name"
+          className={fieldClass}
+        />
+        <input
+          id="contact-last-name"
+          type="text"
+          name="lastName"
+          autoComplete="family-name"
+          placeholder="Last Name"
+          className={fieldClass}
+        />
       </div>
-      <input type="email" name="email" placeholder="Email Address" className={fieldClass} />
+      <input
+        id="contact-email"
+        type="email"
+        name="email"
+        autoComplete="email"
+        placeholder="Email Address"
+        className={fieldClass}
+      />
       <div className="grid grid-cols-2 gap-3">
-        <input type="tel" name="phone" placeholder="Phone" className={fieldClass} />
+        <input
+          id="contact-phone"
+          type="tel"
+          name="phone"
+          autoComplete="tel"
+          placeholder="Phone"
+          className={fieldClass}
+        />
         <select
+          id="contact-role-type"
           name="roleType"
+          autoComplete="off"
           value={roleType}
           onChange={(event) => handleRoleChange(event.target.value)}
           className={`${fieldClass} ${roleType ? 'text-ink' : 'text-ink/60'}`}
@@ -53,7 +83,9 @@ export default function ContactForm() {
       </div>
       {isBorrower && (
         <select
+          id="contact-lending-amount"
           name="lendingAmount"
+          autoComplete="off"
           value={lendingAmount}
           onChange={(event) => setLendingAmount(event.target.value)}
           required
@@ -68,7 +100,9 @@ export default function ContactForm() {
         </select>
       )}
       <textarea
+        id="contact-comments"
         name="comments"
+        autoComplete="off"
         placeholder="Comments / Requirements"
         rows={5}
         className={`${fieldClass} resize-none`}

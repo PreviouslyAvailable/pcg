@@ -9,7 +9,10 @@ export default function NewsletterBanner() {
       </p>
       <form className="flex flex-col sm:flex-row gap-2 max-w-[420px] mx-auto">
         <input
+          id="newsletter-email"
           type="email"
+          name="email"
+          autoComplete="email"
           placeholder="Email Address"
           className="flex-1 bg-white/20 border border-white/30 rounded-[8px] px-4 py-3 font-nav text-[15px] text-white placeholder:text-white/50 outline-none focus:border-white/60 transition-colors"
         />

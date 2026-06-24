@@ -27,7 +27,10 @@ export default function Footer() {
         </h3>
         <form className="flex gap-3 max-w-[437px] mb-[20px]">
           <input
+            id="footer-newsletter-email"
             type="email"
+            name="email"
+            autoComplete="email"
             placeholder="Email Address"
             className="flex-1 bg-white rounded-[6px] px-4 py-3 font-nav text-[16px] text-ink placeholder:text-ink/40 outline-none border border-black/10 focus:border-black/30 transition-colors"
           />
