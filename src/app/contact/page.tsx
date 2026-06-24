@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import Navbar from '@/components/NavbarServer';
 import Footer from '@/components/Footer';
+import ContactForm from '@/components/ContactForm';
 import { client } from '@/sanity/client';
 import { urlFor } from '@/sanity/image';
 import { contactPageQuery } from '@/sanity/queries';
@@ -61,35 +62,7 @@ export default async function ContactPage() {
           {/* Contact form */}
           <div>
             <h2 className="font-sans text-ink text-[22px] mb-6">Contact Form</h2>
-            <form className="flex flex-col gap-3">
-              <div className="grid grid-cols-2 gap-3">
-                <input type="text" placeholder="First Name" className="bg-white border border-black/15 rounded-[8px] px-4 py-3 font-nav text-[15px] text-ink placeholder:text-ink/40 outline-none focus:border-black/40 transition-colors" />
-                <input type="text" placeholder="Last Name" className="bg-white border border-black/15 rounded-[8px] px-4 py-3 font-nav text-[15px] text-ink placeholder:text-ink/40 outline-none focus:border-black/40 transition-colors" />
-              </div>
-              <input type="email" placeholder="Email Address" className="bg-white border border-black/15 rounded-[8px] px-4 py-3 font-nav text-[15px] text-ink placeholder:text-ink/40 outline-none focus:border-black/40 transition-colors" />
-              <div className="grid grid-cols-2 gap-3">
-                <input type="tel" placeholder="Phone" className="bg-white border border-black/15 rounded-[8px] px-4 py-3 font-nav text-[15px] text-ink placeholder:text-ink/40 outline-none focus:border-black/40 transition-colors" />
-                <select className="bg-white border border-black/15 rounded-[8px] px-4 py-3 font-nav text-[15px] text-ink/60 outline-none focus:border-black/40 transition-colors">
-                  <option value="">I am Borrower / Investor / Professional Advisor</option>
-                  <option value="borrower">Borrower</option>
-                  <option value="investor">Investor</option>
-                  <option value="advisor">Professional Advisor</option>
-                </select>
-              </div>
-              <textarea
-                placeholder="Comments / Requirements"
-                rows={5}
-                className="bg-white border border-black/15 rounded-[8px] px-4 py-3 font-nav text-[15px] text-ink placeholder:text-ink/40 outline-none focus:border-black/40 transition-colors resize-none"
-              />
-              <div className="flex justify-end">
-                <button
-                  type="submit"
-                  className="bg-ink text-white font-sans text-[16px] uppercase px-8 py-3 rounded-[10px] hover:bg-ink/80 transition-colors"
-                >
-                  Submit
-                </button>
-              </div>
-            </form>
+            <ContactForm />
           </div>
 
           {/* Office locations */}
