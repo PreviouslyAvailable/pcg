@@ -34,3 +34,21 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Environment variables
+
+Copy `.env.example` to `.env.local` for local development:
+
+```bash
+cp .env.example .env.local
+```
+
+For [Vercel](https://vercel.com) deployments, set the same variables on the project (Production, Preview, and Development):
+
+| Variable | Example |
+| --- | --- |
+| `NEXT_PUBLIC_SANITY_PROJECT_ID` | `vmnu14pm` |
+| `NEXT_PUBLIC_SANITY_DATASET` | `production` |
+| `NEXT_PUBLIC_SANITY_API_VERSION` | `2024-01-01` |
+
+Builds fail during static generation (for example on `/case-studies`) if these are missing or if the dataset name is invalid.
