@@ -114,23 +114,6 @@ export default function HomeIntro({
         </div>
       </div>
 
-      {/* Mobile: second content block */}
-      <div className="lg:hidden pcg-inner pcg-inner-vertical pt-10 pb-10">
-        <h2 className="font-serif font-light text-[clamp(40px,4.2vw,64px)] leading-[1.03] tracking-[-0.012em] text-ink mb-5">
-          {investorsHeading ?? 'Creating Investment Opportunities'}
-        </h2>
-          {investorsBody && Array.isArray(investorsBody) && investorsBody.length > 0 ? (
-            <BodyText value={investorsBody} scheme="light" className="mb-6" />
-          ) : (
-            <p className="font-nav text-[16px] leading-[1.3] text-ink mb-6">
-              {typeof investorsBody === 'string' ? investorsBody : 'For investors seeking consistent returns and portfolio diversification, we provide access to institutional-quality private debt investments in New Zealand dollars, managed by experienced professionals with a proven track record.'}
-            </p>
-          )}
-        <OutlineButton href={investorsCtaHref ?? '/investors'}>
-          {investorsCtaLabel ?? 'Explore investments'}
-        </OutlineButton>
-      </div>
-
       {/* Desktop: borrowers image left, investors text right */}
       <div className="hidden lg:grid pcg-inner pcg-inner-vertical pb-[80px] grid-cols-2 gap-x-16 items-start">
         <div className="relative w-full aspect-[558/363] rounded-[17px] overflow-hidden">

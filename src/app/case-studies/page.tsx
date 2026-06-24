@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import Link from 'next/link';
 import Navbar from '@/components/NavbarServer';
 import Footer from '@/components/Footer';
 import { IMAGE_SIZES } from '@/lib/imageSizes';
@@ -7,31 +6,23 @@ import { IMAGE_SIZES } from '@/lib/imageSizes';
 const caseStudies = [
   {
     company: 'Carbn',
-    person: 'Jane Doe',
     image: '/images/how-3.jpg',
-    body: "With 20+ deals across our portfolio versus competitors' limited holdings, we provide genuine diversification and risk management that only comes with scale and experience.",
-    href: '/case-studies/carbn',
+    body: 'Supporting growth capital for a New Zealand technology business scaling its product and team.',
   },
   {
     company: 'T4 Group',
-    person: 'Jane Doe',
     image: '/images/how-2.jpg',
-    body: "With 20+ deals across our portfolio versus competitors' limited holdings, we provide genuine diversification and risk management that only comes with scale and experience.",
-    href: '/case-studies/t4-group',
+    body: 'Flexible funding to help a specialist services group invest in operations and expand nationally.',
   },
   {
     company: 'Titanium',
-    person: 'Jane Doe',
     image: '/images/insight-2.jpg',
-    body: "With 20+ deals across our portfolio versus competitors' limited holdings, we provide genuine diversification and risk management that only comes with scale and experience.",
-    href: '/case-studies/titanium',
+    body: 'Structured debt to back working capital and strategic initiatives across the Titanium portfolio.',
   },
   {
     company: 'Helisupport',
-    person: 'Jane Doe',
     image: '/images/how-1.jpg',
-    body: "With 20+ deals across our portfolio versus competitors' limited holdings, we provide genuine diversification and risk management that only comes with scale and experience.",
-    href: '/case-studies/helisupport',
+    body: 'Capital partnership enabling aviation services growth with terms aligned to cash flow.',
   },
 ];
 
@@ -92,17 +83,13 @@ export default function CaseStudiesPage() {
       <section className="pb-20 lg:pb-24">
         <div className="pcg-inner grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10">
         {caseStudies.map((cs) => (
-          <Link key={cs.company} href={cs.href} className="group block">
+          <article key={cs.company} className="group">
             <div className="relative w-full aspect-[558/380] rounded-[16px] overflow-hidden bg-cream-warm mb-4">
               <Image src={cs.image} alt={cs.company} fill sizes={IMAGE_SIZES.pageHero} className="object-cover group-hover:scale-[1.02] transition-transform duration-500" />
             </div>
-            <div className="flex items-center gap-2 mb-1">
-              <p className="font-sans text-ink text-[22px]">{cs.company}</p>
-              <ArrowIcon />
-            </div>
-            <p className="font-sans text-[14px] uppercase tracking-[1px] text-ink/80 mb-3">{cs.person}</p>
+            <p className="font-sans text-ink text-[22px] mb-3">{cs.company}</p>
             <p className="font-nav text-ink text-[16px] leading-[1.4]">{cs.body}</p>
-          </Link>
+          </article>
         ))}
         </div>
       </section>

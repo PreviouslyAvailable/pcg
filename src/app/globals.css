@@ -116,6 +116,31 @@ html {
   width: 100%;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none !important;
+  }
+
+  .hover-lift,
+  .hover-lift:hover,
+  .hover-zoom .img-zoom,
+  .hover-zoom:hover .img-zoom,
+  .btn-interactive,
+  .btn-interactive:hover {
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .link-underline::after {
+    transition: none !important;
+  }
+}
+
 
 /* =============================================================================
    LAYOUT — Content container & page wrapper

@@ -5,6 +5,7 @@ const navLinks = [
   { label: 'About', href: '/about' },
   { label: 'Borrowers', href: '/borrowers' },
   { label: 'Investors', href: '/investors' },
+  { label: 'Strategies', href: '/strategies' },
   { label: 'News', href: '/news' },
 ];
 
@@ -66,10 +67,8 @@ export default function Footer() {
       </div>
 
       {/* Bottom */}
-      <div className="mt-6 flex gap-6">
+      <div className="mt-6">
         <span className="font-mono text-[10px] uppercase tracking-[0.33px] text-ink/50">© 2025 Private Capital Group</span>
-        <Link href="/privacy" className="font-mono text-[10px] uppercase tracking-[0.33px] text-ink hover:opacity-60 transition-opacity">Privacy Policy</Link>
-        <Link href="/terms" className="font-mono text-[10px] uppercase tracking-[0.33px] text-ink hover:opacity-60 transition-opacity">Terms of Service</Link>
       </div>
       </div>
     </footer>

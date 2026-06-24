@@ -33,6 +33,8 @@ export default function Hero({
 
   useEffect(() => {
     if (srcs.length < 2) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
     const id = setInterval(() => {
       setActive((prev) => (prev + 1) % srcs.length);
     }, 10000);

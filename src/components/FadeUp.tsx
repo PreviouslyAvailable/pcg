@@ -1,6 +1,16 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useSyncExternalStore } from 'react';
+
+function subscribeReducedMotion(callback: () => void) {
+  const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+  mediaQuery.addEventListener('change', callback);
+  return () => mediaQuery.removeEventListener('change', callback);
+}
+
+function getReducedMotionSnapshot() {
+  return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}
 
 interface FadeUpProps {
   children: React.ReactNode;
@@ -22,16 +32,24 @@ export default function FadeUp({
   as: Tag = 'div',
 }: FadeUpProps) {
   const ref = useRef<HTMLElement>(null);
-  const [visible, setVisible] = useState(false);
+  const [inView, setInView] = useState(false);
+  const reduceMotion = useSyncExternalStore(
+    subscribeReducedMotion,
+    getReducedMotionSnapshot,
+    () => false,
+  );
+  const visible = reduceMotion || inView;
 
   useEffect(() => {
+    if (reduceMotion) return;
+
     const el = ref.current;
     if (!el) return;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setVisible(true);
+          setInView(true);
           observer.disconnect();
         }
       },
@@ -40,18 +58,22 @@ export default function FadeUp({
 
     observer.observe(el);
     return () => observer.disconnect();
-  }, [threshold]);
+  }, [threshold, reduceMotion]);
+
+  const motionStyle = reduceMotion
+    ? {}
+    : {
+        opacity: visible ? 1 : 0,
+        transform: visible ? 'translateY(0)' : `translateY(${distance}px)`,
+        transition: `opacity ${duration}ms cubic-bezier(0.22,1,0.36,1) ${delay}ms, transform ${duration}ms cubic-bezier(0.22,1,0.36,1) ${delay}ms`,
+        willChange: 'opacity, transform' as const,
+      };
 
   return (
     <Tag
       ref={ref}
       className={className}
-      style={{
-        opacity: visible ? 1 : 0,
-        transform: visible ? 'translateY(0)' : `translateY(${distance}px)`,
-        transition: `opacity ${duration}ms cubic-bezier(0.22,1,0.36,1) ${delay}ms, transform ${duration}ms cubic-bezier(0.22,1,0.36,1) ${delay}ms`,
-        willChange: 'opacity, transform',
-      }}
+      style={motionStyle}
     >
       {children}
     </Tag>
