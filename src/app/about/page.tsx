@@ -8,8 +8,10 @@ import PageHero from '@/components/PageHero';
 import CtaBanner from '@/components/CtaBanner';
 import Footer from '@/components/FooterServer';
 import TeamCard from '@/components/TeamCard';
-import { getAboutPage, getExecutiveTeam } from '@/sanity/loaders';
+import { getAboutPage, getBoardMembers, getExecutiveTeam } from '@/sanity/loaders';
 import { urlFor } from '@/sanity/image';
+import { teamCardImageUrl, teamModalImageUrl } from '@/lib/teamImages';
+import type { TeamMember } from '@/sanity/types';
 import FadeUp from '@/components/FadeUp';
 
 export const revalidate = 60;
@@ -25,10 +27,26 @@ const fallbackExecutiveTeam = [
   { _id: '3', name: 'John Ferrara', role: 'Co-Founder & Partner', image: undefined },
 ];
 
+function TeamMemberGrid({ members }: { members: TeamMember[] }) {
+  return (
+    <div className="grid grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+      {members.map((m) => (
+        <TeamCard
+          key={m._id}
+          {...m}
+          cardImgSrc={teamCardImageUrl(m.image)}
+          modalImgSrc={teamModalImageUrl(m.image)}
+        />
+      ))}
+    </div>
+  );
+}
+
 export default async function AboutPage() {
-  const [data, allExecutives] = await Promise.all([
+  const [data, allExecutives, allBoardMembers] = await Promise.all([
     getAboutPage(),
     getExecutiveTeam(),
+    getBoardMembers(),
   ]);
 
   const heroImageSrc = data?.hero?.image?.asset?.url
@@ -49,6 +67,13 @@ export default async function AboutPage() {
       : allExecutives && allExecutives.length > 0
         ? allExecutives
         : fallbackExecutiveTeam;
+
+  const boardMembers =
+    data?.boardOfDirectors && data.boardOfDirectors.length > 0
+      ? data.boardOfDirectors
+      : allBoardMembers && allBoardMembers.length > 0
+        ? allBoardMembers
+        : [];
 
   const featureCards = (data?.featureCards && data.featureCards.length > 0)
     ? data.featureCards
@@ -149,39 +174,18 @@ export default async function AboutPage() {
       <section id="team" className="py-[calc(var(--spacing)*18)]">
         <div className="pcg-inner">
           <h2 className="font-sans text-ink text-[26px] leading-[1.03] tracking-[-0.012em] mb-5">Private Capital Group Team</h2>
-          <div className="grid grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            {executiveTeam.map((m) => {
-              const cardImgSrc = m.image?.asset?.url
-                ? urlFor(m.image).width(480).height(640).url()
-                : null;
-              const modalImgSrc = m.image?.asset?.url
-                ? urlFor(m.image).width(800).height(1067).url()
-                : null;
-
-              return (
-                <TeamCard
-                  key={m._id}
-                  {...m}
-                  cardImgSrc={cardImgSrc}
-                  modalImgSrc={modalImgSrc}
-                />
-              );
-            })}
-          </div>
+          <TeamMemberGrid members={executiveTeam} />
         </div>
       </section>
 
-      {/* Board of Directors 
-      <section className="py-[calc(var(--spacing)*18)]">
-        <div className="pcg-inner">
-          <h2 className="font-sans text-ink text-[26px] leading-[1.03] tracking-[-0.012em] mb-5">Board of Directors</h2>
-          <div className="grid grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            {boardMembers.map((m) => (
-              <TeamCard key={m._id} {...m} />
-            ))}
+      {boardMembers.length > 0 ? (
+        <section className="py-[calc(var(--spacing)*18)]">
+          <div className="pcg-inner">
+            <h2 className="font-sans text-ink text-[26px] leading-[1.03] tracking-[-0.012em] mb-5">Board of Directors</h2>
+            <TeamMemberGrid members={boardMembers} />
           </div>
-        </div>
-      </section>*/}
+        </section>
+      ) : null}
 
       <Footer />
     </main>
