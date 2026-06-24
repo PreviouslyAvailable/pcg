@@ -6,17 +6,15 @@ import PageHero from '@/components/PageHero';
 import CtaBanner from '@/components/CtaBanner';
 import Footer from '@/components/Footer';
 import BodyText from '@/components/BodyText';
-import { client } from '@/sanity/client';
+import { getStrategiesPage } from '@/sanity/loaders';
 import { urlFor } from '@/sanity/image';
-import { strategiesPageQuery } from '@/sanity/queries';
-import type { StrategiesPage } from '@/sanity/types';
 import FadeUp from '@/components/FadeUp';
 import { IMAGE_SIZES } from '@/lib/imageSizes';
 
-export const revalidate = 0;
+export const revalidate = 60;
 
 export async function generateMetadata(): Promise<Metadata> {
-  const data = await client.fetch<StrategiesPage>(strategiesPageQuery).catch(() => null);
+  const data = await getStrategiesPage();
   return { title: data?.pageTitle ?? 'Strategies' };
 }
 
@@ -49,7 +47,7 @@ const fallbackRiskFramework = [
 ];
 
 export default async function StrategiesPage() {
-  const data = await client.fetch<StrategiesPage>(strategiesPageQuery).catch(() => null);
+  const data = await getStrategiesPage();
 
   const heroImageSrc = data?.hero?.image?.asset?.url
     ? urlFor(data.hero.image).width(1200).height(800).url()

@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import NewsletterForm from '@/components/NewsletterForm';
 
 const navLinks = [
   { label: 'About', href: '/about' },
@@ -25,22 +26,7 @@ export default function Footer() {
         <h3 className="font-serif font-light text-ink text-[38px] leading-[1.15] tracking-[-0.48px] mb-6 lg:mb-8 max-w-[437px]">
           Subscribe to our mailing list to receive the latest updates.
         </h3>
-        <form className="flex gap-3 max-w-[437px] mb-[20px]">
-          <input
-            id="footer-newsletter-email"
-            type="email"
-            name="email"
-            autoComplete="email"
-            placeholder="Email Address"
-            className="flex-1 bg-white rounded-[6px] px-4 py-3 font-nav text-[16px] text-ink placeholder:text-ink/40 outline-none border border-black/10 focus:border-black/30 transition-colors"
-          />
-          <button
-            type="submit"
-            className="bg-ink text-white font-sans text-[14px] uppercase rounded-[6px] px-6 py-3 hover:bg-ink/80 transition-colors"
-          >
-            Submit
-          </button>
-        </form>
+        <NewsletterForm inputId="footer-newsletter-email" />
       </div>
 
       <div className="border-b border-black/15 pb-6 lg:pb-8 flex flex-wrap items-center gap-4 lg:justify-between">
@@ -81,7 +67,7 @@ export default function Footer() {
 
       {/* Bottom */}
       <div className="mt-6 flex gap-6">
-        <span className="font-mono text-[10px] uppercase tracking-[0.33px] text-ink/50">© 2025 Private Debt Group</span>
+        <span className="font-mono text-[10px] uppercase tracking-[0.33px] text-ink/50">© 2025 Private Capital Group</span>
         <Link href="/privacy" className="font-mono text-[10px] uppercase tracking-[0.33px] text-ink hover:opacity-60 transition-opacity">Privacy Policy</Link>
         <Link href="/terms" className="font-mono text-[10px] uppercase tracking-[0.33px] text-ink hover:opacity-60 transition-opacity">Terms of Service</Link>
       </div>

@@ -7,17 +7,16 @@ import Navbar from '@/components/NavbarServer';
 import PageHero from '@/components/PageHero';
 import CtaBanner from '@/components/CtaBanner';
 import Footer from '@/components/Footer';
-import { client } from '@/sanity/client';
+import { getAboutPage, getExecutiveTeam } from '@/sanity/loaders';
 import { urlFor } from '@/sanity/image';
-import { aboutPageQuery, executiveTeamQuery, boardMembersQuery } from '@/sanity/queries';
-import type { AboutPage, TeamMember } from '@/sanity/types';
+import type { TeamMember } from '@/sanity/types';
 import FadeUp from '@/components/FadeUp';
 import { IMAGE_SIZES } from '@/lib/imageSizes';
 
-export const revalidate = 0;
+export const revalidate = 60;
 
 export async function generateMetadata(): Promise<Metadata> {
-  const data = await client.fetch<AboutPage>(aboutPageQuery).catch(() => null);
+  const data = await getAboutPage();
   return { title: data?.pageTitle ?? 'About' };
 }
 
@@ -27,20 +26,14 @@ const fallbackExecutiveTeam = [
   { _id: '3', name: 'John Ferrara', role: 'Co-Founder & Partner', image: undefined },
 ];
 
-const fallbackBoardMembers = [
-  { _id: '4', name: 'Andrew Golding', role: 'Chair', image: undefined },
-  { _id: '5', name: 'Paul Carman', role: 'Founder & Managing Partner', image: undefined },
-  { _id: '6', name: 'John Ferrara', role: 'Co-Founder & Partner', image: undefined },
-];
-
-function LinkedInIcon({ href }: { href: string }) {
+function LinkedInIcon({ href, name }: { href: string; name: string }) {
   return (
     <a
       href={href}
       target="_blank"
       rel="noopener noreferrer"
       className="rounded-full bg-ink flex items-center justify-center hover:bg-ink/80 transition-colors shrink-0"
-      aria-label="View LinkedIn profile"
+      aria-label={`View ${name} on LinkedIn`}
     >
       <svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g clipPath="url(#clip0_66_24)">
@@ -81,17 +74,16 @@ function TeamCard({ name, role, image, linkedIn }: TeamMember & { image?: TeamMe
           <p className="font-sans text-ink text-[22px] leading-tight mb-0.5">{name}</p>
           <p className="font-sans text-[14px] uppercase tracking-[0.33px] text-ink/80 mt-0.5">{role}</p>
         </div>
-        {linkedIn ? <LinkedInIcon href={linkedIn} /> : null}
+        {linkedIn ? <LinkedInIcon href={linkedIn} name={name} /> : null}
       </div>
     </div>
   );
 }
 
 export default async function AboutPage() {
-  const [data, executiveTeamData, boardMembersData] = await Promise.all([
-    client.fetch<AboutPage>(aboutPageQuery).catch(() => null),
-    client.fetch<TeamMember[]>(executiveTeamQuery).catch(() => null),
-    client.fetch<TeamMember[]>(boardMembersQuery).catch(() => null),
+  const [data, executiveTeamData] = await Promise.all([
+    getAboutPage(),
+    getExecutiveTeam(),
   ]);
 
   const heroImageSrc = data?.hero?.image?.asset?.url
@@ -109,10 +101,6 @@ export default async function AboutPage() {
   const executiveTeam = (executiveTeamData && executiveTeamData.length > 0)
     ? executiveTeamData
     : fallbackExecutiveTeam;
-
-  const boardMembers = (boardMembersData && boardMembersData.length > 0)
-    ? boardMembersData
-    : fallbackBoardMembers;
 
   const featureCards = (data?.featureCards && data.featureCards.length > 0)
     ? data.featureCards
@@ -149,10 +137,10 @@ export default async function AboutPage() {
               ) : (
                 <>
                   <p>
-                    Recognising that New Zealand's ambitious businesses were underserved by traditional banks, we established PCG to bring the flexibility of global private debt to the local market.
+                    Recognising that New Zealand&apos;s ambitious businesses were underserved by traditional banks, we established PCG to bring the flexibility of global private debt to the local market.
                   </p>
                   <p>
-                    We bring over 20 years of global private credit experience to address the funding gap left by banks. Founded in 2015 by Paul Carman and John Ferrara after successfully operating private debt funds in the UK under Mizuho Bank, PCG has grown from $5M to $500M assets under management by solving problems traditional lenders couldn't.
+                    We bring over 20 years of global private credit experience to address the funding gap left by banks. Founded in 2015 by Paul Carman and John Ferrara after successfully operating private debt funds in the UK under Mizuho Bank, PCG has grown from $5M to $500M assets under management by solving problems traditional lenders couldn&apos;t.
                   </p>
                   <p>
                     As New Zealand’s most active private credit lender, we originate opportunities across New Zealand from our Auckland and Queenstown offices. Maintaining a relationship-driven approach with our borrower and investor bases.

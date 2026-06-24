@@ -55,7 +55,7 @@ export default function CaseStudiesPage() {
           Real Businesses, Real Results
         </h1>
         <p className="font-nav text-ink text-[16px] leading-[1.4] max-w-[380px]">
-          See how we've partnered with New Zealand companies to unlock growth through tailored capital solutions
+          See how we&apos;ve partnered with New Zealand companies to unlock growth through tailored capital solutions
         </p>
         </div>
       </section>

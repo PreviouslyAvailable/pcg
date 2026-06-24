@@ -1,18 +1,15 @@
 import Navbar from '@/components/NavbarServer';
 import Hero from '@/components/Hero';
 import HomeIntro from '@/components/HomeIntro';
-import CaseStudy from '@/components/CaseStudy';
 import CtaBanner from '@/components/CtaBanner';
 import InvestorsSection from '@/components/InvestorsSection';
 import HowDifferent from '@/components/HowDifferent';
 import InsightsSection from '@/components/InsightsSection';
 import Footer from '@/components/Footer';
-import { client } from '@/sanity/client';
+import { getHomePage, getPosts } from '@/sanity/loaders';
 import { urlFor } from '@/sanity/image';
-import { homePageQuery, postsQuery, caseStudiesQuery } from '@/sanity/queries';
-import type { HomePage, PostSummary, CaseStudy as CaseStudyType } from '@/sanity/types';
 
-export const revalidate = 0;
+export const revalidate = 60;
 
 const insightPostsFallback = [
   { title: 'PCG News: Welcome to new investor – Aurora KiwiSaver', href: '/news/aurora-kiwisaver', imageSrc: '/images/insight-1.jpg' },
@@ -22,11 +19,7 @@ const insightPostsFallback = [
 ];
 
 export default async function Home() {
-  const [data, posts, caseStudies] = await Promise.all([
-    client.fetch<HomePage>(homePageQuery).catch(() => null),
-    client.fetch<PostSummary[]>(postsQuery).catch(() => null),
-    client.fetch<CaseStudyType[]>(caseStudiesQuery).catch(() => []),
-  ]);
+  const [data, posts] = await Promise.all([getHomePage(), getPosts()]);
 
   const heroImageSrc = data?.hero?.backgroundImage?.asset?.url
     ? urlFor(data.hero.backgroundImage).width(1920).height(1080).url()
@@ -37,10 +30,6 @@ export default async function Home() {
     heroImages.push(urlFor(data.hero.backgroundImage2).width(1920).height(1080).url());
   if (data?.hero?.backgroundImage3?.asset?.url)
     heroImages.push(urlFor(data.hero.backgroundImage3).width(1920).height(1080).url());
-
-  const caseStudyImageSrc = data?.caseStudy?.image?.asset?.url
-    ? urlFor(data.caseStudy.image).width(774).height(374).url()
-    : '/images/case-study.jpg';
 
   const quoteBannerImageSrc = data?.quoteBanner?.image?.asset?.url
     ? urlFor(data.quoteBanner.image).width(1920).height(800).url()
@@ -83,7 +72,7 @@ export default async function Home() {
         borrowersCtaHref={data?.introSection?.borrowers?.ctaHref}
         borrowersImageSrc={
           data?.introSection?.borrowers?.image?.asset?.url
-            ? data.introSection.borrowers.image.asset.url
+            ? urlFor(data.introSection.borrowers.image).width(960).height(640).url()
             : '/images/borrowers.jpg'
         }
         investorsHeading={data?.introSection?.investors?.heading}
@@ -92,7 +81,7 @@ export default async function Home() {
         investorsCtaHref={data?.introSection?.investors?.ctaHref}
         investorsImageSrc={
           data?.introSection?.investors?.image?.asset?.url
-            ? data.introSection.investors.image.asset.url
+            ? urlFor(data.introSection.investors.image).width(960).height(640).url()
             : '/images/investors-right.jpg'
         }
         featureCards={data?.introSection?.featureCards}
@@ -107,7 +96,7 @@ export default async function Home() {
       <InvestorsSection
         imageSrc={
           data?.investorsSection?.image?.asset?.url
-            ? data.investorsSection.image.asset.url
+            ? urlFor(data.investorsSection.image).width(960).height(640).url()
             : '/images/investors-right.jpg'
         }
         heading={data?.investorsSection?.heading}

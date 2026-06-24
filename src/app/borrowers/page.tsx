@@ -6,16 +6,14 @@ import PageHero from '@/components/PageHero';
 import CtaBanner from '@/components/CtaBanner';
 import Footer from '@/components/Footer';
 import BodyText from '@/components/BodyText';
-import { client } from '@/sanity/client';
+import { getBorrowersPage } from '@/sanity/loaders';
 import { urlFor } from '@/sanity/image';
-import { borrowersPageQuery } from '@/sanity/queries';
-import type { BorrowersPage } from '@/sanity/types';
 import { IMAGE_SIZES } from '@/lib/imageSizes';
 
-export const revalidate = 0;
+export const revalidate = 60;
 
 export async function generateMetadata(): Promise<Metadata> {
-  const data = await client.fetch<BorrowersPage>(borrowersPageQuery).catch(() => null);
+  const data = await getBorrowersPage();
   return { title: data?.pageTitle ?? 'Borrowers' };
 }
 
@@ -40,7 +38,7 @@ const fallbackHowWeWork = [
 ];
 
 export default async function BorrowersPage() {
-  const data = await client.fetch<BorrowersPage>(borrowersPageQuery).catch(() => null);
+  const data = await getBorrowersPage();
 
   const heroImageSrc = data?.hero?.image?.asset?.url
     ? urlFor(data.hero.image).width(1200).height(800).url()

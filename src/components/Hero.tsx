@@ -21,7 +21,7 @@ interface HeroProps {
 export default function Hero({
   images,
   imageSrc,
-  imageAlt = 'Private Debt Group',
+  imageAlt = 'Private Capital Group',
   headline = 'Just what you need to grow.',
   subtext = 'We partner with ambitious businesses to unlock growth through long-term partnerships, deep sector expertise and capital that fits your business.',
   primaryCta = { label: 'Explore Capital Solutions', href: '/borrowers' },
@@ -53,6 +53,7 @@ export default function Hero({
             className="object-cover object-center transition-opacity duration-1000"
             style={{ opacity: i === active ? 1 : 0 }}
             priority={i === 0}
+            loading={i === 0 ? undefined : 'lazy'}
           />
         ))
       ) : (

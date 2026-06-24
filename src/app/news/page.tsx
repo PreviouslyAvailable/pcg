@@ -4,19 +4,16 @@ import Link from 'next/link';
 import Navbar from '@/components/NavbarServer';
 import Footer from '@/components/Footer';
 import NewsletterBanner from '@/components/NewsletterBanner';
-import { client } from '@/sanity/client';
-import { postsQuery, insightsPageQuery } from '@/sanity/queries';
+import { getPosts, getInsightsPage } from '@/sanity/loaders';
 import { urlFor } from '@/sanity/image';
-import type { PostSummary, InsightsPage } from '@/sanity/types';
 import { IMAGE_SIZES } from '@/lib/imageSizes';
 
 export async function generateMetadata(): Promise<Metadata> {
-  const data = await client.fetch<InsightsPage>(insightsPageQuery).catch(() => null);
+  const data = await getInsightsPage();
   return { title: data?.pageTitle ?? 'Insights' };
 }
 
-// Revalidate every 60 seconds
-export const revalidate = 0;
+export const revalidate = 60;
 
 function formatDate(dateStr: string) {
   return new Date(dateStr).toLocaleDateString('en-NZ', {
@@ -31,13 +28,13 @@ const eduHeading = ['text-white', 'text-ink', 'text-ink'];
 const eduTag = ['text-white/60', 'text-ink/60', 'text-ink/60'];
 
 export default async function InsightsPage() {
-  const [allPosts, pageData] = await Promise.all([
-    client.fetch<PostSummary[]>(postsQuery),
-    client.fetch<InsightsPage>(insightsPageQuery).catch(() => null),
-  ]);
+  const [allPosts, pageData] = await Promise.all([getPosts(), getInsightsPage()]);
 
   const recentInsights = allPosts.filter((p) => p.category !== 'educational').slice(0, 3);
   const educationalResources = allPosts.filter((p) => p.category === 'educational');
+
+  const recentInsightIds = new Set(recentInsights.map((post) => post._id));
+  const remainingPosts = allPosts.filter((post) => !recentInsightIds.has(post._id));
 
   return (
     <main className="bg-cream">
@@ -46,9 +43,9 @@ export default async function InsightsPage() {
       {/* Header */}
       <section className="section-page-hero pb-[calc(var(--spacing)*10)]">
         <div className="pcg-inner">
-          <div className="w-1/2">
+          <div className="w-full lg:w-1/2">
             <h1 className="font-serif font-light text-ink text-[clamp(60px,6.4vw,80px)] leading-[1.0] tracking-[-0.015em]">
-              PCG News
+              {pageData?.heading ?? 'PCG News'}
             </h1>
           </div>
         </div>
@@ -131,12 +128,12 @@ export default async function InsightsPage() {
       )}
 
       {/* All Insights */}
-      {allPosts.length > 0 && (
+      {remainingPosts.length > 0 && (
         <section className="section">
           <div className="pcg-inner">
             <h2 className="font-sans text-ink text-[26px] leading-[1.2] mb-8">{pageData?.allInsightsHeading ?? 'All Insights'}</h2>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 gap-y-12">
-              {allPosts.map((post) => (
+              {remainingPosts.map((post) => (
                 <Link key={post._id} href={`/news/${post.slug}`} className="group block">
                   <div className="relative w-full aspect-[3/2] rounded-[12px] overflow-hidden bg-cream-warm mb-4">
                     {post.mainImage?.asset ? (

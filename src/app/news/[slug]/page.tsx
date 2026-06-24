@@ -7,24 +7,23 @@ import type { PortableTextComponents } from '@portabletext/react';
 import Navbar from '@/components/NavbarServer';
 import Footer from '@/components/Footer';
 import NewsletterBanner from '@/components/NewsletterBanner';
-import { client } from '@/sanity/client';
-import { postBySlugQuery, relatedPostsQuery, postSlugsQuery } from '@/sanity/queries';
+import { getPostBySlug, getRelatedPosts, getPostSlugs } from '@/sanity/loaders';
 import { urlFor } from '@/sanity/image';
-import type { PostFull, PostSummary } from '@/sanity/types';
+import type { PostSummary } from '@/sanity/types';
 import { IMAGE_SIZES } from '@/lib/imageSizes';
 
-export const revalidate = 0;
+export const revalidate = 60;
 
 type Props = { params: Promise<{ slug: string }> };
 
 export async function generateStaticParams() {
-  const slugs: { slug: string }[] = await client.fetch(postSlugsQuery);
+  const slugs = await getPostSlugs();
   return slugs.map(({ slug }) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const post: PostFull | null = await client.fetch(postBySlugQuery, { slug });
+  const post = await getPostBySlug(slug);
   return { title: post?.title ?? 'Insights' };
 }
 
@@ -127,9 +126,9 @@ const components: PortableTextComponents = {
 export default async function InsightPost({ params }: Props) {
   const { slug } = await params;
 
-  const [post, related]: [PostFull | null, PostSummary[]] = await Promise.all([
-    client.fetch(postBySlugQuery, { slug }),
-    client.fetch(relatedPostsQuery, { slug }),
+  const [post, related]: [Awaited<ReturnType<typeof getPostBySlug>>, PostSummary[]] = await Promise.all([
+    getPostBySlug(slug),
+    getRelatedPosts(slug),
   ]);
 
   if (!post) notFound();

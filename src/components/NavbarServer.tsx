@@ -1,27 +1,12 @@
-import { client, fetchOptions } from '@/sanity/client';
-import { navLabelsQuery } from '@/sanity/queries';
+import { getNavLabels } from '@/sanity/loaders';
 import Navbar from './Navbar';
 
 interface NavbarServerProps {
   variant?: 'light' | 'dark';
 }
 
-interface NavEntry {
-  label?: string;
-  slug?: string;
-}
-
-interface NavLabels {
-  about?: NavEntry;
-  borrowers?: NavEntry;
-  investors?: NavEntry;
-  strategies?: NavEntry;
-  insights?: NavEntry;
-  contact?: NavEntry;
-}
-
 export default async function NavbarServer({ variant }: NavbarServerProps) {
-  const labels = await client.fetch<NavLabels>(navLabelsQuery, {}, { ...fetchOptions }).catch(() => null);
+  const labels = await getNavLabels();
 
   const navLinks = [
     { label: labels?.about?.label || 'About',       href: labels?.about?.slug || '/about' },

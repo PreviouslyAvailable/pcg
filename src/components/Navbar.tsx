@@ -21,7 +21,6 @@ export default function Navbar({ variant = 'dark', navLinks }: NavbarProps) {
 
   const textColor = variant === 'dark' ? 'text-gold' : 'text-ink';
   const borderColor = variant === 'dark' ? 'border-gold' : 'border-ink';
-  const logoColor = variant === 'dark' ? 'text-gold' : 'text-ink';
 
   return (
     <header className="absolute top-0 left-0 right-0 z-50">
@@ -29,7 +28,7 @@ export default function Navbar({ variant = 'dark', navLinks }: NavbarProps) {
         <div className="flex items-center justify-between px-4 lg:px-[40px] max-w-[1680px] mx-auto">
         {/* Left: Logo + Nav links */}
         <div className="flex items-center gap-8 lg:gap-20">
-        <Link href="/" aria-label="Private Debt Group">
+        <Link href="/" aria-label="Private Capital Group">
           <svg
             width="152"
             height="39"

@@ -3,16 +3,14 @@ import Image from 'next/image';
 import Navbar from '@/components/NavbarServer';
 import Footer from '@/components/Footer';
 import ContactForm from '@/components/ContactForm';
-import { client } from '@/sanity/client';
+import { getContactPage } from '@/sanity/loaders';
 import { urlFor } from '@/sanity/image';
-import { contactPageQuery } from '@/sanity/queries';
-import type { ContactPage } from '@/sanity/types';
 import { IMAGE_SIZES } from '@/lib/imageSizes';
 
-export const revalidate = 0;
+export const revalidate = 60;
 
 export async function generateMetadata(): Promise<Metadata> {
-  const data = await client.fetch<ContactPage>(contactPageQuery).catch(() => null);
+  const data = await getContactPage();
   return { title: data?.pageTitle ?? 'Contact' };
 }
 
@@ -22,7 +20,7 @@ const fallbackOffices = [
 ];
 
 export default async function ContactPage() {
-  const data = await client.fetch<ContactPage>(contactPageQuery).catch(() => null);
+  const data = await getContactPage();
 
   const quoteBannerImageSrc = data?.quoteBanner?.image?.asset?.url
     ? urlFor(data.quoteBanner.image).width(1920).height(800).url()
@@ -46,7 +44,7 @@ export default async function ContactPage() {
       {/* Header */}
       <section className="pt-36 pb-0 lg:pt-40 lg:pb-0">
         <div className="pcg-inner">
-          <div className='w-1/2'>
+          <div className="w-full lg:w-1/2">
             <h1 className="font-serif font-light text-ink text-[clamp(60px,6.4vw,80px)] leading-[1.0] tracking-[-0.015em] mb-6">
               {data?.hero?.heading ?? 'Ready to Explore Private Debt Solutions?'}
             </h1>
