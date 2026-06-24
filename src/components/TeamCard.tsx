@@ -72,30 +72,41 @@ function TeamMemberModal({ member, modalImgSrc, onClose }: TeamMemberModalProps)
           </svg>
         </button>
 
-        <div className="flex min-h-0 flex-1 flex-col gap-6 pr-8 md:grid md:grid-cols-[340px_1fr] md:items-stretch md:gap-12 md:pr-14">
+        <div className="flex min-h-0 flex-1 flex-col gap-6 w-full md:grid md:grid-cols-[340px_1fr] md:items-stretch md:gap-12 md:pr-14">
           {modalImgSrc ? (
-            <div className="relative mx-auto aspect-[3/4] w-[200px] shrink-0 md:mx-0 md:h-full md:w-full md:max-w-none md:min-h-0 md:aspect-auto">
-              <Image
-                src={modalImgSrc}
-                alt={image?.alt ?? name}
-                fill
-                className="rounded-[16px] object-cover object-top bg-cream-warm"
-                sizes="(max-width: 768px) 200px, 340px"
-                priority
-              />
+            <div className="flex w-full shrink-0 justify-center md:block">
+              <div className="relative aspect-[3/4] w-[200px] md:mx-0 md:h-full md:w-full md:max-w-none md:min-h-0 md:aspect-auto">
+                <Image
+                  src={modalImgSrc}
+                  alt={image?.alt ?? name}
+                  fill
+                  className="rounded-[16px] object-cover object-center md:object-top bg-cream-warm"
+                  sizes="(max-width: 768px) 200px, 340px"
+                  priority
+                />
+              </div>
             </div>
           ) : null}
 
-          <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
-            <h3 id={titleId} className="shrink-0 font-sans text-ink text-[24px] md:text-[28px] leading-tight mb-1 pr-8">
-              {name}
-            </h3>
-            {role ? (
-              <p className="shrink-0 font-sans text-[14px] uppercase tracking-[0.33px] text-ink/80 mb-3 md:mb-4">
-                {role}
-              </p>
-            ) : null}
-            <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain pb-14 pr-1">
+          <div className="flex min-h-0 flex-1 flex-col overflow-hidden w-full">
+            <div className="shrink-0 flex items-start justify-between gap-3 mb-3 md:mb-4">
+              <div className="min-w-0">
+                <h3 id={titleId} className="font-sans text-ink text-[24px] md:text-[28px] leading-tight mb-1">
+                  {name}
+                </h3>
+                {role ? (
+                  <p className="font-sans text-[14px] uppercase tracking-[0.33px] text-ink/80">
+                    {role}
+                  </p>
+                ) : null}
+              </div>
+              {linkedIn ? (
+                <div className="shrink-0 pt-0.5 md:hidden">
+                  <LinkedInIcon href={linkedIn} name={name} size="sm" />
+                </div>
+              ) : null}
+            </div>
+            <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain pr-1 md:pb-14">
               {bio ? (
                 <p className="font-nav text-ink text-[16px] leading-[1.4] whitespace-pre-line">
                   {bio}
@@ -110,7 +121,7 @@ function TeamMemberModal({ member, modalImgSrc, onClose }: TeamMemberModalProps)
         </div>
 
         {linkedIn ? (
-          <div className="absolute bottom-6 right-6 md:bottom-10 md:right-10">
+          <div className="absolute bottom-6 right-6 hidden md:block md:bottom-10 md:right-10">
             <LinkedInIcon href={linkedIn} name={name} />
           </div>
         ) : null}
