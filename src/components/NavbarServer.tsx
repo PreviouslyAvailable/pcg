@@ -1,4 +1,4 @@
-import { getNavLabels } from '@/sanity/loaders';
+import { getNavLabels, getSiteSettings } from '@/sanity/loaders';
 import { buildNavLinks } from '@/lib/nav';
 import Navbar from './Navbar';
 
@@ -7,8 +7,8 @@ interface NavbarServerProps {
 }
 
 export default async function NavbarServer({ variant }: NavbarServerProps) {
-  const labels = await getNavLabels();
-  const navLinks = buildNavLinks(labels, null);
+  const [labels, settings] = await Promise.all([getNavLabels(), getSiteSettings()]);
+  const navLinks = buildNavLinks(labels, settings);
 
   return <Navbar variant={variant} navLinks={navLinks} />;
 }

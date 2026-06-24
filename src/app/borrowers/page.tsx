@@ -1,12 +1,13 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
-import Navbar from '@/components/NavbarServer';
+import SiteChrome from '@/components/SiteChrome';
 import PageHero from '@/components/PageHero';
 import CtaBanner from '@/components/CtaBanner';
-import Footer from '@/components/FooterServer';
+import QuoteBanner from '@/components/QuoteBanner';
 import BodyText from '@/components/BodyText';
 import { getBorrowersPage } from '@/sanity/loaders';
+import { quoteBannerUrl } from '@/sanity/imageUrls';
 import { urlFor } from '@/sanity/image';
 import { IMAGE_SIZES } from '@/lib/imageSizes';
 
@@ -21,7 +22,7 @@ const fallbackWhyPCG = [
   { title: 'Bespoke Capital Structures', body: "We tailor loans around your business, not a rigid credit policy. Whether it's interest-only periods to preserve cash flow or seasonal repayment schedules that match your revenue, we have the flexibility to design financing that actually fits your operational reality." },
   { title: 'Direct Access to Decision Makers', body: "We eliminate the bureaucracy of traditional lending. All credit decisions are made locally by the partners you meet face-to-face. This flat structure ensures rapid feedback and the certainty of execution required to close complex deals on tight timelines." },
   { title: 'Long-Term Growth Partnership', body: "We spend time face-to-face understanding your business, your strategy, and the challenges ahead. We build lasting partnerships that support you through every phase of your growth, not just a one-time facility." },
-  { title: 'Proven Track Record', body: "With over $500M in committed capital and over 20+ successful transactions, we represent one of the largest and most diversified private credit platforms in New Zealand. Our track record provides you with the confidence that we have the scale to support your business and the experience to navigate complex deal structures." },
+  { title: 'Proven Track Record', body: "With over $500M in committed capital and 20+ successful transactions, we represent one of the largest and most diversified private credit platforms in New Zealand. Our track record provides you with the confidence that we have the scale to support your business and the experience to navigate complex deal structures." },
 ];
 
 const fallbackLendingFocus = [
@@ -44,9 +45,7 @@ export default async function BorrowersPage() {
     ? urlFor(data.hero.image).width(1200).height(800).url()
     : '/images/borrowers.jpg';
 
-  const quoteBannerImageSrc = data?.quoteBanner?.image?.asset?.url
-    ? urlFor(data.quoteBanner.image).width(1920).height(800).url()
-    : '/images/how-3.jpg';
+  const quoteBannerImageSrc = quoteBannerUrl(data?.quoteBanner?.image, '/images/how-3.jpg');
 
   const lendingFocusImageSrc = data?.lendingFocus?.image?.asset?.url
     ? urlFor(data.lendingFocus.image).width(800).height(600).url()
@@ -71,9 +70,8 @@ export default async function BorrowersPage() {
     : fallbackHowWeWork;
 
   return (
-    <main className="bg-cream">
-      <Navbar variant="light" />
-
+    <SiteChrome>
+      <main className="bg-cream">
       <PageHero
         heading={data?.hero?.heading ?? 'Capital Built for Speed and Flexibility'}
         subtext={data?.hero?.subtext ?? 'We provide financing solutions designed to help you scale, acquire, or recapitalise. Partner with a local team that has the authority and expertise to say yes.'}
@@ -103,13 +101,6 @@ export default async function BorrowersPage() {
         </div>
       </section>
 
-      <CtaBanner
-        heading={data?.ctaBanner?.heading ?? 'Ready to access flexible funding that grows with your business?'}
-        ctaLabel={data?.ctaBanner?.ctaLabel ?? 'Get started'}
-        ctaHref={data?.ctaBanner?.ctaHref ?? '/contact'}
-        background="teal"
-      />
-
       {/* Our lending focus */}
       <section className="py-[calc(var(--spacing)*18)] bg-white">
         <div className="pcg-inner grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
@@ -136,16 +127,11 @@ export default async function BorrowersPage() {
         </div>
       </section>
 
-      {/* Quote banner */}
-      <section className="relative min-h-[420px] flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0">
-          <Image src={quoteBannerImageSrc} alt="" fill sizes={IMAGE_SIZES.viewport} className="object-cover" />
-          <div className="absolute inset-0 bg-dark/60" />
-        </div>
-        <blockquote className="relative z-10 max-w-[794px] px-4 font-serif font-light text-[clamp(36px,3.75vw,54px)] leading-[1.05] tracking-[-0.012em] text-center text-cream">
-          {data?.quoteBanner?.quote ?? 'Success demands more than traditional lending. It requires partners who see beyond the balance sheet to your business potential.'}
-        </blockquote>
-      </section>
+      <QuoteBanner
+        quote={data?.quoteBanner?.quote ?? 'Success demands more than traditional lending. It requires partners who see beyond the balance sheet to your business potential.'}
+        imageSrc={quoteBannerImageSrc}
+        quoteClassName="max-w-[794px] px-4 font-serif font-light text-[clamp(36px,3.75vw,54px)] leading-[1.05] tracking-[-0.012em] text-center text-cream"
+      />
 
       {/* How we work */}
       <section>
@@ -191,7 +177,7 @@ export default async function BorrowersPage() {
         background="teal"
       />
 
-      <Footer />
-    </main>
+      </main>
+    </SiteChrome>
   );
 }

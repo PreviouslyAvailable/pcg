@@ -25,12 +25,7 @@ const placeholderPosts: InsightCard[] = INSIGHT_POST_FALLBACKS.map((post) => ({
   imageSrc: post.imageSrc,
 }));
 
-function formatDate(dateStr: string) {
-  return new Date(dateStr).toLocaleDateString('en-NZ', {
-    month: 'long',
-    year: 'numeric',
-  }).toUpperCase();
-}
+import { formatDateMonthYear } from '@/lib/dates';
 
 export default function InsightsSection({ posts = placeholderPosts }: InsightsSectionProps) {
   return (
@@ -80,7 +75,7 @@ export default function InsightsSection({ posts = placeholderPosts }: InsightsSe
               </p>
               {post.publishedAt && (
                 <p className="font-sans text-[14px] uppercase tracking-[1px] text-ink/80 mb-2">
-                  {formatDate(post.publishedAt)}
+                  {formatDateMonthYear(post.publishedAt)}
                 </p>
               )}
               {post.excerpt && (

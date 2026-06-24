@@ -1,15 +1,14 @@
 import type { Metadata } from 'next';
-import Image from 'next/image';
 import Link from 'next/link';
-import Navbar from '@/components/NavbarServer';
+import SiteChrome from '@/components/SiteChrome';
 import PageHero from '@/components/PageHero';
 import CtaBanner from '@/components/CtaBanner';
-import Footer from '@/components/FooterServer';
+import QuoteBanner from '@/components/QuoteBanner';
 import BodyText from '@/components/BodyText';
 import { getInvestorsPage } from '@/sanity/loaders';
+import { quoteBannerUrl } from '@/sanity/imageUrls';
 import { urlFor } from '@/sanity/image';
 import FadeUp from '@/components/FadeUp';
-import { IMAGE_SIZES } from '@/lib/imageSizes';
 
 export const revalidate = 60;
 
@@ -58,9 +57,7 @@ export default async function InvestorsPage() {
     ? urlFor(data.hero.image).width(1200).height(800).url()
     : '/images/investors-right.jpg';
 
-  const quoteBannerImageSrc = data?.quoteBanner?.image?.asset?.url
-    ? urlFor(data.quoteBanner.image).width(1920).height(800).url()
-    : '/images/how-4.jpg';
+  const quoteBannerImageSrc = quoteBannerUrl(data?.quoteBanner?.image, '/images/how-4.jpg');
 
   const investmentItems = (data?.investmentOpportunity?.items && data.investmentOpportunity.items.length > 0)
     ? data.investmentOpportunity.items
@@ -79,9 +76,8 @@ export default async function InvestorsPage() {
     : fallbackActiveInvestorPlus;
 
   return (
-    <main className="bg-cream">
-      <Navbar variant="light" />
-
+    <SiteChrome>
+      <main className="bg-cream">
       <PageHero
         heading={data?.hero?.heading ?? 'Resilient Yield in New Zealand Dollars'}
         subtext={data?.hero?.subtext ?? 'We combine a 20-year global track record with a primary focus on capital preservation and delivering consistent monthly income'}
@@ -188,24 +184,21 @@ export default async function InvestorsPage() {
       </section>
 
       <CtaBanner
-        heading={data?.ctaBanner?.heading ?? 'Ready to access flexible funding that grows with your business?'}
+        heading={data?.ctaBanner?.heading ?? 'Ready to explore private credit investment opportunities?'}
         ctaLabel={data?.ctaBanner?.ctaLabel ?? 'Get started'}
         ctaHref={data?.ctaBanner?.ctaHref ?? '/contact'}
         background="dark"
       />
 
-      {/* Quote banner */}
-      <section className="relative min-h-[500px] flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0">
-          <Image src={quoteBannerImageSrc} alt="" fill sizes={IMAGE_SIZES.viewport} className="object-cover" />
-          <div className="absolute inset-0 bg-dark/70" />
-        </div>
-        <blockquote className="relative z-10 font-sans text-cream text-[clamp(34px,3.5vw,46px)] tracking-tight leading-[1.05] text-center max-w-[794px] px-8">
-          {data?.quoteBanner?.quote ?? 'Portfolio diversification is secured through direct investment in essential business infrastructure that generates consistent returns.'}
-        </blockquote>
-      </section>
+      <QuoteBanner
+        quote={data?.quoteBanner?.quote ?? 'Portfolio diversification is secured through direct investment in essential business infrastructure that generates consistent returns.'}
+        imageSrc={quoteBannerImageSrc}
+        overlayClassName="bg-dark/70"
+        minHeightClassName="min-h-[500px]"
+        quoteClassName="font-sans text-cream text-[clamp(34px,3.5vw,46px)] tracking-tight leading-[1.05] text-center max-w-[794px] px-8"
+      />
 
-      <Footer />
-    </main>
+      </main>
+    </SiteChrome>
   );
 }

@@ -1,6 +1,5 @@
 import Image from 'next/image';
-import Navbar from '@/components/NavbarServer';
-import Footer from '@/components/FooterServer';
+import SiteChrome from '@/components/SiteChrome';
 import { getCaseStudies } from '@/sanity/loaders';
 import { urlFor } from '@/sanity/image';
 import { IMAGE_SIZES } from '@/lib/imageSizes';
@@ -63,8 +62,8 @@ export default async function CaseStudiesPage() {
   const gridStudies = caseStudies.slice(featured ? 1 : 0);
 
   return (
-    <main className="bg-cream">
-      <Navbar variant="light" />
+    <SiteChrome>
+      <main className="bg-cream">
 
       <section className="pt-36 pb-10 lg:pt-40 lg:pb-12">
         <div className="pcg-inner grid grid-cols-1 lg:grid-cols-2 gap-8 items-end">
@@ -136,7 +135,7 @@ export default async function CaseStudiesPage() {
         </div>
       </section>
 
-      <Footer />
-    </main>
+      </main>
+    </SiteChrome>
   );
 }

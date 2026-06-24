@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { PortableText } from '@portabletext/react';
 import FadeUp from './FadeUp';
+import BodyText from './BodyText';
 import { IMAGE_SIZES } from '@/lib/imageSizes';
 
 interface InvestorsSectionProps {
@@ -23,27 +23,6 @@ const defaultBullets = [
   'PIE structure for tax efficiency',
 ];
 
-const portableTextComponents = {
-  block: {
-    normal: ({ children }: { children?: React.ReactNode }) => (
-      <p className="font-nav text-white text-[16px] leading-[1.3] mb-4 max-w-[348px]">{children}</p>
-    ),
-  },
-  list: {
-    bullet: ({ children }: { children?: React.ReactNode }) => (
-      <ul className="space-y-1 mb-10 lg:mb-12">{children}</ul>
-    ),
-  },
-  listItem: {
-    bullet: ({ children }: { children?: React.ReactNode }) => (
-      <li className="font-nav text-white text-[16px] leading-[1.3] flex gap-2">
-        <span className="mt-[6px] shrink-0 size-[5px] rounded-full bg-white/70" />
-        {children}
-      </li>
-    ),
-  },
-};
-
 export default function InvestorsSection({
   imageSrc,
   heading,
@@ -64,7 +43,7 @@ export default function InvestorsSection({
             <span className="hidden lg:block">{heading ?? 'For Investors'}</span>
           </h2>
           {content && content.length > 0 ? (
-            <PortableText value={content} components={portableTextComponents} />
+            <BodyText value={content} scheme="dark" className="mb-10 lg:mb-12" />
           ) : (
             <>
               <p className="font-nav text-white text-[16px] leading-[1.3] mb-4 max-w-[348px]">

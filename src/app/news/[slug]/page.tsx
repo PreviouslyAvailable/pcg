@@ -3,13 +3,12 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { PortableText } from '@portabletext/react';
-import type { PortableTextComponents } from '@portabletext/react';
-import Navbar from '@/components/NavbarServer';
-import Footer from '@/components/FooterServer';
+import SiteChrome from '@/components/SiteChrome';
 import NewsletterBanner from '@/components/NewsletterBanner';
 import { getPostBySlug, getRelatedPosts, getPostSlugs } from '@/sanity/loaders';
 import { urlFor } from '@/sanity/image';
-import { PortableTextLink } from '@/lib/portableText';
+import { articlePortableTextComponents } from '@/lib/portableTextComponents';
+import { formatDateMonthYear, formatDateShort } from '@/lib/dates';
 import type { PostSummary } from '@/sanity/types';
 import { IMAGE_SIZES } from '@/lib/imageSizes';
 
@@ -27,95 +26,8 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const post = await getPostBySlug(slug);
-  return { title: post?.title ?? 'Insights' };
+  return { title: post?.title ?? 'News' };
 }
-
-function formatDate(dateStr: string) {
-  return new Date(dateStr).toLocaleDateString('en-NZ', {
-    day: '2-digit',
-    month: '2-digit',
-    year: 'numeric',
-  });
-}
-
-function formatDateLong(dateStr: string) {
-  return new Date(dateStr).toLocaleDateString('en-NZ', {
-    month: 'long',
-    year: 'numeric',
-  }).toUpperCase();
-}
-
-// PortableText component overrides — applies site typography
-const components: PortableTextComponents = {
-  block: {
-    normal: ({ children }) => (
-      <p className="font-nav text-ink text-[16px] leading-[1.6] mb-5">{children}</p>
-    ),
-    h1: ({ children }) => (
-      <h1 className="font-serif font-light text-ink text-[clamp(40px,4.2vw,56px)] leading-[1.05] tracking-[-0.012em] mt-14 mb-6">{children}</h1>
-    ),
-    h2: ({ children }) => (
-      <h2 className="font-serif font-light text-ink text-[clamp(28px,3vw,38px)] leading-[1.1] tracking-[-0.01em] mt-12 mb-5">{children}</h2>
-    ),
-    h3: ({ children }) => (
-      <h3 className="font-sans text-ink text-[24px] leading-[1.25] mt-10 mb-4">{children}</h3>
-    ),
-    h4: ({ children }) => (
-      <h4 className="font-sans text-ink text-[20px] leading-[1.3] mt-8 mb-3">{children}</h4>
-    ),
-    h5: ({ children }) => (
-      <h5 className="font-sans text-ink text-[17px] leading-[1.3] tracking-wide uppercase mt-6 mb-2">{children}</h5>
-    ),
-    blockquote: ({ children }) => (
-      <blockquote className="border-l-2 border-ink/20 pl-6 my-8 font-serif text-ink/70 text-[20px] leading-[1.4] italic">
-        {children}
-      </blockquote>
-    ),
-  },
-  list: {
-    bullet: ({ children }) => (
-      <ul className="list-disc list-outside pl-5 mb-5 space-y-2 font-nav text-ink text-[16px] leading-[1.6]">
-        {children}
-      </ul>
-    ),
-    number: ({ children }) => (
-      <ol className="list-decimal list-outside pl-5 mb-5 space-y-2 font-nav text-ink text-[16px] leading-[1.6]">
-        {children}
-      </ol>
-    ),
-  },
-  listItem: {
-    bullet: ({ children }) => <li>{children}</li>,
-    number: ({ children }) => <li>{children}</li>,
-  },
-  marks: {
-    strong: ({ children }) => <strong className="font-semibold">{children}</strong>,
-    em: ({ children }) => <em>{children}</em>,
-    link: PortableTextLink,
-  },
-  types: {
-    image: ({ value }) => {
-      if (!value?.asset) return null;
-      return (
-        <figure className="my-10">
-          <Image
-            src={urlFor(value).width(1200).url()}
-            alt={value.alt ?? ''}
-            width={1200}
-            height={0}
-            style={{ width: '100%', height: 'auto' }}
-            className="rounded-[12px]"
-          />
-          {value.caption && (
-            <figcaption className="font-sans text-[13px] text-ink/50 mt-5 text-center">
-              {value.caption}
-            </figcaption>
-          )}
-        </figure>
-      );
-    },
-  },
-};
 
 export default async function InsightPost({ params }: Props) {
   const { slug } = await params;
@@ -128,8 +40,8 @@ export default async function InsightPost({ params }: Props) {
   if (!post) notFound();
 
   return (
-    <main className="bg-cream">
-      <Navbar variant="light" />
+    <SiteChrome>
+      <main className="bg-cream">
 
       {/* Article header */}
       <section className="pt-36 pb-10 lg:pt-40 lg:pb-12">
@@ -176,7 +88,7 @@ export default async function InsightPost({ params }: Props) {
             <div className="flex gap-6 mb-10">
               {post.publishedAt && (
                 <p className="font-sans text-[14px] uppercase tracking-[1px] text-ink/80">
-                  {formatDate(post.publishedAt)}
+                  {formatDateShort(post.publishedAt)}
                 </p>
               )}
               {post.author && (
@@ -187,7 +99,7 @@ export default async function InsightPost({ params }: Props) {
             </div>
 
             {/* Body */}
-            {post.body && <PortableText value={post.body} components={components} />}
+            {post.body && <PortableText value={post.body} components={articlePortableTextComponents} />}
           </div>
         </div>
       </section>
@@ -228,7 +140,7 @@ export default async function InsightPost({ params }: Props) {
                   <p className="font-sans text-ink text-[16px] leading-[1.2] mb-1">{item.title}</p>
                   {item.publishedAt && (
                     <p className="font-sans text-[14px] uppercase tracking-[1px] text-ink/80 mb-2">
-                      {formatDateLong(item.publishedAt)}
+                      {formatDateMonthYear(item.publishedAt)}
                     </p>
                   )}
                   {item.excerpt && (
@@ -241,7 +153,7 @@ export default async function InsightPost({ params }: Props) {
         </section>
       )}
 
-      <Footer />
-    </main>
+      </main>
+    </SiteChrome>
   );
 }

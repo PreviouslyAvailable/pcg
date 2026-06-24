@@ -6,20 +6,29 @@ interface LinkedInIconProps {
   href: string;
   name?: string;
   label?: string;
+  className?: string;
+  size?: 'default' | 'sm';
 }
 
-export default function LinkedInIcon({ href, name, label }: LinkedInIconProps) {
+export default function LinkedInIcon({
+  href,
+  name,
+  label,
+  className = '',
+  size = 'default',
+}: LinkedInIconProps) {
   const clipId = useId();
+  const dimension = size === 'sm' ? 32 : 41;
 
   return (
     <a
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="inline-flex size-[41px] items-center justify-center rounded-full bg-ink hover:bg-ink/80 transition-colors shrink-0"
+      className={`inline-flex items-center justify-center rounded-full bg-ink hover:bg-ink/80 transition-colors shrink-0 ${size === 'sm' ? 'size-8' : 'size-[41px]'} ${className}`}
       aria-label={label ?? (name ? `View ${name} on LinkedIn` : 'View on LinkedIn')}
     >
-      <svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <svg width={dimension} height={dimension} viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <g clipPath={`url(#${clipId})`}>
           <path d="M28.2073 26.7297H28.2111V21.2148C28.2111 18.5173 27.6303 16.4395 24.4767 16.4395C22.9609 16.4395 21.9434 17.2714 21.5282 18.0601H21.4841V16.6911H18.4941V26.7297H21.6069V21.7587C21.6069 20.4499 21.8547 19.1845 23.4754 19.1845C25.0723 19.1845 25.0961 20.6781 25.0961 21.8427V26.7297H28.2073Z" fill="white" />
           <path d="M13.6128 16.6914H16.7299V26.7291H13.6128V16.6914Z" fill="white" />

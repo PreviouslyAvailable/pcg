@@ -13,19 +13,6 @@ export const postsQuery = groq`
   }
 `
 
-/** Posts filtered by category */
-export const postsByCategoryQuery = groq`
-  *[_type == "post" && category == $category] | order(publishedAt desc) {
-    _id,
-    title,
-    "slug": slug.current,
-    category,
-    publishedAt,
-    mainImage { ..., asset->, "alt": alt },
-    excerpt
-  }
-`
-
 /** Full post by slug */
 export const postBySlugQuery = groq`
   *[_type == "post" && slug.current == $slug][0] {
@@ -112,14 +99,6 @@ export const homePageQuery = groq`
       ctaLabelMobile,
       ctaHref,
       image ${imageProjection}
-    },
-    caseStudy {
-      label,
-      heading,
-      body,
-      image ${imageProjection},
-      ctaLabel,
-      ctaHref
     },
     quoteBanner {
       quote,
@@ -229,41 +208,6 @@ export const investorsPageQuery = groq`
   }
 `
 
-export const strategiesPageQuery = groq`
-  *[_type == "strategiesPage"][0] {
-    pageTitle,
-    hero {
-      heading,
-      subtext,
-      image ${imageProjection}
-    },
-    coreStrategyLabel,
-    coreStrategyHeading,
-    strategies[] { title, body },
-    sectorFocus {
-      heading,
-      items[] { title, body },
-      image ${imageProjection}
-    },
-    lendingCriteria {
-      heading,
-      subtext,
-      rows[] { feature, criteria }
-    },
-    coreLendingAreas[] { title, body },
-    riskFramework {
-      heading,
-      items[] { title, body },
-      image ${imageProjection}
-    },
-    quoteBanner {
-      quote,
-      image ${imageProjection}
-    },
-    ctaBanner { heading, ctaLabel, ctaHref }
-  }
-`
-
 export const contactPageQuery = groq`
   *[_type == "contactPage"][0] {
     pageTitle,
@@ -296,7 +240,6 @@ export const navLabelsQuery = groq`
     "about":      { "label": *[_type == "aboutPage"][0].navLabel,      "slug": *[_type == "aboutPage"][0].slug },
     "borrowers":  { "label": *[_type == "borrowersPage"][0].navLabel,  "slug": *[_type == "borrowersPage"][0].slug },
     "investors":  { "label": *[_type == "investorsPage"][0].navLabel,  "slug": *[_type == "investorsPage"][0].slug },
-    "strategies": { "label": *[_type == "strategiesPage"][0].navLabel, "slug": *[_type == "strategiesPage"][0].slug },
     "insights":   { "label": *[_type == "insightsPage"][0].navLabel,   "slug": *[_type == "insightsPage"][0].slug },
     "contact":    { "label": *[_type == "contactPage"][0].navLabel,    "slug": *[_type == "contactPage"][0].slug },
   }
@@ -319,18 +262,6 @@ export const caseStudiesQuery = groq`
     quote,
     attribution,
     image ${imageProjection}
-  }
-`
-
-export const teamMembersQuery = groq`
-  *[_type == "teamMember"] | order(order asc, _createdAt asc) {
-    _id,
-    name,
-    memberType,
-    role,
-    image ${imageProjection},
-    bio,
-    linkedIn
   }
 `
 

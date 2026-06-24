@@ -14,8 +14,9 @@ interface FeatureItem {
 interface HowDifferentProps {
   heading?: string;
   items?: FeatureItem[];
-  images?: string[];
 }
+
+const defaultImageSrcs = ['/images/how-1.jpg', '/images/how-2.jpg', '/images/how-3.jpg', '/images/how-4.jpg'];
 
 const defaultItems: FeatureItem[] = [
   {
@@ -40,8 +41,10 @@ const defaultItems: FeatureItem[] = [
   },
 ];
 
-export default function HowDifferent({ heading, items, images = [] }: HowDifferentProps) {
-  const features = items && items.length > 0 ? items : defaultItems;
+export default function HowDifferent({ heading, items }: HowDifferentProps) {
+  const features = items && items.length > 0
+    ? items
+    : defaultItems.map((item, i) => ({ ...item, imageSrc: defaultImageSrcs[i] }));
 
   return (
     <section className="bg-cream py-[calc(var(--spacing)*18)]">
@@ -53,28 +56,25 @@ export default function HowDifferent({ heading, items, images = [] }: HowDiffere
       </FadeUp>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-12 lg:gap-x-8 lg:gap-y-16">
-        {features.map((feature, i) => {
-          const imgSrc = images[i] ?? feature.imageSrc;
-          return (
-            <FadeUp key={feature.title ?? i} delay={i * 100} className="flex flex-col">
-              <div className="relative aspect-[662/367] rounded-[20px] overflow-hidden bg-cream-warm mb-6 hover-zoom">
-                {imgSrc && (
-                  <Image src={imgSrc} alt={feature.imageAlt ?? feature.title ?? ''} fill sizes={IMAGE_SIZES.featureCard} className="object-cover img-zoom" />
-                )}
-              </div>
-              <h3 className="font-sans text-ink text-[33px] leading-[1.2] mb-3">
-                {feature.title}
-              </h3>
-              {feature.body && Array.isArray(feature.body) && feature.body.length > 0 ? (
-                <BodyText value={feature.body} scheme="light" className="pr-10" />
-              ) : (
-                <p className="font-nav text-ink text-[16px] leading-[1.3] pr-10">
-                  {typeof feature.body === 'string' ? feature.body : ''}
-                </p>
-              )}
-            </FadeUp>
-          );
-        })}
+        {features.map((feature, i) => (
+          <FadeUp key={feature.title ?? i} delay={i * 100} className="flex flex-col">
+            <div className="relative aspect-[662/367] rounded-[20px] overflow-hidden bg-cream-warm mb-6 hover-zoom">
+              {feature.imageSrc ? (
+                <Image src={feature.imageSrc} alt={feature.imageAlt ?? feature.title ?? ''} fill sizes={IMAGE_SIZES.featureCard} className="object-cover img-zoom" />
+              ) : null}
+            </div>
+            <h3 className="font-sans text-ink text-[33px] leading-[1.2] mb-3">
+              {feature.title}
+            </h3>
+            {feature.body && Array.isArray(feature.body) && feature.body.length > 0 ? (
+              <BodyText value={feature.body} scheme="light" className="pr-10" />
+            ) : (
+              <p className="font-nav text-ink text-[16px] leading-[1.3] pr-10">
+                {typeof feature.body === 'string' ? feature.body : ''}
+              </p>
+            )}
+          </FadeUp>
+        ))}
       </div>
       </div>
     </section>

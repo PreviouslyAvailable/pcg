@@ -1,26 +1,19 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
-import Navbar from '@/components/NavbarServer';
-import Footer from '@/components/FooterServer';
+import SiteChrome from '@/components/SiteChrome';
 import NewsletterBanner from '@/components/NewsletterBanner';
 import { getPosts, getInsightsPage } from '@/sanity/loaders';
 import { urlFor } from '@/sanity/image';
+import { formatDateMonthYear } from '@/lib/dates';
 import { IMAGE_SIZES } from '@/lib/imageSizes';
 
 export async function generateMetadata(): Promise<Metadata> {
   const data = await getInsightsPage();
-  return { title: data?.pageTitle ?? 'Insights' };
+  return { title: data?.pageTitle ?? 'News' };
 }
 
 export const revalidate = 60;
-
-function formatDate(dateStr: string) {
-  return new Date(dateStr).toLocaleDateString('en-NZ', {
-    month: 'long',
-    year: 'numeric',
-  }).toUpperCase();
-}
 
 // Colour palette for Educational Resource cards (assigned by index)
 const eduBg = ['bg-[#2d1f3d]', 'bg-[#c5dce8]', 'bg-cream-warm'];
@@ -37,8 +30,8 @@ export default async function InsightsPage() {
   const remainingPosts = allPosts.filter((post) => !recentInsightIds.has(post._id));
 
   return (
-    <main className="bg-cream">
-      <Navbar variant="light" />
+    <SiteChrome>
+      <main className="bg-cream">
 
       {/* Header */}
       <section className="section-page-hero pb-[calc(var(--spacing)*10)]">
@@ -80,7 +73,7 @@ export default async function InsightsPage() {
                   <p className="font-sans text-ink text-[26px] leading-[1.2] mt-3 mb-5">{post.title}</p>
                   {post.publishedAt && (
                     <p className="font-sans text-[14px] uppercase tracking-[1px] text-ink/80 mb-2">
-                      {formatDate(post.publishedAt)}
+                      {formatDateMonthYear(post.publishedAt)}
                     </p>
                   )}
                   {post.excerpt && (
@@ -156,7 +149,7 @@ export default async function InsightsPage() {
                   <p className="font-sans text-ink text-[26px] leading-[1.2] mt-3 mb-5">{post.title}</p>
                   {post.publishedAt && (
                     <p className="font-sans text-[14px] uppercase tracking-[1px] text-ink/80 mb-2">
-                      {formatDate(post.publishedAt)}
+                      {formatDateMonthYear(post.publishedAt)}
                     </p>
                   )}
                   {post.excerpt && (
@@ -178,7 +171,7 @@ export default async function InsightsPage() {
         </section>
       )}
 
-      <Footer />
-    </main>
+      </main>
+    </SiteChrome>
   );
 }

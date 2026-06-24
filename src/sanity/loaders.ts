@@ -8,7 +8,6 @@ import {
   boardMembersQuery,
   borrowersPageQuery,
   investorsPageQuery,
-  strategiesPageQuery,
   contactPageQuery,
   insightsPageQuery,
   postBySlugQuery,
@@ -25,7 +24,6 @@ import type {
   TeamMember,
   BorrowersPage,
   InvestorsPage,
-  StrategiesPage,
   ContactPage,
   InsightsPage,
   PostFull,
@@ -61,10 +59,6 @@ export const getInvestorsPage = cache(() =>
   client.fetch<InvestorsPage>(investorsPageQuery).catch(() => null),
 )
 
-export const getStrategiesPage = cache(() =>
-  client.fetch<StrategiesPage>(strategiesPageQuery).catch(() => null),
-)
-
 export const getContactPage = cache(() =>
   client.fetch<ContactPage>(contactPageQuery).catch(() => null),
 )
@@ -89,7 +83,6 @@ export interface NavLabels {
   about?: { label?: string; slug?: string }
   borrowers?: { label?: string; slug?: string }
   investors?: { label?: string; slug?: string }
-  strategies?: { label?: string; slug?: string }
   insights?: { label?: string; slug?: string }
   contact?: { label?: string; slug?: string }
 }

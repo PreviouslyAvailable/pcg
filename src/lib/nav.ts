@@ -43,8 +43,7 @@ export function buildNavLinks(
   siteSettings: SiteSettings | null | undefined,
 ): NavLink[] {
   const fromSettings = siteSettings?.navLinks
-    ?.filter((link): link is NavLink => Boolean(link?.label && link?.href))
-    .filter((link) => !link.href.startsWith('/strategies'));
+    ?.filter((link): link is NavLink => Boolean(link?.label && link?.href));
 
   if (fromSettings && fromSettings.length > 0) {
     return fromSettings;

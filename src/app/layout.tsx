@@ -1,14 +1,23 @@
 import type { Metadata } from "next";
-import { Special_Gothic, IBM_Plex_Mono } from "next/font/google";
+import { IBM_Plex_Mono } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 import { SITE_NAME, SITE_URL } from "@/lib/site";
 
-const specialGothic = Special_Gothic({
+const specialGothic = localFont({
+  src: [
+    {
+      path: "../../public/fonts/SpecialGothic-Regular.ttf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/SpecialGothic-Bold.ttf",
+      weight: "700",
+      style: "normal",
+    },
+  ],
   variable: "--font-special-gothic",
-  subsets: ["latin"],
-  weight: "400",
-  adjustFontFallback: false,
 });
 
 const ibmPlexMono = IBM_Plex_Mono({

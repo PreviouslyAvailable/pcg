@@ -30,7 +30,12 @@ export default function Footer({
         <h3 className="font-serif font-light text-ink text-[38px] leading-[1.15] tracking-[-0.48px] mb-6 lg:mb-8 max-w-[437px]">
           {newsletterHeading}
         </h3>
-        <NewsletterForm inputId="footer-newsletter-email" autoCompleteSection="footer-newsletter" />
+        <NewsletterForm
+          className="flex flex-col sm:flex-row gap-2 w-full max-w-[437px] mb-[20px]"
+          inputClassName="w-full sm:flex-1 bg-white rounded-[6px] px-4 py-3 font-nav text-[16px] text-ink placeholder:text-ink/40 outline-none border border-black/10 focus:border-black/30 transition-colors"
+          inputId="footer-newsletter-email"
+          autoCompleteSection="footer-newsletter"
+        />
       </div>
 
       <div className="border-b border-black/15 pb-6 lg:pb-8 flex flex-wrap items-center gap-4 lg:justify-between">
@@ -48,8 +53,14 @@ export default function Footer({
         <LinkedInIcon href="https://www.linkedin.com/company/private-capital-group-nz/" label="Private Capital Group on LinkedIn" />
       </div>
 
-      <div className="mt-6">
+      <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2">
         <span className="font-mono text-[10px] uppercase tracking-[0.33px] text-ink/50">© 2026 Private Capital Group</span>
+        <Link href="/privacy" className="font-mono text-[10px] uppercase tracking-[0.33px] text-ink/50 hover:text-ink/80 transition-colors">
+          Privacy
+        </Link>
+        <Link href="/terms" className="font-mono text-[10px] uppercase tracking-[0.33px] text-ink/50 hover:text-ink/80 transition-colors">
+          Terms
+        </Link>
       </div>
       </div>
     </footer>

@@ -1,18 +1,5 @@
 import { NextResponse } from 'next/server';
-
-const LENDING_LABELS: Record<string, string> = {
-  '5-10': '$5M – $10M',
-  '10-25': '$10M – $25M',
-  '25-50': '$25M – $50M',
-  '50-75': '$50M – $75M',
-  '75+': '$75M+',
-};
-
-const ROLE_LABELS: Record<string, string> = {
-  borrower: 'Borrower',
-  investor: 'Investor',
-  advisor: 'Professional Advisor',
-};
+import { LENDING_LABELS, ROLE_LABELS } from '@/lib/contact';
 
 function isValidEmail(value: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);

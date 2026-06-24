@@ -1,14 +1,13 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
-import { PortableText } from '@portabletext/react';
 import BodyText from '@/components/BodyText';
-import Navbar from '@/components/NavbarServer';
+import SiteChrome from '@/components/SiteChrome';
 import PageHero from '@/components/PageHero';
 import CtaBanner from '@/components/CtaBanner';
-import Footer from '@/components/FooterServer';
 import TeamCard from '@/components/TeamCard';
 import { getAboutPage, getBoardMembers, getExecutiveTeam } from '@/sanity/loaders';
+import { quoteBannerUrl } from '@/sanity/imageUrls';
 import { urlFor } from '@/sanity/image';
 import { teamCardImageUrl, teamModalImageUrl } from '@/lib/teamImages';
 import type { TeamMember } from '@/sanity/types';
@@ -57,9 +56,7 @@ export default async function AboutPage() {
     ? urlFor(data.story.image).width(960).fit('max').auto('format').url()
     : '/images/how-4.jpg';
 
-  const quoteBannerImageSrc = data?.quoteBanner?.image?.asset?.url
-    ? urlFor(data.quoteBanner.image).width(1920).height(800).url()
-    : '/images/how-2.jpg';
+  const quoteBannerImageSrc = quoteBannerUrl(data?.quoteBanner?.image, '/images/how-2.jpg');
 
   const executiveTeam =
     data?.executiveTeam && data.executiveTeam.length > 0
@@ -79,14 +76,13 @@ export default async function AboutPage() {
     ? data.featureCards
     : [
         { title: 'Stability through every cycle', body: "There's no substitute for having operated private debt funds through economic recessions, financial crises, and high growth periods. Each creates unique challenges, especially for the uninitiated. Our experience across multiple market cycles in global markets gives us the competence to navigate any environment.", ctaLabel: 'Explore Growth Capital', ctaHref: '/borrowers' },
-        { title: 'Aligned Partnership', body: "Conflict-Free by Design Many capital providers also run advisory businesses or mix equity alongside debt in the same fund. We don't. Our exclusive focus on funds management eliminates those conflicts, so every decision we make is driven by one thing: what's right for you.", ctaLabel: 'About our Funds', ctaHref: '/investors' },
+        { title: 'Aligned Partnership', body: "Conflict-Free by Design — Many capital providers also run advisory businesses or mix equity alongside debt in the same fund. We don't. Our exclusive focus on funds management eliminates those conflicts, so every decision we make is driven by one thing: what's right for you.", ctaLabel: 'About our Funds', ctaHref: '/investors' },
         { title: 'Market-Leading Diversification', body: "PCG offers a level of diversification and risk management that is unique in the New Zealand market. This scale allows us to provide genuine downside protection for investors while offering borrowers the stability of an institutional-grade platform.", ctaLabel: 'About our Funds', ctaHref: '/investors' },
       ];
 
   return (
-    <main className="bg-cream">
-      <Navbar variant="light" />
-
+    <SiteChrome>
+      <main className="bg-cream">
       <PageHero
         heading={data?.hero?.heading ?? "New Zealand's Most Experienced Private Debt Lender"}
         subtext={data?.hero?.subtext ?? 'Drawing from proven global experience to deliver tailored capital solutions & a relationship-driven approach for New Zealand businesses.'}
@@ -114,7 +110,7 @@ export default async function AboutPage() {
             </h2>
             <div className="space-y-4 font-nav text-ink text-[16px] leading-[1.4] mb-8">
               {data?.story?.body && data.story.body.length > 0 ? (
-                <PortableText value={data.story.body} />
+                <BodyText value={data.story.body} scheme="light" />
               ) : (
                 <>
                   <p>
@@ -163,7 +159,7 @@ export default async function AboutPage() {
 
       {/* Quote banner */}
       <CtaBanner
-        heading={data?.quoteBanner?.quote ?? "Infrastructure investment is about enabling businesses to build the foundations necessary to facilitate deeper New Zealand economic resilience."}
+        heading={data?.quoteBanner?.quote ?? "There's no substitute for experience across market cycles — and no substitute for a partner who puts your interests first."}
         ctaLabel="Get started"
         ctaHref="/contact"
         background="image"
@@ -187,7 +183,7 @@ export default async function AboutPage() {
         </section>
       ) : null}
 
-      <Footer />
-    </main>
+      </main>
+    </SiteChrome>
   );
 }

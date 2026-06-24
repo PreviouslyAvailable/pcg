@@ -7,10 +7,7 @@ import FadeUp from './FadeUp';
 import { IMAGE_SIZES } from '@/lib/imageSizes';
 
 interface HeroProps {
-  /** Pass an array of 1–3 image URLs. Slideshow only activates with 2+. */
-  images?: string[];
-  /** @deprecated use images instead */
-  imageSrc?: string;
+  images: string[];
   imageAlt?: string;
   headline?: string;
   subtext?: string;
@@ -20,15 +17,13 @@ interface HeroProps {
 
 export default function Hero({
   images,
-  imageSrc,
   imageAlt = 'Private Capital Group',
   headline = 'Just what you need to grow.',
   subtext = 'We partner with ambitious businesses to unlock growth through long-term partnerships, deep sector expertise and capital that fits your business.',
   primaryCta = { label: 'Explore Capital Solutions', href: '/borrowers' },
   secondaryCta = { label: 'For Investors', href: '/investors' },
 }: HeroProps) {
-  // Normalise: accept either `images` array or legacy `imageSrc`
-  const srcs = images && images.length > 0 ? images : imageSrc ? [imageSrc] : [];
+  const srcs = images;
   const [active, setActive] = useState(0);
 
   useEffect(() => {

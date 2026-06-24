@@ -21,8 +21,8 @@ export const insightsPage = defineType({
       name: 'slug',
       title: 'Page URL',
       type: 'string',
-      description: 'The URL path for this page (e.g. /insights)',
-      initialValue: '/insights',
+      description: 'The URL path for this page (e.g. /news)',
+      initialValue: '/news',
     }),
     defineField({
       name: 'heading',

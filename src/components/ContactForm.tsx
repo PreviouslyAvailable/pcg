@@ -8,17 +8,11 @@ import {
 } from '@/lib/autocompleteFields';
 
 const fieldClass =
-  'bg-white border border-black/15 rounded-[8px] px-4 py-3 font-nav text-[15px] text-ink placeholder:text-ink/40 outline-none focus:border-black/40 transition-colors';
+  'w-full bg-white border border-black/15 rounded-[8px] px-4 py-3 font-nav text-[15px] text-ink placeholder:text-ink/40 outline-none focus:border-black/40 transition-colors';
 
 const labelClass = 'sr-only';
 
-const LENDING_AMOUNT_OPTIONS = [
-  { value: '5-10', label: '$5M – $10M' },
-  { value: '10-25', label: '$10M – $25M' },
-  { value: '25-50', label: '$25M – $50M' },
-  { value: '50-75', label: '$50M – $75M' },
-  { value: '75+', label: '$75M+' },
-] as const;
+import { LENDING_AMOUNT_OPTIONS } from '@/lib/contact';
 
 type FormStatus = 'idle' | 'submitting' | 'success' | 'error';
 

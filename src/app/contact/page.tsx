@@ -1,9 +1,10 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
-import Navbar from '@/components/NavbarServer';
-import Footer from '@/components/FooterServer';
+import SiteChrome from '@/components/SiteChrome';
 import ContactForm from '@/components/ContactForm';
+import QuoteBanner from '@/components/QuoteBanner';
 import { getContactPage } from '@/sanity/loaders';
+import { quoteBannerUrl } from '@/sanity/imageUrls';
 import { urlFor } from '@/sanity/image';
 import { IMAGE_SIZES } from '@/lib/imageSizes';
 
@@ -22,9 +23,7 @@ const fallbackOffices = [
 export default async function ContactPage() {
   const data = await getContactPage();
 
-  const quoteBannerImageSrc = data?.quoteBanner?.image?.asset?.url
-    ? urlFor(data.quoteBanner.image).width(1920).height(800).url()
-    : '/images/quote-bg.jpg';
+  const quoteBannerImageSrc = quoteBannerUrl(data?.quoteBanner?.image);
 
   const offices = (data?.offices && data.offices.length > 0)
     ? data.offices.map((office) => ({
@@ -35,64 +34,55 @@ export default async function ContactPage() {
           : '/images/insight-3.jpg',
         imageAlt: office.image?.alt ?? office.name ?? '',
       }))
-    : fallbackOffices.map((o) => ({ ...o, imageSrc: o.image, imageAlt: o.name }));
+    : fallbackOffices.map((office) => ({ ...office, imageSrc: office.image, imageAlt: office.name }));
 
   return (
-    <main className="bg-cream">
-      <Navbar variant="light" />
-
-      {/* Header */}
-      <section className="pt-36 pb-0 lg:pt-40 lg:pb-0">
-        <div className="pcg-inner">
-          <div className="w-full lg:w-1/2">
-            <h1 className="font-serif font-light text-ink text-[clamp(60px,6.4vw,80px)] leading-[1.0] tracking-[-0.015em] mb-6">
-              {data?.hero?.heading ?? 'Ready to Explore Private Debt Solutions?'}
-            </h1>
-            <p className="font-nav text-ink text-[16px] leading-[1.3] max-w-[440px]">
-              {data?.hero?.subtext ?? "Whether you're seeking financing for your business or considering private credit investment, we're here to help"}
-            </p>
+    <SiteChrome>
+      <main className="bg-cream">
+        <section className="pt-36 pb-0 lg:pt-40 lg:pb-0">
+          <div className="pcg-inner">
+            <div className="w-full lg:w-1/2">
+              <h1 className="font-serif font-light text-ink text-[clamp(60px,6.4vw,80px)] leading-[1.0] tracking-[-0.015em] mb-6">
+                {data?.hero?.heading ?? 'Ready to Explore Private Debt Solutions?'}
+              </h1>
+              <p className="font-nav text-ink text-[16px] leading-[1.3] max-w-[440px]">
+                {data?.hero?.subtext ?? "Whether you're seeking financing for your business or considering private credit investment, we're here to help"}
+              </p>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Form + offices */}
-      <section className="py-[calc(var(--spacing)*18)]">
-        <div className="pcg-inner grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
-          {/* Contact form */}
-          <div>
-            <h2 className="font-sans text-ink text-[22px] mb-6">Contact Form</h2>
-            <ContactForm />
-          </div>
+        <section className="py-[calc(var(--spacing)*18)]">
+          <div className="pcg-inner grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+            <div>
+              <h2 className="font-sans text-ink text-[22px] mb-6">Contact Form</h2>
+              <ContactForm />
+            </div>
 
-          {/* Office locations */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            {offices.map((office) => (
-              <div key={office.name}>
-                <div className="relative w-full aspect-[3/2] rounded-[12px] overflow-hidden bg-cream-warm mb-4">
-                  <Image src={office.imageSrc} alt={office.imageAlt} fill sizes={IMAGE_SIZES.office} className="object-cover" />
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              {offices.map((office) => (
+                <div key={office.name}>
+                  <div className="relative w-full aspect-[3/2] rounded-[12px] overflow-hidden bg-cream-warm mb-4">
+                    <Image src={office.imageSrc} alt={office.imageAlt} fill sizes={IMAGE_SIZES.office} className="object-cover" />
+                  </div>
+                  <p className="font-sans text-ink text-[16px] mb-1">{office.name}</p>
+                  {office.addressLines.map((line) => (
+                    <p key={line} className="font-nav text-ink/60 text-[16px] leading-[1.5]">{line}</p>
+                  ))}
                 </div>
-                <p className="font-sans text-ink text-[16px] mb-1">{office.name}</p>
-                {office.addressLines.map((line) => (
-                  <p key={line} className="font-nav text-ink/60 text-[16px] leading-[1.5]">{line}</p>
-                ))}
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Quote banner */}
-      <section className="relative min-h-[380px] flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0">
-          <Image src={quoteBannerImageSrc} alt="" fill sizes={IMAGE_SIZES.viewport} priority className="object-cover" />
-          <div className="absolute inset-0 bg-dark/40" />
-        </div>
-        <blockquote className="relative z-10 font-sans text-white text-[clamp(22px,2.8vw,40px)] leading-[1.2] text-center max-w-[720px]">
-          {data?.quoteBanner?.quote ?? "Capital isn't just numbers on a spreadsheet. It's the fuel that transforms vision into operational reality."}
-        </blockquote>
-      </section>
-
-      <Footer />
-    </main>
+        <QuoteBanner
+          quote={data?.quoteBanner?.quote ?? "Capital isn't just numbers on a spreadsheet. It's the fuel that transforms vision into operational reality."}
+          imageSrc={quoteBannerImageSrc}
+          overlayClassName="bg-dark/40"
+          minHeightClassName="min-h-[380px]"
+          priority
+        />
+      </main>
+    </SiteChrome>
   );
 }

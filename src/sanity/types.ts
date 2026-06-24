@@ -118,15 +118,6 @@ export interface HomePage {
     ctaHref?: string
     image?: SanityImage
   }
-  caseStudy?: {
-    label?: string
-    heading?: string
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    body?: any[]
-    image?: SanityImage
-    ctaLabel?: string
-    ctaHref?: string
-  }
   quoteBanner?: {
     quote?: string
     image?: SanityImage
@@ -244,59 +235,6 @@ export interface InvestorsPage {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       body?: any[]
     }>
-  }
-  quoteBanner?: {
-    quote?: string
-    image?: SanityImage
-  }
-  ctaBanner?: {
-    heading?: string
-    ctaLabel?: string
-    ctaHref?: string
-  }
-}
-
-export interface StrategiesPage {
-  pageTitle?: string
-  hero?: {
-    heading?: string
-    subtext?: string
-    image?: SanityImage
-  }
-  coreStrategyLabel?: string
-  coreStrategyHeading?: string
-  strategies?: Array<{
-    title?: string
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    body?: any[]
-  }>
-  sectorFocus?: {
-    heading?: string
-    items?: Array<{
-      title?: string
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      body?: any[]
-    }>
-    image?: SanityImage
-  }
-  lendingCriteria?: {
-    heading?: string
-    subtext?: string
-    rows?: Array<{ feature?: string; criteria?: string }>
-  }
-  coreLendingAreas?: Array<{
-    title?: string
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    body?: any[]
-  }>
-  riskFramework?: {
-    heading?: string
-    items?: Array<{
-      title?: string
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      body?: any[]
-    }>
-    image?: SanityImage
   }
   quoteBanner?: {
     quote?: string

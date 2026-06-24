@@ -7,7 +7,6 @@ import { homePage } from './homePage'
 import { aboutPage } from './aboutPage'
 import { borrowersPage } from './borrowersPage'
 import { investorsPage } from './investorsPage'
-import { strategiesPage } from './strategiesPage'
 import { contactPage } from './contactPage'
 import { insightsPage } from './insightsPage'
 
@@ -21,7 +20,6 @@ export const schemaTypes = [
   aboutPage,
   borrowersPage,
   investorsPage,
-  strategiesPage,
   contactPage,
   insightsPage,
 ]

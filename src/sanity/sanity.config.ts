@@ -58,14 +58,6 @@ export default defineConfig({
                           .documentId('investorsPage')
                       ),
                     S.listItem()
-                      .title('Strategies')
-                      .id('strategiesPage')
-                      .child(
-                        S.document()
-                          .schemaType('strategiesPage')
-                          .documentId('strategiesPage')
-                      ),
-                    S.listItem()
                       .title('Contact')
                       .id('contactPage')
                       .child(
