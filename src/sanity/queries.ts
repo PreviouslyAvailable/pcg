@@ -266,7 +266,7 @@ export const caseStudiesQuery = groq`
 `
 
 export const executiveTeamQuery = groq`
-  *[_type == "teamMember" && memberType == "executive"] | order(order asc, _createdAt asc) {
+  *[_type == "teamMember" && "executive" in memberType] | order(order asc, _createdAt asc) {
     _id,
     name,
     role,
@@ -277,7 +277,7 @@ export const executiveTeamQuery = groq`
 `
 
 export const boardMembersQuery = groq`
-  *[_type == "teamMember" && memberType == "board"] | order(order asc, _createdAt asc) {
+  *[_type == "teamMember" && "board" in memberType] | order(order asc, _createdAt asc) {
     _id,
     name,
     role,

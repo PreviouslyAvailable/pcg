@@ -14,15 +14,17 @@ export const teamMember = defineType({
     defineField({
       name: 'memberType',
       title: 'Member Type',
-      type: 'string',
+      description: 'Select one or both. People can belong to the Executive Team, the Board of Directors, or both.',
+      type: 'array',
+      of: [{ type: 'string' }],
       options: {
         list: [
           { title: 'Executive Team', value: 'executive' },
           { title: 'Board of Directors', value: 'board' },
         ],
-        layout: 'radio',
+        layout: 'grid',
       },
-      validation: (Rule) => Rule.required(),
+      validation: (Rule) => Rule.required().min(1),
     }),
     defineField({
       name: 'role',
@@ -69,14 +71,16 @@ export const teamMember = defineType({
   preview: {
     select: {
       title: 'name',
-      subtitle: 'memberType',
+      memberType: 'memberType',
       media: 'image',
     },
-    prepare({ title, subtitle }: { title: string; subtitle: string }) {
-      return {
-        title,
-        subtitle: subtitle === 'executive' ? 'Executive Team' : subtitle === 'board' ? 'Board of Directors' : '',
+    prepare({ title, memberType }: { title: string; memberType?: string[] }) {
+      const labels: Record<string, string> = {
+        executive: 'Executive Team',
+        board: 'Board of Directors',
       }
+      const subtitle = (memberType ?? []).map((value) => labels[value] ?? value).join(' + ')
+      return { title, subtitle }
     },
   },
 })
