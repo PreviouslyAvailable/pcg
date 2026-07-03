@@ -80,7 +80,7 @@ export default function HomeIntro({
     <section className="bg-cream">
 
       {/* Mobile: single column stacked. Desktop: two-column */}
-      <div className="pcg-inner pcg-inner-vertical grid grid-cols-1 lg:grid-cols-2 gap-x-16 pt-16! pb-[104px]!">
+      <div className="pcg-inner pcg-inner-vertical grid grid-cols-1 lg:grid-cols-2 gap-x-16 pt-16! pb-16!">
         {/* Left — Borrowers */}
         <FadeUp>
           <p className="font-sans text-[16px] uppercase tracking-wide text-ink mb-6">
