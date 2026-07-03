@@ -29,6 +29,11 @@ export const homePage = defineType({
       description: 'Appears in the browser tab and search results',
     }),
     defineField({
+      name: 'seo',
+      title: 'SEO & Social Sharing',
+      type: 'seo',
+    }),
+    defineField({
       name: 'slug',
       title: 'Page URL',
       type: 'string',

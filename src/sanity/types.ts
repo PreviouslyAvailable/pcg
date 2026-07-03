@@ -18,6 +18,13 @@ export interface SanityImage {
   caption?: string
 }
 
+export interface SEO {
+  metaTitle?: string
+  metaDescription?: string
+  noIndex?: boolean
+  ogImage?: SanityImage
+}
+
 // ─── Author / Post ───────────────────────────────────────────────────────────
 
 export interface Author {
@@ -32,7 +39,7 @@ export interface PostSummary {
   slug: string
   category?: string
   publishedAt: string
-  mainImage?: SanityImageAsset
+  mainImage?: SanityImage
   excerpt?: string
 }
 
@@ -40,6 +47,7 @@ export interface PostFull extends PostSummary {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   body?: any[]
   author?: Author
+  seo?: SEO
 }
 
 // ─── Team & Settings ─────────────────────────────────────────────────────────
@@ -75,6 +83,7 @@ export interface SiteSettings {
 
 export interface HomePage {
   pageTitle?: string
+  seo?: SEO
   hero?: {
     heading?: string
     subtext?: string
@@ -149,6 +158,7 @@ export interface HomePage {
 
 export interface AboutPage {
   pageTitle?: string
+  seo?: SEO
   hero?: {
     heading?: string
     subtext?: string
@@ -180,6 +190,7 @@ export interface AboutPage {
 
 export interface BorrowersPage {
   pageTitle?: string
+  seo?: SEO
   hero?: {
     heading?: string
     subtext?: string
@@ -221,6 +232,7 @@ export interface BorrowersPage {
 
 export interface InvestorsPage {
   pageTitle?: string
+  seo?: SEO
   hero?: {
     heading?: string
     subtext?: string
@@ -257,6 +269,7 @@ export interface InvestorsPage {
 
 export interface InsightsPage {
   pageTitle?: string
+  seo?: SEO
   slug?: string
   heading?: string
   recentInsightsHeading?: string
@@ -266,6 +279,7 @@ export interface InsightsPage {
 
 export interface ContactPage {
   pageTitle?: string
+  seo?: SEO
   hero?: {
     heading?: string
     subtext?: string

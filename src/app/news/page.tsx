@@ -7,10 +7,15 @@ import { getPosts, getInsightsPage } from '@/sanity/loaders';
 import { urlFor } from '@/sanity/image';
 import { formatDateMonthYear } from '@/lib/dates';
 import { IMAGE_SIZES } from '@/lib/imageSizes';
+import { buildMetadata } from '@/lib/seo';
 
 export async function generateMetadata(): Promise<Metadata> {
   const data = await getInsightsPage();
-  return { title: data?.pageTitle ?? 'News' };
+  return buildMetadata({
+    seo: data?.seo,
+    title: data?.pageTitle ?? 'News',
+    path: '/news',
+  });
 }
 
 export const revalidate = 60;

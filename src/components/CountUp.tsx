@@ -49,7 +49,10 @@ export default function CountUp({
   );
 
   const ref = useRef<HTMLSpanElement>(null);
-  const [current, setCurrent] = useState(0);
+  // Start at the final value so server-rendered/no-JS HTML shows the real
+  // number (not 0). The client resets to 0 and counts up when it scrolls
+  // into view.
+  const [current, setCurrent] = useState(target);
 
   useEffect(() => {
     if (!animatable || reduceMotion) return;
@@ -61,6 +64,7 @@ export default function CountUp({
     let started = false;
 
     const run = () => {
+      setCurrent(0);
       const start = performance.now();
       const tick = (now: number) => {
         const progress = Math.min((now - start) / duration, 1);

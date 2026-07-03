@@ -8,13 +8,19 @@ import BodyText from '@/components/BodyText';
 import { getInvestorsPage } from '@/sanity/loaders';
 import { quoteBannerUrl } from '@/sanity/imageUrls';
 import { urlFor } from '@/sanity/image';
+import { buildMetadata } from '@/lib/seo';
 import FadeUp from '@/components/FadeUp';
 
 export const revalidate = 60;
 
 export async function generateMetadata(): Promise<Metadata> {
   const data = await getInvestorsPage();
-  return { title: data?.pageTitle ?? 'Investors' };
+  return buildMetadata({
+    seo: data?.seo,
+    title: data?.pageTitle ?? 'Investors',
+    image: data?.hero?.image,
+    path: '/investors',
+  });
 }
 
 const fallbackFundDetails = [

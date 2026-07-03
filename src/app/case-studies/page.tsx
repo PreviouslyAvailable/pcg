@@ -1,12 +1,21 @@
+import type { Metadata } from 'next';
 import Image from 'next/image';
 import SiteChrome from '@/components/SiteChrome';
 import { getCaseStudies } from '@/sanity/loaders';
 import { urlFor } from '@/sanity/image';
 import { IMAGE_SIZES } from '@/lib/imageSizes';
+import { buildMetadata } from '@/lib/seo';
 
 import type { CaseStudy } from '@/sanity/types';
 
 export const revalidate = 60;
+
+export const metadata: Metadata = buildMetadata({
+  title: 'Case Studies',
+  description:
+    'Real examples of how Private Capital Group structures flexible private debt funding for ambitious New Zealand businesses.',
+  path: '/case-studies',
+});
 
 const fallbackCaseStudies: CaseStudy[] = [
   {

@@ -72,6 +72,7 @@ export default function FadeUp({
   return (
     <Tag
       ref={ref}
+      data-fadeup=""
       className={className}
       style={motionStyle}
     >

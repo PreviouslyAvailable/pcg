@@ -10,12 +10,18 @@ import { getBorrowersPage } from '@/sanity/loaders';
 import { quoteBannerUrl } from '@/sanity/imageUrls';
 import { urlFor } from '@/sanity/image';
 import { IMAGE_SIZES } from '@/lib/imageSizes';
+import { buildMetadata } from '@/lib/seo';
 
 export const revalidate = 60;
 
 export async function generateMetadata(): Promise<Metadata> {
   const data = await getBorrowersPage();
-  return { title: data?.pageTitle ?? 'Borrowers' };
+  return buildMetadata({
+    seo: data?.seo,
+    title: data?.pageTitle ?? 'Borrowers',
+    image: data?.hero?.image,
+    path: '/borrowers',
+  });
 }
 
 const fallbackWhyPCG = [

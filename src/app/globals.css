@@ -27,6 +27,16 @@ html {
   color: var(--color-ink);
 }
 
+/* Progressive enhancement: FadeUp elements start hidden and are revealed by
+   JS as they scroll into view. When scripting is unavailable, reveal them so
+   content is never stuck invisible. */
+@media (scripting: none) {
+  [data-fadeup] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
 body {
   font-family: var(--font-nav);
 }

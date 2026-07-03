@@ -11,13 +11,19 @@ import { quoteBannerUrl } from '@/sanity/imageUrls';
 import { urlFor } from '@/sanity/image';
 import { teamCardImageUrl, teamModalImageUrl } from '@/lib/teamImages';
 import type { TeamMember } from '@/sanity/types';
+import { buildMetadata } from '@/lib/seo';
 import FadeUp from '@/components/FadeUp';
 
 export const revalidate = 60;
 
 export async function generateMetadata(): Promise<Metadata> {
   const data = await getAboutPage();
-  return { title: data?.pageTitle ?? 'About' };
+  return buildMetadata({
+    seo: data?.seo,
+    title: data?.pageTitle ?? 'About',
+    image: data?.hero?.image,
+    path: '/about',
+  });
 }
 
 const fallbackExecutiveTeam = [
@@ -59,19 +65,21 @@ export default async function AboutPage() {
 
   const quoteBannerImageSrc = quoteBannerUrl(data?.quoteBanner?.image, '/images/how-2.jpg');
 
-  const executiveTeam =
+  const executiveTeam = (
     data?.executiveTeam && data.executiveTeam.length > 0
       ? data.executiveTeam
       : allExecutives && allExecutives.length > 0
         ? allExecutives
-        : fallbackExecutiveTeam;
+        : fallbackExecutiveTeam
+  ).filter((m): m is TeamMember => Boolean(m && m._id));
 
-  const boardMembers =
+  const boardMembers = (
     data?.boardOfDirectors && data.boardOfDirectors.length > 0
       ? data.boardOfDirectors
       : allBoardMembers && allBoardMembers.length > 0
         ? allBoardMembers
-        : [];
+        : []
+  ).filter((m): m is TeamMember => Boolean(m && m._id));
 
   const featureCards = (data?.featureCards && data.featureCards.length > 0)
     ? data.featureCards

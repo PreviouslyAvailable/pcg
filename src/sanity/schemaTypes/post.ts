@@ -78,6 +78,13 @@ export const post = defineType({
       type: 'reference',
       to: [{ type: 'author' }],
     }),
+    defineField({
+      name: 'seo',
+      title: 'SEO & Social Sharing',
+      type: 'seo',
+      description:
+        'Optional. When blank, the excerpt is used as the description and the main image as the social share image.',
+    }),
   ],
   preview: {
     select: {

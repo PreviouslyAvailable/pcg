@@ -11,6 +11,7 @@ import { articlePortableTextComponents } from '@/lib/portableTextComponents';
 import { formatDateMonthYear, formatDateShort } from '@/lib/dates';
 import type { PostSummary } from '@/sanity/types';
 import { IMAGE_SIZES } from '@/lib/imageSizes';
+import { buildMetadata } from '@/lib/seo';
 
 export const revalidate = 60;
 
@@ -26,7 +27,13 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const post = await getPostBySlug(slug);
-  return { title: post?.title ?? 'News' };
+  return buildMetadata({
+    seo: post?.seo,
+    title: post?.title ?? 'News',
+    description: post?.excerpt,
+    image: post?.mainImage,
+    path: `/news/${slug}`,
+  });
 }
 
 export default async function InsightPost({ params }: Props) {

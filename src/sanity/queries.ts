@@ -1,8 +1,16 @@
 import { groq } from 'next-sanity'
 
+/** Shared SEO projection (metaTitle, metaDescription, noIndex, ogImage) */
+const seoProjection = `seo {
+  metaTitle,
+  metaDescription,
+  noIndex,
+  ogImage { ..., asset->{ _id, url, metadata { dimensions } } }
+}`
+
 /** All posts, newest first */
 export const postsQuery = groq`
-  *[_type == "post"] | order(publishedAt desc) {
+  *[_type == "post" && defined(slug.current)] | order(publishedAt desc) {
     _id,
     title,
     "slug": slug.current,
@@ -28,13 +36,14 @@ export const postBySlugQuery = groq`
       name,
       role,
       image
-    }
+    },
+    ${seoProjection}
   }
 `
 
 /** Related posts (newest 3, excluding current slug) */
 export const relatedPostsQuery = groq`
-  *[_type == "post" && slug.current != $slug] | order(publishedAt desc) [0...3] {
+  *[_type == "post" && defined(slug.current) && slug.current != $slug] | order(publishedAt desc) [0...3] {
     _id,
     title,
     "slug": slug.current,
@@ -47,7 +56,7 @@ export const relatedPostsQuery = groq`
 
 /** Slugs only — for generateStaticParams */
 export const postSlugsQuery = groq`
-  *[_type == "post"] { "slug": slug.current }
+  *[_type == "post" && defined(slug.current)] { "slug": slug.current }
 `
 
 // ─── Page Queries ────────────────────────────────────────────────────────────
@@ -57,6 +66,7 @@ const imageProjection = `{ ..., asset->{ _id, url, metadata { dimensions } } }`
 export const homePageQuery = groq`
   *[_type == "homePage"][0] {
     pageTitle,
+    ${seoProjection},
     hero {
       heading,
       subtext,
@@ -119,6 +129,7 @@ export const homePageQuery = groq`
 export const aboutPageQuery = groq`
   *[_type == "aboutPage"][0] {
     pageTitle,
+    ${seoProjection},
     hero {
       heading,
       subtext,
@@ -159,6 +170,7 @@ export const aboutPageQuery = groq`
 export const borrowersPageQuery = groq`
   *[_type == "borrowersPage"][0] {
     pageTitle,
+    ${seoProjection},
     hero {
       heading,
       subtext,
@@ -189,6 +201,7 @@ export const borrowersPageQuery = groq`
 export const investorsPageQuery = groq`
   *[_type == "investorsPage"][0] {
     pageTitle,
+    ${seoProjection},
     hero {
       heading,
       subtext,
@@ -215,6 +228,7 @@ export const investorsPageQuery = groq`
 export const contactPageQuery = groq`
   *[_type == "contactPage"][0] {
     pageTitle,
+    ${seoProjection},
     hero { heading, subtext },
     formRecipients { borrower, investor, advisor, fallback },
     offices[] {
@@ -236,6 +250,7 @@ export const contactRecipientsQuery = groq`
 export const insightsPageQuery = groq`
   *[_type == "insightsPage"][0] {
     pageTitle,
+    ${seoProjection},
     slug,
     heading,
     recentInsightsHeading,

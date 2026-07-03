@@ -5,11 +5,23 @@ import CtaBanner from '@/components/CtaBanner';
 import InvestorsSection from '@/components/InvestorsSection';
 import HowDifferent from '@/components/HowDifferent';
 import InsightsSection from '@/components/InsightsSection';
+import type { Metadata } from 'next';
 import { getHomePage, getPosts } from '@/sanity/loaders';
 import { quoteBannerUrl } from '@/sanity/imageUrls';
 import { urlFor } from '@/sanity/image';
+import { buildMetadata } from '@/lib/seo';
 
 export const revalidate = 60;
+
+export async function generateMetadata(): Promise<Metadata> {
+  const data = await getHomePage();
+  return buildMetadata({
+    seo: data?.seo,
+    description: data?.hero?.subtext,
+    image: data?.hero?.backgroundImage,
+    path: '',
+  });
+}
 
 const howDifferentFallbackImages = ['/images/how-1.jpg', '/images/how-2.jpg', '/images/how-3.jpg', '/images/how-4.jpg'];
 

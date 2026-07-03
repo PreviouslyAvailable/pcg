@@ -1,10 +1,12 @@
 import type { Metadata } from 'next';
 import SiteChrome from '@/components/SiteChrome';
+import { buildMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMetadata({
   title: 'Privacy Policy',
   description: 'Privacy policy for Private Capital Group.',
-};
+  path: '/privacy',
+});
 
 export const revalidate = 60;
 
