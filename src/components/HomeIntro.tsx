@@ -61,6 +61,7 @@ const defaultCards: FeatureCard[] = [
 
 export default function HomeIntro({
   borrowersImageSrc,
+  investorsImageSrc,
   eyebrow,
   borrowersHeading,
   borrowersBody,
@@ -126,11 +127,11 @@ export default function HomeIntro({
       {/* Warm-cream lower area — Creating Investment Opportunities + feature cards */}
       <div className="bg-cream-warm">
 
-      {/* Desktop: borrowers image left, investors text right */}
+      {/* Desktop: investors image left, investors text right */}
       <div className="hidden lg:grid pcg-inner pcg-inner-vertical lg:pt-[72px]! pb-16 grid-cols-2 gap-x-16 items-start">
         <div className="relative w-full aspect-[558/363] rounded-[17px] overflow-hidden">
-          {borrowersImageSrc ? (
-            <Image src={borrowersImageSrc} alt="Supporting NZ businesses" fill sizes={IMAGE_SIZES.halfViewport} className="object-cover" />
+          {investorsImageSrc ? (
+            <Image src={investorsImageSrc} alt="Creating investment opportunities" fill sizes={IMAGE_SIZES.halfViewport} className="object-cover" />
           ) : (
             <div className="absolute inset-0 bg-cream border border-black/10" />
           )}
