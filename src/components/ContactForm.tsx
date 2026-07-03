@@ -122,7 +122,7 @@ export default function ContactForm() {
             type="text"
             name="firstName"
             autoComplete="section-contact given-name"
-            placeholder="First Name"
+            placeholder="First Name *"
             value={firstName}
             onChange={(event) => setFirstName(event.target.value)}
             required
@@ -136,7 +136,7 @@ export default function ContactForm() {
             type="text"
             name="lastName"
             autoComplete="section-contact family-name"
-            placeholder="Last Name"
+            placeholder="Last Name *"
             value={lastName}
             onChange={(event) => setLastName(event.target.value)}
             required
@@ -152,7 +152,7 @@ export default function ContactForm() {
           type="email"
           name="email"
           autoComplete="section-contact email"
-          placeholder="Email Address"
+          placeholder="Email Address *"
           value={email}
           onChange={(event) => setEmail(event.target.value)}
           required
@@ -168,7 +168,7 @@ export default function ContactForm() {
             type="tel"
             name="phone"
             autoComplete="section-contact tel"
-            placeholder="Phone"
+            placeholder="Phone *"
             value={phone}
             onChange={(event) => setPhone(event.target.value)}
             required
@@ -186,7 +186,7 @@ export default function ContactForm() {
             required
             className={`${fieldClass} ${roleType ? 'text-ink' : 'text-ink/60'}`}
           >
-            <option value="">I am Borrower / Investor / Professional Advisor</option>
+            <option value="">I am Borrower / Investor / Professional Advisor *</option>
             <option value="borrower">Borrower</option>
             <option value="investor">Investor</option>
             <option value="advisor">Professional Advisor</option>
@@ -206,7 +206,7 @@ export default function ContactForm() {
             required
             className={`${fieldClass} ${lendingAmount ? 'text-ink' : 'text-ink/60'}`}
           >
-            <option value="">Approximate lending requirement</option>
+            <option value="">Approximate lending requirement *</option>
             {LENDING_AMOUNT_OPTIONS.map((option) => (
               <option key={option.value} value={option.value}>
                 {option.label}
@@ -232,15 +232,29 @@ export default function ContactForm() {
         <p className="font-nav text-[15px] text-red-700" role="alert">{errorMessage}</p>
       ) : null}
 
+      <p className="font-nav text-[13px] text-ink/50">* Required field</p>
+
       <div className="flex justify-end">
-        <button
-          type="submit"
-          disabled={status === 'submitting' || !isFormValid}
-          aria-disabled={status === 'submitting' || !isFormValid}
-          className="bg-ink text-white font-sans text-[16px] uppercase px-8 py-3 rounded-[10px] hover:bg-ink/80 transition-colors disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:bg-ink"
-        >
-          {status === 'submitting' ? 'Sending…' : 'Submit'}
-        </button>
+        <div className="relative group">
+          {!isFormValid && status !== 'submitting' ? (
+            <div
+              id="contact-submit-tooltip"
+              role="tooltip"
+              className="absolute bottom-full right-0 mb-2 opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity bg-ink text-white text-[13px] rounded-[8px] px-3 py-2 max-w-[260px] shadow-lg"
+            >
+              Please complete all required fields (*) before submitting.
+            </div>
+          ) : null}
+          <button
+            type="submit"
+            disabled={status === 'submitting' || !isFormValid}
+            aria-disabled={status === 'submitting' || !isFormValid}
+            aria-describedby={!isFormValid && status !== 'submitting' ? 'contact-submit-tooltip' : undefined}
+            className="bg-ink text-white font-sans text-[16px] uppercase px-8 py-3 rounded-[10px] hover:bg-ink/80 transition-colors disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:bg-ink"
+          >
+            {status === 'submitting' ? 'Sending…' : 'Submit'}
+          </button>
+        </div>
       </div>
     </form>
   );

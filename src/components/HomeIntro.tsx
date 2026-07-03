@@ -61,7 +61,6 @@ const defaultCards: FeatureCard[] = [
 
 export default function HomeIntro({
   borrowersImageSrc,
-  investorsImageSrc,
   eyebrow,
   borrowersHeading,
   borrowersBody,
@@ -81,7 +80,7 @@ export default function HomeIntro({
     <section className="bg-cream pt-10">
 
       {/* Mobile: single column stacked. Desktop: two-column */}
-      <div className="pcg-inner pcg-inner-vertical grid grid-cols-1 lg:grid-cols-2 gap-x-16 pb-10 lg:pb-0">
+      <div className="pcg-inner pcg-inner-vertical grid grid-cols-1 lg:grid-cols-2 gap-x-16 pt-16! pb-[104px]">
         {/* Left — Borrowers */}
         <FadeUp>
           <p className="font-sans text-[16px] uppercase tracking-wide text-ink mb-6">
@@ -102,19 +101,18 @@ export default function HomeIntro({
           </OutlineButton>
         </FadeUp>
 
-        {/* Right column desktop: investors image only */}
+        {/* Right column desktop: key stats replace the investors image */}
         <div className="hidden lg:block">
-          <div className="relative w-full aspect-[558/407] rounded-[17px] overflow-hidden">
-            {investorsImageSrc ? (
-              <Image src={investorsImageSrc} alt="Investors" fill sizes={IMAGE_SIZES.halfViewport} className="object-cover" />
-            ) : (
-              <div className="absolute inset-0 bg-cream border border-black/10" />
-            )}
-          </div>
+          <StatsBanner variant="column" heading={statsHeading} stats={stats} />
         </div>
       </div>
 
-      {/* Mobile: image after left text */}
+      {/* Mobile-only key stats band — desktop shows these beside the intro text */}
+      <div className="lg:hidden">
+        <StatsBanner heading={statsHeading} stats={stats} />
+      </div>
+
+      {/* Mobile: image after stats */}
       <div className="lg:hidden pcg-inner pcg-inner-vertical pt-8 pb-0">
         <div className="relative w-full aspect-[360/272] rounded-[11px] overflow-hidden">
           {borrowersImageSrc ? (
@@ -125,14 +123,11 @@ export default function HomeIntro({
         </div>
       </div>
 
-      {/* Full-width key stats band — sits above "Creating Investment Opportunities" */}
-      <StatsBanner heading={statsHeading} stats={stats} />
-
       {/* Warm-cream lower area — Creating Investment Opportunities + feature cards */}
       <div className="bg-cream-warm">
 
       {/* Desktop: borrowers image left, investors text right */}
-      <div className="hidden lg:grid pcg-inner pcg-inner-vertical pb-16 grid-cols-2 gap-x-16 items-start">
+      <div className="hidden lg:grid pcg-inner pcg-inner-vertical lg:pt-[72px]! pb-16 grid-cols-2 gap-x-16 items-start">
         <div className="relative w-full aspect-[558/363] rounded-[17px] overflow-hidden">
           {borrowersImageSrc ? (
             <Image src={borrowersImageSrc} alt="Supporting NZ businesses" fill sizes={IMAGE_SIZES.halfViewport} className="object-cover" />

@@ -49,7 +49,7 @@ export default function InsightsSection({ posts = placeholderPosts }: InsightsSe
         </Link>
       </FadeUp>
 
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 lg:gap-6">
         {posts.map((post, i) => (
           <FadeUp key={post.href} delay={i * 80}>
             <Link href={post.href} className="group block">
@@ -70,7 +70,7 @@ export default function InsightsSection({ posts = placeholderPosts }: InsightsSe
                   {post.category.replace(/-/g, ' ')}
                 </p>
               )}
-              <p className="font-sans text-ink text-[20px] leading-[1.2] mt-2 mb-3">
+              <p className="font-sans text-ink text-[20px] leading-[1.2] mt-2 mb-3 line-clamp-2 min-h-[48px]">
                 {post.title}
               </p>
               {post.publishedAt && (
@@ -79,7 +79,7 @@ export default function InsightsSection({ posts = placeholderPosts }: InsightsSe
                 </p>
               )}
               {post.excerpt && (
-                <p className="font-nav text-ink/70 text-[15px] leading-[1.5]">{post.excerpt}</p>
+                <p className="font-nav text-ink/70 text-[15px] leading-[1.5] line-clamp-3">{post.excerpt}</p>
               )}
             </Link>
           </FadeUp>

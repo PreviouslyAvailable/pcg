@@ -26,9 +26,10 @@ const fallbackExecutiveTeam = [
   { _id: '3', name: 'John Ferrara', role: 'Co-Founder & Partner', image: undefined },
 ];
 
-function TeamMemberGrid({ members }: { members: TeamMember[] }) {
+function TeamMemberGrid({ members, columns = 3 }: { members: TeamMember[]; columns?: 3 | 4 }) {
+  const columnsClass = columns === 4 ? 'lg:grid-cols-4' : 'lg:grid-cols-3';
   return (
-    <div className="grid grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+    <div className={`grid grid-cols-2 ${columnsClass} gap-6 lg:gap-8`}>
       {members.map((m) => (
         <TeamCard
           key={m._id}
@@ -178,7 +179,7 @@ export default async function AboutPage() {
         <section className="py-[calc(var(--spacing)*18)]">
           <div className="pcg-inner">
             <h2 className="font-sans text-ink text-[26px] leading-[1.03] tracking-[-0.012em] mb-5">Board of Directors</h2>
-            <TeamMemberGrid members={boardMembers} />
+            <TeamMemberGrid members={boardMembers} columns={4} />
           </div>
         </section>
       ) : null}

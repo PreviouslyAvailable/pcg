@@ -93,8 +93,11 @@ export const aboutPage = defineType({
     }),
     defineField({
       name: 'executiveTeam',
-      title: 'Executive Team',
+      title: 'Executive Team ("Private Capital Group Team")',
+      description:
+        'Add team members and drag to reorder. This order is used on the About page and is independent of the Board of Directors — a person can appear in both lists in a different position.',
       type: 'array',
+      options: { sortable: true },
       of: [
         defineArrayMember({
           type: 'reference',
@@ -105,7 +108,10 @@ export const aboutPage = defineType({
     defineField({
       name: 'boardOfDirectors',
       title: 'Board of Directors',
+      description:
+        'Add board members and drag to reorder. This order is used on the About page and is independent of the Executive Team — a person can appear in both lists in a different position.',
       type: 'array',
+      options: { sortable: true },
       of: [
         defineArrayMember({
           type: 'reference',

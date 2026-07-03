@@ -55,14 +55,14 @@ export default function Navbar({ variant = 'dark', navLinks }: NavbarProps) {
         menuOpen ? 'bg-dark/95 backdrop-blur-sm' : ''
       }`}
     >
-      <nav className="py-7" aria-label="Main">
+      <nav className="py-5" aria-label="Main">
         <div className="flex items-center justify-between px-4 lg:px-[40px] max-w-[1680px] mx-auto">
         {/* Left: Logo + Nav links */}
         <div className="flex items-center gap-8 lg:gap-20">
         <Link href="/" aria-label="Private Capital Group">
           <Logo
             color={variant === 'dark' ? 'cream' : 'black'}
-            className="h-10 w-auto"
+            className="h-[60px] lg:h-[76px] w-auto"
             priority
           />
         </Link>

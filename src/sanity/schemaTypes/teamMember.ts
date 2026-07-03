@@ -33,9 +33,10 @@ export const teamMember = defineType({
     }),
     defineField({
       name: 'order',
-      title: 'Display Order',
+      title: 'Display Order (fallback)',
       type: 'number',
-      description: 'Lower numbers appear first',
+      description:
+        'Fallback ordering (lower numbers first), only used if the Executive Team / Board of Directors lists on the About Page are empty. To order each section independently, drag members within those lists on the About Page document.',
     }),
     defineField({
       name: 'image',

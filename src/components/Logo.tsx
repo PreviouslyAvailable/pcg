@@ -20,7 +20,7 @@ const LOGO_HEIGHT = 481;
 
 export default function Logo({
   color = 'black',
-  className = 'h-10 w-auto',
+  className = 'h-[76px] w-auto',
   priority = false,
 }: LogoProps) {
   return (
