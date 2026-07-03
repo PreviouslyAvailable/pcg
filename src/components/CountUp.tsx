@@ -33,7 +33,7 @@ export default function CountUp({
   animate = true,
 }: CountUpProps) {
   // Split into: leading prefix, the numeric group, trailing suffix.
-  const match = value.match(/^(\D*)([\d,]+)(.*)$/s);
+  const match = value.match(/^(\D*)([\d,]+)(.*)$/);
   const hasCommas = match ? match[2].includes(',') : false;
   const target = match ? parseInt(match[2].replace(/,/g, ''), 10) : NaN;
   // Only animate a single, clean number (skip ranges like "$5–75M" whose suffix still holds a digit).
