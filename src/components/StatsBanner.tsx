@@ -1,7 +1,7 @@
 import FadeUp from './FadeUp';
 import CountUp from './CountUp';
 
-interface Stat {
+export interface Stat {
   value?: string;
   label?: string;
   description?: string;

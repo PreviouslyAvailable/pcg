@@ -1,3 +1,4 @@
+import type { PortableTextBlock } from '@portabletext/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import FadeUp from './FadeUp';
@@ -8,8 +9,7 @@ interface InvestorsSectionProps {
   imageSrc?: string;
   heading?: string;
   headingMobile?: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  content?: any[];
+  content?: PortableTextBlock[];
   ctaLabel?: string;
   ctaLabelMobile?: string;
   ctaHref?: string;

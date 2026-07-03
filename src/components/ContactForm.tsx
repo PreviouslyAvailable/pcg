@@ -6,17 +6,15 @@ import {
   AutocompleteSelect,
   AutocompleteTextarea,
 } from '@/lib/autocompleteFields';
+import { LENDING_AMOUNT_OPTIONS } from '@/lib/contact';
+import { isValidEmail } from '@/lib/validation';
 
 const fieldClass =
   'w-full bg-white border border-black/15 rounded-[8px] px-4 py-3 font-nav text-[15px] text-ink placeholder:text-ink/40 outline-none focus:border-black/40 transition-colors';
 
 const labelClass = 'sr-only';
 
-import { LENDING_AMOUNT_OPTIONS } from '@/lib/contact';
-
 type FormStatus = 'idle' | 'submitting' | 'success' | 'error';
-
-const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export default function ContactForm() {
   const [firstName, setFirstName] = useState('');
@@ -35,7 +33,7 @@ export default function ContactForm() {
     lastName.trim() !== '' &&
     phone.trim() !== '' &&
     email.trim() !== '' &&
-    EMAIL_REGEX.test(email.trim()) &&
+    isValidEmail(email) &&
     roleType !== '' &&
     (roleType !== 'borrower' || lendingAmount !== '');
 

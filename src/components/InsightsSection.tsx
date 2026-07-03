@@ -2,8 +2,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 import FadeUp from './FadeUp';
 import { IMAGE_SIZES } from '@/lib/imageSizes';
-
 import { INSIGHT_POST_FALLBACKS } from '@/lib/nav';
+import { formatPostCategory } from '@/lib/posts';
+import { formatDateMonthYear } from '@/lib/dates';
 
 interface InsightCard {
   title: string;
@@ -24,8 +25,6 @@ const placeholderPosts: InsightCard[] = INSIGHT_POST_FALLBACKS.map((post) => ({
   category: post.category,
   imageSrc: post.imageSrc,
 }));
-
-import { formatDateMonthYear } from '@/lib/dates';
 
 export default function InsightsSection({ posts = placeholderPosts }: InsightsSectionProps) {
   return (
@@ -67,7 +66,7 @@ export default function InsightsSection({ posts = placeholderPosts }: InsightsSe
               </div>
               {post.category && (
                 <p className="font-sans text-[14px] uppercase tracking-[1px] text-ink/80 mb-1">
-                  {post.category.replace(/-/g, ' ')}
+                  {formatPostCategory(post.category)}
                 </p>
               )}
               <p className="font-sans text-ink text-[20px] leading-[1.2] mt-2 mb-3 line-clamp-2 min-h-[48px]">

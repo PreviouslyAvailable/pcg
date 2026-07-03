@@ -1,5 +1,7 @@
 export function formatDateShort(dateStr: string) {
-  return new Date(dateStr).toLocaleDateString('en-NZ', {
+  const date = new Date(dateStr);
+  if (Number.isNaN(date.getTime())) return '';
+  return date.toLocaleDateString('en-NZ', {
     day: '2-digit',
     month: '2-digit',
     year: 'numeric',
@@ -7,7 +9,9 @@ export function formatDateShort(dateStr: string) {
 }
 
 export function formatDateMonthYear(dateStr: string) {
-  return new Date(dateStr)
+  const date = new Date(dateStr);
+  if (Number.isNaN(date.getTime())) return '';
+  return date
     .toLocaleDateString('en-NZ', { month: 'long', year: 'numeric' })
     .toUpperCase();
 }

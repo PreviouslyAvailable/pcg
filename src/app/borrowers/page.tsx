@@ -1,16 +1,21 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
-import Link from 'next/link';
 import SiteChrome from '@/components/SiteChrome';
 import PageHero from '@/components/PageHero';
 import CtaBanner from '@/components/CtaBanner';
 import QuoteBanner from '@/components/QuoteBanner';
-import BodyText from '@/components/BodyText';
+import CmsBody from '@/components/CmsBody';
+import OutlineButton from '@/components/OutlineButton';
 import { getBorrowersPage } from '@/sanity/loaders';
 import { quoteBannerUrl } from '@/sanity/imageUrls';
 import { urlFor } from '@/sanity/image';
 import { IMAGE_SIZES } from '@/lib/imageSizes';
 import { buildMetadata } from '@/lib/seo';
+import {
+  BORROWERS_WHY_PCG,
+  BORROWERS_LENDING_FOCUS,
+  BORROWERS_HOW_WE_WORK,
+} from '@/lib/fallbacks';
 
 export const revalidate = 60;
 
@@ -23,26 +28,6 @@ export async function generateMetadata(): Promise<Metadata> {
     path: '/borrowers',
   });
 }
-
-const fallbackWhyPCG = [
-  { title: 'Bespoke Capital Structures', body: "We tailor loans around your business, not a rigid credit policy. Whether it's interest-only periods to preserve cash flow or seasonal repayment schedules that match your revenue, we have the flexibility to design financing that actually fits your operational reality." },
-  { title: 'Direct Access to Decision Makers', body: "We eliminate the bureaucracy of traditional lending. All credit decisions are made locally by the partners you meet face-to-face. This flat structure ensures rapid feedback and the certainty of execution required to close complex deals on tight timelines." },
-  { title: 'Long-Term Growth Partnership', body: "We spend time face-to-face understanding your business, your strategy, and the challenges ahead. We build lasting partnerships that support you through every phase of your growth, not just a one-time facility." },
-  { title: 'Proven Track Record', body: "With over $500M in committed capital and 20+ successful transactions, we represent one of the largest and most diversified private credit platforms in New Zealand. Our track record provides you with the confidence that we have the scale to support your business and the experience to navigate complex deal structures." },
-];
-
-const fallbackLendingFocus = [
-  { title: 'Growth & Expansion', body: 'Funding new equipment, facilities, or new market entry without giving up equity to do it.' },
-  { title: 'Strategic Acquisitions', body: 'Structured debt solutions that give you the speed and certainty to compete for, and close, the right deals.' },
-  { title: 'Shareholder Liquidity', body: 'Facilitating partner buyouts or special dividends while maintaining company control.' },
-  { title: 'Operational Flexibility', body: 'Replacing restrictive bank debt with terms structured around your actual cash flow cycles.' },
-];
-
-const fallbackHowWeWork = [
-  { step: '1.', title: 'Deep Discovery & Rapid Feedback', body: "We start with a deep dive into your business operations, cash flows, strategy, and challenges. Our senior team engages directly from day one to provide rapid, detailed feedback on your funding requirements.", image: '/images/how-1.jpg', imageLeft: false, cta: undefined },
-  { step: '2.', title: 'Structuring', body: "Hundreds of deals across global markets have sharpened our ability to design financing that fits your specific situation. We build terms and repayment profiles around your business, not the other way around, so you can stay focused on running it.", image: '/images/how-2.jpg', imageLeft: true, cta: undefined },
-  { step: '3.', title: 'Partnership', body: "We remain active, engaged partners throughout the life of the loan, providing the follow-on capital and strategic support needed as your business scales. As one of New Zealand's largest private credit partners, we have the resources to support you through your entire business lifecycle.", image: '/images/how-4.jpg', imageLeft: false, cta: { label: 'Meet the Team', href: '/about#team' } },
-];
 
 export default async function BorrowersPage() {
   const data = await getBorrowersPage();
@@ -57,23 +42,23 @@ export default async function BorrowersPage() {
     ? urlFor(data.lendingFocus.image).width(800).height(600).url()
     : '/images/how-2.jpg';
 
-  const whyPCG = (data?.whyPCG && data.whyPCG.length > 0) ? data.whyPCG : fallbackWhyPCG;
+  const whyPCG = (data?.whyPCG && data.whyPCG.length > 0) ? data.whyPCG : BORROWERS_WHY_PCG;
   const lendingFocus = (data?.lendingFocus?.items && data.lendingFocus.items.length > 0)
     ? data.lendingFocus.items
-    : fallbackLendingFocus;
+    : BORROWERS_LENDING_FOCUS;
 
   const howWeWork = (data?.howWeWork && data.howWeWork.length > 0)
     ? data.howWeWork.map((item, i) => ({
-        step: item.step ?? fallbackHowWeWork[i]?.step ?? `${i + 1}.`,
-        title: item.title ?? fallbackHowWeWork[i]?.title ?? '',
-        body: item.body ?? fallbackHowWeWork[i]?.body ?? '',
+        step: item.step ?? BORROWERS_HOW_WE_WORK[i]?.step ?? `${i + 1}.`,
+        title: item.title ?? BORROWERS_HOW_WE_WORK[i]?.title ?? '',
+        body: item.body ?? BORROWERS_HOW_WE_WORK[i]?.body ?? '',
         image: item.image?.asset?.url
           ? urlFor(item.image).width(960).height(720).url()
-          : (fallbackHowWeWork[i]?.image ?? '/images/how-1.jpg'),
-        imageLeft: item.imageLeft ?? fallbackHowWeWork[i]?.imageLeft ?? false,
-        cta: item.cta?.label ? { label: item.cta.label, href: item.cta.href ?? '/contact' } : fallbackHowWeWork[i]?.cta,
+          : (BORROWERS_HOW_WE_WORK[i]?.image ?? '/images/how-1.jpg'),
+        imageLeft: item.imageLeft ?? BORROWERS_HOW_WE_WORK[i]?.imageLeft ?? false,
+        cta: item.cta?.label ? { label: item.cta.label, href: item.cta.href ?? '/contact' } : BORROWERS_HOW_WE_WORK[i]?.cta,
       }))
-    : fallbackHowWeWork;
+    : BORROWERS_HOW_WE_WORK;
 
   return (
     <SiteChrome>
@@ -96,11 +81,11 @@ export default async function BorrowersPage() {
             {whyPCG.map((item) => (
               <div key={item.title}>
                 <h3 className="font-sans text-ink text-[26px] leading-[1.2] mb-4">{item.title}</h3>
-                {item.body && Array.isArray(item.body) && item.body.length > 0 ? (
-                  <BodyText value={item.body} scheme="light" className="pr-10" />
-                ) : (
-                  <p className="font-nav text-ink/80 text-[16px] leading-[1.5] pr-10">{typeof item.body === 'string' ? item.body : ''}</p>
-                )}
+                <CmsBody
+                  value={item.body}
+                  className="pr-10"
+                  fallbackClassName="font-nav text-ink/80 text-[16px] leading-[1.5] pr-10"
+                />
               </div>
             ))}
           </div>
@@ -118,11 +103,10 @@ export default async function BorrowersPage() {
               {lendingFocus.map((item) => (
                 <div key={item.title}>
                   <h3 className="font-sans text-ink text-[26px] leading-[1.3] mb-1">{item.title}</h3>
-                  {item.body && Array.isArray(item.body) && item.body.length > 0 ? (
-                    <BodyText value={item.body} scheme="light" />
-                  ) : (
-                    <p className="font-nav text-ink/70 text-[16px] leading-[1.4]">{typeof item.body === 'string' ? item.body : ''}</p>
-                  )}
+                  <CmsBody
+                    value={item.body}
+                    fallbackClassName="font-nav text-ink/70 text-[16px] leading-[1.4]"
+                  />
                 </div>
               ))}
             </div>
@@ -157,18 +141,15 @@ export default async function BorrowersPage() {
                   </h2>
                 )}
                 <h3 className="font-sans text-ink text-[26px] leading-[1.2] mb-4">{item.step} {item.title}</h3>
-                {item.body && Array.isArray(item.body) && item.body.length > 0 ? (
-                  <BodyText value={item.body} scheme="light" className="max-w-[480px]" />
-                ) : (
-                  <p className="font-nav text-ink/70 text-[16px] leading-[1.5] max-w-[480px]">{typeof item.body === 'string' ? item.body : ''}</p>
-                )}
+                <CmsBody
+                  value={item.body}
+                  className="max-w-[480px]"
+                  fallbackClassName="font-nav text-ink/70 text-[16px] leading-[1.5] max-w-[480px]"
+                />
                 {item.cta && (
-                  <Link
-                    href={item.cta.href ?? '/contact'}
-                    className="self-start mt-8 font-sans font-bold text-[16px] uppercase tracking-wide text-ink border border-ink rounded-[10px] px-6 py-3 hover:bg-ink/5 transition-colors"
-                  >
+                  <OutlineButton href={item.cta.href ?? '/contact'} className="self-start mt-8 font-bold text-[16px]">
                     {item.cta.label}
-                  </Link>
+                  </OutlineButton>
                 )}
               </div>
             </div>

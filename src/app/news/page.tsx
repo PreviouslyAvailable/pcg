@@ -6,6 +6,7 @@ import NewsletterBanner from '@/components/NewsletterBanner';
 import { getPosts, getInsightsPage } from '@/sanity/loaders';
 import { urlFor } from '@/sanity/image';
 import { formatDateMonthYear } from '@/lib/dates';
+import { formatPostCategory } from '@/lib/posts';
 import { IMAGE_SIZES } from '@/lib/imageSizes';
 import { buildMetadata } from '@/lib/seo';
 
@@ -72,7 +73,7 @@ export default async function InsightsPage() {
                   </div>
                   {post.category && (
                     <p className="font-sans text-[14px] uppercase tracking-[1px] text-ink/80 mb-1">
-                      {post.category.replace(/-/g, ' ')}
+                      {formatPostCategory(post.category)}
                     </p>
                   )}
                   <p className="font-sans text-ink text-[26px] leading-[1.2] mt-3 mb-5">{post.title}</p>
@@ -108,7 +109,7 @@ export default async function InsightsPage() {
                 <Link key={post._id} href={`/news/${post.slug}`} className="group block">
                   <div className={`${eduBg[i % eduBg.length]} rounded-[12px] p-8 aspect-[4/3] flex flex-col justify-between mb-4`}>
                     <p className={`font-sans text-[14px] uppercase tracking-[1px] ${eduTag[i % eduTag.length]} mb-3`}>
-                      {post.category?.replace(/-/g, ' ')}
+                      {formatPostCategory(post.category)}
                     </p>
                     <h3 className={`font-serif ${eduHeading[i % eduHeading.length]} text-[48px] leading-[1]`}>
                       {post.title}
@@ -148,7 +149,7 @@ export default async function InsightsPage() {
                   </div>
                   {post.category && (
                     <p className="font-sans text-[14px] uppercase tracking-[1px] text-ink/80 mb-1">
-                      {post.category.replace(/-/g, ' ')}
+                      {formatPostCategory(post.category)}
                     </p>
                   )}
                   <p className="font-sans text-ink text-[26px] leading-[1.2] mt-3 mb-5">{post.title}</p>

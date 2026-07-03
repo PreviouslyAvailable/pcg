@@ -4,11 +4,18 @@ import SiteChrome from '@/components/SiteChrome';
 import PageHero from '@/components/PageHero';
 import CtaBanner from '@/components/CtaBanner';
 import QuoteBanner from '@/components/QuoteBanner';
-import BodyText from '@/components/BodyText';
+import CmsBody from '@/components/CmsBody';
+import OutlineButton from '@/components/OutlineButton';
 import { getInvestorsPage } from '@/sanity/loaders';
 import { quoteBannerUrl } from '@/sanity/imageUrls';
 import { urlFor } from '@/sanity/image';
 import { buildMetadata } from '@/lib/seo';
+import {
+  INVESTORS_FUND_DETAILS,
+  INVESTORS_INVESTMENT_OPPORTUNITY,
+  INVESTORS_ACTIVE_INVESTOR_PLUS,
+  INVESTORS_SECOND_FUND_DETAILS,
+} from '@/lib/fallbacks';
 import FadeUp from '@/components/FadeUp';
 
 export const revalidate = 60;
@@ -23,39 +30,6 @@ export async function generateMetadata(): Promise<Metadata> {
   });
 }
 
-const fallbackFundDetails = [
-  { label: 'Fund Structure', value: 'PIE (Portfolio Investment Entity) - tax-efficient for New Zealand investors' },
-  { label: 'Target Return', value: 'OCR + 4% (net of fees)' },
-  { label: 'Distributions', value: 'Monthly income distributions' },
-  { label: 'Management Fee', value: '0.75% per annum' },
-  { label: 'Minimum Investment', value: '$250,000' },
-  { label: 'Currency', value: 'New Zealand Dollars' },
-  { label: 'Valuation', value: 'Weekly' },
-  { label: 'Trustee', value: 'Public Trust' },
-  { label: 'Administrator', value: 'Adminis' },
-  { label: 'Auditor', value: 'EY' },
-  { label: 'US Tax Compliance', value: 'PFIC Reporting Compliant. We provide PFIC Annual Information Statements (AIS) to support investors in making QEF elections for US tax reporting.' },
-];
-
-const fallbackInvestmentOpportunity = [
-  { title: 'Defensive Yield with Inflation Protection', body: "Our funds targets a net return of OCR + 4% through a portfolio of 100% floating-rate assets. This structure provides a natural hedge against inflation and interest rate volatility, ensuring your yield adjusts in real-time to market conditions. Our team's 20-year global track record ensures this performance remains resilient through every phase of the economic cycle." },
-  { title: 'Granular Exposure to the NZ Middle Market', body: 'Investors gain immediate access to a granular portfolio of high-quality New Zealand businesses across defensive sectors. This level of diversification—spanning multiple industries and deal structures—is unique in the New Zealand market and significantly reduces idiosyncratic risk compared to concentrated credit offerings.' },
-  { title: 'Capital Preservation via Structural Protection', body: 'We prioritize capital preservation by focusing on senior secured (first lien) positions with conservative loan-to-value (LTV) ratios. Every investment undergoes rigorous diligence with each deal specifically structured to include multiple exit paths and robust covenant protections to safeguard investor capital in all scenarios.' },
-];
-
-const fallbackActiveInvestorPlus = [
-  { title: 'NZTE Acceptable Managed Fund Status', body: 'Direct Pathway to Residency: The PCG Diversified NZ Private Debt Fund is a fully compliant NZTE Acceptable Managed Fund. This status provides offshore investors with a clear pre-vetted pathway to New Zealand residency while deploying capital into high quality, senior secured private credit.' },
-  { title: 'Proven Track Record', body: 'The Programme Benchmark: We are proud to represent the longest-running credit fund on the AIP programme. Our established history provides the transparency and reporting rigour necessary to satisfy immigration requirements and deliver successful residency outcomes.' },
-  { title: 'Global Tax Readiness', body: 'We recognise the complexities of cross-border investment for investors with US tax obligations. PCG provides the specific PFIC Annual Information Statements required to optimize your US tax position. We work alongside your global tax and legal advisors to ensure your investment remains compliant across multiple jurisdictions.' },
-];
-
-const fallbackSecondFundDetails = [
-  { label: 'Fund Structure', value: 'PIE (Portfolio Investment Entity)' },
-  { label: 'Focus', value: 'New Zealand economic resilience and infrastructure-aligned private debt' },
-  { label: 'Currency', value: 'New Zealand Dollars' },
-  { label: 'Minimum Investment', value: 'Contact us for details' },
-];
-
 export default async function InvestorsPage() {
   const data = await getInvestorsPage();
 
@@ -67,19 +41,19 @@ export default async function InvestorsPage() {
 
   const investmentItems = (data?.investmentOpportunity?.items && data.investmentOpportunity.items.length > 0)
     ? data.investmentOpportunity.items
-    : fallbackInvestmentOpportunity;
+    : INVESTORS_INVESTMENT_OPPORTUNITY;
 
   const fundDetails = (data?.fundDetails && data.fundDetails.length > 0)
     ? data.fundDetails
-    : fallbackFundDetails;
+    : INVESTORS_FUND_DETAILS;
 
   const secondFundDetails = (data?.secondFundDetails && data.secondFundDetails.length > 0)
     ? data.secondFundDetails
-    : fallbackSecondFundDetails;
+    : INVESTORS_SECOND_FUND_DETAILS;
 
   const activeInvestorItems = (data?.activeInvestorPlus?.items && data.activeInvestorPlus.items.length > 0)
     ? data.activeInvestorPlus.items
-    : fallbackActiveInvestorPlus;
+    : INVESTORS_ACTIVE_INVESTOR_PLUS;
 
   return (
     <SiteChrome>
@@ -101,11 +75,11 @@ export default async function InvestorsPage() {
             {investmentItems.map((item) => (
               <div key={item.title}>
                 <h3 className="font-sans text-ink text-[26px] leading-[1.2] mb-5">{item.title}</h3>
-                {item.body && Array.isArray(item.body) && item.body.length > 0 ? (
-                  <BodyText value={item.body} scheme="light" className="pr-5" />
-                ) : (
-                  <p className="font-nav text-ink/80 text-[16px] leading-[1.3] pr-5">{typeof item.body === 'string' ? item.body : ''}</p>
-                )}
+                <CmsBody
+                  value={item.body}
+                  className="pr-5"
+                  fallbackClassName="font-nav text-ink/80 text-[16px] leading-[1.3] pr-5"
+                />
               </div>
             ))}
           </div>
@@ -131,12 +105,9 @@ export default async function InvestorsPage() {
                   </div>
                 ))}
               </div>
-              <Link
-                href="/contact"
-                className="self-start font-sans text-[14px] uppercase tracking-wide text-ink border border-ink rounded-[10px] px-6 py-3 hover:bg-ink/5 transition-colors"
-              >
+              <OutlineButton href="/contact" className="self-start text-[14px]">
                 Get in Touch
-              </Link>
+              </OutlineButton>
             </FadeUp>
 
             {/* Dark fund card */}
@@ -169,11 +140,12 @@ export default async function InvestorsPage() {
                 {activeInvestorItems.map((item) => (
                   <div key={item.title}>
                     <h3 className="font-sans text-white text-[22px] leading-[1.2] mb-3">{item.title}</h3>
-                    {item.body && Array.isArray(item.body) && item.body.length > 0 ? (
-                      <BodyText value={item.body} scheme="dark" className="pr-10" />
-                    ) : (
-                      <p className="font-nav text-white/80 text-[16px] leading-[1.3] pr-10">{typeof item.body === 'string' ? item.body : ''}</p>
-                    )}
+                    <CmsBody
+                      value={item.body}
+                      scheme="dark"
+                      className="pr-10"
+                      fallbackClassName="font-nav text-white/80 text-[16px] leading-[1.3] pr-10"
+                    />
                   </div>
                 ))}
               </div>

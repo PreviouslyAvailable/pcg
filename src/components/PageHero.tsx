@@ -7,7 +7,6 @@ interface PageHeroProps {
   imageSrc?: string;
   imageAlt?: string;
   imageCaption?: string;
-  background?: 'cream' | 'cream-warm';
 }
 
 export default function PageHero({
@@ -16,10 +15,9 @@ export default function PageHero({
   imageSrc,
   imageAlt = '',
   imageCaption,
-  background = 'cream',
 }: PageHeroProps) {
   return (
-    <section className={`${background === 'cream' ? 'bg-cream' : 'bg-cream-warm'} pt-36 pb-0 lg:pt-40`}>
+    <section className="bg-cream pt-36 pb-0 lg:pt-40">
       <div className="pcg-inner">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
         {/* Left — text (no entrance animation; this block is above the fold) */}

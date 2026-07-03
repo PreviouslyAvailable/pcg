@@ -1,12 +1,13 @@
+import type { PortableTextBlock } from '@portabletext/react';
 import Image from 'next/image';
 import FadeUp from './FadeUp';
-import BodyText from './BodyText';
+import CmsBody from './CmsBody';
 import { IMAGE_SIZES } from '@/lib/imageSizes';
+import { HOW_DIFFERENT_FALLBACK_IMAGES } from '@/lib/fallbackImages';
 
 interface FeatureItem {
   title?: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  body?: any[] | string;
+  body?: PortableTextBlock[] | string;
   imageSrc?: string;
   imageAlt?: string;
 }
@@ -15,8 +16,6 @@ interface HowDifferentProps {
   heading?: string;
   items?: FeatureItem[];
 }
-
-const defaultImageSrcs = ['/images/how-1.jpg', '/images/how-2.jpg', '/images/how-3.jpg', '/images/how-4.jpg'];
 
 const defaultItems: FeatureItem[] = [
   {
@@ -44,7 +43,7 @@ const defaultItems: FeatureItem[] = [
 export default function HowDifferent({ heading, items }: HowDifferentProps) {
   const features = items && items.length > 0
     ? items
-    : defaultItems.map((item, i) => ({ ...item, imageSrc: defaultImageSrcs[i] }));
+    : defaultItems.map((item, i) => ({ ...item, imageSrc: HOW_DIFFERENT_FALLBACK_IMAGES[i] }));
 
   return (
     <section className="bg-cream py-[calc(var(--spacing)*18)]">
@@ -66,13 +65,11 @@ export default function HowDifferent({ heading, items }: HowDifferentProps) {
             <h3 className="font-sans text-ink text-[33px] leading-[1.2] mb-3">
               {feature.title}
             </h3>
-            {feature.body && Array.isArray(feature.body) && feature.body.length > 0 ? (
-              <BodyText value={feature.body} scheme="light" className="pr-10" />
-            ) : (
-              <p className="font-nav text-ink text-[16px] leading-[1.3] pr-10">
-                {typeof feature.body === 'string' ? feature.body : ''}
-              </p>
-            )}
+            <CmsBody
+              value={feature.body}
+              className="pr-10"
+              fallbackClassName="font-nav text-ink text-[16px] leading-[1.3] pr-10"
+            />
           </FadeUp>
         ))}
       </div>

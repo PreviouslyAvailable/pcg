@@ -1,3 +1,5 @@
+import type { PortableTextBlock } from '@portabletext/react'
+
 // ─── Base ────────────────────────────────────────────────────────────────────
 
 export interface SanityImageAsset {
@@ -44,8 +46,7 @@ export interface PostSummary {
 }
 
 export interface PostFull extends PostSummary {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  body?: any[]
+  body?: PortableTextBlock[]
   author?: Author
   seo?: SEO
 }
@@ -95,24 +96,21 @@ export interface HomePage {
     eyebrow?: string
     borrowers?: {
       heading?: string
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      body?: any[]
+      body?: PortableTextBlock[]
       ctaLabel?: string
       ctaHref?: string
       image?: SanityImage
     }
     investors?: {
       heading?: string
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      body?: any[]
+      body?: PortableTextBlock[]
       ctaLabel?: string
       ctaHref?: string
       image?: SanityImage
     }
     featureCards?: Array<{
       title?: string
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      body?: any[]
+      body?: PortableTextBlock[]
       ctaLabel?: string
       ctaHref?: string
     }>
@@ -128,8 +126,7 @@ export interface HomePage {
   investorsSection?: {
     heading?: string
     headingMobile?: string
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    content?: any[]
+    content?: PortableTextBlock[]
     ctaLabel?: string
     ctaLabelMobile?: string
     ctaHref?: string
@@ -144,8 +141,7 @@ export interface HomePage {
     items?: Array<{
       step?: string
       title?: string
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      body?: any[]
+      body?: PortableTextBlock[]
       image?: SanityImage
     }>
   }
@@ -167,16 +163,14 @@ export interface AboutPage {
   }
   story?: {
     heading?: string
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    body?: any[]
+    body?: PortableTextBlock[]
     image?: SanityImage
     ctaLabel?: string
     ctaHref?: string
   }
   featureCards?: Array<{
     title?: string
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    body?: any[]
+    body?: PortableTextBlock[]
     ctaLabel?: string
     ctaHref?: string
   }>
@@ -198,8 +192,7 @@ export interface BorrowersPage {
   }
   whyPCG?: Array<{
     title?: string
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    body?: any[]
+    body?: PortableTextBlock[]
   }>
   quoteBanner?: {
     quote?: string
@@ -209,16 +202,14 @@ export interface BorrowersPage {
     heading?: string
     items?: Array<{
       title?: string
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      body?: any[]
+      body?: PortableTextBlock[]
     }>
     image?: SanityImage
   }
   howWeWork?: Array<{
     step?: string
     title?: string
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    body?: any[]
+    body?: PortableTextBlock[]
     image?: SanityImage
     imageLeft?: boolean
     cta?: { label?: string; href?: string }
@@ -242,8 +233,7 @@ export interface InvestorsPage {
     heading?: string
     items?: Array<{
       title?: string
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      body?: any[]
+      body?: PortableTextBlock[]
     }>
   }
   fundDetails?: Array<{ label?: string; value?: string }>
@@ -252,8 +242,7 @@ export interface InvestorsPage {
   activeInvestorPlus?: {
     items?: Array<{
       title?: string
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      body?: any[]
+      body?: PortableTextBlock[]
     }>
   }
   quoteBanner?: {

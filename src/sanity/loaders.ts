@@ -71,8 +71,9 @@ export type ContactRecipients = {
   fallback?: string[]
 }
 
-export const getContactRecipients = () =>
-  client.fetch<ContactRecipients | null>(contactRecipientsQuery).catch(() => null)
+export const getContactRecipients = cache(() =>
+  client.fetch<ContactRecipients | null>(contactRecipientsQuery).catch(() => null),
+)
 
 export const getInsightsPage = cache(() =>
   client.fetch<InsightsPage>(insightsPageQuery).catch(() => null),

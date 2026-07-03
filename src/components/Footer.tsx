@@ -7,14 +7,17 @@ import type { NavLink } from '@/lib/nav';
 interface FooterProps {
   navLinks: NavLink[];
   newsletterHeading?: string;
+  newsletterBody?: string;
   footerTagline?: string;
 }
 
 export default function Footer({
   navLinks,
   newsletterHeading = 'Subscribe to our mailing list to receive the latest updates.',
+  newsletterBody,
   footerTagline,
 }: FooterProps) {
+  const year = new Date().getFullYear();
   return (
     <footer className="bg-cream">
       <div className="pt-12 lg:pt-20 pb-8 lg:pb-12 px-4 lg:px-[45px] max-w-[1680px] mx-auto">
@@ -30,6 +33,9 @@ export default function Footer({
         <h3 className="font-serif font-light text-ink text-[38px] leading-[1.15] tracking-[-0.48px] mb-6 lg:mb-8 max-w-[437px]">
           {newsletterHeading}
         </h3>
+        {newsletterBody ? (
+          <p className="font-nav text-ink/70 text-[15px] leading-[1.4] mb-6 max-w-[437px]">{newsletterBody}</p>
+        ) : null}
         <NewsletterForm
           className="flex flex-col sm:flex-row gap-2 w-full max-w-[437px] mb-[20px]"
           inputClassName="w-full sm:flex-1 bg-white rounded-[6px] px-4 py-3 font-nav text-[16px] text-ink placeholder:text-ink/40 outline-none border border-black/10 focus:border-black/30 transition-colors"
@@ -54,7 +60,7 @@ export default function Footer({
       </div>
 
       <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2">
-        <span className="font-mono text-[10px] uppercase tracking-[0.33px] text-ink/50">© 2026 Private Capital Group</span>
+        <span className="font-mono text-[10px] uppercase tracking-[0.33px] text-ink/50">© {year} Private Capital Group</span>
         <Link href="/privacy" className="font-mono text-[10px] uppercase tracking-[0.33px] text-ink/50 hover:text-ink/80 transition-colors">
           Privacy
         </Link>

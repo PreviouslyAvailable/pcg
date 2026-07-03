@@ -1,20 +1,14 @@
+import type { PortableTextBlock } from '@portabletext/react';
 import Image from 'next/image';
-import Link from 'next/link';
 import FadeUp from './FadeUp';
-import BodyText from './BodyText';
-import StatsBanner from './StatsBanner';
+import CmsBody from './CmsBody';
+import OutlineButton from './OutlineButton';
+import StatsBanner, { type Stat } from './StatsBanner';
 import { IMAGE_SIZES } from '@/lib/imageSizes';
-
-interface Stat {
-  value?: string;
-  label?: string;
-  description?: string;
-}
 
 interface FeatureCard {
   title?: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  body?: any[] | string;
+  body?: PortableTextBlock[] | string;
   ctaLabel?: string;
   ctaHref?: string;
 }
@@ -24,13 +18,11 @@ interface HomeIntroProps {
   investorsImageSrc?: string;
   eyebrow?: string;
   borrowersHeading?: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  borrowersBody?: any[] | string;
+  borrowersBody?: PortableTextBlock[] | string;
   borrowersCtaLabel?: string;
   borrowersCtaHref?: string;
   investorsHeading?: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  investorsBody?: any[] | string;
+  investorsBody?: PortableTextBlock[] | string;
   investorsCtaLabel?: string;
   investorsCtaHref?: string;
   featureCards?: FeatureCard[];
@@ -90,13 +82,12 @@ export default function HomeIntro({
           <h2 className="font-serif font-light text-[clamp(40px,4.2vw,64px)] leading-[1.03] tracking-[-0.012em] text-ink mb-5 lg:mb-6">
             {borrowersHeading ?? 'Supporting New Zealand Business Growth'}
           </h2>
-          {borrowersBody && Array.isArray(borrowersBody) && borrowersBody.length > 0 ? (
-            <BodyText value={borrowersBody} scheme="light" className="mb-6 lg:mb-8" />
-          ) : (
-            <p className="font-nav text-[16px] leading-[1.3] text-ink mb-6 lg:mb-8">
-              {typeof borrowersBody === 'string' ? borrowersBody : "We deliver what traditional lenders can't: flexible capital with the speed and certainty of execution that allows you grow with confidence. With $500M in committed capital and lending that ranges from $5–50M, we use our decades of experience to work with ambitious businesses, providing tailored solutions that enable growth."}
-            </p>
-          )}
+          <CmsBody
+            value={borrowersBody}
+            className="mb-6 lg:mb-8"
+            fallbackClassName="font-nav text-[16px] leading-[1.3] text-ink mb-6 lg:mb-8"
+            fallback="We deliver what traditional lenders can't: flexible capital with the speed and certainty of execution that allows you grow with confidence. With $500M in committed capital and lending that ranges from $5–50M, we use our decades of experience to work with ambitious businesses, providing tailored solutions that enable growth."
+          />
           <OutlineButton href={borrowersCtaHref ?? '/borrowers'}>
             {borrowersCtaLabel ?? 'How it works'}
           </OutlineButton>
@@ -140,13 +131,12 @@ export default function HomeIntro({
           <h2 className="font-serif font-light text-[clamp(40px,4.2vw,64px)] leading-[1.03] tracking-[-0.012em] text-ink mb-6">
             {investorsHeading ?? 'Creating Investment Opportunities'}
           </h2>
-          {investorsBody && Array.isArray(investorsBody) && investorsBody.length > 0 ? (
-            <BodyText value={investorsBody} scheme="light" className="mb-8" />
-          ) : (
-            <p className="font-nav text-[16px] leading-[1.3] text-ink mb-8">
-              {typeof investorsBody === 'string' ? investorsBody : 'For investors seeking consistent returns and portfolio diversification, we provide access to institutional-quality private debt investments in New Zealand dollars, managed by experienced professionals with a proven track record.'}
-            </p>
-          )}
+          <CmsBody
+            value={investorsBody}
+            className="mb-8"
+            fallbackClassName="font-nav text-[16px] leading-[1.3] text-ink mb-8"
+            fallback="For investors seeking consistent returns and portfolio diversification, we provide access to institutional-quality private debt investments in New Zealand dollars, managed by experienced professionals with a proven track record."
+          />
           <OutlineButton href={investorsCtaHref ?? '/investors'}>
             {investorsCtaLabel ?? 'Explore investments'}
           </OutlineButton>
@@ -158,11 +148,11 @@ export default function HomeIntro({
         {cards.map((card, i) => (
           <FadeUp key={card.title ?? i} delay={i * 120} className="bg-white rounded-[16px] p-9 flex flex-col justify-start items-start hover-lift">
             <h3 className="font-sans text-[26px] leading-[1.2] text-ink mb-6">{card.title}</h3>
-            {card.body && Array.isArray(card.body) && card.body.length > 0 ? (
-              <BodyText value={card.body} scheme="light" className="mb-8 flex-1" />
-            ) : (
-              <p className="font-nav text-[16px] leading-[1.3] text-ink mb-8 flex-1">{typeof card.body === 'string' ? card.body : ''}</p>
-            )}
+            <CmsBody
+              value={card.body}
+              className="mb-8 flex-1"
+              fallbackClassName="font-nav text-[16px] leading-[1.3] text-ink mb-8 flex-1"
+            />
             <OutlineButton href={card.ctaHref ?? '/'}>{card.ctaLabel ?? 'Learn more'}</OutlineButton>
           </FadeUp>
         ))}
@@ -170,16 +160,5 @@ export default function HomeIntro({
 
       </div>{/* end warm-cream lower area */}
     </section>
-  );
-}
-
-function OutlineButton({ href, children }: { href: string; children: React.ReactNode }) {
-  return (
-    <Link
-      href={href}
-      className="inline-flex items-center font-sans text-[14px] uppercase tracking-wide text-ink border border-ink rounded-[10px] px-6 py-3 hover:bg-ink/5 transition-colors"
-    >
-      {children}
-    </Link>
   );
 }

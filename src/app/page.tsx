@@ -10,6 +10,7 @@ import { getHomePage, getPosts } from '@/sanity/loaders';
 import { quoteBannerUrl } from '@/sanity/imageUrls';
 import { urlFor } from '@/sanity/image';
 import { buildMetadata } from '@/lib/seo';
+import { HOW_DIFFERENT_FALLBACK_IMAGES } from '@/lib/fallbackImages';
 
 export const revalidate = 60;
 
@@ -22,8 +23,6 @@ export async function generateMetadata(): Promise<Metadata> {
     path: '',
   });
 }
-
-const howDifferentFallbackImages = ['/images/how-1.jpg', '/images/how-2.jpg', '/images/how-3.jpg', '/images/how-4.jpg'];
 
 export default async function Home() {
   const [data, posts] = await Promise.all([getHomePage(), getPosts()]);
@@ -47,7 +46,7 @@ export default async function Home() {
     body: item.body,
     imageSrc: item.image?.asset?.url
       ? urlFor(item.image).width(662).height(367).url()
-      : howDifferentFallbackImages[i],
+      : HOW_DIFFERENT_FALLBACK_IMAGES[i],
     imageAlt: item.title,
   }));
 

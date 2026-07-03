@@ -1,11 +1,10 @@
-import { PortableText } from '@portabletext/react'
+import { PortableText, type PortableTextBlock } from '@portabletext/react'
 import { bodyTextComponents } from '@/lib/portableTextComponents'
 
 type ColorScheme = 'dark' | 'light'
 
 interface BodyTextProps {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  value: any[]
+  value: PortableTextBlock[]
   scheme?: ColorScheme
   className?: string
 }

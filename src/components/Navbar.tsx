@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useId, useState } from 'react';
 import Logo from '@/components/Logo';
+import { DEFAULT_NAV_LINKS } from '@/lib/nav';
 
 function useMenuOpenForPath(pathname: string) {
   const [openPath, setOpenPath] = useState<string | null>(null);
@@ -17,13 +18,6 @@ function useMenuOpenForPath(pathname: string) {
   };
 }
 
-const defaultNavLinks = [
-  { label: 'About', href: '/about' },
-  { label: 'Borrowers', href: '/borrowers' },
-  { label: 'Investors', href: '/investors' },
-  { label: 'News', href: '/news' },
-];
-
 interface NavbarProps {
   variant?: 'light' | 'dark';
   navLinks?: Array<{ label?: string; href?: string }>;
@@ -33,7 +27,7 @@ export default function Navbar({ variant = 'dark', navLinks }: NavbarProps) {
   const menuId = useId();
   const pathname = usePathname();
   const { menuOpen, closeMenu, toggleMenu } = useMenuOpenForPath(pathname);
-  const links = navLinks && navLinks.length > 0 ? navLinks : defaultNavLinks;
+  const links = navLinks && navLinks.length > 0 ? navLinks : DEFAULT_NAV_LINKS;
 
   useEffect(() => {
     if (!menuOpen) return;

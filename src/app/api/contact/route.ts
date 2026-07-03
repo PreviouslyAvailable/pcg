@@ -1,10 +1,7 @@
 import { NextResponse } from 'next/server';
 import { LENDING_LABELS, ROLE_LABELS } from '@/lib/contact';
+import { isValidEmail } from '@/lib/validation';
 import { getContactRecipients } from '@/sanity/loaders';
-
-function isValidEmail(value: string) {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
-}
 
 export async function POST(request: Request) {
   let body: Record<string, string>;

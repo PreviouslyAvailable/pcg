@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
-import Link from 'next/link';
 import BodyText from '@/components/BodyText';
+import CmsBody from '@/components/CmsBody';
+import OutlineButton from '@/components/OutlineButton';
 import SiteChrome from '@/components/SiteChrome';
 import PageHero from '@/components/PageHero';
 import CtaBanner from '@/components/CtaBanner';
@@ -12,6 +13,7 @@ import { urlFor } from '@/sanity/image';
 import { teamCardImageUrl, teamModalImageUrl } from '@/lib/teamImages';
 import type { TeamMember } from '@/sanity/types';
 import { buildMetadata } from '@/lib/seo';
+import { ABOUT_FALLBACK_EXECUTIVE_TEAM, ABOUT_FALLBACK_FEATURE_CARDS } from '@/lib/fallbacks';
 import FadeUp from '@/components/FadeUp';
 
 export const revalidate = 60;
@@ -25,12 +27,6 @@ export async function generateMetadata(): Promise<Metadata> {
     path: '/about',
   });
 }
-
-const fallbackExecutiveTeam = [
-  { _id: '1', name: 'Andrew Golding', role: 'Chair', image: undefined },
-  { _id: '2', name: 'Paul Carman', role: 'Founder & Managing Partner', image: undefined },
-  { _id: '3', name: 'John Ferrara', role: 'Co-Founder & Partner', image: undefined },
-];
 
 function TeamMemberGrid({ members, columns = 3 }: { members: TeamMember[]; columns?: 3 | 4 }) {
   const columnsClass = columns === 4 ? 'lg:grid-cols-4' : 'lg:grid-cols-3';
@@ -70,7 +66,7 @@ export default async function AboutPage() {
       ? data.executiveTeam
       : allExecutives && allExecutives.length > 0
         ? allExecutives
-        : fallbackExecutiveTeam
+        : ABOUT_FALLBACK_EXECUTIVE_TEAM
   ).filter((m): m is TeamMember => Boolean(m && m._id));
 
   const boardMembers = (
@@ -83,11 +79,7 @@ export default async function AboutPage() {
 
   const featureCards = (data?.featureCards && data.featureCards.length > 0)
     ? data.featureCards
-    : [
-        { title: 'Stability through every cycle', body: "There's no substitute for having operated private debt funds through economic recessions, financial crises, and high growth periods. Each creates unique challenges, especially for the uninitiated. Our experience across multiple market cycles in global markets gives us the competence to navigate any environment.", ctaLabel: 'Explore Growth Capital', ctaHref: '/borrowers' },
-        { title: 'Aligned Partnership', body: "Conflict-Free by Design — Many capital providers also run advisory businesses or mix equity alongside debt in the same fund. We don't. Our exclusive focus on funds management eliminates those conflicts, so every decision we make is driven by one thing: what's right for you.", ctaLabel: 'About our Funds', ctaHref: '/investors' },
-        { title: 'Market-Leading Diversification', body: "PCG offers a level of diversification and risk management that is unique in the New Zealand market. This scale allows us to provide genuine downside protection for investors while offering borrowers the stability of an institutional-grade platform.", ctaLabel: 'About our Funds', ctaHref: '/investors' },
-      ];
+    : ABOUT_FALLBACK_FEATURE_CARDS;
 
   return (
     <SiteChrome>
@@ -134,12 +126,9 @@ export default async function AboutPage() {
                 </>
               )}
             </div>
-            <Link
-              href={data?.story?.ctaHref ?? '/about#team'}
-              className="inline-flex items-center font-sans text-[14px] uppercase tracking-wide text-ink border border-ink rounded-[10px] px-6 py-3 hover:bg-ink/5 transition-colors"
-            >
+            <OutlineButton href={data?.story?.ctaHref ?? '/about#team'}>
               {data?.story?.ctaLabel ?? 'Meet the Team'}
-            </Link>
+            </OutlineButton>
           </div>
         </div>
       </section>
@@ -150,17 +139,14 @@ export default async function AboutPage() {
           {featureCards.map((card, i) => (
             <FadeUp key={card.title} delay={i * 120} className="gap-4 bg-white rounded-[16px] p-9 flex flex-col justify-start items-start hover-lift">
               <h3 className="font-sans text-ink text-[26px] leading-[1.2]">{card.title}</h3>
-              {card.body && Array.isArray(card.body) && card.body.length > 0 ? (
-                <BodyText value={card.body} scheme="light" className="flex-1" />
-              ) : (
-                <p className="font-nav text-ink text-[16px] leading-[1.3] flex-1">{typeof card.body === 'string' ? card.body : ''}</p>
-              )}
-              <Link
-                href={card.ctaHref ?? '/borrowers'}
-                className="self-start font-sans text-[14px] uppercase tracking-wide text-ink border border-ink rounded-[10px] px-6 py-3 hover:bg-ink/5 transition-colors"
-              >
+              <CmsBody
+                value={card.body}
+                className="flex-1"
+                fallbackClassName="font-nav text-ink text-[16px] leading-[1.3] flex-1"
+              />
+              <OutlineButton href={card.ctaHref ?? '/borrowers'} className="self-start text-[14px]">
                 {card.ctaLabel ?? 'Learn more'}
-              </Link>
+              </OutlineButton>
             </FadeUp>
           ))}
         </div>

@@ -9,6 +9,7 @@ import { getPostBySlug, getRelatedPosts, getPostSlugs } from '@/sanity/loaders';
 import { urlFor } from '@/sanity/image';
 import { articlePortableTextComponents } from '@/lib/portableTextComponents';
 import { formatDateMonthYear, formatDateShort } from '@/lib/dates';
+import { formatPostCategory } from '@/lib/posts';
 import type { PostSummary } from '@/sanity/types';
 import { IMAGE_SIZES } from '@/lib/imageSizes';
 import { buildMetadata } from '@/lib/seo';
@@ -55,7 +56,7 @@ export default async function InsightPost({ params }: Props) {
         <div className="pcg-inner flex flex-col items-center text-center">
           {post.category && (
             <p className="font-sans text-[14px] uppercase tracking-[1px] text-ink/80 mb-4">
-              {post.category.replace(/-/g, ' ')}
+              {formatPostCategory(post.category)}
             </p>
           )}
           <div className="max-w-[720px] flex flex-col items-center text-center">
@@ -141,7 +142,7 @@ export default async function InsightPost({ params }: Props) {
                   </div>
                   {item.category && (
                     <p className="font-sans text-[14px] uppercase tracking-[1px] text-ink/80 mb-1">
-                      {item.category.replace(/-/g, ' ')}
+                      {formatPostCategory(item.category)}
                     </p>
                   )}
                   <p className="font-sans text-ink text-[16px] leading-[1.2] mb-1">{item.title}</p>
