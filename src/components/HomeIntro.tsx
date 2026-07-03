@@ -78,7 +78,7 @@ export default function HomeIntro({
   const cards = featureCards && featureCards.length > 0 ? featureCards : defaultCards;
 
   return (
-    <section className="bg-cream-warm pt-10">
+    <section className="bg-cream pt-10">
 
       {/* Mobile: single column stacked. Desktop: two-column */}
       <div className="pcg-inner pcg-inner-vertical grid grid-cols-1 lg:grid-cols-2 gap-x-16 pb-10 lg:pb-0">
@@ -128,8 +128,11 @@ export default function HomeIntro({
       {/* Full-width key stats band — sits above "Creating Investment Opportunities" */}
       <StatsBanner heading={statsHeading} stats={stats} />
 
+      {/* Warm-cream lower area — Creating Investment Opportunities + feature cards */}
+      <div className="bg-cream-warm">
+
       {/* Desktop: borrowers image left, investors text right */}
-      <div className="hidden lg:grid pcg-inner pcg-inner-vertical pb-[80px] grid-cols-2 gap-x-16 items-start">
+      <div className="hidden lg:grid pcg-inner pcg-inner-vertical pb-16 grid-cols-2 gap-x-16 items-start">
         <div className="relative w-full aspect-[558/363] rounded-[17px] overflow-hidden">
           {borrowersImageSrc ? (
             <Image src={borrowersImageSrc} alt="Supporting NZ businesses" fill sizes={IMAGE_SIZES.halfViewport} className="object-cover" />
@@ -155,7 +158,7 @@ export default function HomeIntro({
       </div>
 
       {/* Three feature cards */}
-      <div className="grid pcg-inner pcg-inner-vertical !pb-20 grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid pcg-inner pcg-inner-vertical !pb-16 grid-cols-1 lg:grid-cols-3 gap-6">
         {cards.map((card, i) => (
           <FadeUp key={card.title ?? i} delay={i * 120} className="bg-white rounded-[16px] p-9 flex flex-col justify-start items-start hover-lift">
             <h3 className="font-sans text-[26px] leading-[1.2] text-ink mb-6">{card.title}</h3>
@@ -168,6 +171,8 @@ export default function HomeIntro({
           </FadeUp>
         ))}
       </div>
+
+      </div>{/* end warm-cream lower area */}
     </section>
   );
 }

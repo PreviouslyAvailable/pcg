@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { LENDING_LABELS, ROLE_LABELS } from '@/lib/contact';
+import { getContactRecipients } from '@/sanity/loaders';
 
 function isValidEmail(value: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
@@ -30,6 +31,10 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Please enter your name and a valid email address.' }, { status: 400 });
   }
 
+  if (!phone) {
+    return NextResponse.json({ error: 'Please enter your phone number.' }, { status: 400 });
+  }
+
   if (!roleType) {
     return NextResponse.json({ error: 'Please select whether you are a borrower, investor, or advisor.' }, { status: 400 });
   }
@@ -39,13 +44,33 @@ export async function POST(request: Request) {
   }
 
   const apiKey = process.env.RESEND_API_KEY;
-  const toEmail = process.env.CONTACT_TO_EMAIL;
   const fromEmail = process.env.CONTACT_FROM_EMAIL ?? 'PCG Website <onboarding@resend.dev>';
+
+  // Recipients are managed in the CMS (Contact Page → Contact Form Recipients),
+  // routed by the enquiry type. A role with no addresses falls back to the
+  // general list, then to the CONTACT_TO_EMAIL server setting.
+  const clean = (list?: string[]) =>
+    (list ?? [])
+      .map((entry) => entry?.trim())
+      .filter((entry): entry is string => Boolean(entry));
+
+  const byRole = (await getContactRecipients()) ?? {};
+  const roleRecipients = clean(byRole[roleType as keyof typeof byRole]);
+  const fallbackRecipients = clean(byRole.fallback);
+  const envRecipient = process.env.CONTACT_TO_EMAIL?.trim();
+
+  const recipients = roleRecipients.length > 0
+    ? roleRecipients
+    : fallbackRecipients.length > 0
+      ? fallbackRecipients
+      : envRecipient
+        ? [envRecipient]
+        : [];
 
   const message = [
     `Name: ${firstName} ${lastName}`,
     `Email: ${email}`,
-    phone ? `Phone: ${phone}` : null,
+    `Phone: ${phone}`,
     `Role: ${ROLE_LABELS[roleType] ?? roleType}`,
     roleType === 'borrower' ? `Lending requirement: ${LENDING_LABELS[lendingAmount] ?? lendingAmount}` : null,
     comments ? `\nComments:\n${comments}` : null,
@@ -53,8 +78,8 @@ export async function POST(request: Request) {
     .filter(Boolean)
     .join('\n');
 
-  if (!apiKey || !toEmail) {
-    console.error('[contact] Missing RESEND_API_KEY or CONTACT_TO_EMAIL');
+  if (!apiKey || recipients.length === 0) {
+    console.error('[contact] Missing RESEND_API_KEY or no recipients configured (CMS formRecipients / CONTACT_TO_EMAIL)');
     return NextResponse.json(
       { error: 'Contact form is not configured yet. Please email us directly.' },
       { status: 503 },
@@ -69,7 +94,7 @@ export async function POST(request: Request) {
     },
     body: JSON.stringify({
       from: fromEmail,
-      to: [toEmail],
+      to: recipients,
       reply_to: email,
       subject: `PCG contact enquiry — ${firstName} ${lastName} (${ROLE_LABELS[roleType] ?? roleType})`,
       text: message,

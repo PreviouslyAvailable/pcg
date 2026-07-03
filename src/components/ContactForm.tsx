@@ -16,13 +16,28 @@ import { LENDING_AMOUNT_OPTIONS } from '@/lib/contact';
 
 type FormStatus = 'idle' | 'submitting' | 'success' | 'error';
 
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 export default function ContactForm() {
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
   const [roleType, setRoleType] = useState('');
   const [lendingAmount, setLendingAmount] = useState('');
   const [status, setStatus] = useState<FormStatus>('idle');
   const [errorMessage, setErrorMessage] = useState('');
 
   const isBorrower = roleType === 'borrower';
+
+  const isFormValid =
+    firstName.trim() !== '' &&
+    lastName.trim() !== '' &&
+    phone.trim() !== '' &&
+    email.trim() !== '' &&
+    EMAIL_REGEX.test(email.trim()) &&
+    roleType !== '' &&
+    (roleType !== 'borrower' || lendingAmount !== '');
 
   function handleRoleChange(value: string) {
     setRoleType(value);
@@ -65,6 +80,10 @@ export default function ContactForm() {
 
       setStatus('success');
       form.reset();
+      setFirstName('');
+      setLastName('');
+      setEmail('');
+      setPhone('');
       setRoleType('');
       setLendingAmount('');
     } catch {
@@ -104,6 +123,8 @@ export default function ContactForm() {
             name="firstName"
             autoComplete="section-contact given-name"
             placeholder="First Name"
+            value={firstName}
+            onChange={(event) => setFirstName(event.target.value)}
             required
             className={fieldClass}
           />
@@ -116,6 +137,8 @@ export default function ContactForm() {
             name="lastName"
             autoComplete="section-contact family-name"
             placeholder="Last Name"
+            value={lastName}
+            onChange={(event) => setLastName(event.target.value)}
             required
             className={fieldClass}
           />
@@ -130,6 +153,8 @@ export default function ContactForm() {
           name="email"
           autoComplete="section-contact email"
           placeholder="Email Address"
+          value={email}
+          onChange={(event) => setEmail(event.target.value)}
           required
           className={fieldClass}
         />
@@ -144,6 +169,9 @@ export default function ContactForm() {
             name="phone"
             autoComplete="section-contact tel"
             placeholder="Phone"
+            value={phone}
+            onChange={(event) => setPhone(event.target.value)}
+            required
             className={fieldClass}
           />
         </div>
@@ -207,8 +235,9 @@ export default function ContactForm() {
       <div className="flex justify-end">
         <button
           type="submit"
-          disabled={status === 'submitting'}
-          className="bg-ink text-white font-sans text-[16px] uppercase px-8 py-3 rounded-[10px] hover:bg-ink/80 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+          disabled={status === 'submitting' || !isFormValid}
+          aria-disabled={status === 'submitting' || !isFormValid}
+          className="bg-ink text-white font-sans text-[16px] uppercase px-8 py-3 rounded-[10px] hover:bg-ink/80 transition-colors disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:bg-ink"
         >
           {status === 'submitting' ? 'Sending…' : 'Submit'}
         </button>

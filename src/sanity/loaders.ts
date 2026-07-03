@@ -9,6 +9,7 @@ import {
   borrowersPageQuery,
   investorsPageQuery,
   contactPageQuery,
+  contactRecipientsQuery,
   insightsPageQuery,
   postBySlugQuery,
   relatedPostsQuery,
@@ -62,6 +63,16 @@ export const getInvestorsPage = cache(() =>
 export const getContactPage = cache(() =>
   client.fetch<ContactPage>(contactPageQuery).catch(() => null),
 )
+
+export type ContactRecipients = {
+  borrower?: string[]
+  investor?: string[]
+  advisor?: string[]
+  fallback?: string[]
+}
+
+export const getContactRecipients = () =>
+  client.fetch<ContactRecipients | null>(contactRecipientsQuery).catch(() => null)
 
 export const getInsightsPage = cache(() =>
   client.fetch<InsightsPage>(insightsPageQuery).catch(() => null),

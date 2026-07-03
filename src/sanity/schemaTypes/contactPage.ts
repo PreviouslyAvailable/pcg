@@ -45,6 +45,46 @@ export const contactPage = defineType({
       ],
     }),
     defineField({
+      name: 'formRecipients',
+      title: 'Contact Form Recipients (by enquiry type)',
+      description:
+        'Route contact form enquiries to different inboxes based on the enquiry type selected in the form. Set one or more addresses per type. If a type has no addresses, the Fallback / general list is used. If that is also empty, the site falls back to the CONTACT_TO_EMAIL server setting.',
+      type: 'object',
+      options: { collapsible: true, collapsed: false },
+      fields: [
+        defineField({
+          name: 'borrower',
+          title: 'Borrower enquiries',
+          type: 'array',
+          of: [defineArrayMember({ type: 'string', validation: (Rule) => Rule.email() })],
+          validation: (Rule) => Rule.unique(),
+        }),
+        defineField({
+          name: 'investor',
+          title: 'Investor enquiries',
+          type: 'array',
+          of: [defineArrayMember({ type: 'string', validation: (Rule) => Rule.email() })],
+          validation: (Rule) => Rule.unique(),
+        }),
+        defineField({
+          name: 'advisor',
+          title: 'Professional Advisor enquiries',
+          type: 'array',
+          of: [defineArrayMember({ type: 'string', validation: (Rule) => Rule.email() })],
+          validation: (Rule) => Rule.unique(),
+        }),
+        defineField({
+          name: 'fallback',
+          title: 'Fallback / general',
+          description:
+            'Used when the selected enquiry type has no specific recipients set above. Also acts as a catch-all for general enquiries.',
+          type: 'array',
+          of: [defineArrayMember({ type: 'string', validation: (Rule) => Rule.email() })],
+          validation: (Rule) => Rule.unique(),
+        }),
+      ],
+    }),
+    defineField({
       name: 'offices',
       title: 'Offices',
       type: 'array',
