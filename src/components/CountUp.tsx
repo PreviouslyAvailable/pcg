@@ -27,7 +27,7 @@ function easeOutExpo(t: number) {
 
 export default function CountUp({
   value = '',
-  duration = 3200,
+  duration = 2400,
   threshold = 0.4,
   className,
   animate = true,
