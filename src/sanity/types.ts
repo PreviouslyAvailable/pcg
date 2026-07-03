@@ -108,6 +108,14 @@ export interface HomePage {
       ctaHref?: string
     }>
   }
+  statsSection?: {
+    heading?: string
+    stats?: Array<{
+      value?: string
+      label?: string
+      description?: string
+    }>
+  }
   investorsSection?: {
     heading?: string
     headingMobile?: string

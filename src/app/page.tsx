@@ -82,6 +82,8 @@ export default async function Home() {
               : '/images/investors-right.jpg'
           }
           featureCards={data?.introSection?.featureCards}
+          statsHeading={data?.statsSection?.heading}
+          stats={data?.statsSection?.stats}
         />
         <InvestorsSection
           imageSrc={

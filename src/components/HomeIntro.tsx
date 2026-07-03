@@ -2,7 +2,14 @@ import Image from 'next/image';
 import Link from 'next/link';
 import FadeUp from './FadeUp';
 import BodyText from './BodyText';
+import StatsBanner from './StatsBanner';
 import { IMAGE_SIZES } from '@/lib/imageSizes';
+
+interface Stat {
+  value?: string;
+  label?: string;
+  description?: string;
+}
 
 interface FeatureCard {
   title?: string;
@@ -27,6 +34,8 @@ interface HomeIntroProps {
   investorsCtaLabel?: string;
   investorsCtaHref?: string;
   featureCards?: FeatureCard[];
+  statsHeading?: string;
+  stats?: Stat[];
 }
 
 const defaultCards: FeatureCard[] = [
@@ -63,6 +72,8 @@ export default function HomeIntro({
   investorsCtaLabel,
   investorsCtaHref,
   featureCards,
+  statsHeading,
+  stats,
 }: HomeIntroProps) {
   const cards = featureCards && featureCards.length > 0 ? featureCards : defaultCards;
 
@@ -113,6 +124,9 @@ export default function HomeIntro({
           )}
         </div>
       </div>
+
+      {/* Full-width key stats band — sits above "Creating Investment Opportunities" */}
+      <StatsBanner heading={statsHeading} stats={stats} />
 
       {/* Desktop: borrowers image left, investors text right */}
       <div className="hidden lg:grid pcg-inner pcg-inner-vertical pb-[80px] grid-cols-2 gap-x-16 items-start">

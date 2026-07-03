@@ -19,7 +19,7 @@ export default function Footer({
     <footer className="bg-cream">
       <div className="pt-12 lg:pt-20 pb-8 lg:pb-12 px-4 lg:px-[45px] max-w-[1680px] mx-auto">
       <div className="mb-8">
-        <Logo variant="full" color="black" className="h-14 w-auto" />
+        <Logo color="black" className="h-14 w-auto" />
         {footerTagline ? (
           <p className="font-nav text-ink/70 text-[15px] mt-4 max-w-[480px]">{footerTagline}</p>
         ) : null}

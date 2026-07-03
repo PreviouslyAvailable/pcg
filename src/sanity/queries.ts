@@ -82,6 +82,10 @@ export const homePageQuery = groq`
       },
       featureCards[] { title, body, ctaLabel, ctaHref }
     },
+    statsSection {
+      heading,
+      stats[] { value, label, description }
+    },
     howDifferentSection {
       heading,
       items[] {

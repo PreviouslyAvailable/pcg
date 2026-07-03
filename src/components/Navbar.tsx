@@ -50,15 +50,18 @@ export default function Navbar({ variant = 'dark', navLinks }: NavbarProps) {
   const borderColor = variant === 'dark' ? 'border-gold' : 'border-ink';
 
   return (
-    <header className="absolute top-0 left-0 right-0 z-50">
+    <header
+      className={`absolute top-0 left-0 right-0 z-50 ${
+        menuOpen ? 'bg-dark/95 backdrop-blur-sm' : ''
+      }`}
+    >
       <nav className="py-7" aria-label="Main">
         <div className="flex items-center justify-between px-4 lg:px-[40px] max-w-[1680px] mx-auto">
         {/* Left: Logo + Nav links */}
         <div className="flex items-center gap-8 lg:gap-20">
         <Link href="/" aria-label="Private Capital Group">
           <Logo
-            variant="secondary"
-            color={variant === 'dark' ? 'light' : 'black'}
+            color={variant === 'dark' ? 'cream' : 'black'}
             className="h-10 w-auto"
             priority
           />
@@ -108,7 +111,7 @@ export default function Navbar({ variant = 'dark', navLinks }: NavbarProps) {
 
       {/* Mobile menu */}
       {menuOpen && (
-        <div id={menuId} className="lg:hidden bg-dark/95 backdrop-blur-sm py-8">
+        <div id={menuId} className="lg:hidden pb-8">
           <div className="flex flex-col gap-6 px-4 lg:px-[60px]">
           {links.map((link) => (
             <Link

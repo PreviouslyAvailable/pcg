@@ -96,6 +96,56 @@ export const homePage = defineType({
       ],
     }),
     defineField({
+      name: 'statsSection',
+      title: 'Key Stats Band',
+      description: 'Full-width band of up to 4 key statistics, shown between the "What We Do" and "Investors" sections.',
+      type: 'object',
+      fields: [
+        defineField({
+          name: 'heading',
+          title: 'Heading (optional)',
+          type: 'string',
+          description: 'Optional heading shown above the stats.',
+        }),
+        defineField({
+          name: 'stats',
+          title: 'Stats',
+          type: 'array',
+          validation: (Rule) => Rule.max(4),
+          of: [
+            defineArrayMember({
+              type: 'object',
+              fields: [
+                defineField({
+                  name: 'value',
+                  title: 'Stat Value',
+                  type: 'string',
+                  description: 'The headline figure, e.g. "$500M" or "20+"',
+                  validation: (Rule) => Rule.required(),
+                }),
+                defineField({
+                  name: 'label',
+                  title: 'Label',
+                  type: 'string',
+                  description: 'Short label under the value, e.g. "Assets under management"',
+                  validation: (Rule) => Rule.required(),
+                }),
+                defineField({
+                  name: 'description',
+                  title: 'Description (optional)',
+                  type: 'string',
+                  description: 'Optional supporting line of text.',
+                }),
+              ],
+              preview: {
+                select: { title: 'value', subtitle: 'label' },
+              },
+            }),
+          ],
+        }),
+      ],
+    }),
+    defineField({
       name: 'caseStudy',
       title: 'Case Study',
       type: 'object',

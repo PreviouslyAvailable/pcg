@@ -1,54 +1,35 @@
 import Image from 'next/image';
 
 const LOGO_ASSETS = {
-  full: {
-    light: '/logos/logo-full-light.png',
-    teal: '/logos/logo-full-teal.png',
-  },
-  secondary: {
-    light: '/logos/logo-secondary-light.png',
-    teal: '/logos/logo-secondary-teal.png',
-  },
+  black: '/logos/pcg-black.png',
+  white: '/logos/pcg-white.png',
+  cream: '/logos/pcg-cream.png',
+  brown: '/logos/pcg-brown.png',
 } as const;
 
-type LogoVariant = keyof typeof LOGO_ASSETS;
-type LogoColor = 'black' | 'light' | 'teal';
+type LogoColor = keyof typeof LOGO_ASSETS;
 
 type LogoProps = {
-  variant?: LogoVariant;
   color?: LogoColor;
   className?: string;
   priority?: boolean;
 };
 
-const SIZES = {
-  full: { width: 656, height: 234 },
-  secondary: { width: 698, height: 210 },
-} as const;
+const LOGO_WIDTH = 1024;
+const LOGO_HEIGHT = 481;
 
 export default function Logo({
-  variant = 'secondary',
   color = 'black',
   className = 'h-10 w-auto',
   priority = false,
 }: LogoProps) {
-  const src =
-    color === 'teal'
-      ? LOGO_ASSETS[variant].teal
-      : LOGO_ASSETS[variant].light;
-
-  const colorClass =
-    color === 'black' ? 'brightness-0' : color === 'light' ? '' : '';
-
-  const { width, height } = SIZES[variant];
-
   return (
     <Image
-      src={src}
+      src={LOGO_ASSETS[color]}
       alt="Private Capital Group"
-      width={width}
-      height={height}
-      className={[className, colorClass].filter(Boolean).join(' ')}
+      width={LOGO_WIDTH}
+      height={LOGO_HEIGHT}
+      className={className}
       priority={priority}
     />
   );
