@@ -8,6 +8,7 @@ type NewsletterFormProps = {
   className?: string;
   inputClassName?: string;
   buttonClassName?: string;
+  hintClassName?: string;
   inputId?: string;
   autoCompleteSection?: string;
 };
@@ -18,6 +19,7 @@ export default function NewsletterForm({
   className = 'flex flex-col gap-2 max-w-[437px] mb-[20px]',
   inputClassName = 'w-full bg-white rounded-[6px] px-4 py-3 font-nav text-[16px] text-ink placeholder:text-ink/40 outline-none border border-black/10 focus:border-black/30 transition-colors',
   buttonClassName = 'bg-ink text-white font-sans text-[14px] uppercase rounded-[6px] px-6 py-3 hover:bg-ink/80 transition-colors disabled:opacity-60 disabled:cursor-not-allowed',
+  hintClassName = 'font-nav text-[13px] text-ink/50',
   inputId = 'newsletter-email',
   autoCompleteSection = 'newsletter',
 }: NewsletterFormProps) {
@@ -91,7 +93,7 @@ export default function NewsletterForm({
         type="text"
         name="name"
         autoComplete={`section-${autoCompleteSection} name`}
-        placeholder="Name"
+        placeholder="Name *"
         value={name}
         onChange={(event) => {
           setName(event.target.value);
@@ -106,7 +108,7 @@ export default function NewsletterForm({
           type="email"
           name="email"
           autoComplete={`section-${autoCompleteSection} email`}
-          placeholder="Email Address"
+          placeholder="Email Address *"
           value={email}
           onChange={(event) => {
             setEmail(event.target.value);
@@ -124,6 +126,7 @@ export default function NewsletterForm({
           {errorMessage}
         </p>
       ) : null}
+      <p className={hintClassName}>* Required field</p>
     </form>
   );
 }
