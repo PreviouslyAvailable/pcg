@@ -8,9 +8,9 @@ export default async function FooterServer() {
   return (
     <Footer
       navLinks={buildNavLinks(labels, settings)}
-      newsletterHeading={settings?.newsletterHeading}
-      newsletterBody={settings?.newsletterBody}
-      footerTagline={settings?.footerTagline}
+      newsletterHeading={settings?.newsletterHeading ?? undefined}
+      newsletterBody={settings?.newsletterBody ?? undefined}
+      footerTagline={settings?.footerTagline ?? undefined}
     />
   );
 }

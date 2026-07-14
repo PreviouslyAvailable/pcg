@@ -12,13 +12,20 @@ interface FooterProps {
   footerTagline?: string;
 }
 
+const DEFAULT_NEWSLETTER_HEADING =
+  'Subscribe to our mailing list to receive the latest updates.';
+
 export default function Footer({
   navLinks,
-  newsletterHeading = 'Subscribe to our mailing list to receive the latest updates.',
+  newsletterHeading,
   newsletterBody,
   footerTagline,
 }: FooterProps) {
   const year = new Date().getFullYear();
+  const heading =
+    typeof newsletterHeading === 'string' && newsletterHeading.trim()
+      ? newsletterHeading.trim()
+      : DEFAULT_NEWSLETTER_HEADING;
   const links = navLinks
     .map((link) => {
       const href = sanitizeHref(link.href);
@@ -40,7 +47,7 @@ export default function Footer({
       <div className="border-t border-black/15 pt-10 mb-10">
         <p className="font-sans text-[12px] uppercase tracking-[1px] text-ink/80 mb-4">Newsletter</p>
         <h3 className="font-serif font-light text-ink text-[38px] leading-[1.15] tracking-[-0.48px] mb-6 lg:mb-8 max-w-[437px]">
-          {newsletterHeading}
+          {heading}
         </h3>
         {newsletterBody ? (
           <p className="font-nav text-ink/70 text-[15px] leading-[1.4] mb-6 max-w-[437px]">{newsletterBody}</p>
