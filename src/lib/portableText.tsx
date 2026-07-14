@@ -1,4 +1,5 @@
 import type { PortableTextMarkComponentProps } from '@portabletext/react';
+import { isExternalHref, sanitizeHref } from '@/lib/urls';
 
 type LinkMark = { _type?: string; href?: string };
 
@@ -6,10 +7,10 @@ export function PortableTextLink({
   value,
   children,
 }: PortableTextMarkComponentProps) {
-  const href = (value as LinkMark | undefined)?.href?.trim();
+  const href = sanitizeHref((value as LinkMark | undefined)?.href);
   if (!href) return <span>{children}</span>;
 
-  const external = href.startsWith('http');
+  const external = isExternalHref(href);
   return (
     <a
       href={href}

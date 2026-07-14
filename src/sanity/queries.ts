@@ -230,7 +230,6 @@ export const contactPageQuery = groq`
     pageTitle,
     ${seoProjection},
     hero { heading, subtext },
-    formRecipients { borrower, investor, advisor, fallback },
     offices[] {
       name,
       addressLines,
@@ -241,10 +240,6 @@ export const contactPageQuery = groq`
       image ${imageProjection}
     }
   }
-`
-
-export const contactRecipientsQuery = groq`
-  *[_type == "contactPage"][0].formRecipients { borrower, investor, advisor, fallback }
 `
 
 export const insightsPageQuery = groq`

@@ -121,6 +121,9 @@ export default defineConfig({
               ),
           ]),
     }),
-    visionTool({ defaultApiVersion: apiVersion }),
+    // Vision (arbitrary GROQ) only in local development — not on the public /studio route.
+    ...(process.env.NODE_ENV === 'development'
+      ? [visionTool({ defaultApiVersion: apiVersion })]
+      : []),
   ],
 })

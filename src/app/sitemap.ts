@@ -10,8 +10,7 @@ const staticRoutes = [
   '/contact',
   '/news',
   '/case-studies',
-  '/privacy',
-  '/terms',
+  // /privacy and /terms are placeholders (noIndex) — omit until final copy ships
 ];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {

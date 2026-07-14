@@ -51,11 +51,12 @@ export const contactPage = defineType({
     }),
     defineField({
       name: 'formRecipients',
-      title: 'Contact Form Recipients (by enquiry type)',
+      title: 'Contact Form Recipients (deprecated)',
       description:
-        'Route contact form enquiries to different inboxes based on the enquiry type selected in the form. Set one or more addresses per type. If a type has no addresses, the Fallback / general list is used. If that is also empty, the site falls back to the CONTACT_TO_EMAIL server setting.',
+        'DEPRECATED — routing emails are no longer read from the CMS (they were publicly visible via the Sanity API). Configure CONTACT_TO_BORROWER / CONTACT_TO_INVESTOR / CONTACT_TO_ADVISOR / CONTACT_TO_FALLBACK in Vercel instead. Leave these fields empty.',
       type: 'object',
-      options: { collapsible: true, collapsed: false },
+      hidden: true,
+      options: { collapsible: true, collapsed: true },
       fields: [
         defineField({
           name: 'borrower',

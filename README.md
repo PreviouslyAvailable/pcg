@@ -1,54 +1,60 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Private Capital Group website
 
-## Getting Started
+Next.js 16 (App Router) marketing site for [Private Capital Group](https://www.privatecapitalgroup.co.nz), with an embedded Sanity Studio at `/studio`, Resend contact form, and Campaign Monitor newsletter signup. Hosted on Vercel.
 
-First, run the development server:
+## Local development
 
 ```bash
+npm install
+cp .env.example .env.local   # fill in values (see below)
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Open [http://localhost:3000](http://localhost:3000). Studio: [http://localhost:3000/studio](http://localhost:3000/studio).
 
 ## Environment variables
 
-Copy `.env.example` to `.env.local` for local development:
+Set these in `.env.local` and in the Vercel project (Production + Preview):
+
+| Variable | Purpose |
+| --- | --- |
+| `NEXT_PUBLIC_SANITY_PROJECT_ID` | Sanity project (`vmnu14pm`) |
+| `NEXT_PUBLIC_SANITY_DATASET` | Usually `production` |
+| `NEXT_PUBLIC_SANITY_API_VERSION` | e.g. `2024-01-01` |
+| `NEXT_PUBLIC_SITE_URL` | Canonical origin, e.g. `https://www.privatecapitalgroup.co.nz` |
+| `RESEND_API_KEY` | Contact form sending ([Resend](https://resend.com)) |
+| `CONTACT_FROM_EMAIL` | Verified sender, e.g. `PCG Website <noreply@privatecapitalgroup.co.nz>` |
+| `CONTACT_TO_BORROWER` | Inbox(es) for borrower enquiries (comma-separated OK) |
+| `CONTACT_TO_INVESTOR` | Inbox(es) for investor enquiries |
+| `CONTACT_TO_ADVISOR` | Inbox(es) for advisor enquiries |
+| `CONTACT_TO_FALLBACK` | Used when a role list is empty |
+| `CONTACT_TO_EMAIL` | Optional legacy single fallback |
+| `CAMPAIGN_MONITOR_API_KEY` | Newsletter API key |
+| `CAMPAIGN_MONITOR_LIST_ID` | Newsletter list ID |
+
+Contact routing emails are **not** stored in Sanity (they were publicly readable via the CDN). Configure them only via the `CONTACT_TO_*` env vars above.
+
+## Deploy
+
+Push to `main` on the linked GitHub repo, or:
 
 ```bash
-cp .env.example .env.local
+npx vercel --prod
 ```
 
-For [Vercel](https://vercel.com) deployments, set the same variables on the project (Production, Preview, and Development):
+Project: `pcg` under Previously Available’s Vercel team.
 
-| Variable | Example |
-| --- | --- |
-| `NEXT_PUBLIC_SANITY_PROJECT_ID` | `vmnu14pm` |
-| `NEXT_PUBLIC_SANITY_DATASET` | `production` |
-| `NEXT_PUBLIC_SANITY_API_VERSION` | `2024-01-01` |
+## Smoke tests after deploy
 
-Builds fail during static generation (for example on `/case-studies`) if these are missing or if the dataset name is invalid.
+1. Homepage loads on the production domain; `/about`, `/borrowers`, `/investors`, `/news`, `/contact` render CMS content.
+2. Contact form: submit once as borrower / investor / advisor → Resend delivery to the matching inbox.
+3. Newsletter: name + email → Campaign Monitor subscriber created (or “already subscribed” treated as success).
+4. `/studio` loads; only authenticated Sanity users can edit. Vision tool is disabled outside local `NODE_ENV=development`.
+5. Confirm `robots.txt` disallows `/studio` and sitemap omits placeholder Privacy/Terms until final legal copy lands.
+
+## Notes for handover
+
+- **Privacy / Terms** pages are placeholders with `noIndex` until PCG provide final copy.
+- **Season Serif** still uses trial font files in `public/fonts/` — replace with licensed files before treating fonts as finished.
+- Legacy redirects: `/insights` → `/news`, `/strategies` → `/investors`, `/our-people` `/people` `/team` → `/about#team`, `/about-us` → `/about`, `/funds` → `/investors`.
+- Prefer Vercel Firewall rate limits in front of `/api/contact` and `/api/newsletter` for production hardening; an in-process limiter is also in place as a soft guard.

@@ -1,9 +1,44 @@
 import { NextResponse } from 'next/server';
 import { LENDING_LABELS, ROLE_LABELS } from '@/lib/contact';
 import { isValidEmail } from '@/lib/validation';
-import { getContactRecipients } from '@/sanity/loaders';
+import { clientIp, rateLimit } from '@/lib/rateLimit';
+
+const ALLOWED_ROLES = new Set(['borrower', 'investor', 'advisor']);
+
+function parseRecipients(value?: string): string[] {
+  if (!value?.trim()) return [];
+  return value
+    .split(/[,;]+/)
+    .map((entry) => entry.trim())
+    .filter((entry) => entry.length > 0 && isValidEmail(entry));
+}
+
+function recipientsForRole(roleType: string): string[] {
+  const byRole: Record<string, string | undefined> = {
+    borrower: process.env.CONTACT_TO_BORROWER,
+    investor: process.env.CONTACT_TO_INVESTOR,
+    advisor: process.env.CONTACT_TO_ADVISOR,
+  };
+
+  const roleList = parseRecipients(byRole[roleType]);
+  if (roleList.length > 0) return roleList;
+
+  const fallback = parseRecipients(process.env.CONTACT_TO_FALLBACK);
+  if (fallback.length > 0) return fallback;
+
+  // Legacy single fallback
+  return parseRecipients(process.env.CONTACT_TO_EMAIL);
+}
 
 export async function POST(request: Request) {
+  const limit = rateLimit(`contact:${clientIp(request)}`, { limit: 8, windowMs: 60_000 });
+  if (!limit.ok) {
+    return NextResponse.json(
+      { error: 'Too many requests. Please try again shortly.' },
+      { status: 429, headers: { 'Retry-After': String(limit.retryAfterSec) } },
+    );
+  }
+
   let body: Record<string, string>;
 
   try {
@@ -16,13 +51,13 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: true });
   }
 
-  const firstName = body.firstName?.trim() ?? '';
-  const lastName = body.lastName?.trim() ?? '';
-  const email = body.email?.trim() ?? '';
-  const phone = body.phone?.trim() ?? '';
-  const roleType = body.roleType?.trim() ?? '';
-  const lendingAmount = body.lendingAmount?.trim() ?? '';
-  const comments = body.comments?.trim() ?? '';
+  const firstName = (body.firstName?.trim() ?? '').slice(0, 100);
+  const lastName = (body.lastName?.trim() ?? '').slice(0, 100);
+  const email = (body.email?.trim() ?? '').slice(0, 200);
+  const phone = (body.phone?.trim() ?? '').slice(0, 40);
+  const roleType = (body.roleType?.trim() ?? '').slice(0, 40);
+  const lendingAmount = (body.lendingAmount?.trim() ?? '').slice(0, 40);
+  const comments = (body.comments?.trim() ?? '').slice(0, 5000);
 
   if (!firstName || !lastName || !email || !isValidEmail(email)) {
     return NextResponse.json({ error: 'Please enter your name and a valid email address.' }, { status: 400 });
@@ -32,7 +67,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Please enter your phone number.' }, { status: 400 });
   }
 
-  if (!roleType) {
+  if (!ALLOWED_ROLES.has(roleType)) {
     return NextResponse.json({ error: 'Please select whether you are a borrower, investor, or advisor.' }, { status: 400 });
   }
 
@@ -41,28 +76,16 @@ export async function POST(request: Request) {
   }
 
   const apiKey = process.env.RESEND_API_KEY;
-  const fromEmail = process.env.CONTACT_FROM_EMAIL ?? 'PCG Website <onboarding@resend.dev>';
+  const fromEmail = process.env.CONTACT_FROM_EMAIL;
+  if (!fromEmail?.trim()) {
+    console.error('[contact] CONTACT_FROM_EMAIL is not set');
+    return NextResponse.json(
+      { error: 'Contact form is not configured yet. Please email us directly.' },
+      { status: 503 },
+    );
+  }
 
-  // Recipients are managed in the CMS (Contact Page → Contact Form Recipients),
-  // routed by the enquiry type. A role with no addresses falls back to the
-  // general list, then to the CONTACT_TO_EMAIL server setting.
-  const clean = (list?: string[]) =>
-    (list ?? [])
-      .map((entry) => entry?.trim())
-      .filter((entry): entry is string => Boolean(entry));
-
-  const byRole = (await getContactRecipients()) ?? {};
-  const roleRecipients = clean(byRole[roleType as keyof typeof byRole]);
-  const fallbackRecipients = clean(byRole.fallback);
-  const envRecipient = process.env.CONTACT_TO_EMAIL?.trim();
-
-  const recipients = roleRecipients.length > 0
-    ? roleRecipients
-    : fallbackRecipients.length > 0
-      ? fallbackRecipients
-      : envRecipient
-        ? [envRecipient]
-        : [];
+  const recipients = recipientsForRole(roleType);
 
   const message = [
     `Name: ${firstName} ${lastName}`,
@@ -76,7 +99,7 @@ export async function POST(request: Request) {
     .join('\n');
 
   if (!apiKey || recipients.length === 0) {
-    console.error('[contact] Missing RESEND_API_KEY or no recipients configured (CMS formRecipients / CONTACT_TO_EMAIL)');
+    console.error('[contact] Missing RESEND_API_KEY or no recipients configured (CONTACT_TO_* env)');
     return NextResponse.json(
       { error: 'Contact form is not configured yet. Please email us directly.' },
       { status: 503 },

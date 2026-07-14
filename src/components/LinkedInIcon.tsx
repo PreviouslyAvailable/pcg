@@ -2,6 +2,8 @@
 
 import { useId } from 'react';
 
+const LINKEDIN_HREF_RE = /^https:\/\/([\w-]+\.)?linkedin\.com(\/|$)/i;
+
 interface LinkedInIconProps {
   href: string;
   name?: string;
@@ -19,10 +21,13 @@ export default function LinkedInIcon({
 }: LinkedInIconProps) {
   const clipId = useId();
   const dimension = size === 'sm' ? 32 : 41;
+  const safeHref = LINKEDIN_HREF_RE.test(href.trim())
+    ? href.trim()
+    : 'https://www.linkedin.com/company/private-capital-group-nz/';
 
   return (
     <a
-      href={href}
+      href={safeHref}
       target="_blank"
       rel="noopener noreferrer"
       className={`inline-flex items-center justify-center rounded-full bg-ink hover:bg-ink/80 transition-colors shrink-0 ${size === 'sm' ? 'size-8' : 'size-[41px]'} ${className}`}

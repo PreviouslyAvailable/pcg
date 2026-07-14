@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { isExternalHref, sanitizeHref } from '@/lib/urls';
 
 interface CtaBannerProps {
   heading?: string;
@@ -15,6 +16,7 @@ export default function CtaBanner({
   background = 'cream',
   imageSrc,
 }: CtaBannerProps) {
+  const safeHref = sanitizeHref(ctaHref) ?? '/contact';
   const isImageBg = background === 'image' && imageSrc;
   const isTeal = background === 'teal';
   const isDark = background === 'dark';
@@ -45,16 +47,31 @@ export default function CtaBanner({
         >
           {heading}
         </h2>
-        <Link
-          href={ctaHref}
-          className={`font-sans text-[16px] uppercase tracking-wide px-8 py-3 rounded-[10px] border transition-colors ${
-            isLight
-              ? 'border-ink text-ink hover:bg-ink/5'
-              : 'border-cream text-cream hover:bg-cream/10'
-          }`}
-        >
-          {ctaLabel}
-        </Link>
+        {isExternalHref(safeHref) ? (
+          <a
+            href={safeHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`font-sans text-[16px] uppercase tracking-wide px-8 py-3 rounded-[10px] border transition-colors ${
+              isLight
+                ? 'border-ink text-ink hover:bg-ink/5'
+                : 'border-cream text-cream hover:bg-cream/10'
+            }`}
+          >
+            {ctaLabel}
+          </a>
+        ) : (
+          <Link
+            href={safeHref}
+            className={`font-sans text-[16px] uppercase tracking-wide px-8 py-3 rounded-[10px] border transition-colors ${
+              isLight
+                ? 'border-ink text-ink hover:bg-ink/5'
+                : 'border-cream text-cream hover:bg-cream/10'
+            }`}
+          >
+            {ctaLabel}
+          </Link>
+        )}
       </div>
       </div>
     </section>

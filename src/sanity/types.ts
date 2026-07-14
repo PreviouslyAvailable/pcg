@@ -273,12 +273,6 @@ export interface ContactPage {
     heading?: string
     subtext?: string
   }
-  formRecipients?: {
-    borrower?: string[]
-    investor?: string[]
-    advisor?: string[]
-    fallback?: string[]
-  }
   offices?: Array<{
     name?: string
     addressLines?: string[]

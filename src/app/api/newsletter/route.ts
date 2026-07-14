@@ -1,7 +1,16 @@
 import { NextResponse } from 'next/server';
 import { isValidEmail } from '@/lib/validation';
+import { clientIp, rateLimit } from '@/lib/rateLimit';
 
 export async function POST(request: Request) {
+  const limit = rateLimit(`newsletter:${clientIp(request)}`, { limit: 8, windowMs: 60_000 });
+  if (!limit.ok) {
+    return NextResponse.json(
+      { error: 'Too many requests. Please try again shortly.' },
+      { status: 429, headers: { 'Retry-After': String(limit.retryAfterSec) } },
+    );
+  }
+
   let body: Record<string, string>;
 
   try {
@@ -15,8 +24,8 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: true });
   }
 
-  const name = body.name?.trim() ?? '';
-  const email = body.email?.trim() ?? '';
+  const name = (body.name?.trim() ?? '').slice(0, 100);
+  const email = (body.email?.trim() ?? '').slice(0, 200);
 
   if (!name) {
     return NextResponse.json({ error: 'Please enter your name.' }, { status: 400 });

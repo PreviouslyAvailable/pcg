@@ -4,6 +4,7 @@ import Link from 'next/link';
 import FadeUp from './FadeUp';
 import BodyText from './BodyText';
 import { IMAGE_SIZES } from '@/lib/imageSizes';
+import { sanitizeHref } from '@/lib/urls';
 
 interface InvestorsSectionProps {
   imageSrc?: string;
@@ -62,7 +63,7 @@ export default function InvestorsSection({
         </FadeUp>
         <FadeUp delay={200}>
         <Link
-          href={ctaHref || '/investors'}
+          href={sanitizeHref(ctaHref) ?? '/investors'}
           className="inline-flex font-sans text-[16px] uppercase tracking-wide text-white border border-white rounded-[10px] px-6 py-3 hover:bg-white/10 transition-colors"
         >
           <span className="lg:hidden">{ctaLabelMobile ?? 'Investments'}</span>

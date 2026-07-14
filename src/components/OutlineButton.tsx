@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { isExternalHref, sanitizeHref } from '@/lib/urls';
 
 interface OutlineButtonProps {
   href: string;
@@ -12,8 +13,19 @@ const BASE_CLASS =
 
 /** Bordered, uppercase link button used across marketing pages. */
 export default function OutlineButton({ href, children, className = 'inline-flex items-center text-[14px]' }: OutlineButtonProps) {
+  const safeHref = sanitizeHref(href) ?? '/';
+  const classes = `${BASE_CLASS} ${className}`;
+
+  if (isExternalHref(safeHref)) {
+    return (
+      <a href={safeHref} target="_blank" rel="noopener noreferrer" className={classes}>
+        {children}
+      </a>
+    );
+  }
+
   return (
-    <Link href={href} className={`${BASE_CLASS} ${className}`}>
+    <Link href={safeHref} className={classes}>
       {children}
     </Link>
   );

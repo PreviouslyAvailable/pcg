@@ -9,6 +9,11 @@ const nextConfig: NextConfig = {
       { source: '/insights', destination: '/news', permanent: true },
       { source: '/insights/:slug', destination: '/news/:slug', permanent: true },
       { source: '/strategies', destination: '/investors', permanent: true },
+      { source: '/our-people', destination: '/about#team', permanent: true },
+      { source: '/people', destination: '/about#team', permanent: true },
+      { source: '/team', destination: '/about#team', permanent: true },
+      { source: '/about-us', destination: '/about', permanent: true },
+      { source: '/funds', destination: '/investors', permanent: true },
     ];
   },
   images: {
