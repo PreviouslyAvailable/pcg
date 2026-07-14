@@ -21,9 +21,9 @@ const honeypotClass =
   'absolute left-[-10000px] top-auto h-px w-px overflow-hidden whitespace-nowrap';
 
 export default function NewsletterForm({
-  className = 'flex flex-col gap-2 max-w-[437px] mb-[20px]',
+  className = 'max-w-[437px] mb-[20px]',
   inputClassName = 'w-full bg-white rounded-[6px] px-4 py-3 font-nav text-[16px] text-ink placeholder:text-ink/40 outline-none border border-black/10 focus:border-black/30 transition-colors',
-  buttonClassName = 'bg-ink text-white font-sans text-[14px] uppercase rounded-[6px] px-6 py-3 hover:bg-ink/80 transition-colors disabled:opacity-60 disabled:cursor-not-allowed',
+  buttonClassName = 'w-full bg-ink text-white font-sans text-[14px] uppercase rounded-[6px] px-6 py-3 hover:bg-ink/80 transition-colors disabled:opacity-60 disabled:cursor-not-allowed',
   hintClassName = 'font-nav text-[13px] text-ink/50',
   onTeal = false,
   inputId = 'newsletter-email',
@@ -47,6 +47,9 @@ export default function NewsletterForm({
   const consentClass = onTeal
     ? 'font-nav text-[13px] text-white/80'
     : 'font-nav text-[13px] text-ink/70';
+  const checkboxClass = onTeal
+    ? 'size-4 shrink-0 rounded border-white/40 bg-white/10 accent-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white'
+    : 'size-4 shrink-0 rounded border-black/25 accent-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink/40';
 
   function clearError() {
     if (status === 'error') {
@@ -105,7 +108,12 @@ export default function NewsletterForm({
   }
 
   return (
-    <form className={`relative ${className}`} onSubmit={handleSubmit} aria-label="Newsletter signup" noValidate>
+    <form
+      className={`relative flex flex-col gap-3 ${className}`}
+      onSubmit={handleSubmit}
+      aria-label="Newsletter signup"
+      noValidate
+    >
       <input
         type="text"
         name="website"
@@ -114,27 +122,29 @@ export default function NewsletterForm({
         className={honeypotClass}
         aria-hidden="true"
       />
-      <div>
-        <label htmlFor={`${inputId}-name`} className="sr-only">
-          Name
-        </label>
-        <AutocompleteInput
-          id={`${inputId}-name`}
-          type="text"
-          name="name"
-          autoComplete={`section-${autoCompleteSection} name`}
-          placeholder="Name *"
-          value={name}
-          onChange={(event) => {
-            setName(event.target.value);
-            clearError();
-          }}
-          required
-          className={inputClassName}
-        />
-      </div>
-      <div className="flex flex-col sm:flex-row gap-2">
-        <div className="w-full sm:flex-1">
+
+      <div className="flex flex-col gap-3">
+        <div>
+          <label htmlFor={`${inputId}-name`} className="sr-only">
+            Name
+          </label>
+          <AutocompleteInput
+            id={`${inputId}-name`}
+            type="text"
+            name="name"
+            autoComplete={`section-${autoCompleteSection} name`}
+            placeholder="Name *"
+            value={name}
+            onChange={(event) => {
+              setName(event.target.value);
+              clearError();
+            }}
+            required
+            className={inputClassName}
+          />
+        </div>
+
+        <div>
           <label htmlFor={inputId} className="sr-only">
             Email address
           </label>
@@ -153,11 +163,9 @@ export default function NewsletterForm({
             className={inputClassName}
           />
         </div>
-        <button type="submit" disabled={!canSubmit} className={buttonClassName}>
-          {status === 'submitting' ? 'Subscribing…' : 'Subscribe'}
-        </button>
       </div>
-      <label className={`flex items-start gap-2 ${consentClass}`}>
+
+      <label className={`flex items-center gap-3 min-h-11 cursor-pointer select-none ${consentClass}`}>
         <input
           type="checkbox"
           name="consent"
@@ -167,15 +175,21 @@ export default function NewsletterForm({
             clearError();
           }}
           required
-          className="mt-1 size-4 shrink-0"
+          className={checkboxClass}
         />
-        <span>I agree to receive updates *</span>
+        <span className="leading-snug">I agree to receive updates *</span>
       </label>
+
+      <button type="submit" disabled={!canSubmit} className={buttonClassName}>
+        {status === 'submitting' ? 'Subscribing…' : 'Subscribe'}
+      </button>
+
       {status === 'error' && errorMessage ? (
         <p className={errorClass} role="alert">
           {errorMessage}
         </p>
       ) : null}
+
       <p className={hintClassName}>* Required field</p>
     </form>
   );
