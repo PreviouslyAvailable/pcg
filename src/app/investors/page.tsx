@@ -125,7 +125,7 @@ export default async function InvestorsPage() {
               </div>
               <Link
                 href="/contact"
-                className="self-start font-sans font-bold text-[16px] uppercase tracking-wide text-white border border-white/40 rounded-[10px] px-6 py-3 hover:bg-white/10 transition-colors"
+                className="self-start font-sans text-[14px] uppercase tracking-wide text-white border border-white/40 rounded-[10px] px-6 py-3 hover:bg-white/10 transition-colors"
               >
                 Get in Touch
               </Link>

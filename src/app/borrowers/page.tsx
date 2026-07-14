@@ -147,7 +147,7 @@ export default async function BorrowersPage() {
                   fallbackClassName="font-nav text-ink/70 text-[16px] leading-[1.5] max-w-[480px]"
                 />
                 {item.cta && (
-                  <OutlineButton href={item.cta.href ?? '/contact'} className="self-start mt-8 font-bold text-[16px]">
+                  <OutlineButton href={item.cta.href ?? '/contact'} className="self-start mt-8 text-[14px]">
                     {item.cta.label}
                   </OutlineButton>
                 )}
