@@ -1,16 +1,7 @@
 'use client';
 
-import React, { useEffect, useRef, useState, useSyncExternalStore } from 'react';
-
-function subscribeReducedMotion(callback: () => void) {
-  const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-  mediaQuery.addEventListener('change', callback);
-  return () => mediaQuery.removeEventListener('change', callback);
-}
-
-function getReducedMotionSnapshot() {
-  return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-}
+import React, { useEffect, useRef, useState } from 'react';
+import { usePrefersReducedMotion } from '@/lib/usePrefersReducedMotion';
 
 interface FadeUpProps {
   children: React.ReactNode;
@@ -33,11 +24,7 @@ export default function FadeUp({
 }: FadeUpProps) {
   const ref = useRef<HTMLElement>(null);
   const [inView, setInView] = useState(false);
-  const reduceMotion = useSyncExternalStore(
-    subscribeReducedMotion,
-    getReducedMotionSnapshot,
-    () => false,
-  );
+  const reduceMotion = usePrefersReducedMotion();
   const visible = reduceMotion || inView;
 
   useEffect(() => {

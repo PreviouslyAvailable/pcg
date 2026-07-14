@@ -76,7 +76,7 @@ export default async function InsightPost({ params }: Props) {
           <div className="pcg-inner">
             <div className="relative w-full aspect-[16/7] rounded-[16px] overflow-hidden bg-cream-warm">
               <Image
-                src={urlFor(post.mainImage).width(1680).height(735).url()}
+                src={urlFor(post.mainImage).width(1680).height(735).auto('format').url()}
                 alt={post.mainImage.alt ?? post.title}
                 fill
                 sizes={IMAGE_SIZES.postHero}
@@ -130,7 +130,7 @@ export default async function InsightPost({ params }: Props) {
                   <div className="relative w-full aspect-[4/3] rounded-[12px] overflow-hidden bg-cream-warm mb-4">
                     {item.mainImage?.asset ? (
                       <Image
-                        src={urlFor(item.mainImage).width(600).height(450).url()}
+                        src={urlFor(item.mainImage).width(600).height(450).auto('format').url()}
                         alt={item.mainImage.alt ?? item.title}
                         fill
                         sizes={IMAGE_SIZES.gridThird}

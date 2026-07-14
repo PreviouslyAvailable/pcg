@@ -212,6 +212,7 @@ export const investorsPageQuery = groq`
       items[] { title, body }
     },
     fundDetails[] { label, value },
+    firstFundName,
     secondFundName,
     secondFundDetails[] { label, value },
     activeInvestorPlus {

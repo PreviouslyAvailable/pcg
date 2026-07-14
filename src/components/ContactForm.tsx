@@ -109,8 +109,15 @@ export default function ContactForm() {
   }
 
   return (
-    <form className="flex flex-col gap-3" onSubmit={handleSubmit} autoComplete="on" noValidate>
-      <input type="text" name="website" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" />
+    <form className="relative flex flex-col gap-3" onSubmit={handleSubmit} autoComplete="on" noValidate>
+      <input
+        type="text"
+        name="website"
+        tabIndex={-1}
+        autoComplete="off"
+        className="absolute left-[-10000px] top-auto h-px w-px overflow-hidden whitespace-nowrap"
+        aria-hidden="true"
+      />
 
       <div className="grid grid-cols-2 gap-3">
         <div>
@@ -238,7 +245,7 @@ export default function ContactForm() {
             <div
               id="contact-submit-tooltip"
               role="tooltip"
-              className="absolute bottom-full right-0 mb-2 opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity bg-ink text-white text-[13px] rounded-[8px] px-3 py-2 max-w-[260px] shadow-lg"
+              className="absolute bottom-full right-0 mb-2 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 pointer-events-none transition-opacity bg-ink text-white text-[13px] rounded-[8px] px-3 py-2 max-w-[260px] shadow-lg"
             >
               Please complete all required fields (*) before submitting.
             </div>

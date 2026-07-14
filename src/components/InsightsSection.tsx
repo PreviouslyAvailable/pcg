@@ -2,7 +2,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import FadeUp from './FadeUp';
 import { IMAGE_SIZES } from '@/lib/imageSizes';
-import { INSIGHT_POST_FALLBACKS } from '@/lib/nav';
 import { formatPostCategory } from '@/lib/posts';
 import { formatDateMonthYear } from '@/lib/dates';
 
@@ -19,14 +18,9 @@ interface InsightsSectionProps {
   posts?: InsightCard[];
 }
 
-const placeholderPosts: InsightCard[] = INSIGHT_POST_FALLBACKS.map((post) => ({
-  title: post.title,
-  href: post.href,
-  category: post.category,
-  imageSrc: post.imageSrc,
-}));
+export default function InsightsSection({ posts }: InsightsSectionProps) {
+  const hasPosts = Boolean(posts && posts.length > 0);
 
-export default function InsightsSection({ posts = placeholderPosts }: InsightsSectionProps) {
   return (
     <section className="bg-cream-warm py-24">
       <div className="pcg-inner">
@@ -42,48 +36,61 @@ export default function InsightsSection({ posts = placeholderPosts }: InsightsSe
           className="hidden lg:inline-flex shrink-0 items-center gap-3 font-sans text-[14px] uppercase tracking-wide text-ink border border-ink rounded-[10px] px-6 py-3 hover:bg-ink/5 transition-colors ml-8"
         >
           See all news
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
             <path d="M1 6h10M6 1l5 5-5 5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </Link>
       </FadeUp>
 
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 lg:gap-6">
-        {posts.map((post, i) => (
-          <FadeUp key={post.href} delay={i * 80}>
-            <Link href={post.href} className="group block">
-              {/* Image */}
-              <div className="relative w-full aspect-[3/2] rounded-[12px] overflow-hidden bg-cream mb-4">
-                {post.imageSrc && (
-                  <Image
-                    src={post.imageSrc}
-                    alt={post.title}
-                    fill
-                    sizes={IMAGE_SIZES.postCard}
-                    className="object-cover group-hover:scale-[1.02] transition-transform duration-500"
-                  />
+      {hasPosts ? (
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 lg:gap-6">
+          {posts!.map((post, i) => (
+            <FadeUp key={post.href} delay={i * 80}>
+              <Link href={post.href} className="group block">
+                <div className="relative w-full aspect-[3/2] rounded-[12px] overflow-hidden bg-cream mb-4">
+                  {post.imageSrc && (
+                    <Image
+                      src={post.imageSrc}
+                      alt={post.title}
+                      fill
+                      sizes={IMAGE_SIZES.postCard}
+                      className="object-cover group-hover:scale-[1.02] transition-transform duration-500"
+                    />
+                  )}
+                </div>
+                {post.category && (
+                  <p className="font-sans text-[14px] uppercase tracking-[1px] text-ink/80 mb-1">
+                    {formatPostCategory(post.category)}
+                  </p>
                 )}
-              </div>
-              {post.category && (
-                <p className="font-sans text-[14px] uppercase tracking-[1px] text-ink/80 mb-1">
-                  {formatPostCategory(post.category)}
+                <p className="font-sans text-ink text-[20px] leading-[1.2] mt-2 mb-3 line-clamp-2 min-h-[48px]">
+                  {post.title}
                 </p>
-              )}
-              <p className="font-sans text-ink text-[20px] leading-[1.2] mt-2 mb-3 line-clamp-2 min-h-[48px]">
-                {post.title}
-              </p>
-              {post.publishedAt && (
-                <p className="font-sans text-[14px] uppercase tracking-[1px] text-ink/80 mb-2">
-                  {formatDateMonthYear(post.publishedAt)}
-                </p>
-              )}
-              {post.excerpt && (
-                <p className="font-nav text-ink/70 text-[15px] leading-[1.5] line-clamp-3">{post.excerpt}</p>
-              )}
-            </Link>
-          </FadeUp>
-        ))}
-      </div>
+                {post.publishedAt && (
+                  <p className="font-sans text-[14px] uppercase tracking-[1px] text-ink/80 mb-2">
+                    {formatDateMonthYear(post.publishedAt)}
+                  </p>
+                )}
+                {post.excerpt && (
+                  <p className="font-nav text-ink/70 text-[15px] leading-[1.5] line-clamp-3">{post.excerpt}</p>
+                )}
+              </Link>
+            </FadeUp>
+          ))}
+        </div>
+      ) : (
+        <FadeUp>
+          <p className="font-nav text-ink/70 text-[16px] mb-6">
+            Latest news will appear here when available.
+          </p>
+          <Link
+            href="/news"
+            className="inline-flex items-center gap-3 font-sans text-[14px] uppercase tracking-wide text-ink border border-ink rounded-[10px] px-6 py-3 hover:bg-ink/5 transition-colors"
+          >
+            Visit news
+          </Link>
+        </FadeUp>
+      )}
       </div>
     </section>
   );

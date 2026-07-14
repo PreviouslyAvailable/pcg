@@ -18,6 +18,11 @@ export function bodyTextComponents(scheme: ColorScheme): PortableTextComponents 
     },
     list: {
       bullet: ({ children }) => <ul className="space-y-1 mb-6">{children}</ul>,
+      number: ({ children }) => (
+        <ol className={`list-decimal list-outside pl-5 mb-6 space-y-1 font-nav text-[16px] leading-[1.3] ${textColor}`}>
+          {children}
+        </ol>
+      ),
     },
     listItem: {
       bullet: ({ children }) => (
@@ -26,11 +31,34 @@ export function bodyTextComponents(scheme: ColorScheme): PortableTextComponents 
           <span>{children}</span>
         </li>
       ),
+      number: ({ children }) => <li className={textColor}>{children}</li>,
     },
     marks: {
       strong: ({ children }) => <strong className="font-semibold">{children}</strong>,
       em: ({ children }) => <em className="italic">{children}</em>,
       link: PortableTextLink,
+    },
+    types: {
+      image: ({ value }) => {
+        if (!value?.asset) return null;
+        return (
+          <figure className="my-6">
+            <Image
+              src={urlFor(value).width(800).auto('format').url()}
+              alt={value.alt ?? ''}
+              width={800}
+              height={450}
+              style={{ width: '100%', height: 'auto' }}
+              className="rounded-[12px]"
+            />
+            {value.caption ? (
+              <figcaption className={`font-sans text-[13px] mt-3 ${scheme === 'dark' ? 'text-white/60' : 'text-ink/50'}`}>
+                {value.caption}
+              </figcaption>
+            ) : null}
+          </figure>
+        );
+      },
     },
   };
 }
@@ -88,7 +116,7 @@ export const articlePortableTextComponents: PortableTextComponents = {
       return (
         <figure className="my-10">
           <Image
-            src={urlFor(value).width(1200).url()}
+            src={urlFor(value).width(1200).auto('format').url()}
             alt={value.alt ?? ''}
             width={1200}
             height={675}

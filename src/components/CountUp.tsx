@@ -1,16 +1,7 @@
 'use client';
 
-import { useEffect, useRef, useState, useSyncExternalStore } from 'react';
-
-function subscribeReducedMotion(callback: () => void) {
-  const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-  mediaQuery.addEventListener('change', callback);
-  return () => mediaQuery.removeEventListener('change', callback);
-}
-
-function getReducedMotionSnapshot() {
-  return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-}
+import { useEffect, useRef, useState } from 'react';
+import { usePrefersReducedMotion } from '@/lib/usePrefersReducedMotion';
 
 interface CountUpProps {
   value?: string;
@@ -42,11 +33,7 @@ export default function CountUp({
   const prefix = match ? match[1] : '';
   const suffix = match ? match[3] : '';
 
-  const reduceMotion = useSyncExternalStore(
-    subscribeReducedMotion,
-    getReducedMotionSnapshot,
-    () => false,
-  );
+  const reduceMotion = usePrefersReducedMotion();
 
   const ref = useRef<HTMLSpanElement>(null);
   // Start at the final value so server-rendered/no-JS HTML shows the real

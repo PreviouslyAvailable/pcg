@@ -87,6 +87,12 @@ export const investorsPage = defineType({
       ],
     }),
     defineField({
+      name: 'firstFundName',
+      title: 'First Fund Name',
+      type: 'string',
+      initialValue: 'PCG Diversified New Zealand Private Debt Fund (NZPDF)',
+    }),
+    defineField({
       name: 'secondFundName',
       title: 'Second Fund Name',
       type: 'string',

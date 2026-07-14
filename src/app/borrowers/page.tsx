@@ -33,13 +33,13 @@ export default async function BorrowersPage() {
   const data = await getBorrowersPage();
 
   const heroImageSrc = data?.hero?.image?.asset?.url
-    ? urlFor(data.hero.image).width(1200).height(800).url()
+    ? urlFor(data.hero.image).width(1200).height(800).auto('format').url()
     : '/images/borrowers.jpg';
 
   const quoteBannerImageSrc = quoteBannerUrl(data?.quoteBanner?.image, '/images/how-3.jpg');
 
   const lendingFocusImageSrc = data?.lendingFocus?.image?.asset?.url
-    ? urlFor(data.lendingFocus.image).width(800).height(600).url()
+    ? urlFor(data.lendingFocus.image).width(800).height(600).auto('format').url()
     : '/images/how-2.jpg';
 
   const whyPCG = (data?.whyPCG && data.whyPCG.length > 0) ? data.whyPCG : BORROWERS_WHY_PCG;
@@ -53,7 +53,7 @@ export default async function BorrowersPage() {
         title: item.title ?? BORROWERS_HOW_WE_WORK[i]?.title ?? '',
         body: item.body ?? BORROWERS_HOW_WE_WORK[i]?.body ?? '',
         image: item.image?.asset?.url
-          ? urlFor(item.image).width(960).height(720).url()
+          ? urlFor(item.image).width(960).height(720).auto('format').url()
           : (BORROWERS_HOW_WE_WORK[i]?.image ?? '/images/how-1.jpg'),
         imageLeft: item.imageLeft ?? BORROWERS_HOW_WE_WORK[i]?.imageLeft ?? false,
         cta: item.cta?.label ? { label: item.cta.label, href: item.cta.href ?? '/contact' } : BORROWERS_HOW_WE_WORK[i]?.cta,

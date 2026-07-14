@@ -1,8 +1,21 @@
 import { NextResponse } from 'next/server';
-import { isValidEmail } from '@/lib/validation';
+import { isValidEmail, stripControlChars } from '@/lib/validation';
 import { clientIp, rateLimit } from '@/lib/rateLimit';
 
 export async function POST(request: Request) {
+  let body: Record<string, string | boolean>;
+
+  try {
+    body = await request.json();
+  } catch {
+    return NextResponse.json({ error: 'Invalid request body.' }, { status: 400 });
+  }
+
+  // Honeypot — bots that fill hidden fields are silently ignored (before rate limit).
+  if (body.website) {
+    return NextResponse.json({ ok: true });
+  }
+
   const limit = rateLimit(`newsletter:${clientIp(request)}`, { limit: 8, windowMs: 60_000 });
   if (!limit.ok) {
     return NextResponse.json(
@@ -11,21 +24,9 @@ export async function POST(request: Request) {
     );
   }
 
-  let body: Record<string, string>;
-
-  try {
-    body = await request.json();
-  } catch {
-    return NextResponse.json({ error: 'Invalid request body.' }, { status: 400 });
-  }
-
-  // Honeypot — bots that fill hidden fields are silently ignored.
-  if (body.website) {
-    return NextResponse.json({ ok: true });
-  }
-
-  const name = (body.name?.trim() ?? '').slice(0, 100);
-  const email = (body.email?.trim() ?? '').slice(0, 200);
+  const name = stripControlChars(String(body.name ?? '').trim()).slice(0, 100);
+  const email = stripControlChars(String(body.email ?? '').trim()).slice(0, 200);
+  const consent = body.consent === true || body.consent === 'true';
 
   if (!name) {
     return NextResponse.json({ error: 'Please enter your name.' }, { status: 400 });
@@ -33,6 +34,13 @@ export async function POST(request: Request) {
 
   if (!email || !isValidEmail(email)) {
     return NextResponse.json({ error: 'Please enter a valid email address.' }, { status: 400 });
+  }
+
+  if (!consent) {
+    return NextResponse.json(
+      { error: 'Please agree to receive updates before subscribing.' },
+      { status: 400 },
+    );
   }
 
   const apiKey = process.env.CAMPAIGN_MONITOR_API_KEY?.trim();
@@ -57,8 +65,8 @@ export async function POST(request: Request) {
     body: JSON.stringify({
       EmailAddress: email,
       Name: name,
-      Resubscribe: true,
-      ConsentToTrack: 'Yes',
+      Resubscribe: false,
+      ConsentToTrack: 'Unchanged',
     }),
   });
 

@@ -1,5 +1,6 @@
+import Image from 'next/image';
 import Link from 'next/link';
-import { isExternalHref, sanitizeHref } from '@/lib/urls';
+import { isExternalHref, sanitizeHref, sanitizeImageSrc } from '@/lib/urls';
 
 interface CtaBannerProps {
   heading?: string;
@@ -17,7 +18,8 @@ export default function CtaBanner({
   imageSrc,
 }: CtaBannerProps) {
   const safeHref = sanitizeHref(ctaHref) ?? '/contact';
-  const isImageBg = background === 'image' && imageSrc;
+  const safeImageSrc = sanitizeImageSrc(imageSrc);
+  const isImageBg = background === 'image' && Boolean(safeImageSrc);
   const isTeal = background === 'teal';
   const isDark = background === 'dark';
   const isLight = !isImageBg && !isTeal && !isDark;
@@ -29,15 +31,19 @@ export default function CtaBanner({
       }`}
     >
       <div className="pcg-inner flex flex-col items-center">
-      {isImageBg && (
+      {isImageBg && safeImageSrc ? (
         <>
-          <div
-            className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: `url(${imageSrc})` }}
+          <Image
+            src={safeImageSrc}
+            alt=""
+            fill
+            sizes="100vw"
+            className="object-cover object-center"
+            aria-hidden="true"
           />
           <div className="absolute inset-0 bg-black/20" />
         </>
-      )}
+      ) : null}
 
       <div className="relative z-10 flex flex-col items-center gap-8 max-w-[746px]">
         <h2

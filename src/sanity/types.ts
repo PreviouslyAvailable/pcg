@@ -237,6 +237,7 @@ export interface InvestorsPage {
     }>
   }
   fundDetails?: Array<{ label?: string; value?: string }>
+  firstFundName?: string
   secondFundName?: string
   secondFundDetails?: Array<{ label?: string; value?: string }>
   activeInvestorPlus?: {

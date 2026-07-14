@@ -4,7 +4,7 @@ import Link from 'next/link';
 import FadeUp from './FadeUp';
 import BodyText from './BodyText';
 import { IMAGE_SIZES } from '@/lib/imageSizes';
-import { sanitizeHref } from '@/lib/urls';
+import { isExternalHref, sanitizeHref } from '@/lib/urls';
 
 interface InvestorsSectionProps {
   imageSrc?: string;
@@ -33,6 +33,10 @@ export default function InvestorsSection({
   ctaLabelMobile,
   ctaHref,
 }: InvestorsSectionProps) {
+  const safeHref = sanitizeHref(ctaHref) ?? '/investors';
+  const ctaClass =
+    'inline-flex font-sans text-[16px] uppercase tracking-wide text-white border border-white rounded-[10px] px-6 py-3 hover:bg-white/10 transition-colors';
+
   return (
     <section className="flex flex-col lg:grid lg:grid-cols-2 min-h-[784px]">
       {/* Teal panel — top on mobile, left on desktop */}
@@ -62,13 +66,17 @@ export default function InvestorsSection({
           )}
         </FadeUp>
         <FadeUp delay={200}>
-        <Link
-          href={sanitizeHref(ctaHref) ?? '/investors'}
-          className="inline-flex font-sans text-[16px] uppercase tracking-wide text-white border border-white rounded-[10px] px-6 py-3 hover:bg-white/10 transition-colors"
-        >
-          <span className="lg:hidden">{ctaLabelMobile ?? 'Investments'}</span>
-          <span className="hidden lg:block">{ctaLabel ?? 'See Investment Options'}</span>
-        </Link>
+        {isExternalHref(safeHref) ? (
+          <a href={safeHref} target="_blank" rel="noopener noreferrer" className={ctaClass}>
+            <span className="lg:hidden">{ctaLabelMobile ?? 'Investments'}</span>
+            <span className="hidden lg:block">{ctaLabel ?? 'See Investment Options'}</span>
+          </a>
+        ) : (
+          <Link href={safeHref} className={ctaClass}>
+            <span className="lg:hidden">{ctaLabelMobile ?? 'Investments'}</span>
+            <span className="hidden lg:block">{ctaLabel ?? 'See Investment Options'}</span>
+          </Link>
+        )}
         </FadeUp>
         </div>
       </div>

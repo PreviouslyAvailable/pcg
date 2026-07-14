@@ -35,7 +35,7 @@ export default async function ContactPage() {
         name: office.name ?? '',
         addressLines: office.addressLines ?? [],
         imageSrc: office.image?.asset?.url
-          ? urlFor(office.image).width(600).height(400).url()
+          ? urlFor(office.image).width(600).height(400).auto('format').url()
           : '/images/insight-3.jpg',
         imageAlt: office.image?.alt ?? office.name ?? '',
       }))

@@ -34,7 +34,7 @@ export default async function InvestorsPage() {
   const data = await getInvestorsPage();
 
   const heroImageSrc = data?.hero?.image?.asset?.url
-    ? urlFor(data.hero.image).width(1200).height(800).url()
+    ? urlFor(data.hero.image).width(1200).height(800).auto('format').url()
     : '/images/investors-right.jpg';
 
   const quoteBannerImageSrc = quoteBannerUrl(data?.quoteBanner?.image, '/images/how-4.jpg');
@@ -95,7 +95,7 @@ export default async function InvestorsPage() {
             {/* Cream fund card */}
             <FadeUp delay={0} className="bg-cream-warm rounded-[16px] p-10 lg:p-18 flex flex-col hover-lift">
               <h3 className="font-sans text-ink text-[26px] leading-[1.2] mb-8">
-                PCG Diversified New Zealand Private Debt Fund (NZPDF)
+                {data?.firstFundName ?? 'PCG Diversified New Zealand Private Debt Fund (NZPDF)'}
               </h3>
               <div className="flex-1 divide-y divide-black/10 mb-8">
                 {fundDetails.map((row) => (

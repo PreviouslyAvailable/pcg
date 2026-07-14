@@ -1,45 +1,45 @@
-import type { Metadata } from "next";
-import { IBM_Plex_Mono } from "next/font/google";
-import localFont from "next/font/local";
-import "./globals.css";
-import { SITE_NAME, SITE_URL } from "@/lib/site";
+import type { Metadata } from 'next';
+import { IBM_Plex_Mono } from 'next/font/google';
+import localFont from 'next/font/local';
+import './globals.css';
+import { SITE_NAME, SITE_URL } from '@/lib/site';
 
 const specialGothic = localFont({
   src: [
     {
-      path: "../../public/fonts/SpecialGothic-Regular.ttf",
-      weight: "400",
-      style: "normal",
+      path: '../../public/fonts/SpecialGothic-Regular.ttf',
+      weight: '400',
+      style: 'normal',
     },
     {
-      path: "../../public/fonts/SpecialGothic-Bold.ttf",
-      weight: "700",
-      style: "normal",
+      path: '../../public/fonts/SpecialGothic-Bold.ttf',
+      weight: '700',
+      style: 'normal',
     },
   ],
-  variable: "--font-special-gothic",
+  variable: '--font-special-gothic',
 });
 
 const ibmPlexMono = IBM_Plex_Mono({
-  variable: "--font-ibm-plex-mono",
-  subsets: ["latin"],
-  weight: ["300", "400"],
+  variable: '--font-ibm-plex-mono',
+  subsets: ['latin'],
+  weight: ['300', '400'],
 });
 
 const seasonSerif = localFont({
   src: [
     {
-      path: "../../public/fonts/SeasonSerif-TRIAL-Light.otf",
-      weight: "300",
-      style: "normal",
+      path: '../../public/fonts/SeasonSerif-TRIAL-Light.otf',
+      weight: '300',
+      style: 'normal',
     },
     {
-      path: "../../public/fonts/SeasonSerif-TRIAL-LightItalic.otf",
-      weight: "300",
-      style: "italic",
+      path: '../../public/fonts/SeasonSerif-TRIAL-LightItalic.otf',
+      weight: '300',
+      style: 'italic',
     },
   ],
-  variable: "--font-season-serif",
+  variable: '--font-season-serif',
 });
 
 export const metadata: Metadata = {
@@ -70,7 +70,7 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
+      lang="en-NZ"
       data-scroll-behavior="smooth"
       className={`${specialGothic.variable} ${seasonSerif.variable} ${ibmPlexMono.variable} h-full antialiased`}
     >

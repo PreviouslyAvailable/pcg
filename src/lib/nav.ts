@@ -1,5 +1,6 @@
 import type { NavLabels } from '@/sanity/loaders';
 import type { SiteSettings } from '@/sanity/types';
+import { sanitizeHref } from '@/lib/urls';
 
 export type NavLink = { label: string; href: string };
 
@@ -10,40 +11,25 @@ export const DEFAULT_NAV_LINKS: NavLink[] = [
   { label: 'News', href: '/news' },
 ];
 
-/** Fallback insight cards when Sanity posts are unavailable. */
-export const INSIGHT_POST_FALLBACKS = [
-  {
-    title: 'PCG News: Welcome to new investor – Aurora KiwiSaver',
-    href: '/news/pcg-news-welcome-to-new-investor-aurora-kiwisaver',
-    imageSrc: '/images/insight-1.jpg',
-    category: 'news',
-  },
-  {
-    title: 'PCG Insights: Relative Value in Private Debt',
-    href: '/news/pcg-insights-relative-value-in-private-debt',
-    imageSrc: '/images/insight-2.jpg',
-    category: 'insights',
-  },
-  {
-    title: 'PCG News: KangaNews NZ Private Debt Feature',
-    href: '/news/kanganews_nz_privatedebt_feature',
-    imageSrc: '/images/insight-3.jpg',
-    category: 'news',
-  },
-  {
-    title: 'PCG Insights: Private Debt – What Do We Mean?',
-    href: '/news/private-debt-what-do-we-mean',
-    imageSrc: '/images/insight-4.jpg',
-    category: 'insights',
-  },
-] as const;
+function safeNavLink(label: string | undefined, href: string | undefined, fallbackLabel: string, fallbackHref: string): NavLink {
+  const safeHref = sanitizeHref(href) ?? fallbackHref;
+  // Nav should stay on-site relative paths
+  const hrefFinal = safeHref.startsWith('/') ? safeHref : fallbackHref;
+  return { label: (label && label.trim()) || fallbackLabel, href: hrefFinal };
+}
 
 export function buildNavLinks(
   labels: NavLabels | null | undefined,
   siteSettings: SiteSettings | null | undefined,
 ): NavLink[] {
   const fromSettings = siteSettings?.navLinks
-    ?.filter((link): link is NavLink => Boolean(link?.label && link?.href));
+    ?.map((link) => {
+      if (!link?.label || !link?.href) return null;
+      const safeHref = sanitizeHref(link.href);
+      if (!safeHref || !safeHref.startsWith('/')) return null;
+      return { label: link.label, href: safeHref } satisfies NavLink;
+    })
+    .filter((link): link is NavLink => Boolean(link));
 
   if (fromSettings && fromSettings.length > 0) {
     return fromSettings;
@@ -52,9 +38,9 @@ export function buildNavLinks(
   if (!labels) return DEFAULT_NAV_LINKS;
 
   return [
-    { label: labels.about?.label || 'About', href: labels.about?.slug || '/about' },
-    { label: labels.borrowers?.label || 'Borrowers', href: labels.borrowers?.slug || '/borrowers' },
-    { label: labels.investors?.label || 'Investors', href: labels.investors?.slug || '/investors' },
-    { label: labels.insights?.label || 'News', href: labels.insights?.slug || '/news' },
+    safeNavLink(labels.about?.label, labels.about?.slug, 'About', '/about'),
+    safeNavLink(labels.borrowers?.label, labels.borrowers?.slug, 'Borrowers', '/borrowers'),
+    safeNavLink(labels.investors?.label, labels.investors?.slug, 'Investors', '/investors'),
+    safeNavLink(labels.insights?.label, labels.insights?.slug, 'News', '/news'),
   ];
 }

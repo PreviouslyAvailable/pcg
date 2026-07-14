@@ -61,7 +61,7 @@ export default async function InsightsPage() {
                   <div className="relative w-full aspect-[3/2] rounded-[12px] overflow-hidden bg-cream-warm mb-4">
                     {post.mainImage?.asset ? (
                       <Image
-                        src={urlFor(post.mainImage).width(800).height(533).url()}
+                        src={urlFor(post.mainImage).width(800).height(533).auto('format').url()}
                         alt={post.mainImage.alt ?? post.title}
                         fill
                         sizes={IMAGE_SIZES.postCard}
@@ -137,7 +137,7 @@ export default async function InsightsPage() {
                   <div className="relative w-full aspect-[3/2] rounded-[12px] overflow-hidden bg-cream-warm mb-4">
                     {post.mainImage?.asset ? (
                       <Image
-                        src={urlFor(post.mainImage).width(800).height(533).url()}
+                        src={urlFor(post.mainImage).width(800).height(533).auto('format').url()}
                         alt={post.mainImage.alt ?? post.title}
                         fill
                         sizes={IMAGE_SIZES.postCard}

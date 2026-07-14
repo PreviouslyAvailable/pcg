@@ -3,6 +3,7 @@ import Logo from '@/components/Logo';
 import LinkedInIcon from '@/components/LinkedInIcon';
 import NewsletterForm from '@/components/NewsletterForm';
 import type { NavLink } from '@/lib/nav';
+import { sanitizeHref } from '@/lib/urls';
 
 interface FooterProps {
   navLinks: NavLink[];
@@ -18,6 +19,14 @@ export default function Footer({
   footerTagline,
 }: FooterProps) {
   const year = new Date().getFullYear();
+  const links = navLinks
+    .map((link) => {
+      const href = sanitizeHref(link.href);
+      if (!href || !href.startsWith('/') || !link.label) return null;
+      return { label: link.label, href };
+    })
+    .filter((link): link is NavLink => Boolean(link));
+
   return (
     <footer className="bg-cream">
       <div className="pt-12 lg:pt-20 pb-8 lg:pb-12 px-4 lg:px-[45px] max-w-[1680px] mx-auto">
@@ -46,11 +55,14 @@ export default function Footer({
 
       <div className="border-b border-black/15 pb-6 lg:pb-8 flex flex-wrap items-center gap-4 lg:justify-between">
         <div className="flex flex-wrap items-center gap-4 lg:gap-8">
-          {navLinks.map((link) => (
+          {links.map((link) => (
             <Link key={link.href} href={link.href} className="font-nav text-[15px] cursor-pointer text-ink hover:opacity-60 transition-opacity">
               {link.label}
             </Link>
           ))}
+          <Link href="/case-studies" className="font-nav text-[15px] cursor-pointer text-ink/70 hover:opacity-60 transition-opacity">
+            Case studies
+          </Link>
           <Link href="/contact" className="font-nav text-[16px] text-ink border border-ink rounded-[8px] px-5 py-1.5 hover:bg-ink/5 transition-colors">
             Contact
           </Link>

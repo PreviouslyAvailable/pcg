@@ -31,52 +31,92 @@ import type {
   CaseStudy,
 } from './types'
 
+function logLoaderError(name: string, error: unknown) {
+  console.error(`[sanity/${name}]`, error)
+}
+
 export const getHomePage = cache(() =>
-  client.fetch<HomePage>(homePageQuery).catch(() => null),
+  client.fetch<HomePage>(homePageQuery).catch((error) => {
+    logLoaderError('getHomePage', error)
+    return null
+  }),
 )
 
 export const getPosts = cache(() =>
-  client.fetch<PostSummary[]>(postsQuery).catch(() => [] as PostSummary[]),
+  client.fetch<PostSummary[]>(postsQuery).catch((error) => {
+    logLoaderError('getPosts', error)
+    return [] as PostSummary[]
+  }),
 )
 
 export const getAboutPage = cache(() =>
-  client.fetch<AboutPage>(aboutPageQuery).catch(() => null),
+  client.fetch<AboutPage>(aboutPageQuery).catch((error) => {
+    logLoaderError('getAboutPage', error)
+    return null
+  }),
 )
 
 export const getExecutiveTeam = cache(() =>
-  client.fetch<TeamMember[]>(executiveTeamQuery).catch(() => null),
+  client.fetch<TeamMember[]>(executiveTeamQuery).catch((error) => {
+    logLoaderError('getExecutiveTeam', error)
+    return null
+  }),
 )
 
 export const getBoardMembers = cache(() =>
-  client.fetch<TeamMember[]>(boardMembersQuery).catch(() => null),
+  client.fetch<TeamMember[]>(boardMembersQuery).catch((error) => {
+    logLoaderError('getBoardMembers', error)
+    return null
+  }),
 )
 
 export const getBorrowersPage = cache(() =>
-  client.fetch<BorrowersPage>(borrowersPageQuery).catch(() => null),
+  client.fetch<BorrowersPage>(borrowersPageQuery).catch((error) => {
+    logLoaderError('getBorrowersPage', error)
+    return null
+  }),
 )
 
 export const getInvestorsPage = cache(() =>
-  client.fetch<InvestorsPage>(investorsPageQuery).catch(() => null),
+  client.fetch<InvestorsPage>(investorsPageQuery).catch((error) => {
+    logLoaderError('getInvestorsPage', error)
+    return null
+  }),
 )
 
 export const getContactPage = cache(() =>
-  client.fetch<ContactPage>(contactPageQuery).catch(() => null),
+  client.fetch<ContactPage>(contactPageQuery).catch((error) => {
+    logLoaderError('getContactPage', error)
+    return null
+  }),
 )
 
 export const getInsightsPage = cache(() =>
-  client.fetch<InsightsPage>(insightsPageQuery).catch(() => null),
+  client.fetch<InsightsPage>(insightsPageQuery).catch((error) => {
+    logLoaderError('getInsightsPage', error)
+    return null
+  }),
 )
 
 export const getPostBySlug = cache((slug: string) =>
-  client.fetch<PostFull | null>(postBySlugQuery, { slug }).catch(() => null),
+  client.fetch<PostFull | null>(postBySlugQuery, { slug }).catch((error) => {
+    logLoaderError('getPostBySlug', error)
+    return null
+  }),
 )
 
 export const getRelatedPosts = cache((slug: string) =>
-  client.fetch<PostSummary[]>(relatedPostsQuery, { slug }).catch(() => [] as PostSummary[]),
+  client.fetch<PostSummary[]>(relatedPostsQuery, { slug }).catch((error) => {
+    logLoaderError('getRelatedPosts', error)
+    return [] as PostSummary[]
+  }),
 )
 
 export const getPostSlugs = cache(() =>
-  client.fetch<{ slug: string }[]>(postSlugsQuery).catch(() => []),
+  client.fetch<{ slug: string }[]>(postSlugsQuery).catch((error) => {
+    logLoaderError('getPostSlugs', error)
+    return []
+  }),
 )
 
 export interface NavLabels {
@@ -88,13 +128,22 @@ export interface NavLabels {
 }
 
 export const getNavLabels = cache(() =>
-  client.fetch<NavLabels>(navLabelsQuery).catch(() => null),
+  client.fetch<NavLabels>(navLabelsQuery).catch((error) => {
+    logLoaderError('getNavLabels', error)
+    return null
+  }),
 )
 
 export const getSiteSettings = cache(() =>
-  client.fetch<SiteSettings>(siteSettingsQuery).catch(() => null),
+  client.fetch<SiteSettings>(siteSettingsQuery).catch((error) => {
+    logLoaderError('getSiteSettings', error)
+    return null
+  }),
 )
 
 export const getCaseStudies = cache(() =>
-  client.fetch<CaseStudy[]>(caseStudiesQuery).catch(() => [] as CaseStudy[]),
+  client.fetch<CaseStudy[]>(caseStudiesQuery).catch((error) => {
+    logLoaderError('getCaseStudies', error)
+    return [] as CaseStudy[]
+  }),
 )

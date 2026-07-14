@@ -50,47 +50,6 @@ export const contactPage = defineType({
       ],
     }),
     defineField({
-      name: 'formRecipients',
-      title: 'Contact Form Recipients (deprecated)',
-      description:
-        'DEPRECATED — routing emails are no longer read from the CMS (they were publicly visible via the Sanity API). Configure CONTACT_TO_BORROWER / CONTACT_TO_INVESTOR / CONTACT_TO_ADVISOR / CONTACT_TO_FALLBACK in Vercel instead. Leave these fields empty.',
-      type: 'object',
-      hidden: true,
-      options: { collapsible: true, collapsed: true },
-      fields: [
-        defineField({
-          name: 'borrower',
-          title: 'Borrower enquiries',
-          type: 'array',
-          of: [defineArrayMember({ type: 'string', validation: (Rule) => Rule.email() })],
-          validation: (Rule) => Rule.unique(),
-        }),
-        defineField({
-          name: 'investor',
-          title: 'Investor enquiries',
-          type: 'array',
-          of: [defineArrayMember({ type: 'string', validation: (Rule) => Rule.email() })],
-          validation: (Rule) => Rule.unique(),
-        }),
-        defineField({
-          name: 'advisor',
-          title: 'Professional Advisor enquiries',
-          type: 'array',
-          of: [defineArrayMember({ type: 'string', validation: (Rule) => Rule.email() })],
-          validation: (Rule) => Rule.unique(),
-        }),
-        defineField({
-          name: 'fallback',
-          title: 'Fallback / general',
-          description:
-            'Used when the selected enquiry type has no specific recipients set above. Also acts as a catch-all for general enquiries.',
-          type: 'array',
-          of: [defineArrayMember({ type: 'string', validation: (Rule) => Rule.email() })],
-          validation: (Rule) => Rule.unique(),
-        }),
-      ],
-    }),
-    defineField({
       name: 'offices',
       title: 'Offices',
       type: 'array',

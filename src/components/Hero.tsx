@@ -5,6 +5,8 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import FadeUp from './FadeUp';
 import { IMAGE_SIZES } from '@/lib/imageSizes';
+import { sanitizeHref } from '@/lib/urls';
+import { usePrefersReducedMotion } from '@/lib/usePrefersReducedMotion';
 
 interface HeroProps {
   images: string[];
@@ -25,16 +27,18 @@ export default function Hero({
 }: HeroProps) {
   const srcs = images;
   const [active, setActive] = useState(0);
+  const reduceMotion = usePrefersReducedMotion();
+  const primaryHref = sanitizeHref(primaryCta.href) ?? '/borrowers';
+  const secondaryHref = sanitizeHref(secondaryCta.href) ?? '/investors';
 
   useEffect(() => {
-    if (srcs.length < 2) return;
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (srcs.length < 2 || reduceMotion) return;
 
     const id = setInterval(() => {
       setActive((prev) => (prev + 1) % srcs.length);
     }, 10000);
     return () => clearInterval(id);
-  }, [srcs.length]);
+  }, [srcs.length, reduceMotion]);
 
   return (
     <section className="relative h-screen min-h-[600px] max-h-[780px] overflow-hidden bg-dark">
@@ -80,13 +84,13 @@ export default function Hero({
             <FadeUp threshold={0} delay={650} duration={1000}>
               <div className="flex flex-wrap gap-4">
                 <Link
-                  href={primaryCta.href}
+                  href={primaryHref}
                   className="font-sans text-gold text-[16px] uppercase tracking-wide border border-gold rounded-[10px] px-6 py-3 hover:bg-gold/10 transition-colors"
                 >
                   {primaryCta.label}
                 </Link>
                 <Link
-                  href={secondaryCta.href}
+                  href={secondaryHref}
                   className="hidden lg:inline-flex font-sans text-gold text-[16px] uppercase tracking-wide border border-gold rounded-[10px] px-6 py-3 hover:bg-gold/10 transition-colors"
                 >
                   {secondaryCta.label}

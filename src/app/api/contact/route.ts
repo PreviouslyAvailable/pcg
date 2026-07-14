@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { LENDING_LABELS, ROLE_LABELS } from '@/lib/contact';
-import { isValidEmail } from '@/lib/validation';
+import { isValidEmail, isValidPhone, stripControlChars } from '@/lib/validation';
 import { clientIp, rateLimit } from '@/lib/rateLimit';
 
 const ALLOWED_ROLES = new Set(['borrower', 'investor', 'advisor']);
@@ -31,14 +31,6 @@ function recipientsForRole(roleType: string): string[] {
 }
 
 export async function POST(request: Request) {
-  const limit = rateLimit(`contact:${clientIp(request)}`, { limit: 8, windowMs: 60_000 });
-  if (!limit.ok) {
-    return NextResponse.json(
-      { error: 'Too many requests. Please try again shortly.' },
-      { status: 429, headers: { 'Retry-After': String(limit.retryAfterSec) } },
-    );
-  }
-
   let body: Record<string, string>;
 
   try {
@@ -47,24 +39,33 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Invalid request body.' }, { status: 400 });
   }
 
+  // Honeypot first — bots that fill hidden fields are silently ignored (before rate limit).
   if (body.website) {
     return NextResponse.json({ ok: true });
   }
 
-  const firstName = (body.firstName?.trim() ?? '').slice(0, 100);
-  const lastName = (body.lastName?.trim() ?? '').slice(0, 100);
-  const email = (body.email?.trim() ?? '').slice(0, 200);
-  const phone = (body.phone?.trim() ?? '').slice(0, 40);
-  const roleType = (body.roleType?.trim() ?? '').slice(0, 40);
-  const lendingAmount = (body.lendingAmount?.trim() ?? '').slice(0, 40);
-  const comments = (body.comments?.trim() ?? '').slice(0, 5000);
+  const limit = rateLimit(`contact:${clientIp(request)}`, { limit: 8, windowMs: 60_000 });
+  if (!limit.ok) {
+    return NextResponse.json(
+      { error: 'Too many requests. Please try again shortly.' },
+      { status: 429, headers: { 'Retry-After': String(limit.retryAfterSec) } },
+    );
+  }
+
+  const firstName = stripControlChars(body.firstName?.trim() ?? '').slice(0, 100);
+  const lastName = stripControlChars(body.lastName?.trim() ?? '').slice(0, 100);
+  const email = stripControlChars(body.email?.trim() ?? '').slice(0, 200);
+  const phone = stripControlChars(body.phone?.trim() ?? '').slice(0, 40);
+  const roleType = stripControlChars(body.roleType?.trim() ?? '').slice(0, 40);
+  const lendingAmount = stripControlChars(body.lendingAmount?.trim() ?? '').slice(0, 40);
+  const comments = stripControlChars(body.comments?.trim() ?? '').slice(0, 5000);
 
   if (!firstName || !lastName || !email || !isValidEmail(email)) {
     return NextResponse.json({ error: 'Please enter your name and a valid email address.' }, { status: 400 });
   }
 
-  if (!phone) {
-    return NextResponse.json({ error: 'Please enter your phone number.' }, { status: 400 });
+  if (!phone || !isValidPhone(phone)) {
+    return NextResponse.json({ error: 'Please enter a valid phone number.' }, { status: 400 });
   }
 
   if (!ALLOWED_ROLES.has(roleType)) {

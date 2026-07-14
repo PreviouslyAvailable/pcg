@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
+import { Suspense } from 'react';
 import BodyText from '@/components/BodyText';
 import CmsBody from '@/components/CmsBody';
 import OutlineButton from '@/components/OutlineButton';
@@ -7,6 +8,7 @@ import SiteChrome from '@/components/SiteChrome';
 import PageHero from '@/components/PageHero';
 import CtaBanner from '@/components/CtaBanner';
 import TeamCard from '@/components/TeamCard';
+import AboutSectionScroll from '@/components/AboutSectionScroll';
 import { getAboutPage, getBoardMembers, getExecutiveTeam } from '@/sanity/loaders';
 import { quoteBannerUrl } from '@/sanity/imageUrls';
 import { urlFor } from '@/sanity/image';
@@ -83,6 +85,9 @@ export default async function AboutPage() {
 
   return (
     <SiteChrome>
+      <Suspense fallback={null}>
+        <AboutSectionScroll />
+      </Suspense>
       <main className="bg-cream">
       <PageHero
         heading={data?.hero?.heading ?? "New Zealand's Most Experienced Private Debt Lender"}

@@ -18,6 +18,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const data = await getHomePage();
   return buildMetadata({
     seo: data?.seo,
+    title: data?.pageTitle,
     description: data?.hero?.subtext,
     image: data?.hero?.backgroundImage,
     path: '',
@@ -45,7 +46,7 @@ export default async function Home() {
     title: item.title,
     body: item.body,
     imageSrc: item.image?.asset?.url
-      ? urlFor(item.image).width(662).height(367).url()
+      ? urlFor(item.image).width(662).height(367).auto('format').url()
       : HOW_DIFFERENT_FALLBACK_IMAGES[i],
     imageAlt: item.title,
   }));
@@ -59,7 +60,7 @@ export default async function Home() {
           publishedAt: post.publishedAt,
           excerpt: post.excerpt,
           imageSrc: post.mainImage?.asset
-            ? urlFor(post.mainImage).width(480).height(320).url()
+            ? urlFor(post.mainImage).width(480).height(320).auto('format').url()
             : undefined,
         }))
       : undefined;
@@ -80,7 +81,7 @@ export default async function Home() {
           borrowersCtaHref={data?.introSection?.borrowers?.ctaHref}
           borrowersImageSrc={
             data?.introSection?.borrowers?.image?.asset?.url
-              ? urlFor(data.introSection.borrowers.image).width(960).height(640).url()
+              ? urlFor(data.introSection.borrowers.image).width(960).height(640).auto('format').url()
               : '/images/borrowers.jpg'
           }
           investorsHeading={data?.introSection?.investors?.heading}
@@ -89,7 +90,7 @@ export default async function Home() {
           investorsCtaHref={data?.introSection?.investors?.ctaHref}
           investorsImageSrc={
             data?.introSection?.investors?.image?.asset?.url
-              ? urlFor(data.introSection.investors.image).width(960).height(640).url()
+              ? urlFor(data.introSection.investors.image).width(960).height(640).auto('format').url()
               : '/images/investors-right.jpg'
           }
           featureCards={data?.introSection?.featureCards}
@@ -99,7 +100,7 @@ export default async function Home() {
         <InvestorsSection
           imageSrc={
             data?.investorsSection?.image?.asset?.url
-              ? urlFor(data.investorsSection.image).width(960).height(640).url()
+              ? urlFor(data.investorsSection.image).width(960).height(640).auto('format').url()
               : '/images/investors-right.jpg'
           }
           heading={data?.investorsSection?.heading}

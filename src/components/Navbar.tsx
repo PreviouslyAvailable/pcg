@@ -2,9 +2,10 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useEffect, useId, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
 import Logo from '@/components/Logo';
 import { DEFAULT_NAV_LINKS } from '@/lib/nav';
+import { sanitizeHref } from '@/lib/urls';
 
 function useMenuOpenForPath(pathname: string) {
   const [openPath, setOpenPath] = useState<string | null>(null);
@@ -27,17 +28,65 @@ export default function Navbar({ variant = 'dark', navLinks }: NavbarProps) {
   const menuId = useId();
   const pathname = usePathname();
   const { menuOpen, closeMenu, toggleMenu } = useMenuOpenForPath(pathname);
-  const links = navLinks && navLinks.length > 0 ? navLinks : DEFAULT_NAV_LINKS;
+  const menuRef = useRef<HTMLDivElement>(null);
+  const toggleRef = useRef<HTMLButtonElement>(null);
+  const links = (navLinks && navLinks.length > 0 ? navLinks : DEFAULT_NAV_LINKS)
+    .map((link) => {
+      const href = sanitizeHref(link.href) ?? null;
+      if (!href || !href.startsWith('/') || !link.label) return null;
+      return { label: link.label, href };
+    })
+    .filter((link): link is { label: string; href: string } => Boolean(link));
 
   useEffect(() => {
     if (!menuOpen) return;
 
+    const getFocusable = () =>
+      Array.from(
+        menuRef.current?.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
+        ) ?? [],
+      ).filter((el) => el.offsetParent !== null || el === document.activeElement);
+
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') closeMenu();
+      if (event.key === 'Escape') {
+        closeMenu();
+        toggleRef.current?.focus();
+        return;
+      }
+
+      if (event.key !== 'Tab') return;
+
+      const focusable = getFocusable();
+      const toggle = toggleRef.current;
+      const all = toggle ? [toggle, ...focusable.filter((el) => el !== toggle)] : focusable;
+      if (all.length === 0) return;
+
+      const first = all[0];
+      const last = all[all.length - 1];
+      const active = document.activeElement;
+
+      if (event.shiftKey && (active === first || !all.includes(active as HTMLElement))) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && active === last) {
+        event.preventDefault();
+        first.focus();
+      }
     };
 
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
     document.addEventListener('keydown', onKeyDown);
-    return () => document.removeEventListener('keydown', onKeyDown);
+
+    // Move focus into the drawer
+    const firstLink = menuRef.current?.querySelector<HTMLElement>('a[href]');
+    firstLink?.focus();
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.removeEventListener('keydown', onKeyDown);
+    };
   }, [menuOpen, closeMenu]);
 
   const textColor = variant === 'dark' ? 'text-gold' : 'text-ink';
@@ -66,7 +115,7 @@ export default function Navbar({ variant = 'dark', navLinks }: NavbarProps) {
           {links.map((link) => (
             <Link
               key={link.href}
-              href={link.href ?? '/'}
+              href={link.href}
               className={`font-nav text-[16px] leading-none ${textColor} hover:opacity-70 transition-opacity`}
             >
               {link.label}
@@ -91,6 +140,7 @@ export default function Navbar({ variant = 'dark', navLinks }: NavbarProps) {
 
         {/* Mobile menu toggle */}
         <button
+          ref={toggleRef}
           type="button"
           className={`lg:hidden font-nav text-[16px] leading-none ${textColor}`}
           onClick={toggleMenu}
@@ -105,12 +155,12 @@ export default function Navbar({ variant = 'dark', navLinks }: NavbarProps) {
 
       {/* Mobile menu */}
       {menuOpen && (
-        <div id={menuId} className="lg:hidden pb-8">
+        <div ref={menuRef} id={menuId} className="lg:hidden pb-8">
           <div className="flex flex-col gap-6 px-4 lg:px-[60px]">
           {links.map((link) => (
             <Link
               key={link.href}
-              href={link.href ?? '/'}
+              href={link.href}
               onClick={closeMenu}
               className="font-nav text-[16px] text-gold"
             >
