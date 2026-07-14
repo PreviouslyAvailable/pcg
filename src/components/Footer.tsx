@@ -60,9 +60,6 @@ export default function Footer({
               {link.label}
             </Link>
           ))}
-          <Link href="/case-studies" className="font-nav text-[15px] cursor-pointer text-ink/70 hover:opacity-60 transition-opacity">
-            Case studies
-          </Link>
           <Link href="/contact" className="font-nav text-[16px] text-ink border border-ink rounded-[8px] px-5 py-1.5 hover:bg-ink/5 transition-colors">
             Contact
           </Link>
