@@ -26,7 +26,6 @@ export async function POST(request: Request) {
 
   const name = stripControlChars(String(body.name ?? '').trim()).slice(0, 100);
   const email = stripControlChars(String(body.email ?? '').trim()).slice(0, 200);
-  const consent = body.consent === true || body.consent === 'true';
 
   if (!name) {
     return NextResponse.json({ error: 'Please enter your name.' }, { status: 400 });
@@ -34,13 +33,6 @@ export async function POST(request: Request) {
 
   if (!email || !isValidEmail(email)) {
     return NextResponse.json({ error: 'Please enter a valid email address.' }, { status: 400 });
-  }
-
-  if (!consent) {
-    return NextResponse.json(
-      { error: 'Please agree to receive updates before subscribing.' },
-      { status: 400 },
-    );
   }
 
   const apiKey = process.env.CAMPAIGN_MONITOR_API_KEY?.trim();

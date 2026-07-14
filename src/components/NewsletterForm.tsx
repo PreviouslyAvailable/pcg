@@ -31,12 +31,11 @@ export default function NewsletterForm({
 }: NewsletterFormProps) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [consent, setConsent] = useState(false);
   const [status, setStatus] = useState<FormStatus>('idle');
   const [errorMessage, setErrorMessage] = useState('');
 
   const canSubmit =
-    name.trim().length > 0 && isValidEmail(email) && consent && status !== 'submitting';
+    name.trim().length > 0 && isValidEmail(email) && status !== 'submitting';
 
   const successClass = onTeal
     ? 'font-nav text-[15px] text-white mb-[20px]'
@@ -44,12 +43,6 @@ export default function NewsletterForm({
   const errorClass = onTeal
     ? 'font-nav text-[14px] text-cream'
     : 'font-nav text-[14px] text-red-700';
-  const consentClass = onTeal
-    ? 'font-nav text-[13px] text-white/80'
-    : 'font-nav text-[13px] text-ink/70';
-  const checkboxClass = onTeal
-    ? 'size-4 shrink-0 rounded border-white/40 bg-white/10 accent-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white'
-    : 'size-4 shrink-0 rounded border-black/25 accent-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink/40';
 
   function clearError() {
     if (status === 'error') {
@@ -76,7 +69,6 @@ export default function NewsletterForm({
           name: formData.get('name'),
           email: formData.get('email'),
           website: formData.get('website'),
-          consent: formData.get('consent') === 'on' || consent,
         }),
       });
 
@@ -91,7 +83,6 @@ export default function NewsletterForm({
       setStatus('success');
       setName('');
       setEmail('');
-      setConsent(false);
       form.reset();
     } catch {
       setStatus('error');
@@ -164,21 +155,6 @@ export default function NewsletterForm({
           />
         </div>
       </div>
-
-      <label className={`flex items-center gap-3 min-h-11 cursor-pointer select-none ${consentClass}`}>
-        <input
-          type="checkbox"
-          name="consent"
-          checked={consent}
-          onChange={(event) => {
-            setConsent(event.target.checked);
-            clearError();
-          }}
-          required
-          className={checkboxClass}
-        />
-        <span className="leading-snug">I agree to receive updates *</span>
-      </label>
 
       <button type="submit" disabled={!canSubmit} className={buttonClassName}>
         {status === 'submitting' ? 'Subscribing…' : 'Subscribe'}
