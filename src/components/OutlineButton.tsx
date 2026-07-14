@@ -6,15 +6,24 @@ interface OutlineButtonProps {
   children: React.ReactNode;
   /** Extra classes for layout/size tweaks (e.g. `self-start`, `text-[16px]`). */
   className?: string;
+  /** `dark` uses white border/text for dark backgrounds (e.g. fund cards). */
+  scheme?: 'light' | 'dark';
 }
 
-const BASE_CLASS =
-  'font-sans uppercase tracking-wide text-ink border border-ink rounded-[10px] px-6 py-3 hover:bg-ink/5 transition-colors';
+const SCHEME_CLASS = {
+  light: 'font-sans uppercase tracking-wide text-ink border border-ink rounded-[10px] px-6 py-3 hover:bg-ink/5 transition-colors',
+  dark: 'font-sans uppercase tracking-wide text-white border border-white/40 rounded-[10px] px-6 py-3 hover:bg-white/10 transition-colors',
+} as const;
 
 /** Bordered, uppercase link button used across marketing pages. */
-export default function OutlineButton({ href, children, className = 'inline-flex items-center text-[14px]' }: OutlineButtonProps) {
+export default function OutlineButton({
+  href,
+  children,
+  className = 'inline-flex items-center text-[14px]',
+  scheme = 'light',
+}: OutlineButtonProps) {
   const safeHref = sanitizeHref(href) ?? '/';
-  const classes = `${BASE_CLASS} ${className}`;
+  const classes = `${SCHEME_CLASS[scheme]} ${className}`;
 
   if (isExternalHref(safeHref)) {
     return (

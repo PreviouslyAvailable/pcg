@@ -1,11 +1,11 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import SiteChrome from '@/components/SiteChrome';
 import PageHero from '@/components/PageHero';
 import CtaBanner from '@/components/CtaBanner';
 import QuoteBanner from '@/components/QuoteBanner';
 import CmsBody from '@/components/CmsBody';
 import OutlineButton from '@/components/OutlineButton';
+import FundOptionCard from '@/components/FundOptionCard';
 import { getInvestorsPage } from '@/sanity/loaders';
 import { quoteBannerUrl } from '@/sanity/imageUrls';
 import { urlFor } from '@/sanity/image';
@@ -91,45 +91,18 @@ export default async function InvestorsPage() {
         <div className="pcg-inner">
           <p className="font-sans text-[14px] uppercase tracking-[1px] text-ink/80 mb-4">FUND OPTIONS</p>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-
-            {/* Cream fund card */}
-            <FadeUp delay={0} className="bg-cream-warm rounded-[16px] p-10 lg:p-18 flex flex-col hover-lift">
-              <h3 className="font-sans text-ink text-[26px] leading-[1.2] mb-8">
-                {data?.firstFundName ?? 'PCG Diversified New Zealand Private Debt Fund (NZPDF)'}
-              </h3>
-              <div className="flex-1 divide-y divide-black/10 mb-8">
-                {fundDetails.map((row) => (
-                  <div key={row.label} className="flex gap-6 py-3">
-                    <p className="font-nav text-ink text-[16px] leading-[1.4] w-[140px] shrink-0 pt-0.5">{row.label}:</p>
-                    <p className="font-nav text-ink text-[16px] leading-[1.4]">{row.value}</p>
-                  </div>
-                ))}
-              </div>
-              <OutlineButton href="/contact" className="self-start text-[14px]">
-                Get in Touch
-              </OutlineButton>
-            </FadeUp>
-
-            {/* Dark fund card */}
-            <FadeUp delay={120} className="bg-dark rounded-[16px] p-10 lg:p-14 flex flex-col hover-lift">
-              <h3 className="font-sans text-white text-[26px] leading-[1.2] mb-8">
-                {data?.secondFundName ?? 'PCG New Zealand Economic Resilience Fund (NZER)'}
-              </h3>
-              <div className="flex-1 divide-y divide-white/10 mb-8">
-                {secondFundDetails.map((row) => (
-                  <div key={row.label} className="flex gap-6 py-3">
-                    <p className="font-nav text-white text-[16px] leading-[1.4] w-[140px] shrink-0 pt-0.5">{row.label}:</p>
-                    <p className="font-nav text-white text-[16px] leading-[1.4]">{row.value}</p>
-                  </div>
-                ))}
-              </div>
-              <Link
-                href="/contact"
-                className="self-start font-sans text-[14px] uppercase tracking-wide text-white border border-white/40 rounded-[10px] px-6 py-3 hover:bg-white/10 transition-colors"
-              >
-                Get in Touch
-              </Link>
-            </FadeUp>
+            <FundOptionCard
+              name={data?.firstFundName ?? 'PCG Diversified New Zealand Private Debt Fund (NZPDF)'}
+              details={fundDetails}
+              variant="light"
+              delay={0}
+            />
+            <FundOptionCard
+              name={data?.secondFundName ?? 'PCG New Zealand Economic Resilience Fund (NZER)'}
+              details={secondFundDetails}
+              variant="dark"
+              delay={120}
+            />
 
             {/* Active Investor Plus — spans both columns */}
             <FadeUp delay={240} className="bg-teal rounded-[16px] p-10 lg:p-18 lg:col-span-2">
@@ -149,14 +122,10 @@ export default async function InvestorsPage() {
                   </div>
                 ))}
               </div>
-              <Link
-                href="/contact"
-                className="inline-block font-sans text-[16px] uppercase tracking-wide text-white border border-white/40 rounded-[10px] px-6 py-3 hover:bg-white/10 transition-colors"
-              >
+              <OutlineButton href="/contact" scheme="dark" className="inline-block text-[16px]">
                 Get in Touch
-              </Link>
+              </OutlineButton>
             </FadeUp>
-
           </div>
         </div>
       </section>
