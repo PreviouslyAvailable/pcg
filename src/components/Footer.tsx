@@ -37,7 +37,7 @@ export default function Footer({
           <p className="font-nav text-ink/70 text-[15px] leading-[1.4] mb-6 max-w-[437px]">{newsletterBody}</p>
         ) : null}
         <NewsletterForm
-          className="flex flex-col sm:flex-row gap-2 w-full max-w-[437px] mb-[20px]"
+          className="flex flex-col gap-2 w-full max-w-[437px] mb-[20px]"
           inputClassName="w-full sm:flex-1 bg-white rounded-[6px] px-4 py-3 font-nav text-[16px] text-ink placeholder:text-ink/40 outline-none border border-black/10 focus:border-black/30 transition-colors"
           inputId="footer-newsletter-email"
           autoCompleteSection="footer-newsletter"

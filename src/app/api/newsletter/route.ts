@@ -15,7 +15,12 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: true });
   }
 
+  const name = body.name?.trim() ?? '';
   const email = body.email?.trim() ?? '';
+
+  if (!name) {
+    return NextResponse.json({ error: 'Please enter your name.' }, { status: 400 });
+  }
 
   if (!email || !isValidEmail(email)) {
     return NextResponse.json({ error: 'Please enter a valid email address.' }, { status: 400 });
@@ -42,6 +47,7 @@ export async function POST(request: Request) {
     },
     body: JSON.stringify({
       EmailAddress: email,
+      Name: name,
       Resubscribe: true,
       ConsentToTrack: 'Yes',
     }),
