@@ -1,10 +1,10 @@
 import Image from 'next/image';
 
 const LOGO_ASSETS = {
-  black: '/logos/pcg-black.png',
-  white: '/logos/pcg-white.png',
-  cream: '/logos/pcg-cream.png',
-  brown: '/logos/pcg-brown.png',
+  black: '/logos/pcg-black-flush.png',
+  white: '/logos/pcg-white-flush.png',
+  cream: '/logos/pcg-cream-flush.png',
+  brown: '/logos/pcg-brown-flush.png',
 } as const;
 
 type LogoColor = keyof typeof LOGO_ASSETS;
@@ -15,7 +15,7 @@ type LogoProps = {
   priority?: boolean;
 };
 
-const LOGO_WIDTH = 1024;
+const LOGO_WIDTH = 698;
 const LOGO_HEIGHT = 481;
 
 export default function Logo({
