@@ -26,20 +26,15 @@ const ibmPlexMono = IBM_Plex_Mono({
   weight: ['300', '400'],
 });
 
-const seasonSerif = localFont({
+const arizonaMix = localFont({
   src: [
     {
-      path: '../../public/fonts/SeasonSerif-TRIAL-Light.otf',
+      path: '../../public/fonts/ABCArizonaMix-Light.otf',
       weight: '300',
       style: 'normal',
     },
-    {
-      path: '../../public/fonts/SeasonSerif-TRIAL-LightItalic.otf',
-      weight: '300',
-      style: 'italic',
-    },
   ],
-  variable: '--font-season-serif',
+  variable: '--font-arizona-mix',
 });
 
 export const metadata: Metadata = {
@@ -72,7 +67,7 @@ export default function RootLayout({
     <html
       lang="en-NZ"
       data-scroll-behavior="smooth"
-      className={`${specialGothic.variable} ${seasonSerif.variable} ${ibmPlexMono.variable} h-full antialiased`}
+      className={`${specialGothic.variable} ${arizonaMix.variable} ${ibmPlexMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-cream text-ink">{children}</body>
     </html>

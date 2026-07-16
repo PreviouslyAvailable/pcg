@@ -82,6 +82,6 @@ CLI note: Firewall rules are configured in the Vercel dashboard (no reliable non
 ## Notes for handover
 
 - **Privacy / Terms** pages are placeholders with `noIndex` until PCG provide final copy.
-- **Season Serif** still uses trial font files in `public/fonts/` — replace with licensed files before treating fonts as finished.
+- Serif display type uses **ABC Arizona Mix Light** (`public/fonts/ABCArizonaMix-Light.otf`).
 - Legacy redirects: `/insights` → `/news`, `/strategies` → `/investors`, `/our-people` `/people` `/team` → `/about?section=team` (client scrolls to `#team`), `/about-us` → `/about`, `/funds` → `/investors`.
 - Footer includes a subtle **Case studies** link to `/case-studies`.

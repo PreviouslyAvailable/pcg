@@ -2,7 +2,7 @@
 
 @theme inline {
   /* Fonts */
-  --font-serif:    var(--font-season-serif), Georgia, serif;
+  --font-serif:    var(--font-arizona-mix), Georgia, serif;
   --font-sans:     var(--font-special-gothic), "Helvetica Neue", Arial, sans-serif;
   --font-nav:      var(--font-special-gothic), "Helvetica Neue", Arial, sans-serif;
   --font-mono:     var(--font-ibm-plex-mono), monospace;
