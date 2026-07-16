@@ -82,6 +82,6 @@ CLI note: Firewall rules are configured in the Vercel dashboard (no reliable non
 ## Notes for handover
 
 - **Privacy / Terms** pages are placeholders with `noIndex` until PCG provide final copy.
-- Serif display type uses **ABC Arizona Mix Light** (`public/fonts/ABCArizonaMix-Light.otf`).
+- Serif display type uses **Zodiak Light** (+ Light Italic) from Fontshare (`public/fonts/Zodiak-Light.woff2`).
 - Legacy redirects: `/insights` → `/news`, `/strategies` → `/investors`, `/our-people` `/people` `/team` → `/about?section=team` (client scrolls to `#team`), `/about-us` → `/about`, `/funds` → `/investors`.
 - Footer includes a subtle **Case studies** link to `/case-studies`.

@@ -2,7 +2,7 @@
 
 @theme inline {
   /* Fonts */
-  --font-serif:    var(--font-arizona-mix), Georgia, serif;
+  --font-serif:    var(--font-zodiak), Georgia, serif;
   --font-sans:     var(--font-special-gothic), "Helvetica Neue", Arial, sans-serif;
   --font-nav:      var(--font-special-gothic), "Helvetica Neue", Arial, sans-serif;
   --font-mono:     var(--font-ibm-plex-mono), monospace;
@@ -41,7 +41,7 @@ body {
   font-family: var(--font-nav);
 }
 
-/* Arizona Mix display — tighter tracking than Season defaults (-0.01…-0.015em) */
+/* Zodiak Light display — keep tight tracking from Arizona Mix era */
 .font-serif {
   letter-spacing: -0.03em;
 }

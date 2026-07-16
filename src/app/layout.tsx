@@ -26,15 +26,20 @@ const ibmPlexMono = IBM_Plex_Mono({
   weight: ['300', '400'],
 });
 
-const arizonaMix = localFont({
+const zodiak = localFont({
   src: [
     {
-      path: '../../public/fonts/ABCArizonaMix-Light.otf',
+      path: '../../public/fonts/Zodiak-Light.woff2',
       weight: '300',
       style: 'normal',
     },
+    {
+      path: '../../public/fonts/Zodiak-LightItalic.woff2',
+      weight: '300',
+      style: 'italic',
+    },
   ],
-  variable: '--font-arizona-mix',
+  variable: '--font-zodiak',
 });
 
 export const metadata: Metadata = {
@@ -67,7 +72,7 @@ export default function RootLayout({
     <html
       lang="en-NZ"
       data-scroll-behavior="smooth"
-      className={`${specialGothic.variable} ${arizonaMix.variable} ${ibmPlexMono.variable} h-full antialiased`}
+      className={`${specialGothic.variable} ${zodiak.variable} ${ibmPlexMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-cream text-ink">{children}</body>
     </html>
