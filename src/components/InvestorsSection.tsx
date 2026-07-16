@@ -43,7 +43,7 @@ export default function InvestorsSection({
       <div className="bg-teal py-16 lg:py-20 flex flex-col justify-between">
         <div className="max-w-[1680px] mx-auto w-full px-4 lg:px-[60px] flex flex-col justify-between h-full">
         <FadeUp>
-          <h2 className="font-serif font-light text-white text-[clamp(40px,4.2vw,64px)] leading-[1.03] tracking-[-0.012em] mb-10 lg:mb-12">
+          <h2 className="font-serif font-light text-white text-[clamp(40px,4.2vw,64px)] leading-[1.03] mb-10 lg:mb-12">
             <span className="lg:hidden">{headingMobile ?? 'What about investment?'}</span>
             <span className="hidden lg:block">{heading ?? 'For Investors'}</span>
           </h2>

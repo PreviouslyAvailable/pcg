@@ -76,7 +76,7 @@ export default async function CaseStudiesPage() {
 
       <section className="pt-36 pb-10 lg:pt-40 lg:pb-12">
         <div className="pcg-inner grid grid-cols-1 lg:grid-cols-2 gap-8 items-end">
-        <h1 className="font-serif font-light text-ink text-[clamp(60px,6.4vw,80px)] leading-[1.0] tracking-[-0.015em]">
+        <h1 className="font-serif font-light text-ink text-[clamp(60px,6.4vw,80px)] leading-[1.0]">
           Real Businesses, Real Results
         </h1>
         <p className="font-nav text-ink text-[16px] leading-[1.4] max-w-[380px]">

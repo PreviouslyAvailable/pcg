@@ -69,10 +69,10 @@ export const articlePortableTextComponents: PortableTextComponents = {
       <p className="font-nav text-ink text-[16px] leading-[1.6] mb-5">{children}</p>
     ),
     h1: ({ children }) => (
-      <h1 className="font-serif font-light text-ink text-[clamp(40px,4.2vw,56px)] leading-[1.05] tracking-[-0.012em] mt-14 mb-6">{children}</h1>
+      <h1 className="font-serif font-light text-ink text-[clamp(40px,4.2vw,56px)] leading-[1.05] mt-14 mb-6">{children}</h1>
     ),
     h2: ({ children }) => (
-      <h2 className="font-serif font-light text-ink text-[clamp(28px,3vw,38px)] leading-[1.1] tracking-[-0.01em] mt-12 mb-5">{children}</h2>
+      <h2 className="font-serif font-light text-ink text-[clamp(28px,3vw,38px)] leading-[1.1] mt-12 mb-5">{children}</h2>
     ),
     h3: ({ children }) => (
       <h3 className="font-sans text-ink text-[24px] leading-[1.25] mt-10 mb-4">{children}</h3>

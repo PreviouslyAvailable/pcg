@@ -43,7 +43,7 @@ export default async function InsightsPage() {
       <section className="section-page-hero pb-[calc(var(--spacing)*10)]">
         <div className="pcg-inner">
           <div className="w-full lg:w-1/2">
-            <h1 className="font-serif font-light text-ink text-[clamp(60px,6.4vw,80px)] leading-[1.0] tracking-[-0.015em]">
+            <h1 className="font-serif font-light text-ink text-[clamp(60px,6.4vw,80px)] leading-[1.0]">
               {pageData?.heading ?? 'PCG News'}
             </h1>
           </div>

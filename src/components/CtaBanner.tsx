@@ -47,7 +47,7 @@ export default function CtaBanner({
 
       <div className="relative z-10 flex flex-col items-center gap-8 max-w-[746px]">
         <h2
-          className={`font-serif font-light text-[clamp(36px,3.75vw,54px)] leading-[1.05] tracking-[-0.012em] text-center ${
+          className={`font-serif font-light text-[clamp(36px,3.75vw,54px)] leading-[1.05] text-center ${
             isLight ? 'text-ink' : 'text-cream'
           }`}
         >

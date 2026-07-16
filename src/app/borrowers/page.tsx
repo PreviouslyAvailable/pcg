@@ -74,7 +74,7 @@ export default async function BorrowersPage() {
       {/* Why choose PCG */}
       <section className="py-[calc(var(--spacing)*18)]">
         <div className="pcg-inner">
-          <h2 className="font-serif font-light text-ink text-[clamp(40px,4.2vw,64px)] leading-[1.03] tracking-[-0.012em] mb-12">
+          <h2 className="font-serif font-light text-ink text-[clamp(40px,4.2vw,64px)] leading-[1.03] mb-12">
             Why choose PCG?
           </h2>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-16 gap-y-10">
@@ -96,7 +96,7 @@ export default async function BorrowersPage() {
       <section className="py-[calc(var(--spacing)*18)] bg-white">
         <div className="pcg-inner grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           <div>
-            <h2 className="font-serif font-light text-ink text-[clamp(40px,4.2vw,64px)] leading-[1.03] tracking-[-0.012em] mb-10">
+            <h2 className="font-serif font-light text-ink text-[clamp(40px,4.2vw,64px)] leading-[1.03] mb-10">
               {data?.lendingFocus?.heading ?? 'Our lending focus'}
             </h2>
             <div className="space-y-5">
@@ -120,7 +120,7 @@ export default async function BorrowersPage() {
       <QuoteBanner
         quote={data?.quoteBanner?.quote ?? 'Success demands more than traditional lending. It requires partners who see beyond the balance sheet to your business potential.'}
         imageSrc={quoteBannerImageSrc}
-        quoteClassName="max-w-[794px] px-4 font-serif font-light text-[clamp(36px,3.75vw,54px)] leading-[1.05] tracking-[-0.012em] text-center text-cream"
+        quoteClassName="max-w-[794px] px-4 font-serif font-light text-[clamp(36px,3.75vw,54px)] leading-[1.05] text-center text-cream"
       />
 
       {/* How we work */}
@@ -136,7 +136,7 @@ export default async function BorrowersPage() {
               {/* Text */}
               <div className={`flex flex-col justify-center px-8 py-12 lg:px-16 lg:py-16 ${item.imageLeft ? 'lg:order-2' : 'lg:order-1'}`}>
                 {i === 0 && (
-                  <h2 className="font-serif font-light text-ink text-[clamp(40px,4.2vw,64px)] leading-[1.03] tracking-[-0.012em] mb-6">
+                  <h2 className="font-serif font-light text-ink text-[clamp(40px,4.2vw,64px)] leading-[1.03] mb-6">
                     How we work
                   </h2>
                 )}

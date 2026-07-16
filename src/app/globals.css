@@ -41,6 +41,11 @@ body {
   font-family: var(--font-nav);
 }
 
+/* Arizona Mix display — tighter tracking than Season defaults (-0.01…-0.015em) */
+.font-serif {
+  letter-spacing: -0.03em;
+}
+
 /* Readability measure — 65 characters max on all body copy */
 p, li {
   max-width: 55ch;

@@ -60,7 +60,7 @@ export default async function InsightPost({ params }: Props) {
             </p>
           )}
           <div className="max-w-[720px] flex flex-col items-center text-center">
-            <h1 className="font-serif font-light text-ink text-[clamp(60px,6.4vw,80px)] leading-[1.0] tracking-[-0.015em] mb-4">
+            <h1 className="font-serif font-light text-ink text-[clamp(60px,6.4vw,80px)] leading-[1.0] mb-4">
               {post.title}
             </h1>
             {post.excerpt && (

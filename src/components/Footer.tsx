@@ -46,7 +46,7 @@ export default function Footer({
 
       <div className="border-t border-black/15 pt-10 mb-10">
         <p className="font-sans text-[12px] uppercase tracking-[1px] text-ink/80 mb-4">Newsletter</p>
-        <h3 className="font-serif font-light text-ink text-[38px] leading-[1.15] tracking-[-0.48px] mb-6 lg:mb-8 max-w-[437px]">
+        <h3 className="font-serif font-light text-ink text-[38px] leading-[1.15] mb-6 lg:mb-8 max-w-[437px]">
           {heading}
         </h3>
         {newsletterBody ? (

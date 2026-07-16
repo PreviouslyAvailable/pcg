@@ -79,7 +79,7 @@ export default function HomeIntro({
           <p className="font-sans text-[16px] uppercase tracking-wide text-ink mb-6">
             {eyebrow ?? 'What we do'}
           </p>
-          <h2 className="font-serif font-light text-[clamp(40px,4.2vw,64px)] leading-[1.03] tracking-[-0.012em] text-ink mb-5 lg:mb-6">
+          <h2 className="font-serif font-light text-[clamp(40px,4.2vw,64px)] leading-[1.03] text-ink mb-5 lg:mb-6">
             {borrowersHeading ?? 'Supporting New Zealand Business Growth'}
           </h2>
           <CmsBody
@@ -128,7 +128,7 @@ export default function HomeIntro({
           )}
         </div>
         <div className="pt-[40px]">
-          <h2 className="font-serif font-light text-[clamp(40px,4.2vw,64px)] leading-[1.03] tracking-[-0.012em] text-ink mb-6">
+          <h2 className="font-serif font-light text-[clamp(40px,4.2vw,64px)] leading-[1.03] text-ink mb-6">
             {investorsHeading ?? 'Creating Investment Opportunities'}
           </h2>
           <CmsBody

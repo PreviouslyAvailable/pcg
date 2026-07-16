@@ -111,7 +111,7 @@ export default async function AboutPage() {
             />
           </div>
           <div className="pt-[40px]">
-            <h2 className="font-serif font-light text-ink text-[clamp(40px,4.2vw,50px)] leading-[1.03] tracking-[-0.012em] mb-6">
+            <h2 className="font-serif font-light text-ink text-[clamp(40px,4.2vw,50px)] leading-[1.03] mb-6">
               {data?.story?.heading ?? 'Our Story'}
             </h2>
             <div className="space-y-4 font-nav text-ink text-[16px] leading-[1.4] mb-8">

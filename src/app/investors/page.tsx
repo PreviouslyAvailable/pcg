@@ -68,7 +68,7 @@ export default async function InvestorsPage() {
       {/* Investment opportunity */}
       <section className="py-[calc(var(--spacing)*18)]">
         <div className="pcg-inner">
-          <h2 className="font-serif font-light text-ink text-[clamp(40px,4.2vw,64px)] leading-[1.03] tracking-[-0.012em] mb-12">
+          <h2 className="font-serif font-light text-ink text-[clamp(40px,4.2vw,64px)] leading-[1.03] mb-12">
             {data?.investmentOpportunity?.heading ?? 'Investment opportunity'}
           </h2>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-16 gap-y-16 mb-10">

@@ -49,7 +49,7 @@ export default function HowDifferent({ heading, items }: HowDifferentProps) {
     <section className="bg-cream py-[calc(var(--spacing)*18)]">
       <div className="pcg-inner">
       <FadeUp>
-        <h2 className="font-serif font-light text-ink text-[clamp(48px,4.9vw,70px)] leading-[1.03] tracking-[-0.012em] mb-10 lg:mb-16 max-w-[582px]">
+        <h2 className="font-serif font-light text-ink text-[clamp(48px,4.9vw,70px)] leading-[1.03] mb-10 lg:mb-16 max-w-[582px]">
           {heading ?? 'How is PCG different?'}
         </h2>
       </FadeUp>

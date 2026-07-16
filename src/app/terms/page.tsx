@@ -20,7 +20,7 @@ export default function TermsPage() {
       <main className="bg-cream min-h-screen">
         <section className="pt-36 pb-20 lg:pt-40">
           <div className="pcg-inner max-w-3xl">
-            <h1 className="font-serif font-light text-ink text-[clamp(40px,5vw,56px)] leading-[1.05] tracking-[-0.015em] mb-6">
+            <h1 className="font-serif font-light text-ink text-[clamp(40px,5vw,56px)] leading-[1.05] mb-6">
               Terms of Service
             </h1>
             <div className="font-nav text-ink text-[16px] leading-[1.5] space-y-4">

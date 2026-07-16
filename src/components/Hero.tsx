@@ -70,7 +70,7 @@ export default function Hero({
         <div className="max-w-[1680px] mx-auto w-full px-4 lg:px-[60px]">
           <div className="max-w-[760px]">
             <FadeUp threshold={0} delay={200} duration={1000}>
-              <h1 className="font-serif font-light text-gold text-[clamp(70px,8.3vw,120px)] leading-[0.92] tracking-[-0.015em] mb-6 lg:mb-8">
+              <h1 className="font-serif font-light text-gold text-[clamp(70px,8.3vw,120px)] leading-[0.92] mb-6 lg:mb-8">
                 {headline}
               </h1>
             </FadeUp>

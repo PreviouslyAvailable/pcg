@@ -22,7 +22,7 @@ export default function PageHero({
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
         {/* Left — text (no entrance animation; this block is above the fold) */}
         <div className="pt-[30px]">
-          <h1 className="font-serif font-light text-ink text-[clamp(60px,6.4vw,70px)] leading-[1.0] tracking-[-0.015em] mb-6">
+          <h1 className="font-serif font-light text-ink text-[clamp(60px,6.4vw,70px)] leading-[1.0] mb-6">
             {heading}
           </h1>
           {subtext && (

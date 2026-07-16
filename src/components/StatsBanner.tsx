@@ -25,7 +25,7 @@ function StatsGrid({ items, gridClassName }: { items: Stat[]; gridClassName: str
     <dl className={gridClassName}>
       {items.map((stat, i) => (
         <div key={`${stat.value}-${i}`} className="flex flex-col items-center text-center">
-          <dt className="font-serif font-light text-teal text-[clamp(44px,5vw,80px)] leading-[1] tracking-[-0.02em] whitespace-nowrap">
+          <dt className="font-serif font-light text-teal text-[clamp(44px,5vw,80px)] leading-[1] whitespace-nowrap">
             <CountUp value={stat.value} animate={!/year/i.test(stat.label ?? '')} />
           </dt>
           <dd className="mt-4 font-nav text-ink text-[16px] lg:text-[18px] leading-[1.3]">
@@ -50,7 +50,7 @@ export default function StatsBanner({ heading, stats, variant = 'band' }: StatsB
       <div className="h-full flex flex-col justify-center">
         {heading ? (
           <FadeUp>
-            <h2 className="font-serif font-light text-ink text-[clamp(24px,2vw,32px)] leading-[1.1] tracking-[-0.012em] mb-8 text-center">
+            <h2 className="font-serif font-light text-ink text-[clamp(24px,2vw,32px)] leading-[1.1] mb-8 text-center">
               {heading}
             </h2>
           </FadeUp>
@@ -67,7 +67,7 @@ export default function StatsBanner({ heading, stats, variant = 'band' }: StatsB
       <div className="max-w-[1680px] mx-auto w-full px-4 lg:px-[60px]">
         {heading ? (
           <FadeUp>
-            <h2 className="font-serif font-light text-ink text-[clamp(28px,3vw,44px)] leading-[1.05] tracking-[-0.012em] mb-12 lg:mb-16 max-w-[900px]">
+            <h2 className="font-serif font-light text-ink text-[clamp(28px,3vw,44px)] leading-[1.05] mb-12 lg:mb-16 max-w-[900px]">
               {heading}
             </h2>
           </FadeUp>
